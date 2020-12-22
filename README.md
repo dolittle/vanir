@@ -1,7 +1,8 @@
 # Vanir
 
 In Norse mythology, the Vanir are a group of gods associated with health, fertility, wisdom, and the ability to see the future.
-This repository is similar in the way what it is a group of packages offering a sane combination of technologies and packages
+
+This repository is similar in the way that it is a group of packages offering a sane combination of technologies and packages
 put together to bring fertility and wisdom into projects.
 
 The project serves as a combination of packages that we have found useful. In addition to this, we've put in the necessary
