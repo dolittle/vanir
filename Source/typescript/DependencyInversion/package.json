@@ -1,0 +1,14 @@
+{
+    "name": "@dolittle/dependencyinversion",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.ts",
+    "author": "Dolittle",
+    "license": "MIT",
+    "dependencies": {
+        "reflect-metadata": "^0.1.13",
+        "tsyringe": "4.3.0"
+    },
+    "devDependencies": {
+    }
+}
