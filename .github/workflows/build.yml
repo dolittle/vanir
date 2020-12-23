@@ -1,4 +1,4 @@
-name: Build Applications
+name: Build
 
 on:
   push:
