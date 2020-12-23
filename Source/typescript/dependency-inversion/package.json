@@ -4,6 +4,9 @@
     "description": "",
     "main": "index.ts",
     "author": "Dolittle",
+    "publishConfig": {
+        "access": "public"
+    },
     "license": "MIT",
     "scripts": {
         "clean": "tsc -b --clean",
