@@ -1,12 +1,13 @@
 {
     "name": "@dolittle/react",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "description": "",
     "main": "index.ts",
     "publishConfig": {
         "access": "public"
     },
     "scripts": {
+        "prepublish": "yarn build",
         "clean": "tsc -b --clean",
         "build": "tsc -b",
         "lint": "eslint '**/*.{js,ts,tsx}' --quiet --fix",
@@ -17,7 +18,7 @@
     "author": "",
     "license": "MIT",
     "dependencies": {
-        "@dolittle/dependency-inversion": "1.0.3",
+        "@dolittle/dependency-inversion": "1.0.4",
         "@dolittle/rudiments": "5.0.1",
         "apollo-cache-inmemory": "1.6.5",
         "apollo-client": "2.6.8",

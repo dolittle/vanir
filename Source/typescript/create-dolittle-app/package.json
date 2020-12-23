@@ -1,6 +1,6 @@
 {
     "name": "create-dolittle-app",
-    "version": "1.0.0",
+    "version": "1.0.4",
     "description": "",
     "author": "",
     "license": "MIT",
@@ -17,6 +17,7 @@
         "create-dolittle-app": "./dist/index.js"
     },
     "scripts": {
+        "prepublish": "yarn build",
         "debug": "NODE_ENV=development node --inspect=0 -r ts-node/register index.ts",
         "start": "NODE_ENV=development ts-node index.ts",
         "clean": "tsc -b --clean",

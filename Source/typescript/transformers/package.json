@@ -1,12 +1,13 @@
 {
     "name": "@dolittle/transformers",
-    "version": "1.0.0",
+    "version": "1.0.4",
     "description": "",
     "main": "index.js",
     "publishConfig": {
         "access": "public"
     },
     "scripts": {
+        "prepublish": "yarn build",
         "start": "ts-node --compiler ttypescript index.ts",
         "clean": "tsc -b --clean",
         "build": "tsc -b",
