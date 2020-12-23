@@ -5,9 +5,11 @@
         "Source/**/*"
     ],
     "scripts": {
+        "clean": "node ./run-task-on-workspaces.js clean",
         "build": "node ./run-task-on-workspaces.js build",
-        "ci": "node ./run-task-on-workspaces.js ci",
-        "test": "node ./run-task-on-workspaces.js test"
+        "lint": "node ./run-task-on-workspaces.js lint",
+        "test": "node ./run-task-on-workspaces.js test",
+        "ci": "node ./run-task-on-workspaces.js ci"
     },
     "devDependencies": {
         "@types/chai": "4.2.14",
