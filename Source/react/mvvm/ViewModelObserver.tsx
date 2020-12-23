@@ -1,12 +1,12 @@
 // Copyright (c) Dolittle. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+/* eslint-disable react/no-direct-mutation-state */
 import React, { FunctionComponent } from 'react';
 import { BehaviorSubject } from 'rxjs';
 import { ViewModelHelpers } from './ViewModelHelpers';
 import { IViewContext } from './IViewContext';
 import { Constructor } from '@dolittle/types';
-import { IViewModelLifecycleManager } from './IViewModelLifecycleManager';
 
 export type ViewModelObserverProps<TViewModel, TProps = {}> = {
     view: FunctionComponent<IViewContext<TViewModel, TProps>>,

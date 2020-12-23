@@ -1,6 +1,7 @@
 // Copyright (c) Dolittle. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+/* eslint-disable react/display-name */
 import React, { FunctionComponent } from 'react';
 import { Constructor } from '@dolittle/types';
 import { IViewContext } from './IViewContext';
