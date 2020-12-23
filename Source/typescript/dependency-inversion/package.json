@@ -5,9 +5,13 @@
     "main": "index.ts",
     "author": "Dolittle",
     "license": "MIT",
+    "scripts": {
+        "build": "yarn clean && tsc -b",
+        "clean": "tsc -b --clean",
+        "test": "mocha"
+    },
     "dependencies": {
         "reflect-metadata": "^0.1.13",
         "tsyringe": "4.4.0"
-    },
-    "devDependencies": {}
+    }
 }
