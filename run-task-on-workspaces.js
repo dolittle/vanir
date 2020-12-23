@@ -11,6 +11,7 @@ if (process.argv.length < 3) {
 const path = require('path');
 const fs = require('fs');
 const spawn = require('child_process').spawnSync;
+const editJsonFile = require('edit-json-file');
 
 const workspacesAsString = spawn('yarn', ['workspaces', 'info']).stdout.toString();
 
@@ -29,25 +30,48 @@ if (args.length > 0) {
 
 console.log('');
 
+const workspaceNames = Object.keys(workspacesInfo);
+
+function updateDependencyVersionsFromLocalWorkspaces(file, packageJson, version) {
+    const dependencyFields = Object.keys(packageJson).filter(_ => _.endsWith('dependencies') || _.endsWith('Dependencies'));
+    for (let field of dependencyFields) {
+        const dependencies = packageJson[field] ?? {};
+        for (let dependencyName of Object.keys(dependencies)) {
+            if (workspaceNames.includes(dependencyName)) {
+                console.log(`Updating workspace ${field} '${dependencyName}' to version ${version}`);
+                dependencyName = dependencyName.replace(/\./g, '\\.');
+                field = field.replace(/\./g, '\\.');
+                const key = `${field}.${dependencyName}`;
+                file.set(key, version);
+            }
+        }
+    }
+}
+
 for (const workspaceName in workspacesInfo) {
     const workspace = workspacesInfo[workspaceName];
     const workspaceAbsoluteLocation = path.join(process.cwd(), workspace.location);
+    const packageJsonFile = path.join(workspaceAbsoluteLocation, 'package.json');
 
-    if (task === 'publish-version') {
-        if (args.length === 1) {
-            console.log(`Publishing workspace '${workspaceName}' at '${workspace.location}'`);
-            const result = spawn('yarn', ['publish', '--new-version', args[0]], { cwd: workspaceAbsoluteLocation });
-            console.log(result.stdout.toString());
-            if (result.status !== 0) {
-                process.exit(1);
-                return;
+    if (fs.existsSync(packageJsonFile)) {
+        const file = editJsonFile(packageJsonFile, { stringify_width: 4 });
+        const packageJson = file.toObject();
+
+        if (task === 'publish-version') {
+            if (args.length === 1) {
+                const version = args[0];
+                updateDependencyVersionsFromLocalWorkspaces(file, packageJson, version);
+                file.save();
+
+                console.log(`Publishing workspace '${workspaceName}' at '${workspace.location}'`);
+                const result = spawn('yarn', ['publish', '--no-git-tag-version', '--new-version', version], { cwd: workspaceAbsoluteLocation });
+                console.log(result.stdout.toString());
+                if (result.status !== 0) {
+                    process.exit(1);
+                    return;
+                }
             }
-        }
-    } else {
-        const packageJsonFile = path.join(workspaceAbsoluteLocation, 'package.json');
-
-        if (fs.existsSync(packageJsonFile)) {
-            const packageJson = JSON.parse(fs.readFileSync(packageJsonFile).toString());
+        } else {
 
             if (!packageJson.scripts || !packageJson.scripts.hasOwnProperty(task)) {
                 console.log(`Skipping workspace '${workspaceName}' - no script with name '${task}'`);
