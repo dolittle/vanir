@@ -4,16 +4,19 @@
     "description": "",
     "main": "index.ts",
     "scripts": {
+        "clean": "tsc -b --clean",
+        "build": "yarn clean && tsc -b",
         "test": "mocha"
     },
     "author": "",
     "license": "MIT",
     "dependencies": {
-        "@dolittle/dependencyinversion": "1.0.0",
+        "@dolittle/dependency-inversion": "1.0.0",
         "@dolittle/rudiments": "5.0.1",
         "apollo-cache-inmemory": "1.6.5",
         "apollo-client": "2.6.8",
         "apollo-link-http": "1.5.17",
+        "graphql": "15.4.0",
         "graphql-tag": "2.11.0",
         "react": "17.0.1",
         "react-dom": "17.0.1",
