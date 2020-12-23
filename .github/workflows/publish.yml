@@ -1,12 +1,9 @@
-name: TypeScript Library CI/CD
+name: Publish
 
 env:
   PRERELEASE_BRANCHES: "" # Comma separated list of prerelease branch names. 'alpha,rc, ...'
 
 on:
-  push:
-    branches:
-      - "**"
   pull_request:
     types: [closed]
 
