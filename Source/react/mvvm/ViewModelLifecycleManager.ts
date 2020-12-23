@@ -4,7 +4,7 @@
 import { Constructor } from '@dolittle/types';
 import { IViewModelLifecycleManager } from './IViewModelLifecycleManager';
 
-import { IContainer } from '@dolittle/dependencyinversion';
+import { IContainer } from '@dolittle/dependency-inversion';
 
 /**
  * Represents an implementation of {@link IViewModelLifecycleManager}.
