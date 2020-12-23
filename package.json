@@ -9,7 +9,8 @@
         "build": "node ./run-task-on-workspaces.js build",
         "lint": "node ./run-task-on-workspaces.js lint",
         "test": "node ./run-task-on-workspaces.js test",
-        "ci": "node ./run-task-on-workspaces.js ci"
+        "ci": "node ./run-task-on-workspaces.js ci",
+        "publish-version": "node ./run-task-on-workspaces.js publish-version $*"
     },
     "devDependencies": {
         "@types/chai": "4.2.14",
