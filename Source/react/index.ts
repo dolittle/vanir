@@ -14,3 +14,4 @@ export function initializeFrontend(configuration: Configuration) {
     Bindings.initialize(configuration);
     MVVMBindings.initialize();
 }
+
