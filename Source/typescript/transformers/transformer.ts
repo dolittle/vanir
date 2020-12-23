@@ -14,7 +14,7 @@ export default function myTransformerPlugin(program: ts.Program, opts: MyPluginO
             return (sourceFile: ts.SourceFile) => {
                 function visitor(node: ts.Node): ts.Node {
                     if (ts.isClassDeclaration(node)) {
-                        const heritage = node.heritageClauses?.[0]
+                        const heritage = node.heritageClauses?.[0];
                         if (heritage) {
                             console.log(heritage.types?.[0].expression.getText());
 
@@ -34,10 +34,10 @@ export default function myTransformerPlugin(program: ts.Program, opts: MyPluginO
                         }
                     }
                     */
-                    return ts.visitEachChild(node, visitor, ctx)
+                    return ts.visitEachChild(node, visitor, ctx);
                 }
-                return ts.visitEachChild(sourceFile, visitor, ctx)
-            }
+                return ts.visitEachChild(sourceFile, visitor, ctx);
+            };
         }
-    }
+    };
 }
