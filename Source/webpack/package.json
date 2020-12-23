@@ -4,11 +4,16 @@
     "description": "",
     "main": "index.js",
     "scripts": {
+        "clean": "",
+        "build": "",
+        "lint": "",
+        "lint:ci": "",
+        "test": "",
+        "ci": ""
     },
     "author": "Dolittle",
     "license": "MIT",
-    "dependencies": {
-    },
+    "dependencies": {},
     "devDependencies": {
         "html-webpack-plugin": "^4.5.0",
         "mini-css-extract-plugin": "^0.11.3",
