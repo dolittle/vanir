@@ -2,7 +2,7 @@
     "extends": "../../tsconfig.json",
     "references": [
         {
-            "path": "../typescript/DependencyInversion"
+            "path": "../typescript/dependency-inversion"
         }
     ]
 }
