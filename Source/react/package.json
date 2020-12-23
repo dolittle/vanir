@@ -5,8 +5,11 @@
     "main": "index.ts",
     "scripts": {
         "clean": "tsc -b --clean",
-        "build": "yarn clean && tsc -b",
-        "test": "mocha"
+        "build": "tsc -b",
+        "lint": "eslint '**/*.{js,ts,tsx}' --quiet --fix",
+        "lint:ci": "eslint '**/*.{js,ts,tsx}' --quiet",
+        "test": "mocha",
+        "ci": "yarn clean && yarn lint:ci && yarn build"
     },
     "author": "",
     "license": "MIT",

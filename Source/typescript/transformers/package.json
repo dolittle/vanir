@@ -4,7 +4,13 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "start": "ts-node --compiler ttypescript index.ts"
+        "start": "ts-node --compiler ttypescript index.ts",
+        "clean": "tsc -b --clean",
+        "build": "tsc -b",
+        "lint": "eslint '**/*.{js,ts,tsx}' --quiet --fix",
+        "lint:ci": "eslint '**/*.{js,ts,tsx}' --quiet",
+        "test": "mocha",
+        "ci": "yarn clean && yarn lint:ci && yarn build"
     },
     "author": "Dolittle",
     "license": "MIT",
