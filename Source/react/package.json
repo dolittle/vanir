@@ -3,6 +3,9 @@
     "version": "1.0.0",
     "description": "",
     "main": "index.ts",
+    "publishConfig": {
+        "access": "public"
+    },
     "scripts": {
         "clean": "tsc -b --clean",
         "build": "tsc -b",
