@@ -4,7 +4,7 @@ if (process.argv.length !== 3) {
     console.log('You have to specify what workspace task to run on all')
     console.log('\nUsage: run-task-on-workspaces [task]');
     console.log('\nExamples of tasks: build|test|ci');
-    process.exit(-1);
+    process.exit(1);
     return;
 }
 
@@ -26,4 +26,8 @@ for (const workspaceName in workspacesInfo) {
 
     const result = spawn('yarn', [task], { cwd: path.join(process.cwd(), workspace.location) });
     console.log(result.stdout.toString());
+    if (result.status !== 0) {
+        process.exit(1);
+        return;
+    }
 }
