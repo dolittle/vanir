@@ -9,6 +9,7 @@ if (process.argv.length !== 3) {
 }
 
 const path = require('path');
+const fs = require('fs');
 const spawn = require('child_process').spawnSync;
 
 const workspacesAsString = spawn('yarn', ['workspaces', 'info']).stdout.toString();
@@ -22,12 +23,25 @@ console.log(`Performing '${task}' on workspaces\n`);
 
 for (const workspaceName in workspacesInfo) {
     const workspace = workspacesInfo[workspaceName];
-    console.log(`Workspace '${workspaceName}' at '${workspace.location}'`);
+    const workspaceAbsoluteLocation = path.join(process.cwd(), workspace.location);
+    const packageJsonFile = path.join(workspaceAbsoluteLocation, 'package.json');
 
-    const result = spawn('yarn', [task], { cwd: path.join(process.cwd(), workspace.location) });
-    console.log(result.stdout.toString());
-    if (result.status !== 0) {
-        process.exit(1);
-        return;
+    if (fs.existsSync(packageJsonFile)) {
+        const packageJson = JSON.parse(fs.readFileSync(packageJsonFile).toString());
+
+        if (!packageJson.scripts || !packageJson.scripts?.hasOwnProperty(task)) {
+            console.log(`Skipping worskapce '${workspaceName}' - no script with name '${task}'`);
+            continue;
+        }
+
+        console.log(`Workspace '${workspaceName}' at '${workspace.location}'`);
+
+        const result = spawn('yarn', [task], { cwd: workspaceAbsoluteLocation });
+        console.log(result.stdout.toString());
+        if (result.status !== 0) {
+            process.exit(1);
+            return;
+        }
+
     }
 }
