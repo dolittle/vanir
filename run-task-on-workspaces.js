@@ -29,7 +29,7 @@ for (const workspaceName in workspacesInfo) {
     if (fs.existsSync(packageJsonFile)) {
         const packageJson = JSON.parse(fs.readFileSync(packageJsonFile).toString());
 
-        if (!packageJson.scripts || !packageJson.scripts?.hasOwnProperty(task)) {
+        if (!packageJson.scripts || !packageJson.scripts.hasOwnProperty(task)) {
             console.log(`Skipping worskapce '${workspaceName}' - no script with name '${task}'`);
             continue;
         }
