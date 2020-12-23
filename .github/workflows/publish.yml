@@ -35,6 +35,17 @@ jobs:
           version: ${{ steps.context.outputs.current-version }}
           release-type: ${{ steps.context.outputs.release-type }}
 
+      - name: Publish NPM packages
+        if: ${{ steps.context.outputs.should-publish == 'true' }}
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          git config "user.email" "build@dolittle.com"
+          git config "user.name" "dolittle-build"
+          yarn publish-version ${{ steps.increment-version.outputs.next-version }}
+          git commit --author="github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>" -am "Bumping versions in packages to ${{ steps.context.outputs.current-version }}"
+          git push origin main
+
       - name: Create GitHub Release
         if: ${{ steps.context.outputs.should-publish == 'true' }}
         uses: dolittle/github-release-action@v1
@@ -42,12 +53,3 @@ jobs:
           token: ${{  secrets.BUILD_PAT  }}
           cascading-release: ${{ steps.context.outputs.cascading-release }}
           version: ${{ steps.increment-version.outputs.next-version }}
-
-      - name: Release javascript
-        if: ${{ steps.context.outputs.should-publish == 'true' }}
-        uses: dolittle/release-typescript-lib-action@v1
-        with:
-          version: ${{ steps.increment-version.outputs.next-version }}
-          root: "."
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
