@@ -1,6 +1,6 @@
 {
     "name": "@dolittle/vanir-backend",
-    "version": "1.0.3",
+    "version": "1.0.0",
     "description": "",
     "main": "index.ts",
     "author": "Dolittle",
@@ -9,6 +9,7 @@
         "access": "public"
     },
     "scripts": {
+        "prepublish": "yarn build",
         "clean": "tsc -b --clean",
         "build": "tsc -b",
         "lint": "eslint '**/*.{js,ts,tsx}' --quiet --fix",
