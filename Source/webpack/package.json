@@ -18,10 +18,7 @@
     },
     "homepage": "https://github.com/dolittle-entropy/vanir#readme",
     "files": [
-        "frontend",
-        "backend",
-        "../../README.md",
-        "package.json"
+        "**/*.js"
     ],
     "scripts": {},
     "dependencies": {},

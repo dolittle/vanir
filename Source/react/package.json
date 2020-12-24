@@ -17,10 +17,10 @@
         "url": "https://github.com/dolittle-entropy/vanir/issues"
     },
     "homepage": "https://github.com/dolittle-entropy/vanir#readme",
+    "readme": "",
     "files": [
         "dist",
-        "../../README.md",
-        "package.json"
+        "**/*.ts"
     ],
     "scripts": {
         "prepublish": "yarn build",
