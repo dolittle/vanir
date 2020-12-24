@@ -1,6 +1,6 @@
 {
     "name": "@dolittle/react",
-    "version": "1.0.4",
+    "version": "1.0.7",
     "description": "",
     "main": "index.ts",
     "publishConfig": {
@@ -18,7 +18,7 @@
     "author": "",
     "license": "MIT",
     "dependencies": {
-        "@dolittle/dependency-inversion": "1.0.4",
+        "@dolittle/dependency-inversion": "1.0.7",
         "@dolittle/rudiments": "5.0.1",
         "apollo-cache-inmemory": "1.6.5",
         "apollo-client": "2.6.8",
