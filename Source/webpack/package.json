@@ -21,8 +21,7 @@
         "**/*.js"
     ],
     "scripts": {},
-    "dependencies": {},
-    "devDependencies": {
+    "dependencies": {
         "css-loader": "^4.3.0",
         "css-modules-typescript-loader": "^4.0.1",
         "edit-json-file": "1.4.1",
