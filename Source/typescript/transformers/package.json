@@ -3,9 +3,19 @@
     "version": "1.0.7",
     "description": "",
     "main": "index.js",
+    "author": "Dolittle",
+    "license": "MIT",
     "publishConfig": {
         "access": "public"
     },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/dolittle-entropy/vanir.git"
+    },
+    "bugs": {
+        "url": "https://github.com/dolittle-entropy/vanir/issues"
+    },
+    "homepage": "https://github.com/dolittle-entropy/vanir#readme",
     "scripts": {
         "prepublish": "yarn build",
         "start": "ts-node --compiler ttypescript index.ts",
@@ -16,8 +26,6 @@
         "test": "mocha",
         "ci": "yarn clean && yarn lint:ci && yarn build"
     },
-    "author": "Dolittle",
-    "license": "MIT",
     "devDependencies": {
         "ttypescript": "^1.5.12"
     }
