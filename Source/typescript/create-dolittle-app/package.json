@@ -10,7 +10,8 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/dolittle-entropy/vanir.git"
+        "url": "git+https://github.com/dolittle-entropy/vanir.git",
+        "directory": "Source/typescript/create-dolittle-app"
     },
     "bugs": {
         "url": "https://github.com/dolittle-entropy/vanir/issues"
@@ -22,6 +23,7 @@
     },
     "files": [
         "dist",
+        "../../../README.md",
         "package.json"
     ],
     "main": "dist/index.js",

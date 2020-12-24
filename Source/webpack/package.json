@@ -10,12 +10,19 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/dolittle-entropy/vanir.git"
+        "url": "git+https://github.com/dolittle-entropy/vanir.git",
+        "directory": "Source/webpack"
     },
     "bugs": {
         "url": "https://github.com/dolittle-entropy/vanir/issues"
     },
     "homepage": "https://github.com/dolittle-entropy/vanir#readme",
+    "files": [
+        "frontend",
+        "backend",
+        "../../README.md",
+        "package.json"
+    ],
     "scripts": {},
     "dependencies": {},
     "devDependencies": {

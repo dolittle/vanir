@@ -10,12 +10,18 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/dolittle-entropy/vanir.git"
+        "url": "git+https://github.com/dolittle-entropy/vanir.git",
+        "directory": "Source/typescript/transformers"
     },
     "bugs": {
         "url": "https://github.com/dolittle-entropy/vanir/issues"
     },
     "homepage": "https://github.com/dolittle-entropy/vanir#readme",
+    "files": [
+        "dist",
+        "../../../README.md",
+        "package.json"
+    ],
     "scripts": {
         "prepublish": "yarn build",
         "start": "ts-node --compiler ttypescript index.ts",

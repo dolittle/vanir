@@ -3,9 +3,25 @@
     "version": "1.0.10",
     "description": "",
     "main": "index.ts",
+    "author": "Dolittle",
+    "license": "MIT",
     "publishConfig": {
         "access": "public"
     },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/dolittle-entropy/vanir.git",
+        "directory": "Source/react"
+    },
+    "bugs": {
+        "url": "https://github.com/dolittle-entropy/vanir/issues"
+    },
+    "homepage": "https://github.com/dolittle-entropy/vanir#readme",
+    "files": [
+        "dist",
+        "../../README.md",
+        "package.json"
+    ],
     "scripts": {
         "prepublish": "yarn build",
         "clean": "tsc -b --clean",
@@ -15,8 +31,6 @@
         "test": "mocha",
         "ci": "yarn clean && yarn lint:ci && yarn build"
     },
-    "author": "",
-    "license": "MIT",
     "dependencies": {
         "@dolittle/dependency-inversion": "1.0.10",
         "@dolittle/rudiments": "5.0.1",
