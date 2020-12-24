@@ -19,8 +19,7 @@
     "homepage": "https://github.com/dolittle-entropy/vanir#readme",
     "files": [
         "dist",
-        "../../../README.md",
-        "package.json"
+        "**/*.ts"
     ],
     "scripts": {
         "prepublish": "yarn build",

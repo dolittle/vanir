@@ -23,8 +23,7 @@
     },
     "files": [
         "dist",
-        "../../../README.md",
-        "package.json"
+        "**/*.ts"
     ],
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
