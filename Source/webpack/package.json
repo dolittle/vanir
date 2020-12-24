@@ -20,7 +20,7 @@
     "files": [
         "frontend",
         "backend",
-        "../../../README.md",
+        "../../README.md",
         "package.json"
     ],
     "scripts": {},
