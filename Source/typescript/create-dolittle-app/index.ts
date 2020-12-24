@@ -7,11 +7,17 @@
 import path from 'path';
 import commander from 'commander';
 import chalk from 'chalk';
-const packageJson = require('./package.json');
 import { Plop, run } from 'plop';
 
 const args = process.argv.slice(2);
 const argv = require('minimist')(args);
+
+let packageJson = { name: 'unknown', version: '1.0.0' };
+if (require.main) {
+    packageJson = require(path.join(require.main.path, 'package.json'));
+}
+
+console.log(require.main?.path);
 
 const program = new commander.Command(packageJson.name)
     .version(packageJson.version)

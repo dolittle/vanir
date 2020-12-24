@@ -9,33 +9,27 @@ import dotenv from 'dotenv';
 import * as Dolittle from './dolittle';
 import { Mongoose } from './data';
 import * as Express from './web';
-import { configureLogging } from './logging/Logging';
 import * as DependencyInversion from '@dolittle/dependency-inversion';
+
+export { logger } from './logging';
 
 import '@dolittle/projections';
 import { Configuration } from './Configuration';
+import { BackendArguments } from './BackendArguments';
+import { container } from 'tsyringe';
 
 export class Host {
-    static async start(configuration: Configuration) {
+    static async start(startArguments: BackendArguments) {
         const envPath = path.resolve(process.cwd(), '.env');
         dotenv.config({ path: envPath });
-        configureLogging(configuration.microserviceId);
+        const configuration = Configuration.create();
 
         DependencyInversion.initialize();
 
-        await Mongoose.initialize(configuration.defaultDatabaseName);
-        await Dolittle.initialize(
-            configuration.microserviceId,
-            configuration.dolittleRuntimePort,
-            configuration.defaultDatabaseName,
-            configuration.defaultEventStoreDatabaseName,
-            configuration.dolittleCallback);
+        container.registerInstance(Configuration, configuration);
 
-        await Express.initialize(
-            configuration.prefix,
-            configuration.publicPath,
-            configuration.port,
-            configuration.graphQLSchema,
-            configuration.expressCallback);
+        await Mongoose.initialize(configuration);
+        await Dolittle.initialize(configuration, startArguments.dolittleCallback);
+        await Express.initialize(configuration, startArguments.graphQLResolvers, startArguments.swaggerDoc, startArguments.expressCallback);
     }
 }
