@@ -12,12 +12,28 @@ const path = require('path');
 const fs = require('fs');
 const spawn = require('child_process').spawnSync;
 const editJsonFile = require('edit-json-file');
+const rootPackageJson = require('./package.json')
+const glob = require('glob').sync;
 
-const workspacesAsString = spawn('yarn', ['workspaces', 'info']).stdout.toString();
+const workspaces = {};
 
-let stripped = workspacesAsString.substr(workspacesAsString.indexOf('{'));
-stripped = stripped.substr(0, stripped.lastIndexOf('}') + 1);
-const workspacesInfo = JSON.parse(stripped);
+
+const distFolder = `dist${path.sep}`
+for (const workspaceDef of rootPackageJson.workspaces) {
+    console.log(`Getting packages for workspace definition '${workspaceDef}' \n`);
+
+    const files = glob(workspaceDef, { cwd: process.cwd() });
+
+    const packages = files.filter(_ => path.basename(_) === 'package.json' && _.indexOf(distFolder) < 0 && _.indexOf('node_modules') < 0);
+    packages.forEach(_ => {
+        const package = JSON.parse(fs.readFileSync(_).toString());
+        workspaces[package.name] = path.dirname(_);
+
+        console.log(`Including workspace '${package.name}' at '${workspaces[package.name]}'`);
+    });
+}
+
+console.log('');
 
 const task = process.argv[2];
 args = process.argv.slice(3, process.argv.length);
@@ -30,7 +46,7 @@ if (args.length > 0) {
 
 console.log('');
 
-const workspaceNames = Object.keys(workspacesInfo);
+const workspaceNames = Object.keys(workspaces);
 
 function updateDependencyVersionsFromLocalWorkspaces(file, packageJson, version) {
     const dependencyFields = Object.keys(packageJson).filter(_ => _.endsWith('dependencies') || _.endsWith('Dependencies'));
@@ -48,9 +64,9 @@ function updateDependencyVersionsFromLocalWorkspaces(file, packageJson, version)
     }
 }
 
-for (const workspaceName in workspacesInfo) {
-    const workspace = workspacesInfo[workspaceName];
-    const workspaceAbsoluteLocation = path.join(process.cwd(), workspace.location);
+for (const workspaceName in workspaces) {
+    const workspaceRelativeLocation = workspaces[workspaceName];
+    const workspaceAbsoluteLocation = path.join(process.cwd(), workspaceRelativeLocation);
     const packageJsonFile = path.join(workspaceAbsoluteLocation, 'package.json');
 
     if (fs.existsSync(packageJsonFile)) {
@@ -63,7 +79,7 @@ for (const workspaceName in workspacesInfo) {
                 updateDependencyVersionsFromLocalWorkspaces(file, packageJson, version);
                 file.save();
 
-                console.log(`Publishing workspace '${workspaceName}' at '${workspace.location}'`);
+                console.log(`Publishing workspace '${workspaceName}' at '${workspaceRelativeLocation}'`);
                 const result = spawn('yarn', ['publish', '--verbose', '--no-git-tag-version', '--new-version', version], { cwd: workspaceAbsoluteLocation });
                 console.log(result.stdout.toString());
                 if (result.status !== 0) {
@@ -78,7 +94,7 @@ for (const workspaceName in workspacesInfo) {
                 continue;
             }
 
-            console.log(`Workspace '${workspaceName}' at '${workspace.location}'`);
+            console.log(`Workspace '${workspaceName}' at '${workspaceRelativeLocation}'`);
 
             const result = spawn('yarn', [task], { cwd: workspaceAbsoluteLocation });
             console.log(result.stdout.toString());
