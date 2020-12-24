@@ -5,6 +5,9 @@
     "main": "index.js",
     "author": "Dolittle",
     "license": "MIT",
+    "publishConfig": {
+        "access": "public"
+    },
     "scripts": {},
     "dependencies": {},
     "devDependencies": {

@@ -48,8 +48,12 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
+          yarn publish-version ${{ steps.increment-version.outputs.next-version }}
+
+      - name: Commit any updated packages
+        if: always()
+        run: |
           git config "user.email" "build@dolittle.com"
           git config "user.name" "dolittle-build"
-          yarn publish-version ${{ steps.increment-version.outputs.next-version }}
           git commit --author="github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>" -am "Bumping versions in packages to ${{ steps.context.outputs.current-version }}"
           git push origin main
