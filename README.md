@@ -8,6 +8,8 @@ put together to bring fertility and wisdom into projects.
 The project serves as a combination of packages that we have found useful. In addition to this, we've put in the necessary
 glue when needed to make them work together.
 
+The goal is to provide a good starting point when creating applications and Dolittle based microservices.
+
 ## Not a framework
 
 It is vital to not look at this as a framework of any sort that owns its own concepts. Look at it as a springboard for
@@ -18,3 +20,13 @@ To set expectations even further; this is not core technology at Dolittle but se
 while building things like our [Studio](https://github.com/dolittle/studio). The projects in this repository are only maintained
 for this sole purpose in mind. In addition we do use these projects with customers and contributions are then also coming from these
 projects.
+
+## Documentation
+
+You'll find all the documentation [here](./Documentation/README.md) and specifically for getting started, you'll find [here](./Documentation/getting-started.md).
+
+## Contributing
+
+We welcome contributions, all we ask is that you read our [code of conduct](./CODE_OF_CONDUCT.md) and adhere to it, and
+also read through the official [Dolittle contribution guide](https://dolittle.io/docs/contributing/) as these are the
+things we look for during pull requests.
