@@ -2,15 +2,23 @@
     "name": "create-dolittle-app",
     "version": "1.0.7",
     "description": "",
-    "author": "",
+    "author": "Dolittle",
     "license": "MIT",
     "preferGlobal": true,
+    "publishConfig": {
+        "access": "public"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/dolittle-entropy/vanir.git"
+    },
+    "bugs": {
+        "url": "https://github.com/dolittle-entropy/vanir/issues"
+    },
+    "homepage": "https://github.com/dolittle-entropy/vanir#readme",
     "engineStrict": true,
     "engines": {
         "node": ">= 14"
-    },
-    "publishConfig": {
-        "access": "public"
     },
     "files": [
         "dist",

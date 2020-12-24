@@ -4,10 +4,18 @@
     "description": "",
     "main": "index.ts",
     "author": "Dolittle",
+    "license": "MIT",
     "publishConfig": {
         "access": "public"
     },
-    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/dolittle-entropy/vanir.git"
+    },
+    "bugs": {
+        "url": "https://github.com/dolittle-entropy/vanir/issues"
+    },
+    "homepage": "https://github.com/dolittle-entropy/vanir#readme",
     "scripts": {
         "prepublish": "yarn build",
         "clean": "tsc -b --clean",
