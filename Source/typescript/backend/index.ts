@@ -3,3 +3,4 @@
 
 export * from './Configuration';
 export * from './Host';
+export * from './logging';
