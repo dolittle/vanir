@@ -5,6 +5,7 @@
     "author": "",
     "license": "MIT",
     "preferGlobal": true,
+    "engineStrict": true,
     "engines": {
         "node": ">= 14"
     },
