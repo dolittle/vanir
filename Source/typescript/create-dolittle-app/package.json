@@ -5,6 +5,9 @@
     "author": "",
     "license": "MIT",
     "preferGlobal": true,
+    "engines": {
+        "node": ">= 14"
+    },
     "publishConfig": {
         "access": "public"
     },
