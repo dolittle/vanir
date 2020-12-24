@@ -64,7 +64,7 @@ for (const workspaceName in workspacesInfo) {
                 file.save();
 
                 console.log(`Publishing workspace '${workspaceName}' at '${workspace.location}'`);
-                const result = spawn('yarn', ['publish', '--no-git-tag-version', '--new-version', version], { cwd: workspaceAbsoluteLocation });
+                const result = spawn('yarn', ['publish', '--verbose', '--no-git-tag-version', '--new-version', version], { cwd: workspaceAbsoluteLocation });
                 console.log(result.stdout.toString());
                 if (result.status !== 0) {
                     process.exit(1);
