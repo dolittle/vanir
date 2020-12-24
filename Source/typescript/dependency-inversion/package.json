@@ -1,6 +1,6 @@
 {
     "name": "@dolittle/dependency-inversion",
-    "version": "1.0.7",
+    "version": "1.0.10",
     "description": "",
     "main": "index.ts",
     "author": "Dolittle",
