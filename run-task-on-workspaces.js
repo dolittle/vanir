@@ -79,6 +79,12 @@ for (const workspaceName in workspaces) {
                 updateDependencyVersionsFromLocalWorkspaces(file, packageJson, version);
                 file.save();
 
+                const targetReadMe = path.join(workspaceAbsoluteLocation, 'README.md');
+
+                if (!fs.existsSync(targetReadMe)) {
+                    fs.copyFileSync(path.join(process.cwd(), "README.md"), targetReadMe);
+                }
+
                 console.log(`Publishing workspace '${workspaceName}' at '${workspaceRelativeLocation}'`);
                 const result = spawn('yarn', ['publish', '--verbose', '--no-git-tag-version', '--new-version', version], { cwd: workspaceAbsoluteLocation });
                 console.log(result.stdout.toString());
