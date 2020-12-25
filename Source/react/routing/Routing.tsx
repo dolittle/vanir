@@ -7,7 +7,7 @@ import { withViewModel } from '../mvvm';
 import { RoutingViewModel } from './RoutingViewModel';
 
 export interface RoutingProps {
-    children: React.ReactNode[] | React.ReactNode;
+    children?: React.ReactNode[] | React.ReactNode;
 }
 
 export const Routing = withViewModel<RoutingViewModel, RoutingProps>(RoutingViewModel, ({ viewModel, props }) => {
