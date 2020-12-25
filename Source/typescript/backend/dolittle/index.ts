@@ -3,7 +3,7 @@
 
 export * from './IEventStore';
 
-import { constructor, containerInstance } from '@dolittle/dependency-inversion';
+import { constructor, containerInstance } from '@dolittle/vanir-dependency-inversion';
 
 import { Client, ClientBuilder } from '@dolittle/sdk';
 import { Logger } from 'winston';

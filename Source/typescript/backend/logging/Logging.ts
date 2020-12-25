@@ -2,7 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 import { container } from 'tsyringe';
-import { constructor } from '@dolittle/dependency-inversion';
+import { constructor } from '@dolittle/vanir-dependency-inversion';
 import { createLogger, format, transports } from 'winston';
 import { ILogger } from './ILogger';
 

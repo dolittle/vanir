@@ -1,5 +1,5 @@
 {
-    "name": "@dolittle/transformers",
+    "name": "@dolittle/vanir-transformers",
     "version": "2.0.2",
     "description": "",
     "main": "index.js",
