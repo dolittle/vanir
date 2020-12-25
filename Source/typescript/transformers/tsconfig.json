@@ -2,6 +2,7 @@
     "extends": "../../../tsconfig.json",
     "compilerOptions": {
         "outDir": "dist",
+        "rootDir": "./",
         "plugins": [
             {
                 "transform": "./transformer.ts"
