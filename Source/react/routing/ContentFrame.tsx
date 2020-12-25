@@ -2,7 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 import { constructor } from '@dolittle/vanir-dependency-inversion';
-import { IMessenger } from '../mvvm';
+import { IMessenger } from '@dolittle/vanir-web';
 import React from 'react';
 import { container } from 'tsyringe';
 
@@ -26,7 +26,7 @@ export const ContentFrame = (props: ContentFrameProps) => {
         onLoadStart: () => props.load(),
         onLoad: () => props.loaded()
     });
-    container.resolve(IMessenger as constructor<IMessenger>).setCurrentContent(iframeRef);
+    container.resolve(IMessenger as constructor<IMessenger>).setCurrentContent(iframeRef.current?.contentDocument);
 
     return iframe;
 };

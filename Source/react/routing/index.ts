@@ -4,6 +4,3 @@
 export * from './Routing';
 export * from './MicroserviceRoute';
 export * from './CompositionRoute';
-export * from './NavigatedTo';
-export * from '@dolittle/vanir-web/routing/INavigator';
-export * from '@dolittle/vanir-web/routing/Navigator';

@@ -5,8 +5,6 @@ export * from './withViewModel';
 export * from './ViewModelHelpers';
 export * from './PropertySubscriptions';
 export * from './IViewContext';
-export * from './IMessenger';
-export * from './Messenger';
 
 export * from './IViewModelLifecycleManager';
 export * from './ViewModelLifecycleManager';

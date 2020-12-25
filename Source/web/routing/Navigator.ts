@@ -2,9 +2,8 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 import { injectable } from 'tsyringe';
-import { INavigator } from 'Source/web/routing/INavigator';
-import { IMessenger } from '@dolittle/vanir-react/mvvm';
-import { NavigatedTo } from '@dolittle/vanir-react/routing/NavigatedTo';
+import { INavigator, NavigatedTo } from '../routing';
+import { IMessenger } from '../messaging';
 
 @injectable()
 export class Navigator implements INavigator {

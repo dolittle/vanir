@@ -3,6 +3,7 @@
 
 export * from './DataSource';
 export * from './MicroserviceConfiguration';
+export * from './messaging';
 export * from './navigation';
 export * from './VersionInfo';
 export * from './routing';

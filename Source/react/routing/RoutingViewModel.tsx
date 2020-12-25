@@ -1,10 +1,9 @@
 // Copyright (c) Dolittle. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-import { MicroserviceConfiguration } from '@dolittle/vanir-web';
-import { IMessenger } from '../mvvm';
+import { IMessenger, MicroserviceConfiguration } from '@dolittle/vanir-web';
 import { injectable } from 'tsyringe';
-import { NavigatedTo } from './NavigatedTo';
+import { NavigatedTo } from '@dolittle/vanir-web/routing/NavigatedTo';
 
 @injectable()
 export class RoutingViewModel {

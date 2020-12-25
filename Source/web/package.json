@@ -32,6 +32,9 @@
         "test": "mocha",
         "ci": "yarn clean && yarn lint:ci && yarn build"
     },
-    "dependencies": {},
+    "dependencies": {
+        "rxjs": "6.6.3",
+        "@dolittle/vanir-dependency-inversion": "2.1.3"
+    },
     "devDependencies": {}
 }

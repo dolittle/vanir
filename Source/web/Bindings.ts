@@ -9,6 +9,7 @@ import { container } from 'tsyringe';
 import { constructor } from '@dolittle/vanir-dependency-inversion';
 import { Configuration } from './Configuration';
 import { INavigator, Navigator } from './routing';
+import { Bindings as MessagingBindings } from './messaging/Bindings';
 
 export class Bindings {
     static initialize(configuration: Configuration) {
@@ -35,5 +36,7 @@ export class Bindings {
         container.registerSingleton(INavigator as constructor<INavigator>, Navigator);
 
         container.registerInstance(History, window.history);
+
+        MessagingBindings.initialize();
     }
 }

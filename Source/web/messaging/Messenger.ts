@@ -1,19 +1,17 @@
 // Copyright (c) Dolittle. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-import { RefObject } from 'react';
 import { Constructor } from '@dolittle/types';
 import { Observable, Subject } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { MessageHandler } from './MessageHandler';
 import { Message } from './Message';
 import { IMessenger } from './IMessenger';
-import { singleton } from 'tsyringe';
 
 export class Messenger implements IMessenger {
     private _source: string;
     private _otherSource: string;
-    private _content?: RefObject<HTMLIFrameElement>;
+    private _contentDocument?: Document;
     private _messages: Subject<Message> = new Subject();
     private _documentListeners: Map<Constructor, boolean> = new Map();
 
@@ -22,9 +20,9 @@ export class Messenger implements IMessenger {
         this._otherSource = this.getOtherSource();
 
         this._messages.subscribe(message => {
-            if (this._content && this._content.current && this._content.current.contentDocument) {
+            if (this._contentDocument) {
                 console.log(`Dispatching message of type '${message.type.name}' to content document`);
-                this.dispatchMessageAsCustomEventTo(this._content.current.contentDocument, message.content);
+                this.dispatchMessageAsCustomEventTo(this._contentDocument, message.content);
             }
 
             if (window.parent !== window && window.parent.document) {
@@ -58,8 +56,8 @@ export class Messenger implements IMessenger {
         this._messages.next({ source: this._source, type: message.constructor, content: message });
     }
 
-    setCurrentContent(content: RefObject<HTMLIFrameElement>) {
-        this._content = content;
+    setCurrentContentDocument(contentDocument: Document) {
+        this._contentDocument = contentDocument;
     }
 
     private ensureDocumentListenerFor<T>(type: Constructor<T>) {
