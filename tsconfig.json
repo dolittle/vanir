@@ -1,7 +1,6 @@
 {
     "compilerOptions": {
         "baseUrl": ".",
-        "outDir": "dist",
         "rootDir": ".",
         "declaration": true,
         "declarationMap": true,
@@ -21,7 +20,6 @@
         "esModuleInterop": true,
         "strictNullChecks": true,
         "resolveJsonModule": true,
-
         "downlevelIteration": true,
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
@@ -35,9 +33,8 @@
         "alwaysStrict": true,
         "preserveConstEnums": true,
         "newLine": "lf"
-     },
-
-     "exclude": [
-         "**/dist"
-     ]
+    },
+    "exclude": [
+        "**/dist"
+    ]
 }
