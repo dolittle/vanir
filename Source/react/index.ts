@@ -9,7 +9,6 @@ import { Configuration } from '@dolittle/vanir-web/Configuration';
 export * from './Bootstrapper';
 export * from './mvvm';
 export * from './routing';
-export * from '@dolittle/vanir-web/Configuration';
 export * from './MicroserviceContext';
 
 export function initializeFrontend(configuration: Configuration) {
