@@ -1,6 +1,6 @@
 {
     "name": "@dolittle/vanir-react",
-    "version": "2.0.2",
+    "version": "2.0.3",
     "description": "",
     "main": "index.ts",
     "author": "Dolittle",
@@ -32,8 +32,8 @@
         "ci": "yarn clean && yarn lint:ci && yarn build"
     },
     "dependencies": {
-        "@dolittle/vanir-dependency-inversion": "2.0.2",
         "@dolittle/rudiments": "5.0.1",
+        "@dolittle/vanir-dependency-inversion": "2.0.3",
         "apollo-cache-inmemory": "1.6.5",
         "apollo-client": "2.6.8",
         "apollo-link-http": "1.5.17",
