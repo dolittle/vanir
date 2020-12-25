@@ -11,3 +11,4 @@ export class Bindings {
         container.registerSingleton(IMessenger as constructor<IMessenger>, Messenger);
     }
 }
+
