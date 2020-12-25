@@ -2,7 +2,8 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 import { constructor } from '@dolittle/vanir-dependency-inversion';
-import { IMessenger, Messenger } from '@dolittle/vanir-react';
+import { IMessenger } from './IMessenger';
+import { Messenger } from './Messenger';
 import { container } from 'tsyringe';
 
 export class Bindings {
