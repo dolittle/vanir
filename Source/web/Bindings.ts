@@ -4,9 +4,9 @@
 import { ApolloClient } from 'apollo-client';
 import { HttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
-import { DataSource } from '@dolittle/vanir-web/DataSource';
 import { container } from 'tsyringe';
 import { constructor } from '@dolittle/vanir-dependency-inversion';
+import { DataSource } from './DataSource';
 import { Configuration } from './Configuration';
 import { INavigator, Navigator } from './routing';
 import { Bindings as MessagingBindings } from './messaging/Bindings';
