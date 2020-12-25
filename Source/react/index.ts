@@ -2,7 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 import { Bindings } from './Bindings';
-import { Bindings as WebBindings } from '@dolittle/vanir-web/Bindings';
+import { Bindings as WebBindings } from '@dolittle/vanir-web/dist/Bindings';
 import { Bindings as MVVMBindings } from './mvvm/Bindings';
 import { Configuration } from '@dolittle/vanir-web/Configuration';
 
