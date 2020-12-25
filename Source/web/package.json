@@ -34,7 +34,7 @@
     },
     "dependencies": {
         "@dolittle/vanir-dependency-inversion": "2.1.9",
-        "rxjs": "6.6.3"
+        "rxjs": "6.6.0"
     },
     "devDependencies": {}
 }
