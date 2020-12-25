@@ -10,6 +10,10 @@ export * from './Bootstrapper';
 export * from './DataSource';
 export * from './VersionInfo';
 
+export * from './mvvm/IMessenger';
+export * from './mvvm/IViewContext';
+export * from './mvvm/withViewModel';
+
 export function initializeFrontend(configuration: Configuration) {
     Bindings.initialize(configuration);
     MVVMBindings.initialize();
