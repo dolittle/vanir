@@ -3,7 +3,10 @@
 
 import React from 'react';
 import { initializeFrontend } from './index';
-import { VersionInfo } from './VersionInfo';
+import { MicroserviceContext } from './MicroserviceContext';
+import { container } from 'tsyringe';
+import { MicroserviceConfiguration, VersionInfo } from '@dolittle/vanir-web';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 export interface BootstrapperProps {
     name: string;
@@ -19,5 +22,16 @@ export const Bootstrapper = (props: BootstrapperProps) => {
         versionInfo: props.version
     });
 
-    return (<>{props.children}</>);
+    const configuration = new MicroserviceConfiguration(props.name, props.prefix, props.version);
+    container.registerInstance(MicroserviceConfiguration, configuration);
+
+    return (
+        <>
+            <Router>
+                <MicroserviceContext.Provider value={configuration}>
+                    {props.children}
+                </MicroserviceContext.Provider>
+            </Router>
+        </>
+    );
 };

@@ -8,6 +8,7 @@ import { DataSource } from './DataSource';
 import { container } from 'tsyringe';
 import { constructor } from '@dolittle/vanir-dependency-inversion';
 import { Configuration } from './Configuration';
+import { INavigator, Navigator } from './routing';
 
 export class Bindings {
     static initialize(configuration: Configuration) {
@@ -30,5 +31,9 @@ export class Bindings {
         });
 
         container.registerInstance(DataSource as constructor<DataSource>, client);
+
+        container.registerSingleton(INavigator as constructor<INavigator>, Navigator);
+
+        container.registerInstance(History, window.history);
     }
 }

@@ -1,5 +1,5 @@
 {
-    "name": "@dolittle/vanir-react",
+    "name": "@dolittle/vanir-web",
     "version": "2.0.4",
     "description": "",
     "author": "Dolittle",
@@ -32,22 +32,6 @@
         "test": "mocha",
         "ci": "yarn clean && yarn lint:ci && yarn build"
     },
-    "dependencies": {
-        "@dolittle/rudiments": "5.0.1",
-        "@dolittle/vanir-dependency-inversion": "2.0.4",
-        "@dolittle/vanir-web": "2.0.4",
-        "apollo-cache-inmemory": "1.6.5",
-        "apollo-client": "2.6.8",
-        "apollo-link-http": "1.5.17",
-        "graphql": "15.4.0",
-        "graphql-tag": "2.11.0",
-        "react": "17.0.1",
-        "react-dom": "17.0.1",
-        "react-router-dom": "5.2.0"
-    },
-    "devDependencies": {
-        "@types/react": "17.0.0",
-        "@types/react-dom": "17.0.0",
-        "@types/react-router-dom": "5.1.6"
-    }
+    "dependencies": {},
+    "devDependencies": {}
 }
