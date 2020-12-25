@@ -2,7 +2,6 @@
     "name": "@dolittle/vanir-react",
     "version": "2.0.2",
     "description": "",
-    "main": "index.ts",
     "author": "Dolittle",
     "license": "MIT",
     "publishConfig": {
@@ -22,6 +21,8 @@
         "dist",
         "**/*.ts"
     ],
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
     "scripts": {
         "prepublish": "yarn build",
         "clean": "tsc -b --clean",
