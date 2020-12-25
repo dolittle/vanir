@@ -63,6 +63,7 @@ module.exports = (env, argv, callback) => {
             ]
         },
         plugins: [
+            new webpack.NormalModuleReplacementPlugin(/@tsoa\/cli/, '@shared/backend/tsoa-replacement'),
             new webpack.ProgressPlugin()
         ]
     };

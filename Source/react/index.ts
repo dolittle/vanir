@@ -8,7 +8,7 @@ import { Configuration } from './Configuration';
 export * from './Bootstrapper';
 
 export * from './DataSource';
-export * from './VersionInfo';
+export * from '../web/VersionInfo';
 
 export * from './mvvm/IMessenger';
 export * from './mvvm/IViewContext';

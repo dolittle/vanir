@@ -3,9 +3,6 @@
     "references": [
         {
             "path": "../typescript/dependency-inversion"
-        },
-        {
-            "path": "../web"
         }
     ]
 }
