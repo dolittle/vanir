@@ -4,8 +4,6 @@
 import { MicroserviceContext } from '../MicroserviceContext';
 import React from 'react';
 import { Route, RouteProps } from 'react-router-dom';
-import { MicroserviceConfiguration } from '@dolittle/vanir-web';
-
 
 export const MicroserviceRoute = (props: RouteProps) => {
     return (
