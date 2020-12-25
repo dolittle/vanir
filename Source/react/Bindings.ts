@@ -6,7 +6,7 @@ import { HttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { DataSource } from './DataSource';
 import { container } from 'tsyringe';
-import { constructor } from '@dolittle/dependency-inversion';
+import { constructor } from '@dolittle/vanir-dependency-inversion';
 import { Configuration } from './Configuration';
 
 export class Bindings {

@@ -98,7 +98,7 @@ export class Bindings {
 The type definition for constructor used by tsyringe has a problem automatically inferring the type of `IFoo`, so we need to nudge it a bit:
 
 ```typescript
-import { constructor } from '@dolittle/dependency-inversion';
+import { constructor } from '@dolittle/vanir-dependency-inversion';
 
 export class Bindings {
     static initialize() {

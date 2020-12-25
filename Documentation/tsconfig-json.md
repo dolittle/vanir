@@ -39,7 +39,7 @@ to give the correct import statement suggestions during auto import or quick fix
     "compilerOptions": {
         "paths": {
             "@shared/backend*": ["Source/Shared/Backend*"],
-            "@dolittle/dependency-inversion*": ["Source/DependencyInversion*"],
+            "@dolittle/vanir-dependency-inversion*": ["Source/DependencyInversion*"],
             "@shared/mvvm*": ["Source/MVVM*"],
             "@shared/portal*": ["Source/Portal*"],
             "@shared/styles*": ["Source/Styles*"],

@@ -9,7 +9,7 @@ import dotenv from 'dotenv';
 import * as Dolittle from './dolittle';
 import { Mongoose } from './data';
 import * as Express from './web';
-import * as DependencyInversion from '@dolittle/dependency-inversion';
+import * as DependencyInversion from '@dolittle/vanir-dependency-inversion';
 
 export { logger } from './logging';
 

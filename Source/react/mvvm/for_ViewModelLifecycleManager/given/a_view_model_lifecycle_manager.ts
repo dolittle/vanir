@@ -2,7 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 import sinon from 'sinon';
-import { IContainer } from '@dolittle/dependency-inversion';
+import { IContainer } from '@dolittle/vanir-dependency-inversion';
 import { ViewModelLifecycleManager } from '../../ViewModelLifecycleManager';
 
 
