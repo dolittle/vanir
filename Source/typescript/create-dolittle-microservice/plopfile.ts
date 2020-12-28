@@ -27,7 +27,7 @@ function appendMicroserviceToApplication(answers: Answers, config?: ActionConfig
     microservices.push(answers.path);
     application.set('microservices', microservices);
     application.save()
-    return 'Added microservice';
+    return 'Added microservice to application.json file';
 }
 
 export default function (plop: NodePlopAPI) {
@@ -56,7 +56,8 @@ export default function (plop: NodePlopAPI) {
                 destination: path.join(process.cwd()),
                 templateFiles: [
                     templatesRootPath,
-                    path.join(templatesRootPath, '.*')
+                    path.join(templatesRootPath, '.*'),
+                    //path.join(templatesRootPath, '.*/**/*')
                 ],
                 stripExtensions: ['hbs']
             } as AddManyActionConfig);
@@ -69,11 +70,11 @@ export default function (plop: NodePlopAPI) {
                     destination: path.join(process.cwd()),
                     templateFiles: [
                         webTemplatesRootPath,
-                        path.join(webTemplatesRootPath, '.*')
+                        path.join(webTemplatesRootPath, '.*'),
+                        //path.join(webTemplatesRootPath, '.*/**/*')
                     ],
                     stripExtensions: ['hbs']
                 } as AddManyActionConfig);
-
             }
 
             return actions;
