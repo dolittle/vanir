@@ -8,7 +8,8 @@ import { Answers } from 'inquirer';
 import { Guid } from '@dolittle/rudiments';
 import editJsonFile from 'edit-json-file';
 
-const templatesRootPath = path.join(rootPath, 'templates');
+const templatesRootPath = path.join(rootPath, 'templates', 'backend');
+const webTemplatesRootPath = path.join(rootPath, 'templates', 'web');
 
 const toPascalCase = function (input: string): string {
     return input.replace(/(\w)(\w*)/g,
@@ -60,7 +61,20 @@ export default function (plop: NodePlopAPI) {
                 stripExtensions: ['hbs']
             } as AddManyActionConfig);
 
-            if (answers!.ui) { }
+            if (answers!.ui) {
+
+                actions.push({
+                    type: 'addMany',
+                    base: webTemplatesRootPath,
+                    destination: path.join(process.cwd()),
+                    templateFiles: [
+                        webTemplatesRootPath,
+                        path.join(webTemplatesRootPath, '.*')
+                    ],
+                    stripExtensions: ['hbs']
+                } as AddManyActionConfig);
+
+            }
 
             return actions;
         }
