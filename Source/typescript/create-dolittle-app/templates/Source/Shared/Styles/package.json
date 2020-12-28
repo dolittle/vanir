@@ -1,0 +1,12 @@
+{
+    "name": "@shared/styles",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.ts",
+    "author": "",
+    "license": "UNLICENSED",
+    "dependencies": {
+        "office-ui-fabric-core": "11.0.0",
+        "@uifabric/icons": "7.5.17"
+    }
+}

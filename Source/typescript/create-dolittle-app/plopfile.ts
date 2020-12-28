@@ -2,22 +2,23 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 import path from 'path';
-import { NodePlopAPI, ActionType, ActionConfig } from 'plop';
+import { Plop, NodePlopAPI, ActionType, ActionConfig, AddManyActionConfig } from 'plop';
 import rootPath from './packageRoot';
 import { Answers } from 'inquirer';
 import { Guid } from '@dolittle/rudiments';
 
-const templatePath = path.join(rootPath, 'templates', 'application.json');
+import { createMicroservice } from 'create-dolittle-microservice/dist/wizard';
+
+const templatesRootPath = path.join(rootPath, 'templates');
 
 async function addPortalMicroservice(answers: Answers, config?: ActionConfig, plopFileApi?: NodePlopAPI): Promise<string> {
-    console.log('Adding portal');
-    return '';
+    createMicroservice('portal', true);
+    return 'Added portal microservice';
 }
-
 
 export default function (plop: NodePlopAPI) {
     plop.setGenerator('application', {
-        description: '',
+        description: 'Creates a new Dolittle Application',
         prompts: [{
             type: 'input',
             name: 'name',
@@ -30,11 +31,17 @@ export default function (plop: NodePlopAPI) {
         actions: (answers?: Answers) => {
             const actions: ActionType[] = [];
             answers!.id = Guid.create().toString();
+
             actions.push({
-                type: 'add',
-                path: path.join(process.cwd(), 'application.json'),
-                templateFile: templatePath
-            });
+                type: 'addMany',
+                base: templatesRootPath,
+                destination: path.join(process.cwd()),
+                templateFiles: [
+                    templatesRootPath,
+                    path.join(templatesRootPath, '.*')
+                ],
+                stripExtensions: ['hbs']
+            } as AddManyActionConfig);
 
             if (answers?.portal) {
                 actions.push(addPortalMicroservice);

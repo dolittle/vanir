@@ -1,5 +1,5 @@
 {
-    "name": "create-dolittle-app",
+    "name": "create-dolittle-microservice",
     "version": "2.1.10",
     "description": "",
     "author": "Dolittle",
@@ -11,7 +11,7 @@
     "repository": {
         "type": "git",
         "url": "git+https://github.com/dolittle-entropy/vanir.git",
-        "directory": "Source/typescript/create-dolittle-app"
+        "directory": "Source/typescript/create-dolittle-microservice"
     },
     "bugs": {
         "url": "https://github.com/dolittle-entropy/vanir/issues"
@@ -29,7 +29,8 @@
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
     "bin": {
-        "create-dolittle-app": "./dist/index.js"
+        "create-dolittle-microservice": "./dist/index.js",
+        "create-dolittle-ms": "./dist/index.js"
     },
     "scripts": {
         "prepublish": "yarn build",
@@ -44,13 +45,14 @@
     },
     "dependencies": {
         "@dolittle/rudiments": "5.0.1",
-        "create-dolittle-microservice": "2.1.10",
         "chalk": "^4.1.0",
         "commander": "^6.2.1",
+        "edit-json-file": "^1.5.0",
         "minimist": "^1.2.5",
         "plop": "2.7.4"
     },
     "devDependencies": {
+        "@types/edit-json-file": "^1.4.0",
         "@types/minimist": "^1.2.1"
     }
 }

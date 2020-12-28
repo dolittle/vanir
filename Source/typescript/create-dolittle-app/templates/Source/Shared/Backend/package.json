@@ -1,0 +1,12 @@
+{
+    "name": "@shared/backend",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.ts",
+    "license": "UNLICENSED",
+    "private": true,
+    "dependencies": {
+        "@shared/common": "1.0.0",
+        "@dolittle/vanir-backend": "^2.1.10"
+    }
+}

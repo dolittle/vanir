@@ -1,0 +1,9 @@
+{
+    "private": true,
+    "workspaces": [
+        "Source/**/*"
+    ],
+    "dependencies": {},
+    "devDependencies": {},
+    "license": "MIT"
+}

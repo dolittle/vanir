@@ -49,6 +49,7 @@
         "actionbar",
         "dependencyinversion",
         "mvvm",
+        "plopfile",
         "tsoa",
         "tsyringe",
         "typegoose",

@@ -2,15 +2,11 @@
     "extends": "../../../tsconfig.json",
     "compilerOptions": {
         "outDir": "dist",
-        "rootDir": "./"
+        "rootDir": "./",
     },
     "references": [
         {
-            "path": "../create-dolittle-microservice"
+            "path": "../../Shared/Backend"
         }
-    ],
-    "exclude": [
-        "templates",
-        "dist"
     ]
 }
