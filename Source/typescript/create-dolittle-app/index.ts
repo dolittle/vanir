@@ -5,33 +5,36 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 import path from 'path';
+import fs from 'fs';
 import commander from 'commander';
 import chalk from 'chalk';
 import { Plop, run } from 'plop';
+import rootPath from './packageRoot';
 
 const args = process.argv.slice(2);
 const argv = require('minimist')(args);
 
+const packageJsonFile = path.join(rootPath, 'package.json');
 let packageJson = { name: 'unknown', version: '1.0.0' };
-if (require.main) {
-    packageJson = require(path.join(require.main.path, 'package.json'));
+if (fs.existsSync(packageJsonFile)) {
+    packageJson = require(packageJsonFile);
 }
 
-console.log(require.main?.path);
+const cwd = process.cwd();
+const plopFile = path.join(__dirname, 'plopfile.js');
 
 const program = new commander.Command(packageJson.name)
     .version(packageJson.version)
     .arguments('<application-name>')
     .usage(`${chalk.green('<application.name>')} [options]`)
     .action(name => {
-        const cwd = process.cwd();
-
         Plop.launch({
             cwd,
-            configPath: path.join(__dirname, 'plopfile.js'),
+            configPath: plopFile,
             require: argv.require,
             completion: argv.completion
         }, env => run(env, undefined, true));
+
     })
     .addHelpCommand()
     .parse(process.argv);

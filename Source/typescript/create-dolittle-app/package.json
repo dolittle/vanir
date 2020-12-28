@@ -42,6 +42,7 @@
         "ci": "yarn clean && yarn lint:ci && yarn build && yarn test"
     },
     "dependencies": {
+        "@dolittle/rudiments": "5.0.1",
         "chalk": "^4.1.0",
         "commander": "^6.2.1",
         "minimist": "^1.2.5",
