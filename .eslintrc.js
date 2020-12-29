@@ -4,14 +4,14 @@
 module.exports = {
     root: true,
     ignorePatterns: [
-        '.eslintrc.js',
         '*.d.ts',
         '*.scss.d.ts',
         'tsconfig.*',
         'wallaby.js',
         'dist',
         'node_modules',
-        'wwwroot'
+        'wwwroot',
+        'templates'
     ],
     extends: [
         'plugin:react/recommended'
