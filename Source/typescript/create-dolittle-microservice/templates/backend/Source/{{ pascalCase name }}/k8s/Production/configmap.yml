@@ -3,14 +3,14 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   namespace: application-{{applicationId}}
-  name: {{lowerCase applcationName}}-prod-{{lowerCase name}}-env-variables
+  name: {{lowerCase applicationName}}-prod-{{lowerCase name}}-env-variables
   labels:
     tenant: Dolittle
     application: {{pascalCase applicationName}}-Prod
     microservice: {{pascalCase name}}
 data:
   NODE_ENV: "production"
-  DATABASE_HOST: "{{lowerCase applcationName}}-prod-mongo.application-{{applicationId}}.svc.cluster.local"
+  DATABASE_HOST: "{{lowerCase applicationName}}-prod-mongo.application-{{applicationId}}.svc.cluster.local"
   DATABASE_NAME: "{{lowerCase name}}"
   PORT: "80"
   DOLITTLE_RUNTIME_PORT: "50053"
@@ -20,7 +20,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   namespace: application-{{applicationId}}
-  name: {{lowerCase applcationName}}-prod-{{lowerCase name}}-config-files
+  name: {{lowerCase applicationName}}-prod-{{lowerCase name}}-config-files
   labels:
     tenant: Dolittle
     application: {{pascalCase applicationName}}-Prod
