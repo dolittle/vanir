@@ -1,50 +1,46 @@
 {
-    "name": "create-dolittle-app",
+    "name": "@dolittle/vanir-cli",
     "version": "2.1.10",
     "description": "",
     "author": "Dolittle",
     "license": "MIT",
-    "preferGlobal": true,
     "publishConfig": {
         "access": "public"
     },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/dolittle-entropy/vanir.git",
-        "directory": "Source/typescript/create-dolittle-app"
+        "directory": "Source/typescript/backend"
     },
     "bugs": {
         "url": "https://github.com/dolittle-entropy/vanir/issues"
     },
     "homepage": "https://github.com/dolittle-entropy/vanir#readme",
-    "engineStrict": true,
-    "engines": {
-        "node": ">= 14"
-    },
     "files": [
         "dist",
-        "templates",
         "**/*.ts"
     ],
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
-    "bin": {
-        "create-dolittle-app": "./dist/index.js"
-    },
     "scripts": {
         "prepublish": "yarn build",
-        "debug": "NODE_ENV=development node --inspect=0 -r ts-node/register index.ts",
-        "start": "NODE_ENV=development ts-node index.ts",
         "clean": "tsc -b --clean",
-        "build": "tsc -b && chmod +x dist/index.js",
+        "build": "tsc -b",
         "lint": "eslint '**/*.{js,ts,tsx}' --quiet --fix",
         "lint:ci": "eslint '**/*.{js,ts,tsx}' --quiet",
         "test": "mocha",
         "ci": "yarn clean && yarn lint:ci && yarn build && yarn test"
     },
     "dependencies": {
-        "@dolittle/vanir-cli": "2.1.10",
-        "commander": "^6.2.1"
+        "@dolittle/rudiments": "5.0.1",
+        "chalk": "^4.1.0",
+        "commander": "^6.2.1",
+        "edit-json-file": "1.5.0",
+        "minimist": "^1.2.5",
+        "plop": "2.7.4"
     },
-    "devDependencies": {}
+    "devDependencies": {
+        "@types/edit-json-file": "^1.4.0",
+        "@types/minimist": "^1.2.1"
+    }
 }

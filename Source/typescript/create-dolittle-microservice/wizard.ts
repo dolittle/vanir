@@ -3,15 +3,13 @@
 
 import path from 'path';
 import { Plop, run } from 'plop';
-import out from 'plop/src/console-out';
-import nodePlop from 'node-plop';
 
 const args = process.argv.slice(2);
 export const argv = require('minimist')(args);
-import ora from 'ora';
+import { PlopHelper } from '@dolittle/vanir-cli';
 
 const cwd = process.cwd();
-export const plopFile = path.join(__dirname, 'plopfile.js');
+const plopFile = path.join(__dirname, 'plopfile.js');
 
 export function launchWizard() {
     Plop.launch({
@@ -22,43 +20,8 @@ export function launchWizard() {
     }, env => run(env, undefined, false));
 }
 
-const progressSpinner = ora();
-
 export async function createMicroservice(name: string, ui: boolean = true) {
-    const plop = nodePlop(plopFile, {
-        force: true,
-        destBasePath: cwd
-    });
-
-    const noMap = (argv['show-type-names'] || argv.t);
-    const onComment = (msg) => {
-        progressSpinner.info(msg); progressSpinner.start();
-    };
-    const onSuccess = (change) => {
-        let line = '';
-        if (change.type) { line += ` ${out.typeMap(change.type, noMap)}`; }
-        if (change.path) { line += ` ${change.path}`; }
-        progressSpinner.succeed(line); progressSpinner.start();
-    };
-    const onFailure = (fail) => {
-        let line = '';
-        if (fail.type) { line += ` ${out.typeMap(fail.type, noMap)}`; }
-        if (fail.path) { line += ` ${fail.path}`; }
-        const errMsg = fail.error || fail.message;
-        if (errMsg) { line += ` ${errMsg}` };
-        progressSpinner.fail(line); progressSpinner.start();
-    };
-    progressSpinner.start();
-
-    const generator = plop.getGenerator('microservice');
-    const result = await generator.runActions({
-        name,
-        ui
-    }, {
-        onComment,
-        onFailure,
-        onSuccess
-    });
-
-    progressSpinner.stop();
+    const helper = new PlopHelper(plopFile);
+    const result = await helper.runGenerator('microservice', { name, ui });
+    return result;
 }
