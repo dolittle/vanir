@@ -7,6 +7,7 @@ import { Plop, run } from 'plop';
 const args = process.argv.slice(2);
 export const argv = require('minimist')(args);
 import { PlopHelper } from '@dolittle/vanir-cli';
+import { Answers } from 'inquirer';
 
 const cwd = process.cwd();
 const plopFile = path.join(__dirname, 'plopfile.js');
@@ -20,8 +21,12 @@ export function launchWizard() {
     }, env => run(env, undefined, false));
 }
 
-export async function createMicroservice(name: string, ui: boolean = true) {
+export async function createMicroservice(name: string, ui: boolean = true, portal: boolean = false) {
     const helper = new PlopHelper(plopFile);
-    const result = await helper.runGenerator('microservice', { name, ui });
+    const answers = { name, ui } as Answers;
+    if (portal) {
+        answers.uiPath = '/';
+    }
+    const result = await helper.runGenerator('microservice', answers);
     return result;
 }

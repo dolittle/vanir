@@ -12,7 +12,7 @@ import { createMicroservice } from 'create-dolittle-microservice/dist/wizard';
 const templatesRootPath = path.join(rootPath, 'templates');
 
 async function addPortalMicroservice(answers: Answers, config?: ActionConfig, plopFileApi?: NodePlopAPI): Promise<string> {
-    await createMicroservice('portal', true);
+    await createMicroservice('portal', true, true);
     return 'Added portal microservice';
 }
 

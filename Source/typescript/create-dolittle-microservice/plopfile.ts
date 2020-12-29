@@ -14,7 +14,7 @@ const webTemplatesRootPath = path.join(rootPath, 'templates', 'web');
 const toPascalCase = function (input: string): string {
     return input.replace(/(\w)(\w*)/g,
         function (g0, g1, g2) { return g1.toUpperCase() + g2.toLowerCase(); });
-}
+};
 
 function appendMicroserviceToApplication(answers: Answers, config?: ActionConfig, plopFileApi?: NodePlopAPI): string {
     const applicationFile = path.join(process.cwd(), 'application.json');
@@ -26,7 +26,7 @@ function appendMicroserviceToApplication(answers: Answers, config?: ActionConfig
 
     microservices.push(answers.path);
     application.set('microservices', microservices);
-    application.save()
+    application.save();
     return 'Added microservice to application.json file';
 }
 
@@ -57,6 +57,7 @@ export default function (plop: NodePlopAPI) {
             answers!.applicationName = application.name;
             answers!.tenant = application.tenant;
             answers!.license = application.license;
+            answers!.uiPath = answers!.uiPath || `/_${answers!.name.toLowerCase()}`;
 
             actions.push({
                 type: 'addMany',
