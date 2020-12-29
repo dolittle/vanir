@@ -12,6 +12,7 @@ extensions to install:
 * [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
 * [TS Import Sort](https://marketplace.visualstudio.com/items?itemName=nsoult.typescript-imports-sort)
 * [TS Importer](https://marketplace.visualstudio.com/items?itemName=pmneo.tsimporter)
+* [TypeScript Toolbox](https://marketplace.visualstudio.com/items?itemName=DSKWRK.vscode-generate-getter-setter)
 * [CSS Formatter](https://marketplace.visualstudio.com/items?itemName=aeschli.vscode-css-formatter)
 * [Sass Formatter](https://marketplace.visualstudio.com/items?itemName=sibiraj-s.vscode-scss-formatter)
 * [Edge Tools](https://marketplace.visualstudio.com/items?itemName=ms-edgedevtools.vscode-edge-devtools)
