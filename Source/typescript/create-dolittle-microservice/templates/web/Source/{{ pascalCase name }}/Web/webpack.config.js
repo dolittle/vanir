@@ -5,6 +5,6 @@ module.exports = (env, argv) => {
         config.devServer.proxy = {
             '{{lowerCase uiPath}}/graphql': 'http://localhost:3000',
             '/api': 'http://localhost:3000'
-        }
+        };
     });
 };
