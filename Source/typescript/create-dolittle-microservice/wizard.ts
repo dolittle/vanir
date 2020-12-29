@@ -26,7 +26,7 @@ const progressSpinner = ora();
 
 export async function createMicroservice(name: string, ui: boolean = true) {
     const plop = nodePlop(plopFile, {
-        force: false,
+        force: true,
         destBasePath: cwd
     });
 
@@ -49,7 +49,6 @@ export async function createMicroservice(name: string, ui: boolean = true) {
         progressSpinner.fail(line); progressSpinner.start();
     };
     progressSpinner.start();
-
 
     const generator = plop.getGenerator('microservice');
     const result = await generator.runActions({

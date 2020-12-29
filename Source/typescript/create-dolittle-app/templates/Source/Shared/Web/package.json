@@ -3,7 +3,8 @@
     "version": "1.0.0",
     "description": "",
     "main": "index.ts",
-    "license": "UNLICENSED",
+    "author": "{{tenant}}",
+    "license": "{{license}}",
     "private": true,
     "dependencies": {
         "@shared/common": "1.0.0",

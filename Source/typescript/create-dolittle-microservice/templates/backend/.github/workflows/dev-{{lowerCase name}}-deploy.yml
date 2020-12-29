@@ -2,8 +2,8 @@ name: Dev - Applications - Deploy
 
 env:
   SOURCE_PATH: "Source/{{pascalCase name}}"
-  DEPLOYMENT_NAME: "studio-dev-{{lowerCase name}}"
-  DOCKER_IMAGE_TAG: "dolittle/studio/{{lowerCase name}}"
+  DEPLOYMENT_NAME: "{{lowerCase applicationName}}-dev-{{lowerCase name}}"
+  DOCKER_IMAGE_TAG: "{{lowerCase author}}/{{lowerCase applicationName}}/{{lowerCase name}}"
   DOCKER_FILE: "Source/{{pascalCase name}}/Backend/Dockerfile"
 
 on:
@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
 
     outputs:
-      has-changes: ${{ steps.filter.outputs.src }}
+      has-changes: $\{{ steps.filter.outputs.src }}
 
     steps:
       - name: Checkout code
@@ -28,13 +28,13 @@ jobs:
         with:
           filters: |
             src:
-              - '${{ env.SOURCE_PATH }}/**'
+              - '$\{{ env.SOURCE_PATH }}/**'
               - 'Source/Shared/**'
 
   conditionalDeploy:
     runs-on: ubuntu-latest
     needs: changes
-    if: ${{ needs.changes.outputs.has-changes == 'true' }}
+    if: $\{{ needs.changes.outputs.has-changes == 'true' }}
 
     steps:
       - name: Checkout code
@@ -44,22 +44,22 @@ jobs:
         id: context
         uses: dolittle/establish-context-action@v2
         with:
-          version-file: "${{ env.SOURCE_PATH }}/version.json"
+          version-file: "$\{{ env.SOURCE_PATH }}/version.json"
           environment-branch: "development"
 
       - name: Increment version
         id: increment-version
-        if: ${{ steps.context.outputs.should-publish == 'true' }}
+        if: $\{{ steps.context.outputs.should-publish == 'true' }}
         uses: dolittle/increment-version-action@v2
         with:
-          version: ${{ steps.context.outputs.current-version }}
-          release-type: ${{ steps.context.outputs.release-type }}
+          version: $\{{ steps.context.outputs.current-version }}
+          release-type: $\{{ steps.context.outputs.release-type }}
 
       - name: Invoke deploy
-        if: ${{ steps.context.outputs.should-publish == 'true' }}
+        if: $\{{ steps.context.outputs.should-publish == 'true' }}
         uses: benc-uk/workflow-dispatch@v1
         with:
           workflow: DeployMicroservice
-          token: ${{ secrets.PERSONAL_TOKEN }}
-          ref: ${{ github.event.sha }}
-          inputs: '{ "dockerfile":"${{ env.DOCKER_FILE }}", "docker-image-tag":"${{ env.DOCKER_IMAGE_TAG }}", "deployment": "${{ env.DEPLOYMENT_NAME }}", "version": "${{ steps.increment-version.outputs.next-version }}", "source-path": "${{ env.SOURCE_PATH }}" }'
+          token: $\{{ secrets.PERSONAL_TOKEN }}
+          ref: $\{{ github.event.sha }}
+          inputs: '{ "dockerfile":"$\{{ env.DOCKER_FILE }}", "docker-image-tag":"$\{{ env.DOCKER_IMAGE_TAG }}", "deployment": "$\{{ env.DEPLOYMENT_NAME }}", "version": "$\{{ steps.increment-version.outputs.next-version }}", "source-path": "$\{{ env.SOURCE_PATH }}" }'

@@ -1,9 +1,10 @@
 {
     "private": true,
+    "author": "{{tenant}}",
+    "license": "{{license}}",
     "workspaces": [
         "Source/**/*"
     ],
     "dependencies": {},
-    "devDependencies": {},
-    "license": "MIT"
+    "devDependencies": {}
 }

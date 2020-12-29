@@ -13,6 +13,9 @@
             "@shared/web*": [
                 "Source/Shared/Web*"
             ],
+            "@shared/specs*": [
+                "Source/Shared/Specs*"
+            ],
             "@shared/styles*": [
                 "Source/Styles*"
             ]

@@ -50,14 +50,20 @@ export default function (plop: NodePlopAPI) {
 
             actions.push(appendMicroserviceToApplication);
 
+            const applicationFile = path.join(process.cwd(), 'application.json');
+            const application = require(applicationFile)
+            answers!.applicationId = application.id;
+            answers!.applicationName = application.name;
+            answers!.tenant = application.tenant;
+            answers!.license = application.license;
+
             actions.push({
                 type: 'addMany',
                 base: templatesRootPath,
                 destination: path.join(process.cwd()),
                 templateFiles: [
                     templatesRootPath,
-                    path.join(templatesRootPath, '.*'),
-                    //path.join(templatesRootPath, '.*/**/*')
+                    path.join(templatesRootPath, '.*/**/*')
                 ],
                 stripExtensions: ['hbs']
             } as AddManyActionConfig);
@@ -70,8 +76,7 @@ export default function (plop: NodePlopAPI) {
                     destination: path.join(process.cwd()),
                     templateFiles: [
                         webTemplatesRootPath,
-                        path.join(webTemplatesRootPath, '.*'),
-                        //path.join(webTemplatesRootPath, '.*/**/*')
+                        path.join(webTemplatesRootPath, '.*/**/*')
                     ],
                     stripExtensions: ['hbs']
                 } as AddManyActionConfig);
