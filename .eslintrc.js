@@ -4,6 +4,7 @@
 module.exports = {
     root: true,
     ignorePatterns: [
+        '.eslintrc.js',
         '*.d.ts',
         '*.scss.d.ts',
         'tsconfig.*',
