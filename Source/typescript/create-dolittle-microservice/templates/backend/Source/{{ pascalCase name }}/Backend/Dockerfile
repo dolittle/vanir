@@ -5,6 +5,7 @@ WORKDIR /app
 COPY package.json ./
 COPY .eslintrc.js ./
 COPY tsconfig.json ./
+COPY application.json ./
 
 COPY Source/Shared/Backend/package.json ./Source/Shared/Backend/package.json
 COPY Source/Shared/Components/package.json ./Source/Shared/Components/package.json
@@ -18,7 +19,7 @@ COPY Source/Shared/Web/package.json ./Source/Shared/Web/package.json
 COPY Source/Shared/WebPack/package.json ./Source/Shared/WebPack/package.json
 RUN yarn
 
-COPY Source/{{name}}/version.json /app/Source/{{name}}/version.json
+COPY Source/{{name}}/microservice.json /app/Source/{{name}}/microservice.json
 
 # Backend Build
 FROM node:14.2.0 AS backend-build
