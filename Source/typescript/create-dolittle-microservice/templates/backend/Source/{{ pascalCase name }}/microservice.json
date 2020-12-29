@@ -1,4 +1,7 @@
 {
     "id": "{{id}}",
-    "name": "{{name}}"
+    "name": "{{name}}",
+    "version": "1.0.0",
+    "commit": "",
+    "built": ""
 }
