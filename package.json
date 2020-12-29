@@ -1,11 +1,9 @@
 {
     "name": "root",
     "private": true,
-    "workspaces": {
-        "packages": [
-            "Source/**/*"
-        ]
-    },
+    "workspaces": [
+        "Source/**/*"
+    ],
     "scripts": {
         "clean": "node ./run-task-on-workspaces.js clean",
         "build": "node ./run-task-on-workspaces.js build",
