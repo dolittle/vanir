@@ -36,7 +36,8 @@ export default function (plop: NodePlopAPI) {
         prompts: [{
             type: 'input',
             name: 'name',
-            message: 'Name of the microservice:'
+            message: 'Name of the microservice:',
+            validate: (input) => input && input.length > 0
         }, {
             type: 'confirm',
             name: 'ui',
@@ -51,7 +52,7 @@ export default function (plop: NodePlopAPI) {
             actions.push(appendMicroserviceToApplication);
 
             const applicationFile = path.join(process.cwd(), 'application.json');
-            const application = require(applicationFile)
+            const application = require(applicationFile);
             answers!.applicationId = application.id;
             answers!.applicationName = application.name;
             answers!.tenant = application.tenant;
