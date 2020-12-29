@@ -19,7 +19,7 @@ export default function App() {
 }
 
 ReactDOM.render(
-    <Bootstrapper name="Events" prefix="/_/events" version={version}>
+    <Bootstrapper name="{{pascalCase name}}" prefix="{{lowerCase uiPrefix}}" version={version}>
         <App />
     </Bootstrapper>,
     document.getElementById('root')

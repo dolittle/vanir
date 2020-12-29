@@ -25,7 +25,9 @@ export async function createMicroservice(name: string, ui: boolean = true, porta
     const helper = new PlopHelper(plopFile);
     const answers = { name, ui } as Answers;
     if (portal) {
-        answers.uiPath = '/';
+        answers.hasUIPrefix = false;
+    } else {
+        answers.hasUIPrefix = true;
     }
     const result = await helper.runGenerator('microservice', answers);
     return result;

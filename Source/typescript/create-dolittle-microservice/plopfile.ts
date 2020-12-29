@@ -57,7 +57,14 @@ export default function (plop: NodePlopAPI) {
             answers!.applicationName = application.name;
             answers!.tenant = application.tenant;
             answers!.license = application.license;
-            answers!.uiPath = answers!.uiPath || `/_${answers!.name.toLowerCase()}`;
+
+            if (typeof answers!.hasUIPrefix === 'undefined' || answers!.hasUIPrefix === true) {
+                answers!.uiPath = `/_/${answers!.name.toLowerCase()}`;
+                answers!.uiPrefix = `/_/${answers!.name.toLowerCase()}`;
+            } else {
+                answers!.uiPath = '/';
+                answers!.uiPrefix = '';
+            }
 
             actions.push({
                 type: 'addMany',
@@ -76,6 +83,7 @@ export default function (plop: NodePlopAPI) {
                     type: 'addMany',
                     base: webTemplatesRootPath,
                     destination: path.join(process.cwd()),
+                    force: true,
                     templateFiles: [
                         webTemplatesRootPath,
                         path.join(webTemplatesRootPath, '.*/**/*')

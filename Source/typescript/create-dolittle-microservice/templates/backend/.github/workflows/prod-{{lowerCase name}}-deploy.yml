@@ -1,9 +1,9 @@
-name: Prod - Applications - Deploy
+name: Prod - {{pascalCase name}} - Deploy
 
 env:
   SOURCE_PATH: "Source/{{pascalCase name}}"
   DEPLOYMENT_NAME: "{{lowerCase applicationName}}-prod-{{lowerCase name}}"
-  DOCKER_IMAGE_TAG: "{{lowerCase author}}/{{lowerCase applicationName}}/{{lowerCase name}}"
+  DOCKER_IMAGE_TAG: "{{lowerCase tenant}}/{{lowerCase applicationName}}/{{lowerCase name}}"
   DOCKER_FILE: "Source/{{pascalCase name}}/Backend/Dockerfile"
 
 on:

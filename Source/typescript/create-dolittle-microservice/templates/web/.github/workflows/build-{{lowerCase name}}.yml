@@ -27,3 +27,5 @@ jobs:
           yarn
           cd Source/{{pascalCase name}}/Backend
           yarn ci
+          cd ../Web
+          yarn ci

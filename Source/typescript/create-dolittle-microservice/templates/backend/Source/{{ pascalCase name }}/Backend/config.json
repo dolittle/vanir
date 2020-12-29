@@ -8,7 +8,7 @@
         }
     },
     "database": {
-        "name": "{{lowerCase name}}"
+        "name": "read_models_{{lowerCase name}}"
     },
     "eventStore": {
         "name": "event_store_{{lowerCase name}}"
