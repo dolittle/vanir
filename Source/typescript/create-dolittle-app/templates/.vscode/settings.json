@@ -1,6 +1,6 @@
 {
     "editor.detectIndentation": false,
-    "editor.formatOnSave": false,
+    "editor.formatOnSave": true,
     "editor.insertSpaces": true,
     "editor.codeActionsOnSave": {
         "source.fixAll.eslint": false
@@ -41,15 +41,15 @@
     "typescript.preferences.quoteStyle": "single",
     "typescript.suggest.autoImports": true,
     "typescript.implementationsCodeLens.enabled": true,
-    "typescript.tsdk": "./node_modules/typescript/lib",
+    "typescript.tsdk": "node_modules/typescript/lib",
     "cSpell.words": [
         "Bootstrapper",
         "Deduplication",
         "MUUID",
         "actionbar",
         "dependencyinversion",
+        "fluentui",
         "mvvm",
-        "plopfile",
         "tsoa",
         "tsyringe",
         "typegoose",

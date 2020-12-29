@@ -9,7 +9,7 @@ import fs from 'fs';
 import commander from 'commander';
 import chalk from 'chalk';
 import rootPath from './packageRoot';
-import { launchWizard } from './launchWizard';
+import { launchWizard } from './wizard';
 
 const packageJsonFile = path.join(rootPath, 'package.json');
 let packageJson = { name: 'unknown', version: '1.0.0' };
@@ -19,8 +19,8 @@ if (fs.existsSync(packageJsonFile)) {
 
 const program = new commander.Command(packageJson.name)
     .version(packageJson.version)
-    .arguments('<application-name>')
-    .usage(`${chalk.green('<application-name>')} [options]`)
+    .arguments('<microservice-name>')
+    .usage(`${chalk.green('<microservice-name>')} [options]`)
     .action(name => {
         launchWizard();
     })

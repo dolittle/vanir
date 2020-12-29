@@ -1,0 +1,16 @@
+{
+    "microserviceId": "{{id}}",
+    "routeSegment": "{{lowerCase name}}",
+    "port": 3002,
+    "dolittle": {
+        "runtime": {
+            "port": 50057
+        }
+    },
+    "database": {
+        "name": "read_models_{{lowerCase name}}"
+    },
+    "eventStore": {
+        "name": "event_store_{{lowerCase name}}"
+    }
+}

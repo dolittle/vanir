@@ -1,0 +1,12 @@
+{
+    "id": "{{id}}",
+    "name": "{{pascalCase name}}",
+    "tenant": "{{tenant}}",
+    "license": "{{license}}",
+    "containerRegistry": "{{containerRegistry}}",
+    "portal": {
+        "enabled": "{{portal}}",
+        "path": "{{portalPath}}"
+    },
+    "microservices": []
+}

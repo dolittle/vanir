@@ -1,0 +1,31 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: application-{{applicationId}}
+  name: {{lowerCase applicationName}}-prod-{{lowerCase name}}-env-variables
+  labels:
+    tenant: Dolittle
+    application: {{pascalCase applicationName}}-Prod
+    microservice: {{pascalCase name}}
+data:
+  NODE_ENV: "production"
+  DATABASE_HOST: "{{lowerCase applicationName}}-prod-mongo.application-{{applicationId}}.svc.cluster.local"
+  DATABASE_NAME: "read_models_{{lowerCase name}}"
+  EVENTSTORE_HOST: "{{lowerCase applicationName}}-prod-mongo.application-{{applicationId}}.svc.cluster.local"
+  EVENTSTORE_NAME: "event_store_{{lowerCase name}}"
+  DOLITTLE_RUNTIME_HOST: "localhost"
+  DOLITTLE_RUNTIME_PORT: "50053"
+  PORT: "80"
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: application-{{applicationId}}
+  name: {{lowerCase applicationName}}-prod-{{lowerCase name}}-config-files
+  labels:
+    tenant: Dolittle
+    application: {{pascalCase applicationName}}-Prod
+    microservice: {{pascalCase name}}
+data:

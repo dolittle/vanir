@@ -1,6 +1,6 @@
 {
-    "name": "@dolittle/vanir-react",
-    "version": "2.1.11",
+    "name": "@dolittle/vanir-cli",
+    "version": "2.1.10",
     "description": "",
     "author": "Dolittle",
     "license": "MIT",
@@ -10,13 +10,12 @@
     "repository": {
         "type": "git",
         "url": "git+https://github.com/dolittle-entropy/vanir.git",
-        "directory": "Source/react"
+        "directory": "Source/typescript/backend"
     },
     "bugs": {
         "url": "https://github.com/dolittle-entropy/vanir/issues"
     },
     "homepage": "https://github.com/dolittle-entropy/vanir#readme",
-    "readme": "",
     "files": [
         "dist",
         "**/*.ts"
@@ -34,26 +33,14 @@
     },
     "dependencies": {
         "@dolittle/rudiments": "5.0.1",
-        "@dolittle/vanir-dependency-inversion": "2.1.11",
-        "@dolittle/vanir-web": "2.1.11",
-        "apollo-cache-inmemory": "1.6.5",
-        "apollo-client": "2.6.8",
-        "apollo-link-http": "1.5.17",
-        "graphql": "15.4.0",
-        "graphql-tag": "2.11.0",
-        "react": "16.14.0",
-        "react-dom": "16.14.0",
-        "react-router-dom": "5.2.0"
+        "chalk": "^4.1.0",
+        "commander": "^6.2.1",
+        "edit-json-file": "1.5.0",
+        "minimist": "^1.2.5",
+        "plop": "2.7.4"
     },
     "devDependencies": {
-        "@types/react": "16.9.10",
-        "@types/react-dom": "16.9.10",
-        "@types/react-router-dom": "5.1.6"
-    },
-    "peerDependencies": {
-        "@types/react": ">=16.8.0 <17.0.0",
-        "@types/react-dom": ">=16.8.0 <17.0.0",
-        "react": ">=16.8.0 <17.0.0",
-        "react-dom": ">=16.8.0 <17.0.0"
+        "@types/edit-json-file": "^1.4.0",
+        "@types/minimist": "^1.2.1"
     }
 }
