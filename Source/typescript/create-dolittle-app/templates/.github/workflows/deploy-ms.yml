@@ -51,7 +51,7 @@ jobs:
         id: write-version-info
         uses: dolittle/write-version-to-file-action@v1
         with:
-          path: '$\{{ github.event.inputs.source-path }}/version.json'
+          path: '$\{{ github.event.inputs.source-path }}/microservice.json'
           version: $\{{ github.event.inputs.version }}
           token: $\{{ secrets.GITHUB_TOKEN }}
 
