@@ -10,7 +10,8 @@ module.exports = {
         'wallaby.js',
         'dist',
         'node_modules',
-        'wwwroot'
+        'wwwroot',
+        'templates'
     ],
     extends: [
         'plugin:react/recommended'

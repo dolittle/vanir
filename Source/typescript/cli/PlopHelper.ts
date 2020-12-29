@@ -53,7 +53,7 @@ export class PlopHelper {
             if (fail.type) { line += ` ${out.typeMap(fail.type, noMap)}`; }
             if (fail.path) { line += ` ${fail.path}`; }
             const errMsg = fail.error || fail.message;
-            if (errMsg) { line += ` ${errMsg}` };
+            if (errMsg) { line += ` ${errMsg}`; };
             progressSpinner.fail(line); progressSpinner.start();
         };
         progressSpinner.start();
