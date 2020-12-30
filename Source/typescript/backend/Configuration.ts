@@ -39,7 +39,7 @@ export class Configuration {
         nconf
             .argv({ parseValues: true })
             .env({ separator: '_', parseValues: true, lowerCase: true })
-            .file({ file: 'config.json' })
+            .file({ file: 'vanir.json' })
             .defaults(defaults);
 
         const instance = new Configuration();
