@@ -17,7 +17,7 @@ const toPascalCase = function (input: string): string {
 };
 
 function appendMicroserviceToApplication(answers: Answers, config?: ActionConfig, plop?: NodePlopAPI): string {
-    const destinationPath = plop?.getPlopfilePath() || process.cwd()
+    const destinationPath = plop?.getPlopfilePath() || process.cwd();
     const applicationFile = path.join(destinationPath, 'application.json');
     const application = editJsonFile(applicationFile, { stringify_width: 4 });
     const microservices: string[] = application.get('microservices') as string[] | [];
@@ -32,7 +32,7 @@ function appendMicroserviceToApplication(answers: Answers, config?: ActionConfig
 }
 
 export default function (plop: NodePlopAPI) {
-    const destinationPath = plop?.getPlopfilePath() || process.cwd()
+    const destinationPath = plop?.getPlopfilePath() || process.cwd();
     plop.setGenerator('microservice', {
         description: 'Creates a new Dolittle Microservice',
         prompts: [{
