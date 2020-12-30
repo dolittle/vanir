@@ -11,7 +11,7 @@ import { createMicroservice } from 'create-dolittle-microservice/dist/creation';
 
 const templatesRootPath = path.join(rootPath, 'templates');
 
-async function addPortalMicroservice(answers: Answers, config?: ActionConfig, plopFileApi?: NodePlopAPI): Promise<string> {
+async function addPortalMicroservice(answers: Answers, config?: ActionConfig, plop?: NodePlopAPI): Promise<string> {
     await createMicroservice({
         name: 'portal',
         ui: true,
@@ -60,10 +60,12 @@ export default function (plop: NodePlopAPI) {
             const actions: ActionType[] = [];
             answers!.id = Guid.create().toString();
 
+            const targetDirectory = answers!.targetDirectory || process.cwd();
+
             actions.push({
                 type: 'addMany',
                 base: templatesRootPath,
-                destination: plop.getDestBasePath(),
+                destination: targetDirectory,
                 templateFiles: [
                     templatesRootPath,
                     path.join(templatesRootPath, '.*/**/*')
