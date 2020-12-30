@@ -58,6 +58,8 @@ export class PlopHelper {
         };
         progressSpinner.start();
 
+        answers.targetDirectory = targetDirectory;
+
         const generator = plop.getGenerator(generatorName);
         const result = await generator.runActions(answers, {
             onComment,
