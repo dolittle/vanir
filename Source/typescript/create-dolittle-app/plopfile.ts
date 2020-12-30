@@ -15,7 +15,8 @@ async function addPortalMicroservice(answers: Answers, config?: ActionConfig, pl
     await createMicroservice({
         name: 'portal',
         ui: true,
-        portal: true
+        portal: true,
+        targetDirectory: answers.targetDirectory
     });
     return 'Added portal microservice';
 }
