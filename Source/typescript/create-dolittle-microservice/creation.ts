@@ -21,7 +21,7 @@ export function launchWizard() {
     }, env => run(env, undefined, false));
 }
 
-export async function createMicroservice(name: string, ui: boolean = true, portal: boolean = false) {
+export async function createMicroservice({ name, ui = true, portal = false, targetDirectory }: { name: string; ui?: boolean; portal?: boolean; targetDirectory?: string; }) {
     const helper = new PlopHelper(plopFile);
     const answers = { name, ui } as Answers;
     if (portal) {
@@ -29,6 +29,6 @@ export async function createMicroservice(name: string, ui: boolean = true, porta
     } else {
         answers.hasUIPrefix = true;
     }
-    const result = await helper.runGenerator('microservice', answers);
+    const result = await helper.runGenerator('microservice', answers, targetDirectory);
     return result;
 }

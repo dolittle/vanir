@@ -7,12 +7,16 @@ import rootPath from './packageRoot';
 import { Answers } from 'inquirer';
 import { Guid } from '@dolittle/rudiments';
 
-import { createMicroservice } from 'create-dolittle-microservice/dist/wizard';
+import { createMicroservice } from 'Source/typescript/create-dolittle-microservice/dist/creation';
 
 const templatesRootPath = path.join(rootPath, 'templates');
 
 async function addPortalMicroservice(answers: Answers, config?: ActionConfig, plopFileApi?: NodePlopAPI): Promise<string> {
-    await createMicroservice('portal', true, true);
+    await createMicroservice({
+        name: 'portal',
+        ui: true,
+        portal: true
+    });
     return 'Added portal microservice';
 }
 
