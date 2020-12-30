@@ -3,5 +3,5 @@
 
 export type Portal = {
     enabled: boolean;
-    path: string;
+    id: string;
 };
