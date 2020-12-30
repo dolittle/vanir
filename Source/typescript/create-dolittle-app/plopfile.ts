@@ -63,7 +63,7 @@ export default function (plop: NodePlopAPI) {
             actions.push({
                 type: 'addMany',
                 base: templatesRootPath,
-                destination: path.join(process.cwd()),
+                destination: plop.getDestBasePath(),
                 templateFiles: [
                     templatesRootPath,
                     path.join(templatesRootPath, '.*/**/*')

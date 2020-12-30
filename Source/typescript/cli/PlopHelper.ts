@@ -29,13 +29,13 @@ export class PlopHelper {
 
     constructor(private _file: string) { }
 
-    async runGenerator(generatorName: string, answers: Answers, workingDirectory?: string): Promise<{
+    async runGenerator(generatorName: string, answers: Answers, targetDirectory?: string): Promise<{
         changes: PlopActionHooksChanges[];
         failures: PlopActionHooksFailures[];
     }> {
         const plop = nodePlop(this._file, {
             force: true,
-            destBasePath: workingDirectory || process.cwd()
+            destBasePath: targetDirectory || process.cwd()
         });
 
         const noMap = (argv['show-type-names'] || argv.t);
