@@ -7,7 +7,7 @@ import rootPath from './packageRoot';
 import { Answers } from 'inquirer';
 import { Guid } from '@dolittle/rudiments';
 
-import { createMicroservice } from 'Source/typescript/create-dolittle-microservice/dist/creation';
+import { createMicroservice } from 'create-dolittle-microservice/dist/creation';
 
 const templatesRootPath = path.join(rootPath, 'templates');
 
