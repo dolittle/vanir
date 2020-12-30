@@ -9,7 +9,7 @@ import fs from 'fs';
 import commander from 'commander';
 import chalk from 'chalk';
 import rootPath from './packageRoot';
-import { launchWizard } from './launchWizard';
+import { launchWizard } from './creation';
 
 const packageJsonFile = path.join(rootPath, 'package.json');
 let packageJson = { name: 'unknown', version: '1.0.0' };

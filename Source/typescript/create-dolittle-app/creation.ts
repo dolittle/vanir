@@ -4,6 +4,8 @@
 import path from 'path';
 
 import { Plop, run } from 'plop';
+import { Answers } from 'inquirer';
+import { PlopHelper } from '@dolittle/vanir-cli';
 const args = process.argv.slice(2);
 export const argv = require('minimist')(args);
 
@@ -17,4 +19,11 @@ export function launchWizard() {
         require: argv.require,
         completion: argv.completion
     }, env => run(env, undefined, true));
+}
+
+export async function createApplication({ name, tenant, license, containerRegistry, portal, targetDirectory }: { name: string; tenant: string; license: string; containerRegistry: string; portal: boolean; targetDirectory?: string; }) {
+    const helper = new PlopHelper(plopFile);
+    const answers = { name, tenant, license, containerRegistry, portal } as Answers;
+    const result = await helper.runGenerator('application', answers, targetDirectory);
+    return result;
 }
