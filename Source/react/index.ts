@@ -11,6 +11,8 @@ export * from './mvvm';
 export * from './routing';
 export * from './MicroserviceContext';
 
+export * from './useDialog';
+
 export * as mvvm from './mvvm';
 export * as routing from './routing';
 
