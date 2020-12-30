@@ -20,7 +20,7 @@ async function addPortalMicroservice(answers: Answers, config?: ActionConfig, pl
     });
 
     const directory = answers.targetDirectory || process.cwd();
-    const microserviceFile = path.join(directory, 'microservice.json');
+    const microserviceFile = path.join(directory, 'Source', 'Portal', 'microservice.json');
     answers.portalId = require(microserviceFile).id;
     return 'Added portal microservice';
 }
