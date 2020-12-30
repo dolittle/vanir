@@ -16,8 +16,9 @@ const toPascalCase = function (input: string): string {
         function (g0, g1, g2) { return g1.toUpperCase() + g2.toLowerCase(); });
 };
 
-function appendMicroserviceToApplication(answers: Answers, config?: ActionConfig, plopFileApi?: NodePlopAPI): string {
-    const applicationFile = path.join(process.cwd(), 'application.json');
+function appendMicroserviceToApplication(answers: Answers, config?: ActionConfig, plop?: NodePlopAPI): string {
+    const destinationPath = plop?.getPlopfilePath() || process.cwd()
+    const applicationFile = path.join(destinationPath, 'application.json');
     const application = editJsonFile(applicationFile, { stringify_width: 4 });
     const microservices: string[] = application.get('microservices') as string[] | [];
     if (microservices.some(_ => _ === answers.path)) {
@@ -31,6 +32,7 @@ function appendMicroserviceToApplication(answers: Answers, config?: ActionConfig
 }
 
 export default function (plop: NodePlopAPI) {
+    const destinationPath = plop?.getPlopfilePath() || process.cwd()
     plop.setGenerator('microservice', {
         description: 'Creates a new Dolittle Microservice',
         prompts: [{
@@ -51,7 +53,7 @@ export default function (plop: NodePlopAPI) {
 
             actions.push(appendMicroserviceToApplication);
 
-            const applicationFile = path.join(process.cwd(), 'application.json');
+            const applicationFile = path.join(destinationPath, 'application.json');
             const application = require(applicationFile);
             answers!.applicationId = application.id;
             answers!.applicationName = application.name;
@@ -69,7 +71,7 @@ export default function (plop: NodePlopAPI) {
             actions.push({
                 type: 'addMany',
                 base: templatesRootPath,
-                destination: path.join(process.cwd()),
+                destination: destinationPath,
                 templateFiles: [
                     templatesRootPath,
                     path.join(templatesRootPath, '.*/**/*')
@@ -82,7 +84,7 @@ export default function (plop: NodePlopAPI) {
                 actions.push({
                     type: 'addMany',
                     base: webTemplatesRootPath,
-                    destination: path.join(process.cwd()),
+                    destination: destinationPath,
                     force: true,
                     templateFiles: [
                         webTemplatesRootPath,
