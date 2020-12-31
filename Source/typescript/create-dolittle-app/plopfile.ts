@@ -16,12 +16,11 @@ async function addPortalMicroservice(answers: Answers, config?: ActionConfig, pl
         name: 'portal',
         ui: true,
         portal: true,
-        targetDirectory: answers.targetDirectory
+        targetDirectory: answers.targetDirectory,
+        id: answers.portalId
     });
 
-    const directory = answers.targetDirectory || process.cwd();
-    const microserviceFile = path.join(directory, 'Source', 'Portal', 'microservice.json');
-    answers.portalId = require(microserviceFile).id;
+    const microserviceFile = path.join(answers.targetDirectory, 'Source', 'Portal', 'microservice.json');
     return 'Added portal microservice';
 }
 
@@ -64,8 +63,11 @@ export default function (plop: NodePlopAPI) {
         actions: (answers?: Answers) => {
             const actions: ActionType[] = [];
             answers!.id = Guid.create().toString();
+            console.log(answers!.targetDirectory);
 
             const targetDirectory = answers!.targetDirectory || process.cwd();
+            answers!.targetDirectory = targetDirectory;
+            answers!.portalId = Guid.create().toString();
 
             actions.push({
                 type: 'addMany',
@@ -78,7 +80,6 @@ export default function (plop: NodePlopAPI) {
                 stripExtensions: ['hbs']
             } as AddManyActionConfig);
 
-            answers!.portalId = Guid.empty.toString();
             if (answers?.portal) {
                 actions.push(addPortalMicroservice);
             }

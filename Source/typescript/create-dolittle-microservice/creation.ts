@@ -21,9 +21,9 @@ export function launchWizard() {
     }, env => run(env, undefined, false));
 }
 
-export async function createMicroservice({ name, ui = true, portal = false, targetDirectory }: { name: string; ui?: boolean; portal?: boolean; targetDirectory?: string; }) {
+export async function createMicroservice({ name, ui = true, portal = false, targetDirectory, id }: { name: string; ui?: boolean; portal?: boolean; targetDirectory?: string; id?: string }) {
     const helper = new PlopHelper(plopFile);
-    const answers = { name, ui } as Answers;
+    const answers = { name, ui, id } as Answers;
     if (portal) {
         answers.hasUIPrefix = false;
     } else {

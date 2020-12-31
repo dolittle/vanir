@@ -47,7 +47,7 @@ export default function (plop: NodePlopAPI) {
         }],
         actions: (answers?: Answers) => {
             const actions: ActionType[] = [];
-            answers!.id = Guid.create().toString();
+            answers!.id = answers!.id || Guid.create().toString();
             answers!.name = toPascalCase(answers!.name);
             answers!.path = `./Source/${answers!.name}`;
 
