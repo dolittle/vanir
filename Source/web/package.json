@@ -1,6 +1,6 @@
 {
     "name": "@dolittle/vanir-web",
-    "version": "2.5.5",
+    "version": "2.5.6",
     "description": "",
     "author": "Dolittle",
     "license": "MIT",
@@ -33,7 +33,7 @@
         "ci": "yarn clean && yarn lint:ci && yarn build && yarn test"
     },
     "dependencies": {
-        "@dolittle/vanir-dependency-inversion": "2.5.5",
+        "@dolittle/vanir-dependency-inversion": "2.5.6",
         "rxjs": "6.6.0"
     },
     "devDependencies": {}
