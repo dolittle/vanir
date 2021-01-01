@@ -10,6 +10,7 @@ import editJsonFile from 'edit-json-file';
 
 const templatesRootPath = path.join(rootPath, 'templates', 'backend');
 const webTemplatesRootPath = path.join(rootPath, 'templates', 'web');
+const packageJson = require(path.join(rootPath, 'package.json'));
 
 const toPascalCase = function (input: string): string {
     return input.replace(/(\w)(\w*)/g,
@@ -50,6 +51,7 @@ export default function (plop: NodePlopAPI) {
             answers!.id = answers!.id || Guid.create().toString();
             answers!.name = toPascalCase(answers!.name);
             answers!.path = `./Source/${answers!.name}`;
+            answers!.vanirVersion = packageJson.version;
 
             const targetDirectory = answers!.targetDirectory || process.cwd();
 
