@@ -38,7 +38,8 @@ export async function initialize(configuration: Configuration, graphQLResolvers:
     const server = new ApolloServer({
         schema: await getSchemaFor(graphQLResolvers)
     });
-    server.applyMiddleware({ app, path: `${prefix}/graphql` });
+    const graphqlRoute = `${prefix}/graphql`.replace('//', '/');
+    server.applyMiddleware({ app, path: graphqlRoute });
 
     if (swaggerDoc) {
         let swaggerPath = '/api';
