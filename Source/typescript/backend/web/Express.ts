@@ -19,6 +19,12 @@ export type ExpressConfigCallback = (app: Express) => void;
 export async function initialize(configuration: Configuration, graphQLResolvers: Constructor[] = [], swaggerDoc?: swaggerUI.JsonObject, configCallback?: ExpressConfigCallback) {
     const prefix = `${configuration.isRooted ? '' : '/_'}/${configuration.routeSegment}`;
 
+    if (prefix.length > 0) {
+        logger.info(`Using '${prefix}' as prefix`);
+    } else {
+        logger.info('Using no prefix');
+    }
+
     app = express();
     app.use(morgan(':method :url :status :res[content-length] - :response-time ms') as any);
     app.use(compression());
@@ -35,7 +41,11 @@ export async function initialize(configuration: Configuration, graphQLResolvers:
     server.applyMiddleware({ app, path: `${prefix}/graphql` });
 
     if (swaggerDoc) {
-        const swaggerPath = `/api/${configuration.routeSegment}/swagger`;
+        let swaggerPath = '/api';
+        if (configuration.routeSegment.length > 0) {
+            swaggerPath = `${swaggerPath}/${configuration.routeSegment}`;
+        }
+        swaggerPath = `${swaggerPath}/swagger`;
         logger.info(`Hosting swagger at '${swaggerPath}'`);
         app.use(
             swaggerPath,
