@@ -1,5 +1,8 @@
 {
     "microserviceId": "{{id}}",
+{{#unless hasUIPrefix}}
+    "isRooted": true,
+{{/unless}}
     "routeSegment": "{{lowerCase name}}",
     "port": 3002,
     "dolittle": {
