@@ -10,6 +10,7 @@ import { Guid } from '@dolittle/rudiments';
 import { createMicroservice } from 'create-dolittle-microservice/dist/creation';
 
 const templatesRootPath = path.join(rootPath, 'templates');
+const packageJson = require(path.join(rootPath, 'package.json'));
 
 async function addPortalMicroservice(answers: Answers, config?: ActionConfig, plop?: NodePlopAPI): Promise<string> {
     await createMicroservice({
@@ -63,7 +64,7 @@ export default function (plop: NodePlopAPI) {
         actions: (answers?: Answers) => {
             const actions: ActionType[] = [];
             answers!.id = Guid.create().toString();
-            console.log(answers!.targetDirectory);
+            answers!.vanirVersion = packageJson.version;
 
             const targetDirectory = answers!.targetDirectory || process.cwd();
             answers!.targetDirectory = targetDirectory;
