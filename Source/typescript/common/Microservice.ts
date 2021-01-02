@@ -7,4 +7,5 @@ export type Microservice = {
     version: string;
     commit: string;
     built: string;
+    web: boolean
 };
