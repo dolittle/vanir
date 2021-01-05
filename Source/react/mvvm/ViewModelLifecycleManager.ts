@@ -6,6 +6,7 @@ import { IViewModelLifecycleManager } from './IViewModelLifecycleManager';
 
 import { IContainer } from '@dolittle/vanir-dependency-inversion';
 import { injectable } from 'tsyringe';
+import { RouteInfo } from './RouteInfo';
 
 /**
  * Represents an implementation of {@link IViewModelLifecycleManager}.
@@ -27,9 +28,9 @@ import { injectable } from 'tsyringe';
     }
 
     /** @inheritdoc */
-    attached(viewModel: any): void {
+    attached(viewModel: any, routeInfo: RouteInfo): void {
         if (typeof viewModel.attached === 'function') {
-            viewModel.attached();
+            viewModel.attached(routeInfo);
         }
     }
 
@@ -48,9 +49,9 @@ import { injectable } from 'tsyringe';
     }
 
     /** @inheritdoc */
-    paramsChanged(viewModel: any, props: any): void {
+    paramsChanged(viewModel: any, params: any, routeInfo: RouteInfo): void {
         if (typeof viewModel.paramsChanged === 'function') {
-            viewModel.paramsChanged(props);
+            viewModel.paramsChanged(params, routeInfo);
         }
     }
 }

@@ -45,9 +45,15 @@ export class ViewModelObserver<TViewModel, TProps = {}> extends React.Component<
             url: this.props.url
         } as IViewContext<TViewModel, TProps>;
 
-        this._viewModelLifecycleManager.attached(viewModel);
+        const routeInfo = {
+            url: this.props.url,
+            path: this.props.path,
+            params: this.props.params
+        };
+
+        this._viewModelLifecycleManager.attached(viewModel, routeInfo);
         this._viewModelLifecycleManager.propsChanged(viewModel, this.props.props);
-        this._viewModelLifecycleManager.paramsChanged(viewModel, this.props.params);
+        this._viewModelLifecycleManager.paramsChanged(viewModel, this.props.params, routeInfo);
 
         const viewModelAsAny = viewModel as any;
 
@@ -93,7 +99,14 @@ export class ViewModelObserver<TViewModel, TProps = {}> extends React.Component<
 
         for (const key in prevProps.params) {
             if (prevProps.params[key] !== this.props.params[key]) {
-                this._viewModelLifecycleManager.paramsChanged(this.state.viewModel, this.props.params);
+
+                const routeInfo = {
+                    url: this.props.url,
+                    path: this.props.path,
+                    params: this.props.params
+                };
+
+                this._viewModelLifecycleManager.paramsChanged(this.state.viewModel, this.props.params, routeInfo);
                 break;
             }
         }

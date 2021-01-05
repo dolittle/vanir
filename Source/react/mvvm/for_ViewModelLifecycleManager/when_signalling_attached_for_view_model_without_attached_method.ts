@@ -12,10 +12,18 @@ describe('when signalling attached for view model without attached method', () =
     const given = new a_view_model_lifecycle_manager();
     const viewModel = new ViewModel();
 
+    const routeInfo = {
+        url: 'http://somewhere',
+        path: '/some/path',
+        params: {
+            myParam: 42
+        }
+    };
+
     let error: Error;
 
     try {
-        given.manager.attached(viewModel);
+        given.manager.attached(viewModel, routeInfo);
     } catch (ex) {
         error = ex;
     }
