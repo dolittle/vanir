@@ -24,7 +24,7 @@ describe('when signalling attached for view model with attached method', () => {
         params: {
             myParam: 42
         }
-    }
+    };
 
     let error: Error;
 

@@ -19,7 +19,7 @@ describe('when signalling params changed for view model without props changed me
     const routeInfo = {
         url: 'http://somewhere',
         path: '/some/path',
-        params: params
+        params
     };
 
     let error: Error;
