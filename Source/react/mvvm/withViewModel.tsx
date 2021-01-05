@@ -8,6 +8,7 @@ import { IViewContext } from './IViewContext';
 import { ViewModelObserver } from './ViewModelObserver';
 
 export function withViewModel<TViewModel, TProps = {}>(viewModelType: Constructor<TViewModel>, view: FunctionComponent<IViewContext<TViewModel, TProps>>) {
+    console.log(`With viewModel '${viewModelType.name}' `);
     return (props: TProps) => {
         return (
             <>

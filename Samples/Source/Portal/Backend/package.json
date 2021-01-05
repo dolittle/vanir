@@ -1,0 +1,30 @@
+{
+    "name": "portal.backend",
+    "version": "1.0.0",
+    "description": "",
+    "private": "true",
+    "author": "Dolittle",
+    "license": "MIT",
+    "scripts": {
+        "start:dev": "NODE_ENV=development concurrently \"nodemon --inspect=0 -x tsoa spec-and-routes\" \"nodemon index.ts\""
+    },
+    "nodemonConfig": {
+        "restartable": "rs",
+        "ignore": [
+            "**/routes.ts",
+            "dist",
+            "*.d.ts"
+        ],
+        "execMap": {
+            "ts": "ts-node"
+        },
+        "watch": [
+            "./"
+        ],
+        "ext": "ts"
+    },
+    "dependencies": {
+        "@shared/backend": "1.0.0",
+        "@shared/specs": "1.0.0"
+    }
+}

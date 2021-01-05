@@ -59,7 +59,7 @@ export default function (plop: NodePlopAPI) {
         }, {
             type: 'confirm',
             name: 'portal',
-            message: 'Do you want a default UI microservice?'
+            message: 'Do you want a portal UI microservice?'
         }],
         actions: (answers?: Answers) => {
             const actions: ActionType[] = [];

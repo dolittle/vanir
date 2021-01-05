@@ -7,6 +7,9 @@ import { BehaviorSubject } from 'rxjs';
 import { ViewModelHelpers } from './ViewModelHelpers';
 import { IViewContext } from './IViewContext';
 import { Constructor } from '@dolittle/types';
+import { constructor, IContainer } from '@dolittle/vanir-dependency-inversion';
+import { container } from 'tsyringe';
+import { IViewModelLifecycleManager } from './IViewModelLifecycleManager';
 
 export type ViewModelObserverProps<TViewModel, TProps = {}> = {
     view: FunctionComponent<IViewContext<TViewModel, TProps>>,
@@ -15,15 +18,18 @@ export type ViewModelObserverProps<TViewModel, TProps = {}> = {
 };
 
 export class ViewModelObserver<TViewModel, TProps = {}> extends React.Component<ViewModelObserverProps<TViewModel, TProps>, IViewContext<TViewModel, TProps>> {
+    private _viewModelLifecycleManager: IViewModelLifecycleManager;
 
     constructor(props: ViewModelObserverProps<TViewModel, TProps>) {
         super(props);
+        this._viewModelLifecycleManager = container.resolve<IViewModelLifecycleManager>(IViewModelLifecycleManager as constructor<IViewModelLifecycleManager>);
 
         this.initialize();
     }
 
     private initialize() {
-        const viewModel = ViewModelHelpers.createViewModelInstance<TViewModel>(this.props.viewModelType);
+
+        const viewModel = this._viewModelLifecycleManager.create<TViewModel>(this.props.viewModelType);
 
         ViewModelHelpers.bindViewModelFunctions(viewModel);
 
@@ -33,8 +39,8 @@ export class ViewModelObserver<TViewModel, TProps = {}> extends React.Component<
             view: this.props.view
         } as IViewContext<TViewModel, TProps>;
 
-        ViewModelHelpers.setLifecycleOn(viewModel);
-        ViewModelHelpers.getLifecycleFor(viewModel).activate(viewContext);
+        this._viewModelLifecycleManager.attached(viewModel);
+        this._viewModelLifecycleManager.propsChanged(viewModel, this.props.props);
 
         const viewModelAsAny = viewModel as any;
 
@@ -64,11 +70,16 @@ export class ViewModelObserver<TViewModel, TProps = {}> extends React.Component<
     componentDidMount() {
     }
 
+    componentWillUnmount() {
+        this._viewModelLifecycleManager.detached(this.state.viewModel);
+    }
+
 
     componentDidUpdate(prevProps: ViewModelObserverProps<TViewModel, TProps>) {
         for (const key in prevProps.props) {
             if (prevProps.props[key] !== this.props.props[key]) {
                 this.setState({ props: this.props.props });
+                this._viewModelLifecycleManager.propsChanged(this.state.viewModel, this.props.props);
                 break;
             }
         }
@@ -85,5 +96,4 @@ export class ViewModelObserver<TViewModel, TProps = {}> extends React.Component<
             </>
         );
     }
-
 }

@@ -1,0 +1,23 @@
+{
+    "extends": "../../../tsconfig.json",
+    "compilerOptions": {
+        "outDir": "./wwwroot",
+        "paths": {
+            "@dolittle/vanir-react*": [
+                "../../../../Source/react"
+            ]
+
+        }
+    },
+    "references": [
+        {
+            "path": "../../Shared/Styles"
+        },
+        {
+            "path": "../../Shared/Web"
+        },
+        {
+            "path": "../../../../Source/react"
+        }
+    ]
+}

@@ -5,17 +5,20 @@ import { Constructor } from '@dolittle/types';
 import { IViewModelLifecycleManager } from './IViewModelLifecycleManager';
 
 import { IContainer } from '@dolittle/vanir-dependency-inversion';
+import { injectable } from 'tsyringe';
 
 /**
  * Represents an implementation of {@link IViewModelLifecycleManager}.
  */
-export class ViewModelLifecycleManager implements IViewModelLifecycleManager {
+@injectable()
+ export class ViewModelLifecycleManager implements IViewModelLifecycleManager {
 
     /**
      * Initializes a new instance of {ViewModelLifecycleManager}.
      * @param {IContainer} _container Container to use for instantiation.
      */
     constructor(private readonly _container: IContainer) {
+        console.log(this._container);
     }
 
     /** @inheritdoc */
