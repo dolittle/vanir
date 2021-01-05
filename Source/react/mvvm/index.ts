@@ -8,3 +8,5 @@ export * from './IViewContext';
 
 export * from './IViewModelLifecycleManager';
 export * from './ViewModelLifecycleManager';
+
+export * from './RouteInfo';
