@@ -5,12 +5,10 @@ import { Constructor } from '@dolittle/types';
 
 import { container } from 'tsyringe';
 import { PropertySubscriptions } from './PropertySubscriptions';
-import { ViewModelLifecycle } from './ViewModelLifecycle';
 
 const privatePrefix = '_';
 const internalPrefix = '__';
 const subscriptionsPropertyName = `${internalPrefix}subscriptions`;
-const lifecyclePropertyName = `${internalPrefix}viewModelLifecycle`;
 
 export class ViewModelHelpers {
 
@@ -37,11 +35,6 @@ export class ViewModelHelpers {
         }
     }
 
-    static createViewModelInstance<T>(viewModelType: Constructor<T>): any {
-        const vm = container.resolve(viewModelType);
-        return vm;
-    }
-
     static getObservablePropertyNameFor(property: string): string {
         return `${internalPrefix}${property}`;
     }
@@ -56,16 +49,5 @@ export class ViewModelHelpers {
     static setSubscriptionsOn(viewModel: any, callback: () => void) {
         ViewModelHelpers.clearSubscriptionsOn(viewModel);
         viewModel[subscriptionsPropertyName] = new PropertySubscriptions(viewModel, callback);
-    }
-
-    static setLifecycleOn(viewModel: any): ViewModelLifecycle {
-        const lifecycle = new ViewModelLifecycle(viewModel);
-        viewModel[lifecyclePropertyName] = lifecycle;
-        return lifecycle;
-    }
-
-    static getLifecycleFor(viewModel: any): ViewModelLifecycle {
-        if (viewModel[lifecyclePropertyName]) return viewModel[lifecyclePropertyName] as ViewModelLifecycle;
-        return ViewModelHelpers.setLifecycleOn(viewModel);
     }
 }
