@@ -18,7 +18,6 @@ import { injectable } from 'tsyringe';
      * @param {IContainer} _container Container to use for instantiation.
      */
     constructor(private readonly _container: IContainer) {
-        console.log(this._container);
     }
 
     /** @inheritdoc */
@@ -45,6 +44,13 @@ import { injectable } from 'tsyringe';
     propsChanged(viewModel: any, props: any): void {
         if (typeof viewModel.propsChanged === 'function') {
             viewModel.propsChanged(props);
+        }
+    }
+
+    /** @inheritdoc */
+    paramsChanged(viewModel: any, props: any): void {
+        if (typeof viewModel.paramsChanged === 'function') {
+            viewModel.paramsChanged(props);
         }
     }
 }

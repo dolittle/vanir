@@ -15,4 +15,8 @@ export class HomeViewModel {
         console.log(props.something);
         this.counter = props.something;
     }
+
+    paramsChanged(params: any) {
+        console.log(params);
+    }
 }
