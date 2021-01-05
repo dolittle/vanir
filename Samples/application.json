@@ -1,0 +1,14 @@
+{
+    "id": "77628df0-f46f-2e46-87a6-bc5a75578bcf",
+    "name": "SampleApp",
+    "tenant": "Dolittle",
+    "license": "MIT",
+    "containerRegistry": "hub.docker.com",
+    "portal": {
+        "enabled": "true",
+        "id": "0993eb39-1ddb-2b46-bdc6-517d45e7cff5"
+    },
+    "microservices": [
+        "./Source/Portal"
+    ]
+}
