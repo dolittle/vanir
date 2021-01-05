@@ -30,7 +30,7 @@ describe('when signalling params changed for view model with params changed meth
     const routeInfo = {
         url: 'http://somewhere',
         path: '/some/path',
-        params: params
+        params
     };
 
     let error: Error;
