@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 import { Constructor } from '@dolittle/types';
+import { RouteInfo } from './RouteInfo';
 
 /**
  * Defines the manager that is responsible for the lifecycle of a ViewModel
@@ -18,7 +19,7 @@ export abstract class IViewModelLifecycleManager {
      * Handle when the ViewModel gets attached to a view.
      * @param {*} viewModel ViewModel that gets attached.
      */
-    abstract attached(viewModel: any): void;
+    abstract attached(viewModel: any, routeInfo: RouteInfo): void;
 
     /**
      * Handle when the ViewModel gets detached from a view.
@@ -38,7 +39,7 @@ export abstract class IViewModelLifecycleManager {
      * @param {*} viewModel ViewModel that should be notified for params changed.
      * @param {*} params Current params
      */
-    abstract paramsChanged(viewModel: any, params: any): void;
+    abstract paramsChanged(viewModel: any, params: any, routeInfo: RouteInfo): void;
 }
 
 

@@ -16,10 +16,16 @@ describe('when signalling params changed for view model without props changed me
         something: 42
     };
 
+    const routeInfo = {
+        url: 'http://somewhere',
+        path: '/some/path',
+        params: params
+    };
+
     let error: Error;
 
     try {
-        given.manager.paramsChanged(viewModel, params);
+        given.manager.paramsChanged(viewModel, params, routeInfo);
     } catch (ex) {
         error = ex;
     }
