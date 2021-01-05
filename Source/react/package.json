@@ -1,6 +1,6 @@
 {
     "name": "@dolittle/vanir-react",
-    "version": "4.1.0",
+    "version": "4.2.0",
     "description": "",
     "author": "Dolittle",
     "license": "MIT",
@@ -34,8 +34,8 @@
     },
     "dependencies": {
         "@dolittle/rudiments": "5.0.1",
-        "@dolittle/vanir-dependency-inversion": "4.1.0",
-        "@dolittle/vanir-web": "4.1.0",
+        "@dolittle/vanir-dependency-inversion": "4.2.0",
+        "@dolittle/vanir-web": "4.2.0",
         "apollo-cache-inmemory": "1.6.5",
         "apollo-client": "2.6.8",
         "apollo-link-http": "1.5.17",
