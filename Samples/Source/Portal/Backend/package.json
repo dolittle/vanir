@@ -2,7 +2,7 @@
     "name": "portal.backend",
     "version": "1.0.0",
     "description": "",
-    "private": "true",
+    "private": true,
     "author": "Dolittle",
     "license": "MIT",
     "scripts": {

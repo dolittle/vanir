@@ -5,6 +5,7 @@
     "main": "index.ts",
     "author": "Dolittle",
     "license": "MIT",
+    "private": true,
     "dependencies": {
         "office-ui-fabric-core": "11.0.0",
         "@uifabric/icons": "7.5.17"
