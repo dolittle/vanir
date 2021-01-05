@@ -72,6 +72,10 @@ for (const workspaceName in workspaces) {
     if (fs.existsSync(packageJsonFile)) {
         const file = editJsonFile(packageJsonFile, { stringify_width: 4 });
         const packageJson = file.toObject();
+        if (packageJson.private === true) {
+            console.log(`Workspace private '${workspaceName}' at '${workspaceRelativeLocation}'`);
+            continue;
+        }
 
         if (task === 'publish-version') {
             if (args.length === 1) {
