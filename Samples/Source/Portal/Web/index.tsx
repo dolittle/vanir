@@ -35,9 +35,11 @@ export default function App() {
 
     return (
         <>
-            <Route exact path="/">
+            <Route exact path="/:something">
                 <Home something={state.toString()} />
                 <Link to="/blah">Click me</Link>
+                <Link to="/50">Click me</Link>
+                <Link to="/51">Click me</Link>
             </Route>
             <Route exact path="/blah">
                 Hello there...

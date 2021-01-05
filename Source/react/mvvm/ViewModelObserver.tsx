@@ -14,7 +14,10 @@ import { IViewModelLifecycleManager } from './IViewModelLifecycleManager';
 export type ViewModelObserverProps<TViewModel, TProps = {}> = {
     view: FunctionComponent<IViewContext<TViewModel, TProps>>,
     viewModelType: Constructor<TViewModel>
-    props: TProps
+    props: TProps,
+    params: any,
+    path: string,
+    url: string
 };
 
 export class ViewModelObserver<TViewModel, TProps = {}> extends React.Component<ViewModelObserverProps<TViewModel, TProps>, IViewContext<TViewModel, TProps>> {
@@ -36,11 +39,15 @@ export class ViewModelObserver<TViewModel, TProps = {}> extends React.Component<
         const viewContext = {
             viewModel,
             props: this.props.props,
-            view: this.props.view
+            view: this.props.view,
+            params: this.props.params,
+            path: this.props.path,
+            url: this.props.url
         } as IViewContext<TViewModel, TProps>;
 
         this._viewModelLifecycleManager.attached(viewModel);
         this._viewModelLifecycleManager.propsChanged(viewModel, this.props.props);
+        this._viewModelLifecycleManager.paramsChanged(viewModel, this.props.params);
 
         const viewModelAsAny = viewModel as any;
 
@@ -80,6 +87,13 @@ export class ViewModelObserver<TViewModel, TProps = {}> extends React.Component<
             if (prevProps.props[key] !== this.props.props[key]) {
                 this.setState({ props: this.props.props });
                 this._viewModelLifecycleManager.propsChanged(this.state.viewModel, this.props.props);
+                break;
+            }
+        }
+
+        for (const key in prevProps.params) {
+            if (prevProps.params[key] !== this.props.params[key]) {
+                this._viewModelLifecycleManager.paramsChanged(this.state.viewModel, this.props.params);
                 break;
             }
         }

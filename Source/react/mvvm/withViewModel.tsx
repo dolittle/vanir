@@ -7,12 +7,15 @@ import { Constructor } from '@dolittle/types';
 import { IViewContext } from './IViewContext';
 import { ViewModelObserver } from './ViewModelObserver';
 
+import { useParams, useRouteMatch } from 'react-router-dom';
+
 export function withViewModel<TViewModel, TProps = {}>(viewModelType: Constructor<TViewModel>, view: FunctionComponent<IViewContext<TViewModel, TProps>>) {
-    console.log(`With viewModel '${viewModelType.name}' `);
     return (props: TProps) => {
+        const params = useParams();
+        const { path, url } = useRouteMatch();
         return (
             <>
-                <ViewModelObserver viewModelType={viewModelType} props={props} view={view} />
+                <ViewModelObserver viewModelType={viewModelType} props={props} view={view} params={params} path={path} url={url} />
             </>
         );
     };

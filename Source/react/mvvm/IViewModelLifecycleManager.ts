@@ -29,8 +29,16 @@ export abstract class IViewModelLifecycleManager {
     /**
      * Handle when props that are typically handed to the view gets changed.
      * @param {*} viewModel ViewModel that should be notified for props changed.
+     * @param {*} params Current props
      */
     abstract propsChanged(viewModel: any, props: any): void;
+
+    /**
+     * Handle when params in a route that is changed.
+     * @param {*} viewModel ViewModel that should be notified for params changed.
+     * @param {*} params Current params
+     */
+    abstract paramsChanged(viewModel: any, params: any): void;
 }
 
 
