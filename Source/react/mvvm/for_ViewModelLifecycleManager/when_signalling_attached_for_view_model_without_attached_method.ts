@@ -16,6 +16,7 @@ describe('when signalling attached for view model without attached method', () =
     const routeInfo: RouteInfo = {
         url: '/some/42',
         matchedUrl: '/some/42',
+        isExactMatch: true,
         route: '/some/path',
         params: {
             myParam: 42

@@ -6,4 +6,5 @@ export type RouteInfo<TParams = {}> = {
     matchedUrl: string;
     route: string;
     params: TParams;
+    isExactMatch: boolean;
 };

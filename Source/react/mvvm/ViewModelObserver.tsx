@@ -19,6 +19,7 @@ export type ViewModelObserverProps<TViewModel, TProps = {}> = {
     params: any,
     path: string,
     matchedUrl: string,
+    isExactMatch: boolean,
     url: string
 };
 
@@ -52,7 +53,8 @@ export class ViewModelObserver<TViewModel, TProps = {}> extends React.Component<
             url: this.props.url,
             matchedUrl: this.props.matchedUrl,
             route: this.props.path,
-            params: this.props.params
+            params: this.props.params,
+            isExactMatch: this.props.isExactMatch
         };
         let routeChanged = prevProps.url !== routeInfo.url;
 
@@ -100,7 +102,8 @@ export class ViewModelObserver<TViewModel, TProps = {}> extends React.Component<
             url: this.props.url,
             matchedUrl: this.props.matchedUrl,
             route: this.props.path,
-            params: this.props.params
+            params: this.props.params,
+            isExactMatch: this.props.isExactMatch
         };
 
         const viewContext: IViewContext<TViewModel, TProps> = {
