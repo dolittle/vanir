@@ -13,11 +13,11 @@ export function withViewModel<TViewModel, TProps = {}>(viewModelType: Constructo
     return (props: TProps) => {
         const params = useParams();
         const history = useHistory();
-        const { path } = useRouteMatch();
-        const [url, setUrl] = useState(history.location.pathname);
+        const { path, url } = useRouteMatch();
+        const [actualUrl, setActualUrl] = useState(history.location.pathname);
 
         useEffect(() => {
-            const listenerUnregisterCallback = history.listen((location?: any) => setUrl(location?.pathname));
+            const listenerUnregisterCallback = history.listen((location?: any) => setActualUrl(location?.pathname));
             return () => listenerUnregisterCallback();
         });
 
@@ -29,7 +29,8 @@ export function withViewModel<TViewModel, TProps = {}>(viewModelType: Constructo
                     view={view}
                     params={params}
                     path={path}
-                    url={url} />
+                    matchedUrl={url}
+                    url={actualUrl} />
             </>
         );
     };

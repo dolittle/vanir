@@ -12,7 +12,7 @@ class ViewModel {
 describe('when signalling route changed for view model with route changed method', () => {
     const given = new a_view_model_lifecycle_manager();
 
-    let receivedRouteInfo: RouteInfo = { url: '', path: '', params: { something: 0 } };
+    let receivedRouteInfo: RouteInfo = { url: '', matchedUrl: '', route: '', params: { something: 0 } };
 
     const viewModel = {
         routeChanged: sinon.fake((r) => {
@@ -20,9 +20,10 @@ describe('when signalling route changed for view model with route changed method
         })
     };
 
-    const routeInfo = {
-        url: 'http://somewhere',
-        path: '/some/path',
+    const routeInfo: RouteInfo = {
+        url: '/some/42',
+        matchedUrl: '/some/42',
+        route: '/some/path',
         params: {
             something: 42
         }
@@ -38,6 +39,7 @@ describe('when signalling route changed for view model with route changed method
 
     it('should call the view models route changed', () => viewModel.routeChanged.should.be.calledOnceWith(routeInfo));
     it('should call the view models attached method with correct url', () => receivedRouteInfo.url.should.equal(routeInfo.url));
-    it('should call the view models attached method with correct path', () => receivedRouteInfo.path.should.equal(routeInfo.path));
-    it('should call the view models attached method with correct params', () => (receivedRouteInfo.params as any).something.should.equal(routeInfo.params.something));
+    it('should call the view models attached method with correct matched url', () => receivedRouteInfo.matchedUrl.should.equal(routeInfo.matchedUrl));
+    it('should call the view models attached method with correct route', () => receivedRouteInfo.route.should.equal(routeInfo.route));
+    it('should call the view models attached method with correct params', () => (receivedRouteInfo.params as any).something.should.equal((routeInfo.params as any).something));
 });

@@ -4,6 +4,7 @@
 import { a_view_model_lifecycle_manager } from './given/a_view_model_lifecycle_manager';
 
 import { expect } from 'chai';
+import { RouteInfo } from '../RouteInfo';
 
 class ViewModel {
 }
@@ -12,9 +13,10 @@ describe('when signalling attached for view model without attached method', () =
     const given = new a_view_model_lifecycle_manager();
     const viewModel = new ViewModel();
 
-    const routeInfo = {
-        url: 'http://somewhere',
-        path: '/some/path',
+    const routeInfo: RouteInfo = {
+        url: '/some/42',
+        matchedUrl: '/some/42',
+        route: '/some/path',
         params: {
             myParam: 42
         }
