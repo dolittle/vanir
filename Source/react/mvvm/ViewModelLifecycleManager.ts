@@ -49,9 +49,9 @@ import { RouteInfo } from './RouteInfo';
     }
 
     /** @inheritdoc */
-    paramsChanged(viewModel: any, params: any, routeInfo: RouteInfo): void {
-        if (typeof viewModel.paramsChanged === 'function') {
-            viewModel.paramsChanged(params, routeInfo);
+    routeChanged(viewModel: any, routeInfo: RouteInfo): void {
+        if (typeof viewModel.routeChanged === 'function') {
+            viewModel.routeChanged(routeInfo);
         }
     }
 }

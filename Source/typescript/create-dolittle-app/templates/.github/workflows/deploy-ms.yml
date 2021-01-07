@@ -67,6 +67,6 @@ jobs:
           resource-group: "Infrastructure-Essential"
           cluster-name: "Cluster-Production-Two"
 
-      - name: "Deploy to Development"
+      - name: "Deploy to Dolittle"
         run: |
           kubectl patch --namespace application-{{id}} deployment $\{{ github.event.inputs.deployment }} -p '{"spec": { "template": {"metadata": { "labels": { "date": "'`date +'%s'`'" } }, "spec": { "containers": [{ "name":"head", "image": "$\{{ env.CONTAINER_REGISTRY }}/$\{{ github.event.inputs.docker-image-tag }}:'"$\{{ github.event.inputs.version }}"'"}] }}}}'

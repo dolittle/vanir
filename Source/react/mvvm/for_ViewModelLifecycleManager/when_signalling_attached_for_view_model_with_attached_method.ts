@@ -12,7 +12,7 @@ class ViewModel {
 describe('when signalling attached for view model with attached method', () => {
     const given = new a_view_model_lifecycle_manager();
 
-    let receivedRouteInfo: RouteInfo = {url: '', path: '', params: {}};
+    let receivedRouteInfo: RouteInfo = { url: '', path: '', params: { myParam: 0 } };
 
     const viewModel = {
         attached: sinon.fake((r) => receivedRouteInfo = r)
@@ -37,5 +37,5 @@ describe('when signalling attached for view model with attached method', () => {
     it('should call the view models attached method', () => viewModel.attached.should.be.calledOnce);
     it('should call the view models attached method with correct url', () => receivedRouteInfo.url.should.equal(routeInfo.url));
     it('should call the view models attached method with correct path', () => receivedRouteInfo.path.should.equal(routeInfo.path));
-    it('should call the view models attached method with correct params', () => receivedRouteInfo.params.myParam.should.equal(routeInfo.params.myParam));
+    it('should call the view models attached method with correct params', () => (receivedRouteInfo.params as any).myParam.should.equal(routeInfo.params.myParam));
 });

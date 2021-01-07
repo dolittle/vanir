@@ -10,3 +10,9 @@ export * from './IViewModelLifecycleManager';
 export * from './ViewModelLifecycleManager';
 
 export * from './RouteInfo';
+
+export * from './IViewModel';
+export * from './ICanBeNotifiedWhenBeingAttached';
+export * from './ICanBeNotifiedWhenBeingDetached';
+export * from './ICanBeNotifiedWhenPropsChanged';
+export * from './ICanBeNotifiedWhenRouteChanged';

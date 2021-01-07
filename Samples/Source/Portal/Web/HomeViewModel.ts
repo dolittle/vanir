@@ -2,21 +2,22 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 import { HomeProps } from "./HomeProps";
+import { RouteInfo } from '@dolittle/vanir-react';
 
 export class HomeViewModel {
     counter: string = '';
 
 
-    attached() {
-        console.log('attached');
+    attached(routeInfo: RouteInfo) {
+        console.log('attached with ', routeInfo);
     }
 
     propsChanged(props: HomeProps) {
-        console.log(props.something);
+        //console.log(props.something);
         this.counter = props.something;
     }
 
-    paramsChanged(params: any) {
-        console.log(params);
+    routeChanged(routeInfo: RouteInfo) {
+        console.log(routeInfo);
     }
 }

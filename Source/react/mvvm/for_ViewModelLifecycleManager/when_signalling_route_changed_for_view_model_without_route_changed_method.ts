@@ -7,25 +7,23 @@ import { expect } from 'chai';
 class ViewModel {
 }
 
-describe('when signalling params changed for view model without props changed method', () => {
+describe('when signalling route changed for view model without route changed method', () => {
     const given = new a_view_model_lifecycle_manager();
     const viewModel = {
-    };
-
-    const params = {
-        something: 42
     };
 
     const routeInfo = {
         url: 'http://somewhere',
         path: '/some/path',
-        params
+        params: {
+            something: 42
+        }
     };
 
     let error: Error;
 
     try {
-        given.manager.paramsChanged(viewModel, params, routeInfo);
+        given.manager.routeChanged(viewModel, routeInfo);
     } catch (ex) {
         error = ex;
     }
