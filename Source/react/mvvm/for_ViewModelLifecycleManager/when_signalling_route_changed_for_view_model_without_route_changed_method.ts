@@ -3,6 +3,7 @@
 
 import { a_view_model_lifecycle_manager } from './given/a_view_model_lifecycle_manager';
 import { expect } from 'chai';
+import { RouteInfo } from '../RouteInfo';
 
 class ViewModel {
 }
@@ -12,10 +13,10 @@ describe('when signalling route changed for view model without route changed met
     const viewModel = {
     };
 
-    const routeInfo = {
+    const routeInfo: RouteInfo = {
         url: '/some/42',
-        urlMatch: '/some/42',
-        path: '/some/:id',
+        matchedUrl: '/some/42',
+        route: '/some/:id',
         params: {
             something: 42
         }
