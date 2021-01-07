@@ -3,6 +3,7 @@
 
 export type RouteInfo<TParams = {}> = {
     url: string;
-    path: string;
+    matchedUrl: string;
+    route: string;
     params: TParams;
 };

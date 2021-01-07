@@ -18,6 +18,7 @@ export type ViewModelObserverProps<TViewModel, TProps = {}> = {
     props: TProps,
     params: any,
     path: string,
+    matchedUrl: string,
     url: string
 };
 
@@ -49,7 +50,8 @@ export class ViewModelObserver<TViewModel, TProps = {}> extends React.Component<
 
         const routeInfo: RouteInfo = {
             url: this.props.url,
-            path: this.props.path,
+            matchedUrl: this.props.matchedUrl,
+            route: this.props.path,
             params: this.props.params
         };
         let routeChanged = prevProps.url !== routeInfo.url;
@@ -94,18 +96,19 @@ export class ViewModelObserver<TViewModel, TProps = {}> extends React.Component<
 
         ViewModelHelpers.bindViewModelFunctions(viewModel);
 
-        const routeInfo = {
+        const routeInfo: RouteInfo = {
             url: this.props.url,
-            path: this.props.path,
+            matchedUrl: this.props.matchedUrl,
+            route: this.props.path,
             params: this.props.params
         };
 
-        const viewContext = {
+        const viewContext: IViewContext<TViewModel, TProps> = {
             viewModel,
             props: this.props.props,
             view: this.props.view,
             routeInfo
-        } as IViewContext<TViewModel, TProps>;
+        };
 
         this._viewModelLifecycleManager.attached(viewModel, routeInfo);
         this._viewModelLifecycleManager.propsChanged(viewModel, this.props.props);

@@ -13,8 +13,9 @@ describe('when signalling route changed for view model without route changed met
     };
 
     const routeInfo = {
-        url: 'http://somewhere',
-        path: '/some/path',
+        url: '/some/42',
+        urlMatch: '/some/42',
+        path: '/some/:id',
         params: {
             something: 42
         }
