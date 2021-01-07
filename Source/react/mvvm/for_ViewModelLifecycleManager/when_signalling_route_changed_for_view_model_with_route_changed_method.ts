@@ -12,7 +12,7 @@ class ViewModel {
 describe('when signalling route changed for view model with route changed method', () => {
     const given = new a_view_model_lifecycle_manager();
 
-    let receivedRouteInfo: RouteInfo = { url: '', matchedUrl: '', route: '', params: { something: 0 } };
+    let receivedRouteInfo: RouteInfo = { url: '', matchedUrl: '', isExactMatch: false, route: '', params: { something: 0 } };
 
     const viewModel = {
         routeChanged: sinon.fake((r) => {
@@ -24,6 +24,7 @@ describe('when signalling route changed for view model with route changed method
         url: '/some/42',
         matchedUrl: '/some/42',
         route: '/some/path',
+        isExactMatch: true,
         params: {
             something: 42
         }

@@ -12,7 +12,7 @@ class ViewModel {
 describe('when signalling attached for view model with attached method', () => {
     const given = new a_view_model_lifecycle_manager();
 
-    let receivedRouteInfo: RouteInfo = { url: '', matchedUrl: '', route: '', params: { myParam: 0 } };
+    let receivedRouteInfo: RouteInfo = { url: '', matchedUrl: '', isExactMatch: false, route: '', params: { myParam: 0 } };
 
     const viewModel = {
         attached: sinon.fake((r) => receivedRouteInfo = r)
@@ -21,6 +21,7 @@ describe('when signalling attached for view model with attached method', () => {
     const routeInfo: RouteInfo = {
         url: '/some/42',
         matchedUrl: '/some/42',
+        isExactMatch: true,
         route: '/some/path',
         params: {
             myParam: 42

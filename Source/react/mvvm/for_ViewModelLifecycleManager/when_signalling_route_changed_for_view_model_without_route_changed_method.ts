@@ -17,6 +17,7 @@ describe('when signalling route changed for view model without route changed met
         url: '/some/42',
         matchedUrl: '/some/42',
         route: '/some/:id',
+        isExactMatch: true,
         params: {
             something: 42
         }

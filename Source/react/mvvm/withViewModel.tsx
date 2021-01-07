@@ -13,7 +13,7 @@ export function withViewModel<TViewModel, TProps = {}>(viewModelType: Constructo
     return (props: TProps) => {
         const params = useParams();
         const history = useHistory();
-        const { path, url } = useRouteMatch();
+        const { path, url, isExact } = useRouteMatch();
         const [actualUrl, setActualUrl] = useState(history.location.pathname);
 
         useEffect(() => {
@@ -30,6 +30,7 @@ export function withViewModel<TViewModel, TProps = {}>(viewModelType: Constructo
                     params={params}
                     path={path}
                     matchedUrl={url}
+                    isExactMatch={isExact}
                     url={actualUrl} />
             </>
         );
