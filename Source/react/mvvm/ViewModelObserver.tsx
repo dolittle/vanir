@@ -107,8 +107,6 @@ export class ViewModelObserver<TViewModel, TProps = {}> extends React.Component<
             routeInfo
         } as IViewContext<TViewModel, TProps>;
 
-        console.log('Hello');
-
         this._viewModelLifecycleManager.attached(viewModel, routeInfo);
         this._viewModelLifecycleManager.propsChanged(viewModel, this.props.props);
         this._viewModelLifecycleManager.routeChanged(viewModel, routeInfo);
