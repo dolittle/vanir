@@ -9,41 +9,35 @@ import { RouteInfo } from '../RouteInfo';
 class ViewModel {
 }
 
-describe('when signalling params changed for view model with params changed method', () => {
+describe('when signalling route changed for view model with route changed method', () => {
     const given = new a_view_model_lifecycle_manager();
 
-    let receivedParams: any;
-
-    let receivedRouteInfo: RouteInfo = {url: '', path: '', params: {}};
+    let receivedRouteInfo: RouteInfo = { url: '', path: '', params: { something: 0 } };
 
     const viewModel = {
-        paramsChanged: sinon.fake((p, r) => {
-            receivedParams = p;
+        routeChanged: sinon.fake((r) => {
             receivedRouteInfo = r;
         })
-    };
-
-    const params = {
-        something: 42
     };
 
     const routeInfo = {
         url: 'http://somewhere',
         path: '/some/path',
-        params
+        params: {
+            something: 42
+        }
     };
 
     let error: Error;
 
     try {
-        given.manager.paramsChanged(viewModel, params, routeInfo);
+        given.manager.routeChanged(viewModel, routeInfo);
     } catch (ex) {
         error = ex;
     }
 
-    it('should call the view models params changed', () => viewModel.paramsChanged.should.be.calledOnceWith(params));
-    it('should call the view models attached method with param', () => receivedParams.something.should.equal(params.something));
+    it('should call the view models route changed', () => viewModel.routeChanged.should.be.calledOnceWith(routeInfo));
     it('should call the view models attached method with correct url', () => receivedRouteInfo.url.should.equal(routeInfo.url));
     it('should call the view models attached method with correct path', () => receivedRouteInfo.path.should.equal(routeInfo.path));
-    it('should call the view models attached method with correct params', () => receivedRouteInfo.params.something.should.equal(routeInfo.params.something));
+    it('should call the view models attached method with correct params', () => (receivedRouteInfo.params as any).something.should.equal(routeInfo.params.something));
 });

@@ -2,20 +2,34 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 /* eslint-disable react/display-name */
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useState, useEffect } from 'react';
 import { Constructor } from '@dolittle/types';
 import { IViewContext } from './IViewContext';
 import { ViewModelObserver } from './ViewModelObserver';
 
-import { useParams, useRouteMatch } from 'react-router-dom';
+import { useParams, useRouteMatch, useHistory } from 'react-router-dom';
 
 export function withViewModel<TViewModel, TProps = {}>(viewModelType: Constructor<TViewModel>, view: FunctionComponent<IViewContext<TViewModel, TProps>>) {
     return (props: TProps) => {
         const params = useParams();
-        const { path, url } = useRouteMatch();
+        const history = useHistory();
+        const { path } = useRouteMatch();
+        const [url, setUrl] = useState(history.location.pathname);
+
+        useEffect(() => {
+            const listenerUnregisterCallback = history.listen((location?: any) => setUrl(location?.pathname));
+            return () => listenerUnregisterCallback();
+        });
+
         return (
             <>
-                <ViewModelObserver viewModelType={viewModelType} props={props} view={view} params={params} path={path} url={url} />
+                <ViewModelObserver
+                    viewModelType={viewModelType}
+                    props={props}
+                    view={view}
+                    params={params}
+                    path={path}
+                    url={url} />
             </>
         );
     };

@@ -37,9 +37,9 @@ export abstract class IViewModelLifecycleManager {
     /**
      * Handle when params in a route that is changed.
      * @param {*} viewModel ViewModel that should be notified for params changed.
-     * @param {*} params Current params
+     * @param {*} routeInfo Current route info
      */
-    abstract paramsChanged(viewModel: any, params: any, routeInfo: RouteInfo): void;
+    abstract routeChanged(viewModel: any, routeInfo: RouteInfo): void;
 }
 
 
