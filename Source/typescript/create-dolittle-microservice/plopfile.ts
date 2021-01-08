@@ -84,9 +84,11 @@ export default function (plop: NodePlopAPI) {
             if (typeof answers!.hasUIPrefix === 'undefined' || answers!.hasUIPrefix === true) {
                 answers!.uiPath = `/_/${answers!.name.toLowerCase()}`;
                 answers!.uiPrefix = `/_/${answers!.name.toLowerCase()}`;
+                answers!.portal = false;
             } else {
                 answers!.uiPath = '/';
                 answers!.uiPrefix = '';
+                answers!.portal = true;
             }
 
             actions.push(getActionForTemplateDirectory(templatesRootPath, targetDirectory));
@@ -94,7 +96,7 @@ export default function (plop: NodePlopAPI) {
             if (answers!.ui) {
                 actions.push(getActionForTemplateDirectory(webTemplatesRootPath, targetDirectory));
 
-                if (!answers!.hasUIPrefix) {
+                if (answers!.portal) {
                     actions.push(getActionForTemplateDirectory(portalTemplatesRootPath, targetDirectory));
                 }
             }
