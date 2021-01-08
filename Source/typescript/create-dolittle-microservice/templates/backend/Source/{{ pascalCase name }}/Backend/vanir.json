@@ -1,10 +1,9 @@
 {
     "microserviceId": "{{id}}",
-{{#unless hasUIPrefix}}
+{{#if portal}}
     "isRooted": true,
     "routeSegment": "",
-{{/unless}}
-{{#if hasUIPrefix}}
+{{else}}
     "isRooted": false,
     "routeSegment": "{{lowerCase name}}",
 {{/if}}
