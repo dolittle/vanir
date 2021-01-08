@@ -5,7 +5,7 @@ import '@shared/styles/theme.scss';
 
 initializeIcons();
 
-const myTheme = createTheme({
+export const theme = createTheme({
     palette: {
         themePrimary: '#ffcf00',
         themeLighterAlt: '#fffdf5',
@@ -32,4 +32,4 @@ const myTheme = createTheme({
     }
 });
 
-loadTheme(myTheme);
+loadTheme(theme);

@@ -1,0 +1,40 @@
+@import "../globals.scss";
+@import "~@shared/styles/acrylic.scss";
+
+$toolbar-color: lighten($navigation-color, 10%);
+$content-color: darken($ms-color-white, 5%);
+
+.application {
+    @extend .acrylic;
+    position: absolute;
+    display: flex;
+    top: $app-header-height;
+    flex: 1;
+    flex-direction: row;
+    margin-top: 2rem;
+    margin-left: 2rem;
+    margin-right: 2rem;
+    margin-bottom: 2rem;
+    padding: 0;
+
+    width: calc(100% - 4rem);
+    height: calc(100% - 7rem);
+}
+
+.main {
+    margin: 0;
+    width: 100%;
+}
+
+.content {
+    position: relative;
+    width: calc(100%);
+    height: calc(100%);
+    margin: 0;
+    padding: 0;
+}
+
+.contentScrollable {
+    height: calc(100vh - (12.3rem));
+    overflow: scroll;
+}
