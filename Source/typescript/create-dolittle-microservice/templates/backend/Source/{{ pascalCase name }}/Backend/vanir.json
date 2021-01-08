@@ -2,11 +2,11 @@
     "microserviceId": "{{id}}",
 {{#unless hasUIPrefix}}
     "isRooted": true,
-    "routeSegment": "{{lowerCase name}}",
+    "routeSegment": "",
 {{/unless}}
 {{#if hasUIPrefix}}
     "isRooted": false,
-    "routeSegment": "",
+    "routeSegment": "{{lowerCase name}}",
 {{/if}}
     "port": 3002,
     "dolittle": {
