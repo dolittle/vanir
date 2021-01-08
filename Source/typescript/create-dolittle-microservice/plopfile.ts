@@ -10,6 +10,7 @@ import editJsonFile from 'edit-json-file';
 
 const templatesRootPath = path.join(rootPath, 'templates', 'backend');
 const webTemplatesRootPath = path.join(rootPath, 'templates', 'web');
+const portalTemplatesRootPath = path.join(rootPath, 'templates', 'portal');
 const packageJson = require(path.join(rootPath, 'package.json'));
 
 const toPascalCase = function (input: string): string {
@@ -31,6 +32,22 @@ function appendMicroserviceToApplication(answers: Answers, config?: ActionConfig
     application.save();
     return 'Added microservice to application.json file';
 }
+
+function getActionForTemplateDirectory(templateDirectory: string, targetDirectory: string) {
+    return {
+        type: 'addMany',
+        base: templateDirectory,
+        destination: targetDirectory,
+        force: true,
+        templateFiles: [
+            templateDirectory,
+            path.join(templateDirectory, '.*/**/*')
+        ],
+        stripExtensions: ['hbs']
+    } as AddManyActionConfig;
+}
+
+
 
 export default function (plop: NodePlopAPI) {
 
@@ -72,30 +89,14 @@ export default function (plop: NodePlopAPI) {
                 answers!.uiPrefix = '';
             }
 
-            actions.push({
-                type: 'addMany',
-                base: templatesRootPath,
-                destination: targetDirectory,
-                templateFiles: [
-                    templatesRootPath,
-                    path.join(templatesRootPath, '.*/**/*')
-                ],
-                stripExtensions: ['hbs']
-            } as AddManyActionConfig);
+            actions.push(getActionForTemplateDirectory(templatesRootPath, targetDirectory));
 
             if (answers!.ui) {
+                actions.push(getActionForTemplateDirectory(webTemplatesRootPath, targetDirectory));
 
-                actions.push({
-                    type: 'addMany',
-                    base: webTemplatesRootPath,
-                    destination: targetDirectory,
-                    force: true,
-                    templateFiles: [
-                        webTemplatesRootPath,
-                        path.join(webTemplatesRootPath, '.*/**/*')
-                    ],
-                    stripExtensions: ['hbs']
-                } as AddManyActionConfig);
+                if (!answers!.hasUIPrefix) {
+                    actions.push(getActionForTemplateDirectory(portalTemplatesRootPath, targetDirectory));
+                }
             }
 
             return actions;
