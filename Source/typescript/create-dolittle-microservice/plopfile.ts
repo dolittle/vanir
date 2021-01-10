@@ -7,6 +7,7 @@ import rootPath from './packageRoot';
 import { Answers } from 'inquirer';
 import { Guid } from '@dolittle/rudiments';
 import editJsonFile from 'edit-json-file';
+import { PathHelper } from '@dolittle/vanir-cli';
 
 const templatesRootPath = path.join(rootPath, 'templates', 'backend');
 const webTemplatesRootPath = path.join(rootPath, 'templates', 'web');
@@ -40,8 +41,8 @@ function getActionForTemplateDirectory(templateDirectory: string, targetDirector
         destination: targetDirectory,
         force: true,
         templateFiles: [
-            templateDirectory,
-            path.join(templateDirectory, '.*/**/*')
+            PathHelper.useUnixPathSeparator(templateDirectory),
+            PathHelper.useUnixPathSeparator(path.join(templateDirectory, '.*/**/*'))
         ],
         stripExtensions: ['hbs']
     } as AddManyActionConfig;

@@ -5,7 +5,6 @@ import { Answers } from 'inquirer';
 import nodePlop from 'node-plop';
 import out from 'plop/src/console-out';
 
-
 const args = process.argv.slice(2);
 export const argv = require('minimist')(args);
 import ora from 'ora';
