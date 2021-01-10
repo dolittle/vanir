@@ -10,6 +10,8 @@ import commander from 'commander';
 import chalk from 'chalk';
 import { launchWizard } from './creation';
 import { Globals } from './Globals';
+export * from './Globals';
+export * from './Config';
 
 let root = __dirname;
 if (root.endsWith('dist')) {
