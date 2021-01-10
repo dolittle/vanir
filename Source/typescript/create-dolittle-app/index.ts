@@ -8,10 +8,15 @@ import path from 'path';
 import fs from 'fs';
 import commander from 'commander';
 import chalk from 'chalk';
-import rootPath from './packageRoot';
 import { launchWizard } from './creation';
+import { Globals } from './Globals';
 
-const packageJsonFile = path.join(rootPath, 'package.json');
+let root = __dirname;
+if (root.endsWith('dist')) {
+    root = path.join(root, '..');
+}
+
+const packageJsonFile = path.join(root, 'package.json');
 let packageJson = { name: 'unknown', version: '1.0.0' };
 if (fs.existsSync(packageJsonFile)) {
     packageJson = require(packageJsonFile);
@@ -22,6 +27,9 @@ const program = new commander.Command(packageJson.name)
     .arguments('<application-name>')
     .usage(`${chalk.green('<application-name>')} [options]`)
     .action(name => {
+        Globals.rootPath = root;
+        Globals.version = packageJson.version;
+
         launchWizard();
     })
     .addHelpCommand()

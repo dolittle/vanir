@@ -3,15 +3,13 @@
 
 import path from 'path';
 import { NodePlopAPI, ActionType, ActionConfig, AddManyActionConfig } from 'plop';
-import rootPath from './packageRoot';
 import { Answers } from 'inquirer';
 import { Guid } from '@dolittle/rudiments';
 
 import { createMicroservice } from 'create-dolittle-microservice/dist/creation';
 import { PathHelper } from '@dolittle/vanir-cli';
-
-const templatesRootPath = path.join(rootPath, 'templates');
-const packageJson = require(path.join(rootPath, 'package.json'));
+import { Globals } from './Globals';
+import { Config } from './Config';
 
 async function addPortalMicroservice(answers: Answers, config?: ActionConfig, plop?: NodePlopAPI): Promise<string> {
     await createMicroservice({
@@ -21,8 +19,6 @@ async function addPortalMicroservice(answers: Answers, config?: ActionConfig, pl
         targetDirectory: answers.targetDirectory,
         id: answers.portalId
     });
-
-    const microserviceFile = path.join(answers.targetDirectory, 'Source', 'Portal', 'microservice.json');
     return 'Added portal microservice';
 }
 
@@ -65,7 +61,7 @@ export default function (plop: NodePlopAPI) {
         actions: (answers?: Answers) => {
             const actions: ActionType[] = [];
             answers!.id = Guid.create().toString();
-            answers!.vanirVersion = packageJson.version;
+            answers!.vanirVersion = Globals.version;
 
             const targetDirectory = answers!.targetDirectory || process.cwd();
             answers!.targetDirectory = targetDirectory;
@@ -73,11 +69,11 @@ export default function (plop: NodePlopAPI) {
 
             actions.push({
                 type: 'addMany',
-                base: PathHelper.useUnixPathSeparator(templatesRootPath),
+                base: PathHelper.useUnixPathSeparator(Config.templatesRootPath),
                 destination: targetDirectory,
                 templateFiles: [
-                    PathHelper.useUnixPathSeparator(templatesRootPath),
-                    PathHelper.useUnixPathSeparator(path.join(templatesRootPath, '.*/**/*'))
+                    PathHelper.useUnixPathSeparator(Config.templatesRootPath),
+                    PathHelper.useUnixPathSeparator(path.join(Config.templatesRootPath, '.*/**/*'))
                 ],
                 stripExtensions: ['hbs']
             } as AddManyActionConfig);

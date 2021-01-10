@@ -3,16 +3,12 @@
 
 import path from 'path';
 import { NodePlopAPI, ActionType, ActionConfig, AddManyActionConfig } from 'plop';
-import rootPath from './packageRoot';
 import { Answers } from 'inquirer';
 import { Guid } from '@dolittle/rudiments';
 import editJsonFile from 'edit-json-file';
 import { PathHelper } from '@dolittle/vanir-cli';
-
-const templatesRootPath = path.join(rootPath, 'templates', 'backend');
-const webTemplatesRootPath = path.join(rootPath, 'templates', 'web');
-const portalTemplatesRootPath = path.join(rootPath, 'templates', 'portal');
-const packageJson = require(path.join(rootPath, 'package.json'));
+import { Config } from './Config';
+import { Globals } from './Globals';
 
 const toPascalCase = function (input: string): string {
     return input.replace(/(\w)(\w*)/g,
@@ -65,11 +61,15 @@ export default function (plop: NodePlopAPI) {
             message: 'Will the microservice have a UI?'
         }],
         actions: (answers?: Answers) => {
+            const templatesRootPath = path.join(Config.templatesRootPath, 'backend');
+            const webTemplatesRootPath = path.join(Config.templatesRootPath, 'web');
+            const portalTemplatesRootPath = path.join(Config.templatesRootPath, 'portal');
+
             const actions: ActionType[] = [];
             answers!.id = answers!.id || Guid.create().toString();
             answers!.name = toPascalCase(answers!.name);
             answers!.path = `./Source/${answers!.name}`;
-            answers!.vanirVersion = packageJson.version;
+            answers!.vanirVersion = Globals.version;
 
             const targetDirectory = answers!.targetDirectory || process.cwd();
 
