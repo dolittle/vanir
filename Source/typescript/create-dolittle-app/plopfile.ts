@@ -8,6 +8,7 @@ import { Answers } from 'inquirer';
 import { Guid } from '@dolittle/rudiments';
 
 import { createMicroservice } from 'create-dolittle-microservice/dist/creation';
+import { PathHelper } from '@dolittle/vanir-cli';
 
 const templatesRootPath = path.join(rootPath, 'templates');
 const packageJson = require(path.join(rootPath, 'package.json'));
@@ -75,8 +76,8 @@ export default function (plop: NodePlopAPI) {
                 base: templatesRootPath,
                 destination: targetDirectory,
                 templateFiles: [
-                    templatesRootPath,
-                    path.join(templatesRootPath, '.*/**/*')
+                    PathHelper.useUnixPathSeparator(templatesRootPath),
+                    PathHelper.useUnixPathSeparator(path.join(templatesRootPath, '.*/**/*'))
                 ],
                 stripExtensions: ['hbs']
             } as AddManyActionConfig);
