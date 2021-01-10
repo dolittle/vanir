@@ -73,7 +73,7 @@ export default function (plop: NodePlopAPI) {
 
             actions.push({
                 type: 'addMany',
-                base: templatesRootPath,
+                base: PathHelper.useUnixPathSeparator(templatesRootPath),
                 destination: targetDirectory,
                 templateFiles: [
                     PathHelper.useUnixPathSeparator(templatesRootPath),
