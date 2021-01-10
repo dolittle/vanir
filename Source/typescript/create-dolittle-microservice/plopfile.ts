@@ -37,7 +37,7 @@ function appendMicroserviceToApplication(answers: Answers, config?: ActionConfig
 function getActionForTemplateDirectory(templateDirectory: string, targetDirectory: string) {
     return {
         type: 'addMany',
-        base: templateDirectory,
+        base: PathHelper.useUnixPathSeparator(templateDirectory),
         destination: targetDirectory,
         force: true,
         templateFiles: [
