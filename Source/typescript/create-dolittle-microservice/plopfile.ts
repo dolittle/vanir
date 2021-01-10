@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 import path from 'path';
+import fs from 'fs';
 import { NodePlopAPI, ActionType, ActionConfig, AddManyActionConfig } from 'plop';
 import { Answers } from 'inquirer';
 import { Guid } from '@dolittle/rudiments';
@@ -76,7 +77,7 @@ export default function (plop: NodePlopAPI) {
             actions.push(appendMicroserviceToApplication);
 
             const applicationFile = path.join(targetDirectory, 'application.json');
-            const application = require(applicationFile);
+            const application = JSON.parse(fs.readFileSync(applicationFile).toString());
             answers!.applicationId = application.id;
             answers!.applicationName = application.name;
             answers!.tenant = application.tenant;
