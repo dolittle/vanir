@@ -8,6 +8,7 @@ const args = process.argv.slice(2);
 export const argv = require('minimist')(args);
 import { PlopHelper } from '@dolittle/vanir-cli';
 import { Answers } from 'inquirer';
+import plopConfigurator from './plopfile';
 
 const cwd = process.cwd();
 const plopFile = path.join(__dirname, 'plopfile.js');
@@ -22,7 +23,7 @@ export function launchWizard() {
 }
 
 export async function createMicroservice({ name, ui = true, portal = false, targetDirectory, id }: { name: string; ui?: boolean; portal?: boolean; targetDirectory?: string; id?: string }) {
-    const helper = new PlopHelper(plopFile);
+    const helper = new PlopHelper(plopConfigurator);
     const answers = { name, ui, id } as Answers;
     if (portal) {
         answers.hasUIPrefix = false;
