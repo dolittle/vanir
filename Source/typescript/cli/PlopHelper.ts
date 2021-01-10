@@ -9,6 +9,7 @@ import out from 'plop/src/console-out';
 const args = process.argv.slice(2);
 export const argv = require('minimist')(args);
 import ora from 'ora';
+import { NodePlopAPI } from 'plop';
 
 const progressSpinner = ora();
 
@@ -24,19 +25,21 @@ export interface PlopActionHooksChanges {
     path: string;
 }
 
-
+export type PlopConfigurationFunction = (plop: NodePlopAPI) => void;
 export class PlopHelper {
 
-    constructor(private _file: string) { }
+    constructor(private _configurationFunction: PlopConfigurationFunction) { }
 
     async runGenerator(generatorName: string, answers: Answers, targetDirectory?: string): Promise<{
         changes: PlopActionHooksChanges[];
         failures: PlopActionHooksFailures[];
     }> {
-        const plop = nodePlop(this._file, {
+        const plop = nodePlop('', {
             force: true,
             destBasePath: targetDirectory || process.cwd()
         });
+
+        this._configurationFunction(plop);
 
         const noMap = (argv['show-type-names'] || argv.t);
         const onComment = (msg) => {
