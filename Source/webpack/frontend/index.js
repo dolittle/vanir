@@ -8,7 +8,7 @@ const rules = require('./rules');
 const plugins = require('./plugins');
 const devServer = require('./devServer');
 
-module.exports = (env, argv, basePath, callback, title) => {
+module.exports = (env, argv, basePath, callback, port, title) => {
     const production = argv.mode === 'production';
     basePath = basePath || '/';
     title = title || 'Dolittle Studio';
@@ -24,7 +24,7 @@ module.exports = (env, argv, basePath, callback, title) => {
         },
         plugins: plugins(basePath, title),
         devtool: production ? '' : 'inline-source-map',
-        devServer: devServer(basePath)
+        devServer: devServer(basePath, port)
     };
 
     if (callback) {
