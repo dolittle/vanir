@@ -3,11 +3,13 @@
 
 const fileTypes = /\.(js|css|html|png|jpg|jpeg|gif)$/;
 
-module.exports = (basePath) => {
+module.exports = (basePath, port) => {
+    const port = process.env.port || port || 9000;
+
     return {
         historyApiFallback: { index: basePath },
         host: '0.0.0.0',
-        port: 8080,
+        port: port,
         publicPath: basePath,
         contentBase: process.cwd(),
         proxy: {
