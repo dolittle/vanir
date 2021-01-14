@@ -33,8 +33,8 @@
     },
     "scripts": {
         "prepublish": "yarn build",
-        "debug": "NODE_ENV=development node --inspect=0 -r ts-node/register index.ts",
-        "start": "NODE_ENV=development ts-node index.ts",
+        "debug": "cross-env NODE_ENV=development node --inspect=0 -r ts-node/register index.ts",
+        "start": "cross-env NODE_ENV=development ts-node index.ts",
         "clean": "tsc -b --clean",
         "build": "tsc -b && chmod +x dist/index.js",
         "lint": "eslint '**/*.{js,ts,tsx}' --quiet --fix",

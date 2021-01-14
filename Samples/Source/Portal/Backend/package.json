@@ -6,7 +6,7 @@
     "author": "Dolittle",
     "license": "MIT",
     "scripts": {
-        "start:dev": "NODE_ENV=development concurrently \"nodemon --inspect=0 -x tsoa spec-and-routes\" \"nodemon index.ts\""
+        "start:dev": "cross-env NODE_ENV=development concurrently \"nodemon --inspect=0 -x tsoa spec-and-routes\" \"nodemon index.ts\""
     },
     "nodemonConfig": {
         "restartable": "rs",
