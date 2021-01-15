@@ -59,6 +59,10 @@ module.exports = (env, argv, callback) => {
                         projectReferences: true,
                         allowTsInNodeModules: true
                     }
+                },
+                {
+                    test: /\.[tj]s$/i,
+                    loader: 'shebang-loader'
                 }
             ]
         },
