@@ -18,7 +18,7 @@ module.exports = {
         })
     ],
     runtimeChunk: true,
-    moduleIds: 'hashed',
+    moduleIds: 'deterministic',
     splitChunks: {
         chunks: 'initial',
         // sizes are compared against source before minification

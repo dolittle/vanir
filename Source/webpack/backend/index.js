@@ -42,7 +42,6 @@ module.exports = (env, argv, callback) => {
             libraryTarget: 'commonjs'
         },
         resolve: {
-            enforceModuleExtension: false,
             extensions: ['.mjs', '.js', '.json', '.ts'],
             plugins: [
                 new TsconfigPathsPlugin()
@@ -50,6 +49,12 @@ module.exports = (env, argv, callback) => {
         },
         module: {
             rules: [
+                {
+                    test: /\.m?js/,
+                    resolve: {
+                        fullySpecified: false
+                    }
+                },
                 {
                     test: /\.[tj]s$/i,
                     exclude: /(node_modules)/,
@@ -68,6 +73,7 @@ module.exports = (env, argv, callback) => {
         },
         plugins: [
             new webpack.NormalModuleReplacementPlugin(/@tsoa\/cli/, '@dolittle/vanir-backend/dist/_build/tsoa-replacement'),
+            new webpack.NormalModuleReplacementPlugin(/package.json/, (request) => path.join(request.context,request.request)),
             new webpack.ProgressPlugin()
         ]
     };
