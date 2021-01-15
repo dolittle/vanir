@@ -68,7 +68,6 @@ module.exports = (env, argv, callback) => {
         },
         plugins: [
             new webpack.NormalModuleReplacementPlugin(/@tsoa\/cli/, '@dolittle/vanir-backend/dist/_build/tsoa-replacement'),
-            new webpack.NormalModuleReplacementPlugin(/platform-shims\/esm.mjs/, '@dolittle/vanir-backend/dist/_build/esm-replacement'),
             new webpack.ProgressPlugin()
         ]
     };
