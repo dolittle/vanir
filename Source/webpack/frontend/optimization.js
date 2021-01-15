@@ -7,8 +7,6 @@ module.exports = {
     minimizer: [
         new TerserPlugin({
             terserOptions: {
-                cache: true,
-                parallel: true,
                 sourceMap: false,
 
                 // We want the class names and function names to be there for the IoC to work its magic
