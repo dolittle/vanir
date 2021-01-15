@@ -21,7 +21,7 @@ $ms-color-neutralDark: #f4f4f4;
 $ms-color-black: #f8f8f8;
 $ms-color-white: #2b2f34;
 
-@import "~office-ui-fabric-core/src/sass/Fabric.scss";
+@import "~@fluentui/react/dist/sass/Fabric";
 
 %flex-container {
     display: flex;
