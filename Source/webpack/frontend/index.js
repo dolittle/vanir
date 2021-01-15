@@ -23,7 +23,7 @@ module.exports = (env, argv, basePath, callback, port, title) => {
             rules
         },
         plugins: plugins(basePath, title),
-        devtool: production ? '' : 'inline-source-map',
+        devtool: production ? false : 'inline-source-map',
         devServer: devServer(basePath, port)
     };
 
