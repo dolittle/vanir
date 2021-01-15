@@ -8,6 +8,6 @@
     "private": true,
     "dependencies": {
         "@shared/common": "1.0.0",
-        "@dolittle/vanir-backend": "^2.5.12"
+        "@dolittle/vanir-backend": "*"
     }
 }
