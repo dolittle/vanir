@@ -3,6 +3,7 @@
     "isRooted": true,
     "routeSegment": "portal",
     "port": 3002,
+    "publicPath": "./public",
     "dolittle": {
         "runtime": {
             "port": 50057
