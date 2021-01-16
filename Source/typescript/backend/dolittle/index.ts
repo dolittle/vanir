@@ -18,8 +18,8 @@ export type DolittleClientBuilderCallback = (clientBuilder: ClientBuilder) => vo
 export async function initialize(configuration: Configuration, callback?: DolittleClientBuilderCallback): Promise<Client> {
     const databaseConnectionString = `mongodb://${configuration.database.host}:${configuration.database.port}/`;
     const databaseName = configuration.database.name;
-    const eventStoreDatabaseConnectionString = `mongodb://${configuration.eventStore.host}:${configuration.eventStore.port}/`;
-    const eventStoreDatabaseName = configuration.eventStore.name;
+    const eventStoreDatabaseConnectionString = `mongodb://${configuration.eventstore.host}:${configuration.eventstore.port}/`;
+    const eventStoreDatabaseName = configuration.eventstore.name;
 
     logger.info(`Using '${databaseConnectionString}${databaseName}' for projections`);
     logger.info(`Using '${eventStoreDatabaseConnectionString}${eventStoreDatabaseName}' for projection intermediate state`);

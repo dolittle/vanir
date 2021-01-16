@@ -49,6 +49,7 @@
         "MUUID",
         "actionbar",
         "dependencyinversion",
+        "eventstore",
         "mvvm",
         "plopfile",
         "tsoa",
