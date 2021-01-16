@@ -16,7 +16,7 @@
     "database": {
         "name": "read_models_{{lowerCase name}}"
     },
-    "eventStore": {
+    "eventstore": {
         "name": "event_store_{{lowerCase name}}"
     }
 }
