@@ -15,7 +15,7 @@ export class Configuration {
     microserviceId: string = '';
 
     database: DatabaseConfiguration;
-    eventStore: DatabaseConfiguration;
+    eventstore: DatabaseConfiguration;
 
     dolittle: DolittleConfiguration;
 
@@ -23,7 +23,7 @@ export class Configuration {
 
     constructor() {
         this.database = new DatabaseConfiguration();
-        this.eventStore = new DatabaseConfiguration();
+        this.eventstore = new DatabaseConfiguration();
         this.dolittle = new DolittleConfiguration();
     }
 
