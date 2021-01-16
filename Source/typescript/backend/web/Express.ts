@@ -57,6 +57,8 @@ export async function initialize(configuration: Configuration, graphQLResolvers:
 
     configCallback?.(app);
 
+    logger.info(`Serving static content from '${configuration.publicPath}'`);
+
     app.use(prefix, express.static(configuration.publicPath));
     app.use((req, res) => {
         const indexPath = path.resolve(configuration.publicPath, 'index.html');
