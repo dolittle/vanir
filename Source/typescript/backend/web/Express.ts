@@ -36,7 +36,14 @@ export async function initialize(configuration: Configuration, graphQLResolvers:
     app.use(bodyParser.json());
 
     const server = new ApolloServer({
-        schema: await getSchemaFor(graphQLResolvers)
+        schema: await getSchemaFor(graphQLResolvers),
+        context: ({ req }) => {
+            return {
+                userId: req.header('User-ID'),
+                tenantId: req.header('Tenant-Id'),
+                cookies: req.header('Cookie'),
+            };
+        }
     });
     const graphqlRoute = `${prefix}/graphql`.replace('//', '/');
 
