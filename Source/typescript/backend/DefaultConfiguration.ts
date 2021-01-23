@@ -14,7 +14,7 @@ export default {
         database: 'data',
         port: 27017
     },
-    eventStore: {
+    eventstore: {
         host: 'localhost',
         database: 'events',
         port: 27017

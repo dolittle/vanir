@@ -1,7 +1,6 @@
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
-
 namespace Backend
 {
     public class Program

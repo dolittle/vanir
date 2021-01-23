@@ -1,0 +1,9 @@
+{
+    "microserviceId": "c1985b1c-c5d6-4377-935e-3f09e7565ba9",
+    "dolittle": {
+        "runtime": {
+            "port": 50057
+        }
+    }
+
+}

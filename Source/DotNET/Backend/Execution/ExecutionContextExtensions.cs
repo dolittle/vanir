@@ -1,9 +1,9 @@
 // Copyright (c) Dolittle. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using Microsoft.AspNetCore.Builder;
+using Dolittle.Vanir.Backend.Execution;
 
-namespace Dolittle.Vanir.Backend.Execution
+namespace Microsoft.AspNetCore.Builder
 {
     public static class ExecutionContextExtensions
     {
