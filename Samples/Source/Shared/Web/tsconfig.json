@@ -3,6 +3,16 @@
     "references": [
         {
             "path": "../Common"
+        },
+        {
+            "path": "../../../../Source/web"
+        },
+        {
+            "path": "../../../../Source/react"
+        },
+        {
+            "path": "../../../../Source/webpack"
         }
+
     ]
 }

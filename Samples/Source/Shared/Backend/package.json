@@ -7,7 +7,6 @@
     "license": "MIT",
     "private": true,
     "dependencies": {
-        "@shared/common": "1.0.0",
-        "@dolittle/vanir-backend": "*"
+        "@shared/common": "1.0.0"
     }
 }

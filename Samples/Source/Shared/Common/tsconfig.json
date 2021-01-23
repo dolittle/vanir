@@ -1,4 +1,12 @@
 {
     "extends": "../../../tsconfig.json",
-    "references": []
+    "references": [
+        {
+            "path": "../../../../Source/typescript/dependency-inversion"
+        },
+        {
+            "path": "../../../../Source/webpack"
+        }
+
+    ]
 }

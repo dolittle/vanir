@@ -9,9 +9,6 @@
     "dependencies": {
         "@shared/common": "1.0.0",
         "@fluentui/react": "8.0.0-beta.31",
-        "@fluentui/react-hooks": "8.0.0-beta.0",
-        "@dolittle/vanir-react": "*",
-        "@dolittle/vanir-web": "*",
-        "@dolittle/vanir-webpack": "*"
+        "@fluentui/react-hooks": "8.0.0-beta.0"
     }
 }

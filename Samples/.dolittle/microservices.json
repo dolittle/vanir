@@ -2,5 +2,9 @@
     "0993eb39-1ddb-2b46-bdc6-517d45e7cff5": {
         "host": "sampleapp-runtime-portal",
         "port": "50052"
+    },
+    "6e24ebf1-f724-a54d-9553-1c61f5e9f83f": {
+        "host": "sampleapp-runtime-aspnetcore",
+        "port": "50052"
     }
 }
