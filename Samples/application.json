@@ -10,6 +10,7 @@
     },
     "microservices": [
         "./Source/Portal",
-        "./Source/Aspnetcore"
+        "./Source/Aspnetcore",
+        "./Source/Typescript"
     ]
 }
