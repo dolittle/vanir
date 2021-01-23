@@ -21,7 +21,7 @@ For a backend, this could typically look like below:
         "dev": "nodemon --inspect=0 -e ts --exec node -r ts-node/register index.ts",
         "start": "ts-node index.ts",
         "clean": "tsc -b --clean",
-        "build": "yarn clean && webpack --env.production --mode=production",
+        "build": "yarn clean && webpack --mode=production",
         "test": "mocha",
         "lint": "eslint '**/*.{js,ts,tsx}' --quiet --fix",
         "lint:ci": "eslint '**/*.{js,ts,tsx}' --quiet",
