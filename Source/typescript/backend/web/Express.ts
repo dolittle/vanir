@@ -39,6 +39,8 @@ export async function initialize(configuration: Configuration, graphQLResolvers:
         schema: await getSchemaFor(graphQLResolvers)
     });
     const graphqlRoute = `${prefix}/graphql`.replace('//', '/');
+
+    logger.info(`Hosting graphql at ${graphqlRoute}`);
     server.applyMiddleware({ app, path: graphqlRoute });
 
     if (swaggerDoc) {
