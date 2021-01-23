@@ -6,8 +6,8 @@
     "author": "{{tenant}}",
     "license": "{{license}}",
     "scripts": {
-        "build": "webpack --env.production --mode=production",
-        "build:dev": "webpack --env.development --mode=development",
+        "build": "webpack --mode=production",
+        "build:dev": "webpack --mode=development",
         "start:dev": "webpack-cli serve --mode=development --watch --progress --hot",
         "clean": "tsc -b --clean",
         "lint": "eslint '**/*.{js,ts,tsx}' --quiet --fix",
