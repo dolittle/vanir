@@ -1,0 +1,32 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: application-77628df0-f46f-2e46-87a6-bc5a75578bcf
+  name: sampleapp-dev-typescript-env-variables
+  labels:
+    tenant: Dolittle
+    application: SampleApp-Dev
+    microservice: Typescript
+data:
+  NODE_ENV: "production"
+  DATABASE_HOST: "sampleapp-dev-mongo.application-77628df0-f46f-2e46-87a6-bc5a75578bcf.svc.cluster.local"
+  DATABASE_NAME: "read_models_typescript"
+  EVENTSTORE_HOST: "sampleapp-dev-mongo.application-77628df0-f46f-2e46-87a6-bc5a75578bcf.svc.cluster.local"
+  EVENTSTORE_NAME: "event_store_typescript"
+  DOLITTLE_RUNTIME_HOST: "localhost"
+  DOLITTLE_RUNTIME_PORT: "50053"
+  PORT: "80"
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: application-77628df0-f46f-2e46-87a6-bc5a75578bcf
+  name: sampleapp-dev-typescript-config-files
+  labels:
+    tenant: Dolittle
+    application: SampleApp-Dev
+    microservice: Typescript
+data:
+
