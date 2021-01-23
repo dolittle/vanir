@@ -62,3 +62,28 @@ dist
 package-lock.json
 
 .yarn
+
+# .NET #
+########
+bin
+obj
+*.suo
+*.ldf
+*.LDF
+*.user
+_ReSharper.*
+packages
+*.pidb
+*.userprefs
+*.pdb
+*.idb
+*.vspscc
+*.test-cache
+*.nupkg
+*.cache
+*.lock.json
+*.nuget.targets
+*.nuget.props
+.vs
+.vscode
+*.idea
