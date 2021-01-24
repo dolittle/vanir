@@ -11,4 +11,5 @@ for everyone participating in this project to see what is expected.
 
 | Title | Description |
 | ----- | ----------- |
-| [architecture](./architecture.md) | How it all fits together |
+| [Architecture](./architecture.md) | How it all fits together |
+| [Microservice Instance](./microservice.md) | How a Vanir based Dolittle microservice is packaged and run |

@@ -38,6 +38,7 @@ Using GraphQL for exposing queries and mutations to a frontend is based on a few
 * Payloads can be optimized for its use case.
 * GraphQL supports a reactive nature through its subscription model - which fits with our own vision of reactive applications.
 * We can easily extend on GraphQL client libraries and provide a push model for changes on queries used by a client.
+* One way to bring metadata to the frontend for things like validation rules and provide a cross cutting self aware client for this - avoiding repetition.
 
 Another consideration is to keep publicly exposed APIs separate from private. Anything that is public
 and potentially consumed by 3rd parties needs a more rigorous versioning scheme. They are representing different concerns
