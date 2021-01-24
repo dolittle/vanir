@@ -34,11 +34,18 @@ the expected structure.
 Every Microservice is expected to be versioned independently from one another. By default this is
 achieved by the build pipelines working with the `microservice.json` file coming from the templates.
 
-The pipelines are built to update two properties of the file:
+The pipelines are built to update three properties of the file:
 
 ```json
 {
     "version": "1.0.0",
-    "commit": "c35ee1bb075b26d7fb9d0481332eb5bc578cedfc"
+    "commit": "c35ee1bb075b26d7fb9d0481332eb5bc578cedfc",
+    "built": "2021-01-23T18:09:29.374Z"
 }
 ```
+
+## Portal
+
+One of the concepts in Vanir is something called Portal. This is the outermost microservice that
+is responsible for the [composition](./frontend/composition.md) of itself together with all the
+microservices in the composition.
