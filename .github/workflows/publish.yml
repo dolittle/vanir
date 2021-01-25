@@ -37,11 +37,11 @@ jobs:
 
       - name: Create GitHub Release
         if: ${{ steps.context.outputs.should-publish == 'true' }}
-        uses: dolittle/github-release-action@v1
+        uses: dolittle/github-release-action@v2
         with:
           token: ${{  secrets.BUILD_PAT  }}
-          cascading-release: ${{ steps.context.outputs.cascading-release }}
           version: ${{ steps.increment-version.outputs.next-version }}
+          body: ${{ steps.context.outputs.pr-body }}
 
       - name: Publish NPM packages
         if: ${{ steps.context.outputs.should-publish == 'true' }}
