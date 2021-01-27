@@ -38,6 +38,7 @@ with authentication and tenancy for the application. This system adds the follow
 be leveraged in the frontend and the backend.
 
 | Name | Description |
+| ----- | ----------- |
 | User-ID | The unique identifier of the user logging in |
 | Tenant-Id | The unique identifier of the tenant the user is logged into |
 | Cookie | The authentication cookie used |
@@ -56,7 +57,7 @@ Once deployed and running in the Dolittle platform, there are environment variab
 be used by the backend:
 
 | Name | Description |
-| ---- | ----------- |
+| ----- | ----------- |
 | PORT | The public port. Typically when run in the Dolittle platform, this is set to 80 |
 | DOLITTLE__RUNTIME__PORT | The private port that the Dolittle SDK will use to connect to the Dolittle Runtime |
 | DATABASE__HOST | The host that holds the database (MongoDB) |
