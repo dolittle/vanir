@@ -51,7 +51,13 @@ All microservices are packaged as Docker images. The goal is to package them as 
 size and startup time.
 
 The images are expected to contain the backend and the frontend if the microservice has a frontend.
-This means that the backend must serve the frontend as well as any APIs and/or GraphQL endpoints
+This means that the backend must serve the frontend as well as any APIs and/or GraphQL endpoints.
+
+> Dolittle has been working on separating out the serving of static content to a specialized offering
+> and this requirement could be changed in the future. It will then provide higher resilience in the
+> system and also provide an elastic scale model to scale the things that needs scaling - very much
+> aligned with our entire microservice philosophy stemming from Single Responsibility Principle and
+> Separation of Concerns.
 
 ## Environment variables
 
