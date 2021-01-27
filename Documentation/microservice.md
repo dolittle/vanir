@@ -29,7 +29,7 @@ endpoint is expected on `/_/<microservice>/graphql`.
 
 ### Public API
 
-All public APIs are expected at the route `/api/<microservice>`.
+All public APIs are expected at the route `/api/<microservice>`. The exception to this is the microservice designated as the portal, it only has `/api` as the prefix.
 
 ## HTTP headers
 
