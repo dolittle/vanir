@@ -37,11 +37,13 @@ In front of a Dolittle microservice hosted in the Dolittle platform, sits a cros
 with authentication and tenancy for the application. This system adds the following HTTP headers that can
 be leveraged in the frontend and the backend.
 
+
 | Name | Description |
-| ----- | ----------- |
+| ----- | ----------- |
 | User-ID | The unique identifier of the user logging in |
 | Tenant-Id | The unique identifier of the tenant the user is logged into |
 | Cookie | The authentication cookie used |
+
 
 ## Packaging
 
@@ -56,8 +58,9 @@ This means that the backend must serve the frontend as well as any APIs and/or G
 Once deployed and running in the Dolittle platform, there are environment variables that will be set that can
 be used by the backend:
 
+
 | Name | Description |
-| ----- | ----------- |
+| ----- | ----------- |
 | PORT | The public port. Typically when run in the Dolittle platform, this is set to 80 |
 | DOLITTLE__RUNTIME__PORT | The private port that the Dolittle SDK will use to connect to the Dolittle Runtime |
 | DATABASE__HOST | The host that holds the database (MongoDB) |
@@ -66,6 +69,7 @@ be used by the backend:
 | EVENTSTORE__HOST | The eventstore database host |
 | EVENTSTORE__NAME | The eventstore database name (MongoDB) |
 | EVENTSTORE__PORT | The eventstore database port (default 27017) |
+
 
 > The current approach for database and eventstore will change in the future with a multi-tenanted approach.
 > The eventstore variables are only used today by the projection engine, which is today embedded in the backend but will later be part of the runtime.
