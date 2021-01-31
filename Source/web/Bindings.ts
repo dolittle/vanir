@@ -15,7 +15,7 @@ export class Bindings {
     static initialize(configuration: Configuration) {
         const cache = new InMemoryCache();
         const link = new HttpLink({
-            uri: `${configuration.prefix}/graphql`
+            uri: `${configuration.prefix}/graphql/`
         });
 
         const client = new ApolloClient({
