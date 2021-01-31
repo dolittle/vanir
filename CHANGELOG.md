@@ -1,3 +1,13 @@
+# [8.0.1] - 2021-1-31 [PR: #106](https://github.com/dolittle-entropy/vanir/pull/106)
+## Summary
+
+Fixing a problem with the path for GraphQL client - needs a trailing /
+
+### Fixed
+
+- Added trailing slash for GraphQL paths for the client bindings
+
+
 ## [8.0.0] - 2021-01-24
 ### Added
 - Changelog
