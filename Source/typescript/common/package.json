@@ -41,6 +41,6 @@
     },
     "devDependencies": {
         "@types/edit-json-file": "1.4.0",
-        "@types/minimist": "^1.2.1"
+        "@types/minimist": "1.2.1"
     }
 }
