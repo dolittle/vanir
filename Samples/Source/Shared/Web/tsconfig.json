@@ -9,10 +9,6 @@
         },
         {
             "path": "../../../../Source/react"
-        },
-        {
-            "path": "../../../../Source/webpack"
         }
-
     ]
 }

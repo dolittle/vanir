@@ -32,7 +32,7 @@
         "ci": "yarn clean && yarn lint:ci && yarn build && yarn test"
     },
     "dependencies": {
-        "reflect-metadata": "^0.1.13",
+        "reflect-metadata": "0.1.13",
         "tsyringe": "4.4.0"
     }
 }
