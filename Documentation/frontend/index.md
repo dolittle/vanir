@@ -12,6 +12,6 @@ is expected to grow over time as we discover new needs and patterns.
 
 | Title | Description |
 | ----- | ----------- |
-| [Anatomy](./anatomy-of-a-frontend.md) | All the React specifics |
-| [Composition](./composition.md) | All the React specifics |
+| [Anatomy](./anatomy-of-a-frontend.md) | The anatomy of a Vanir frontend |
+| [Composition](./composition.md) | How composition is done out of the box |
 | [React](./react/index.md) | All the React specifics |
