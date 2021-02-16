@@ -47,27 +47,22 @@ import ReactDOM from 'react-dom';
 import '@shared/styles';                                // Our shared styles to make it all look and feel the same
 import './index.scss';                                  // Our specific styles for this page
 
-import { initializeFrontend, VersionInfo } from '@shared/web';
+import { Bootstrapper } from '@dolittle/vanir-react';
+import { VersionInfo } from '@dolittle/vanir-web';
 
 // Require the version info to be available for seeing the version of the Microservice at runtime
 const versionInfo = require('../version.json') as VersionInfo;
 
 export default function App() {
-
-    initializeFrontend({
-        name: '<microservice>',                         // The name of the microservice
-        prefix: '/_/<microservice>'                     // The same prefix as with the backend
-        versionInfo                                     // The version information
-    })
     return (
-        <>
-            <div>Hello from the new Microservice</div>
-        </>
+        <div>Hello from the new Microservice</div>
     );
 }
 
 ReactDOM.render(
-    <App />,
+    <Bootstrapper name="<microservice>" prefix="/_/<microservice>" version={version}>
+        <App />
+    </Bootstrapper>
     document.getElementById('root')
 );
 ```
@@ -138,7 +133,7 @@ package.json:
     "scripts": {
         "build": "webpack --mode=production",
         "build:dev": "webpack --mode=development",
-        "start": "webpack-dev-server --mode=development --watch --progress --hot --verbose --display-error-details",
+        "start:dev": "webpack-cli serve --mode=development --watch --progress --hot",
         "clean": "tsc -b --clean",
         "lint": "eslint '**/*.{js,ts,tsx}' --quiet --fix",
         "lint:ci": "eslint '**/*.{js,ts,tsx}' --quiet",
