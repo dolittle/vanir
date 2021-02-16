@@ -1,3 +1,14 @@
+# [8.0.3] - 2021-2-16 [PR: #114](https://github.com/dolittle-entropy/vanir/pull/114)
+## Summary
+
+Locking down remaining dependencies on specific version.
+
+
+### Fixed
+
+- Further lockdown on version for 3rd parties - must have missed some previously
+
+
 # [8.0.2] - 2021-2-16 [PR: #113](https://github.com/dolittle-entropy/vanir/pull/113)
 ## Summary
 
