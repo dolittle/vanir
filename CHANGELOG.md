@@ -1,3 +1,13 @@
+# [8.0.2] - 2021-2-16 [PR: #113](https://github.com/dolittle-entropy/vanir/pull/113)
+## Summary
+
+Gaining control over 3rd party dependencies.
+
+### Fixed
+
+- All third party dependencies are now locked to a specific version
+
+
 # [8.0.1] - 2021-1-31 [PR: #106](https://github.com/dolittle-entropy/vanir/pull/106)
 ## Summary
 
