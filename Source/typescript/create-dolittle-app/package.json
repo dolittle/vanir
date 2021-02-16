@@ -44,7 +44,7 @@
     },
     "dependencies": {
         "@dolittle/vanir-cli": "8.0.2",
-        "commander": "^6.2.1",
+        "commander": "6.2.1",
         "create-dolittle-microservice": "8.0.2"
     },
     "devDependencies": {}

@@ -16,6 +16,10 @@
         "url": "https://github.com/dolittle-entropy/vanir/issues"
     },
     "homepage": "https://github.com/dolittle-entropy/vanir#readme",
+    "engineStrict": true,
+    "engines": {
+        "node": ">= 14"
+    },
     "files": [
         "dist",
         "**/*.ts"
@@ -33,6 +37,6 @@
         "ci": "yarn clean && yarn lint:ci && yarn build && yarn test"
     },
     "devDependencies": {
-        "ttypescript": "^1.5.12"
+        "ttypescript": "1.5.12"
     }
 }

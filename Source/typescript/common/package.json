@@ -16,6 +16,10 @@
         "url": "https://github.com/dolittle-entropy/vanir/issues"
     },
     "homepage": "https://github.com/dolittle-entropy/vanir#readme",
+    "engineStrict": true,
+    "engines": {
+        "node": ">= 14"
+    },
     "files": [
         "dist",
         "**/*.ts"
@@ -41,6 +45,6 @@
     },
     "devDependencies": {
         "@types/edit-json-file": "1.4.0",
-        "@types/minimist": "^1.2.1"
+        "@types/minimist": "1.2.1"
     }
 }
