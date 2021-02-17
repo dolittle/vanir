@@ -1,3 +1,16 @@
+# [8.0.4] - 2021-2-17 [PR: #115](https://github.com/dolittle-entropy/vanir/pull/115)
+## Summary
+
+We've had issues with WebPack when using the dev-server and also all of a sudden broken builds due to the html-webpack-plugin not loading the ejs template file and rendering it.
+
+### Fixed
+
+- Upgraded to latest WebPack
+- Upgraded to latest html-webpack-plugin
+- Removing --watch option
+- Updating templates to use webpack instead of webpack-cli directly
+
+
 # [8.0.3] - 2021-2-16 [PR: #114](https://github.com/dolittle-entropy/vanir/pull/114)
 ## Summary
 
