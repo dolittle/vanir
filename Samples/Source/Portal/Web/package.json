@@ -6,7 +6,8 @@
     "author": "Dolittle",
     "license": "MIT",
     "scripts": {
-        "start:dev": "webpack-cli serve --mode=development --watch --progress --hot"
+        "build": "webpack --mode=production --progress",
+        "start:dev": "webpack serve --mode=development --progress --hot"
     },
     "dependencies": {
         "@shared/styles": "1.0.0",
