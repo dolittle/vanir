@@ -5,7 +5,7 @@ metadata:
   namespace: application-{{applicationId}}
   name: {{lowerCase applicationName}}-prod-{{lowerCase name}}-env-variables
   labels:
-    tenant: Dolittle
+    tenant: {{tenant}}
     application: {{pascalCase applicationName}}-Prod
     microservice: {{pascalCase name}}
 data:
@@ -25,7 +25,7 @@ metadata:
   namespace: application-{{applicationId}}
   name: {{lowerCase applicationName}}-prod-{{lowerCase name}}-config-files
   labels:
-    tenant: Dolittle
+    tenant: {{tenant}}
     application: {{pascalCase applicationName}}-Prod
     microservice: {{pascalCase name}}
 data:
