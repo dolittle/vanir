@@ -1,3 +1,13 @@
+# [8.0.5] - 2021-2-18 [PR: #117](https://github.com/dolittle-entropy/vanir/pull/117)
+## Summary
+
+This PR fixes the hardcoded "Dolittle" tenant in the k8s production configuration to be configurable per template
+
+### Fixed
+
+- Fix the hardcoded "Dolittle" tenant in the k8s production configuration to be configurable per template
+
+
 # [8.0.4] - 2021-2-17 [PR: #115](https://github.com/dolittle-entropy/vanir/pull/115)
 ## Summary
 
