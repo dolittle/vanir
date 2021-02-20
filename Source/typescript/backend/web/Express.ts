@@ -12,6 +12,7 @@ import { Configuration } from '../Configuration';
 import { logger } from '../logging';
 import { getSchemaFor } from '../data';
 import swaggerUI from 'swagger-ui-express';
+import { ContextMiddleware, Context } from './Context';
 
 export let app: Express;
 export type ExpressConfigCallback = (app: Express) => void;
@@ -26,6 +27,8 @@ export async function initialize(configuration: Configuration, graphQLResolvers:
     }
 
     app = express();
+    app.use(ContextMiddleware);
+
     app.use(morgan(':method :url :status :res[content-length] - :response-time ms') as any);
     app.use(compression());
     app.use(
@@ -38,11 +41,8 @@ export async function initialize(configuration: Configuration, graphQLResolvers:
     const server = new ApolloServer({
         schema: await getSchemaFor(graphQLResolvers),
         context: ({ req }) => {
-            return {
-                userId: req.header('User-ID'),
-                tenantId: req.header('Tenant-Id'),
-                cookies: req.header('Cookie'),
-            };
+            const context = Context.fromRequest(req);
+            return context;
         }
     });
     const graphqlRoute = `${prefix}/graphql`.replace('//', '/');

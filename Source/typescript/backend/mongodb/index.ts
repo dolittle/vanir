@@ -6,3 +6,6 @@ export * from './CustomType';
 export * from './CustomTypes';
 export * from './guid';
 export * from './GuidCustomType';
+export * from './MongoDb';
+export * from './IMongoDatabase';
+export * from './MongoDbReadModelsConfiguration';

@@ -11,7 +11,7 @@ import { MissingResourceConfigurationsForTenant } from './MissingResourceConfigu
 import { MissingResourceConfigurationOfType } from './MissingResourceConfigurationOfType';
 import { ResourcesFileStructure } from './ResourcesFileStructure';
 import { EventStoreConfiguration } from './EventStoreConfiguration';
-import { MongoDbReadModelsConfiguration } from './MongoDbReadModelsConfiguration';
+import { MongoDbReadModelsConfiguration } from '../mongodb';
 
 const ResourcesJsonFilePath = '.dolittle/resources.json';
 

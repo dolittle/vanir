@@ -10,3 +10,9 @@ export * as dolittle from './dolittle';
 export * as logging from './logging';
 export * as tsoa from './tsoa';
 export * as web from './web';
+
+export * as mongodb from './mongodb';
+
+import './mongodb/CursorExtensions';
+export { IMongoDatabase } from './mongodb';
+
