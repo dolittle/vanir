@@ -7,6 +7,7 @@ import { ResourceConfiguration } from './ResourceConfiguration';
  * Represents the configuration for a MongoDb connection.
  */
 export class MongoDbReadModelsConfiguration extends ResourceConfiguration {
-    servers!: string[];
+    host!: string;
     database!: string;
+    useSSL!: boolean;
 }
