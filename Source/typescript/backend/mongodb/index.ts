@@ -4,8 +4,10 @@
 import './CursorExtensions';
 export * from './CustomType';
 export * from './CustomTypes';
+export * from './customTypeDecorator';
 export * from './guid';
 export * from './GuidCustomType';
 export * from './MongoDb';
 export * from './IMongoDatabase';
 export * from './MongoDbReadModelsConfiguration';
+export * from './MongoDbContext';

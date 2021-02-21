@@ -6,6 +6,13 @@ import { Collection, DbCollectionOptions, MongoClient } from 'mongodb';
 import { injectable } from 'tsyringe';
 import { IMongoDatabase } from './IMongoDatabase';
 import { MongoDbReadModelsConfiguration } from './MongoDbReadModelsConfiguration';
+import { setCollectionType } from './MongoDbContext';
+
+declare module 'mongodb' {
+    interface Collection<TSchema> {
+        _schemaType?: Constructor<TSchema>;
+    }
+}
 
 @injectable()
 export class MongoDatabase implements IMongoDatabase {
@@ -19,6 +26,7 @@ export class MongoDatabase implements IMongoDatabase {
     collection<TSchema = any>(type: Constructor<TSchema>, name: string, options: DbCollectionOptions): Promise<Collection<TSchema>>;
     async collection<TSchema = any>(typeOrName: Constructor<TSchema> | string, nameOrOption?: string | DbCollectionOptions, options?: DbCollectionOptions): Promise<Collection<TSchema>> {
         let name = (typeOrName instanceof String) ? (typeOrName as string) : (typeOrName as Constructor).name;
+
         if (nameOrOption) {
             if (nameOrOption instanceof String) {
                 name = nameOrOption as string;
@@ -32,6 +40,11 @@ export class MongoDatabase implements IMongoDatabase {
         if (options) {
             return db.collection(name, options);
         }
-        return db.collection(name);
+        let collection = db.collection(name);
+        if (!(typeOrName instanceof String)) {
+            collection._schemaType = typeOrName as Constructor;
+            setCollectionType(name, collection._schemaType);
+        }
+        return collection;
     }
 }

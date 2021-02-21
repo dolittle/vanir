@@ -3,7 +3,7 @@
 
 import { Binary } from 'mongodb';
 import { Guid } from '@dolittle/rudiments';
-import { CustomType } from './CustomType';
+import { CustomType } from './index';
 import '../data/GuidExtensions';
 
 

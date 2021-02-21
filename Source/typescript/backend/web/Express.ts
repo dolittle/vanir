@@ -13,6 +13,7 @@ import { logger } from '../logging';
 import { getSchemaFor } from '../data';
 import swaggerUI from 'swagger-ui-express';
 import { ContextMiddleware, Context } from './Context';
+import { MongoDbContextMiddleware } from '../mongodb';
 
 export let app: Express;
 export type ExpressConfigCallback = (app: Express) => void;
@@ -28,6 +29,7 @@ export async function initialize(configuration: Configuration, graphQLResolvers:
 
     app = express();
     app.use(ContextMiddleware);
+    app.use(MongoDbContextMiddleware);
 
     app.use(morgan(':method :url :status :res[content-length] - :response-time ms') as any);
     app.use(compression());

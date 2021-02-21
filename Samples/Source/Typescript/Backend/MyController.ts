@@ -2,7 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 import { IMongoDatabase } from '@dolittle/vanir-backend';
-import { guid } from '@dolittle/vanir-backend/mongodb';
+import { guid } from '@dolittle/vanir-backend/dist/mongodb';
 import { Controller, Get, Route } from '@tsoa/runtime';
 import { injectable } from 'tsyringe';
 import { Guid } from '@dolittle/rudiments';
@@ -30,7 +30,7 @@ export class MyController extends Controller {
             _id: Guid.create(),
             something: 42
         });
-        const result = await collection.find().toTypedArray(MyType);
+        const result = await collection.find().toArray();
         return result;
     }
 }

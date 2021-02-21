@@ -11,8 +11,10 @@ export * as logging from './logging';
 export * as tsoa from './tsoa';
 export * as web from './web';
 
-export * as mongodb from './mongodb';
+import * as mongodb from './mongodb';
+export {
+    mongodb
+};
 
-import './mongodb/CursorExtensions';
 export { IMongoDatabase } from './mongodb';
 
