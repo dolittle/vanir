@@ -9,7 +9,6 @@ Since Dolittle is designed and built from the ground up with multi-tenancy in mi
 from request to request. On the HTTP header, the Dolittle platform will inject the correct Tenant Id (see [here](../../microservice.md)).
 This is then used by custom middlewares to resolve resources correctly.
 
-
 ## MongoDbReadModelsConfiguration
 
 The actual configuration from a `resources.json` file is read and parsed and translated into types that can be leveraged.
