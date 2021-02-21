@@ -12,7 +12,7 @@ import * as DependencyInversion from '@dolittle/vanir-dependency-inversion';
 
 export { logger } from './logging';
 
-//import '@dolittle/projections';
+import '@dolittle/projections';
 import { Configuration } from './Configuration';
 import { BackendArguments } from './BackendArguments';
 import { container } from 'tsyringe';
