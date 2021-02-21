@@ -2,7 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 import { Constructor } from '@dolittle/types';
-import { CustomType } from "./CustomType";
+import { CustomType } from './CustomType';
 import { CustomTypes } from './CustomTypes';
 
 /**

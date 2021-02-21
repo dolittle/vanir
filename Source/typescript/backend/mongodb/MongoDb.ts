@@ -23,7 +23,7 @@ export class MongoDb {
         container.register(MongoClient, {
             useFactory: (dependencyContainer: DependencyContainer) => {
                 const configuration = dependencyContainer.resolve(MongoDbReadModelsConfiguration);
-                const client = new MongoClient(configuration.host, { useNewUrlParser: true, useUnifiedTopology: true })
+                const client = new MongoClient(configuration.host, { useNewUrlParser: true, useUnifiedTopology: true });
                 return client;
             }
         });

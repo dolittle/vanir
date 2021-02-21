@@ -41,7 +41,7 @@ export class MongoDatabase implements IMongoDatabase {
         if (options) {
             return db.collection(name, options);
         }
-        let collection = db.collection(name);
+        const collection = db.collection(name);
         if (!(typeOrName instanceof String)) {
             collection._schemaType = typeOrName as Constructor;
             setCollectionType(name, collection._schemaType);

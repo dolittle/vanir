@@ -59,8 +59,7 @@ export class CustomTypes {
      * @param {any} value Value to deserialize.
      */
     static deserializeProperty(target: Constructor, property: string, value: any) {
-        if (!value)
-            return value;
+        if (!value) {return value;}
 
         if (this.hasFor(target)) {
             const customTypes = this.getFor(target)!;

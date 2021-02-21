@@ -22,7 +22,7 @@ const mapDocument = function <T = any>(type: Constructor<T>, doc: any): T {
     }
 
     return instance;
-}
+};
 
 const _originalNext = Cursor.prototype._next;
 
@@ -61,7 +61,7 @@ Cursor.prototype.readBufferedDocuments = function (count: number): any[] {
     }
 
     return buffered;
-}
+};
 
 /**
  * Convert cursor to a typed array with a given element type.
