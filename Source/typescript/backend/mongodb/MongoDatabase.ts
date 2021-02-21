@@ -19,6 +19,7 @@ export class MongoDatabase implements IMongoDatabase {
     constructor(private readonly _mongoClient: MongoClient, private readonly _configuration: MongoDbReadModelsConfiguration) {
     }
 
+    /** @inheritdoc */
     collection<TSchema = any>(name: string): Promise<Collection<TSchema>>
     collection<TSchema = any>(type: Constructor<TSchema>): Promise<Collection<TSchema>>;
     collection<TSchema = any>(type: Constructor<TSchema>, options: DbCollectionOptions): Promise<Collection<TSchema>>;
