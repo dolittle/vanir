@@ -14,10 +14,15 @@ import { MongoDatabase } from './MongoDatabase';
 export class MongoDb {
 
     static initialize() {
-        container.register(MongoClient, {
+        container.register(MongoDbReadModelsConfiguration, {
             useFactory: (dependencyContainer: DependencyContainer) => {
                 const resourceConfigurations = dependencyContainer.resolve(IResourceConfigurations as constructor<IResourceConfigurations>);
-                const configuration = resourceConfigurations.getFor(MongoDbReadModelsConfiguration, getCurrentContext().tenantId);
+                return resourceConfigurations.getFor(MongoDbReadModelsConfiguration, getCurrentContext().tenantId);
+            }
+        });
+        container.register(MongoClient, {
+            useFactory: (dependencyContainer: DependencyContainer) => {
+                const configuration = dependencyContainer.resolve(MongoDbReadModelsConfiguration);
                 const client = new MongoClient(configuration.host, { useNewUrlParser: true, useUnifiedTopology: true })
                 return client;
             }
@@ -25,9 +30,8 @@ export class MongoDb {
 
         container.register(IMongoDatabase as constructor<IMongoDatabase>, {
             useFactory: (dependencyContainer: DependencyContainer) => {
-                const resourceConfigurations = dependencyContainer.resolve(IResourceConfigurations as constructor<IResourceConfigurations>);
-                const configuration = resourceConfigurations.getFor(MongoDbReadModelsConfiguration, getCurrentContext().tenantId);
-                const client = new MongoClient(configuration.host, { useNewUrlParser: true, useUnifiedTopology: true })
+                const configuration = dependencyContainer.resolve(MongoDbReadModelsConfiguration);
+                const client = dependencyContainer.resolve(MongoClient);
                 const database = new MongoDatabase(client, configuration);
                 return database;
             }
