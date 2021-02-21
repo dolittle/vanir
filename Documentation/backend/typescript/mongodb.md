@@ -9,6 +9,7 @@ Since Dolittle is designed and built from the ground up with multi-tenancy in mi
 from request to request. On the HTTP header, the Dolittle platform will inject the correct Tenant Id (see [here](../../microservice.md)).
 This is then used by custom middlewares to resolve resources correctly.
 
+
 ## MongoDbReadModelsConfiguration
 
 The actual configuration from a `resources.json` file is read and parsed and translated into types that can be leveraged.
@@ -20,6 +21,21 @@ ReadModel configurations for MongoDb is defined in a type called `MongoDbReadMod
     database: string;
     useSSL: boolean;
 }
+```
+
+## Express Middleware
+
+For the serialization subsystem to work properly out of the box, it relies on being aware of the type mapped to a collection
+for the web request it is being used in. To achieve this there is an Express Middleware that can be used.
+The default setup gets set up with this, but if you have your own setup and want to leverage
+this functionality - you can do so through the following:
+
+```typescript
+import express from 'express';
+import {MongoDbMiddleware } from '@dolittle/vanir-backend/dist/mongodb';
+
+const app = express();
+app.use(MongoDbMiddleware);
 ```
 
 ## Working with collections
