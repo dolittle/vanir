@@ -112,14 +112,13 @@ Add the "empty" schema:
 
 ```javascript
 import { buildSchema, Field, ObjectType, Query, Resolver, ResolverData } from 'type-graphql';
-import { modelOptions, Severity } from '@typegoose/typegoose';
-import { guid, GuidScalar } from '@shared/backend/data';
+import { GuidScalar } from '@dolittle/vanir-backend/dist/data';
+import { guid } from '@dolittle/vanir-backend/dist/mongodb';
 import { Guid } from '@dolittle/rudiments';
 import { GraphQLSchema } from 'graphql';
 import { container } from 'tsyringe';
 
 @ObjectType()
-@modelOptions({ options: { allowMixed: Severity.ALLOW } })
 class Nothing {
     @Field({ name: 'id' })
     @guid()
@@ -194,42 +193,21 @@ import { RegisterRoutes } from './routes';
 import * as swaggerDoc from './swagger.json';
 ```
 
-Within the `startBackend()` call block, you can now add the swagger doc into it:
+Within the `Host.start()` call block, you can now add the swagger doc into it:
 
 ```javascript
-import path from 'path';
-import { startBackend } from '@shared/backend';
-
-import { getSchema } from './schema';
-import { ProductAdded, ProductHandler } from './configuration';
-
+import 'reflect-metadata';
+import { Host } from '@dolittle/vanir-backend';
 import { RegisterRoutes } from './routes';
-const swaggerDoc = require('./swagger.json');
+import * as swaggerDoc from './swagger.json';
 
 (async () => {
-    const schema = await getSchema();
-
-    await startBackend({
-        microserviceId: '08fe9d6d-874e-45d5-b4f6-b31a099645a3',
-        prefix: '/_/<microservice>',
-        publicPath: './public',
-        port: 3003,
-        dolittleRuntimePort: 50057,
-        graphQLSchema: schema,
-        defaultDatabaseName: '<microservice>',
-        defaultEventStoreDatabaseName: <microservice-event-store>,
-        swaggerDoc,                                               // This is the swagger doc.
-        expressCallback: _ => {
-            /* _ is the Express app instance */
-        },
-        dolittleCallback: _ => _
-            /*
-            _ is the Dolittle client builder instance
-
-            this is where you'd start registering things like
-            events, projections and more.
-            */
-        });
+    await Host.start({
+        swaggerDoc,                     // This is the swagger doc.
+        expressCallback: (app) => {
+            RegisterRoutes(app);        // Register the routes
+        }
+    });
 })();
 ```
 
@@ -237,4 +215,3 @@ With this, you'll now have a new swagger endpoint and all your APIs accessible, 
 You should therefor be able to navigate to the URL e.g. http://localhost:3003/_/mymicroservice/api/swagger.
 
 Read more about TSOA and concrete samples [here](https://tsoa-community.github.io/docs/examples.html).
-
