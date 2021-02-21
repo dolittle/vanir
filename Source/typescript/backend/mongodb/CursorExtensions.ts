@@ -27,6 +27,7 @@ const mapDocument = function <T = any>(type: Constructor<T>, doc: any): T {
 const _originalNext = Cursor.prototype._next;
 
 Cursor.prototype._next = function (callback?: MongoCallback<any>): any {
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
     let cursor = this;
     if (callback) {
         const originalCallback = callback;

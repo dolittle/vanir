@@ -4,6 +4,8 @@
 import { Collection, DbCollectionOptions } from 'mongodb';
 import { Constructor } from '@dolittle/types';
 
+/* eslint-disable @typescript-eslint/unified-signatures */
+
 export abstract class IMongoDatabase {
 
     /**

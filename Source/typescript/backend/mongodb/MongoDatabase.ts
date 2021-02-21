@@ -8,6 +8,7 @@ import { IMongoDatabase } from './IMongoDatabase';
 import { MongoDbReadModelsConfiguration } from './MongoDbReadModelsConfiguration';
 import { setCollectionType } from './MongoDbContext';
 
+/* eslint-disable @typescript-eslint/unified-signatures */
 declare module 'mongodb' {
     interface Collection<TSchema> {
         _schemaType?: Constructor<TSchema>;
