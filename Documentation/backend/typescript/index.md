@@ -4,6 +4,7 @@
 
 | Title | Description |
 | ----- | ----------- |
+| [Anatomy](./anatomy-of-a-backend.md) | The anatomy of a TypeScript based backend |
 | [IoC](./ioc.md) | How to leverage the configured IoC container |
 | [Resources](./resources.md) | How to use the resource system in your backend |
 | [MongoDB](./mongodb.md) | How to use MongoDB in your backend |
