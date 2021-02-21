@@ -14,6 +14,7 @@ import { Configuration } from '../Configuration';
 import { logger } from '../logging';
 import { IResourceConfigurations } from '../resources/IResourceConfigurations';
 import { MongoDbReadModelsConfiguration } from '../mongodb/index';
+import { EventStoreConfiguration } from '../resources/index';
 
 export type DolittleClientBuilderCallback = (clientBuilder: ClientBuilder) => void;
 
@@ -33,9 +34,9 @@ export async function initialize(configuration: Configuration, callback?: Dolitt
         }))
         .withProjectionIntermediates(p => p.storeInMongoUsingProvider((eventContext) => {
             const resourceConfigurations = container.resolve(IResourceConfigurations as constructor<IResourceConfigurations>);
-            const configuration = resourceConfigurations.getFor(MongoDbReadModelsConfiguration, eventContext.executionContext.tenantId);
+            const configuration = resourceConfigurations.getFor(EventStoreConfiguration, eventContext.executionContext.tenantId);
             return {
-                connectionString: configuration.host,
+                connectionString: configuration.servers[0],
                 databaseName: configuration.database
             };
         }));
