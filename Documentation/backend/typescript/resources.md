@@ -6,9 +6,20 @@ And its therefor important that solutions support this. Vanir brings a resource 
 out of the box to enable one to get to resource configurations on demand depending on
 the context.
 
+> By managed resources, we mean that Dolittle is offering it as part of the setup and maintains
+> at the minimum the needed configuration on a per tenant level for the resource. Today, this is
+> somewhat limited to 2 types of resources; the Dolittle Event Store and MongoDB for read model
+> representations. This is subject to change both in terms of how it is supported today and
+> what types of resources are supported. Having a cross cutting solution to this in the way
+> Vanir abstracts it away, makes it transparent for developers when any changes to this occurs.
+
 ## Resources.json
 
-At startup Vanir will look for a file called `resources.json` inside the `.dolittle` folder
+The mechanism for resource configuration that Dolittle is offering today is through a file called
+`resources.json`. This is a managed file, meaning that Dolittle on a hosted level will maintain
+this for you.
+
+At startup Vanir will look for the file called `resources.json` inside the `.dolittle` folder
 within the startup folder of your microservice.
 
 This file should look like the following:
