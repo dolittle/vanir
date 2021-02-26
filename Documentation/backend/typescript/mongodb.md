@@ -93,7 +93,11 @@ export class MyController extends Controller {
 ## Custom types
 
 The serialization subsystem introduces the concept of a `CustomType` - these are the ones used to convert to and from
-MongoDBs BSON binary.
+MongoDBs BSON binary. The use case for this is when you want to have a particular representation of it inside MongoDB
+that is specific and different than what you need or want for the code. Examples of this could be if you have a type
+used in code that encapsulates date and/or time in a good way, this is not then the same type that the underlying
+MongoDB database nor the driver knows about. A custom type can then give the best of both worlds, letting you have
+the richness you need in code and the correct representation in the database.
 
 Creating your own custom type is easy, all you need to do is to implement the abstract class `CustomType`:
 
