@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 export * from './IEventStore';
+export * from './EventStoreConfiguration';
 
 import { constructor, containerInstance } from '@dolittle/vanir-dependency-inversion';
 
@@ -17,6 +18,7 @@ import { MongoDbReadModelsConfiguration } from '../mongodb/index';
 import { EventStoreConfiguration } from '../resources/index';
 
 export type DolittleClientBuilderCallback = (clientBuilder: ClientBuilder) => void;
+
 
 export async function initialize(configuration: Configuration, callback?: DolittleClientBuilderCallback): Promise<Client> {
     const clientBuilder = Client

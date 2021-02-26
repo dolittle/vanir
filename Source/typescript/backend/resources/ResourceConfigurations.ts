@@ -10,7 +10,7 @@ import { IResourceConfigurations } from './IResourceConfigurations';
 import { MissingResourceConfigurationsForTenant } from './MissingResourceConfigurationsForTenant';
 import { MissingResourceConfigurationOfType } from './MissingResourceConfigurationOfType';
 import { ResourcesFileStructure } from './ResourcesFileStructure';
-import { EventStoreConfiguration } from './EventStoreConfiguration';
+import { EventStoreConfiguration } from '../dolittle';
 import { MongoDbReadModelsConfiguration } from '../mongodb';
 
 const ResourcesJsonFilePath = '.dolittle/resources.json';
