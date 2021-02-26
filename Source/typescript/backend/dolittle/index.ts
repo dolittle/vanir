@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 export * from './IEventStore';
+export * from './EventStoreConfiguration';
 
 import { constructor, containerInstance } from '@dolittle/vanir-dependency-inversion';
 
@@ -12,26 +13,35 @@ import { IEventStore } from './IEventStore';
 import { IEventTypes } from './IEventTypes';
 import { Configuration } from '../Configuration';
 import { logger } from '../logging';
+import { IResourceConfigurations } from '../resources/IResourceConfigurations';
+import { MongoDbReadModelsConfiguration } from '../mongodb/index';
+import { EventStoreConfiguration } from '../dolittle';
 
 export type DolittleClientBuilderCallback = (clientBuilder: ClientBuilder) => void;
 
+
 export async function initialize(configuration: Configuration, callback?: DolittleClientBuilderCallback): Promise<Client> {
-    const databaseConnectionString = `mongodb://${configuration.database.host}:${configuration.database.port}/`;
-    const databaseName = configuration.database.name;
-    const eventStoreDatabaseConnectionString = `mongodb://${configuration.eventstore.host}:${configuration.eventstore.port}/`;
-    const eventStoreDatabaseName = configuration.eventstore.name;
-
-    logger.info(`Using '${databaseConnectionString}${databaseName}' for projections`);
-    logger.info(`Using '${eventStoreDatabaseConnectionString}${eventStoreDatabaseName}' for projection intermediate state`);
-
     const clientBuilder = Client
         .forMicroservice(configuration.microserviceId)
         .withLogging(logger as Logger)
         .withContainer(containerInstance)
         .withRuntimeOn(configuration.dolittle.runtime.host, configuration.dolittle.runtime.port)
-        .withProjections(p => p.storeInMongo(databaseConnectionString, databaseName))
-        .withProjectionIntermediates(p => p.storeInMongo(eventStoreDatabaseConnectionString, eventStoreDatabaseName))
-        ;
+        .withProjections(p => p.storeInMongoUsingProvider((eventContext) => {
+            const resourceConfigurations = container.resolve(IResourceConfigurations as constructor<IResourceConfigurations>);
+            const configuration = resourceConfigurations.getFor(MongoDbReadModelsConfiguration, eventContext.executionContext.tenantId);
+            return {
+                connectionString: configuration.host,
+                databaseName: configuration.database
+            };
+        }))
+        .withProjectionIntermediates(p => p.storeInMongoUsingProvider((eventContext) => {
+            const resourceConfigurations = container.resolve(IResourceConfigurations as constructor<IResourceConfigurations>);
+            const configuration = resourceConfigurations.getFor(EventStoreConfiguration, eventContext.executionContext.tenantId);
+            return {
+                connectionString: configuration.servers[0],
+                databaseName: configuration.database
+            };
+        }));
 
     callback?.(clientBuilder);
 

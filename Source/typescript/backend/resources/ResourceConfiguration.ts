@@ -2,8 +2,8 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 
-export class DatabaseConfiguration {
-    host: string = '';
-    name: string = '';
-    port: number = 27017;
+/**
+ * Represents the base for any resource configurations
+ */
+export class ResourceConfiguration {
 }

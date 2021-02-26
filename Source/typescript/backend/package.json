@@ -36,15 +36,16 @@
         "ci": "yarn clean && yarn lint:ci && yarn build && yarn test"
     },
     "dependencies": {
-        "@dolittle/projections": "1.0.5",
+        "@dolittle/projections": "1.1.1",
         "@dolittle/sdk": "14.1.0",
-        "@typegoose/typegoose": "7.4.2",
+        "@types/mongodb": "3.6.8",
         "apollo-server-express": "2.19.0",
         "body-parser": "1.19.0",
         "class-validator": "0.12.2",
+        "cls-hooked": "^4.2.2",
         "compression": "1.7.4",
         "dotenv": "8.2.0",
-        "mongoose": "5.10.13",
+        "mongodb": "3.6.4",
         "morgan": "1.10.0",
         "nconf": "0.11.0",
         "swagger-ui-express": "4.1.4",
@@ -55,11 +56,10 @@
         "winston": "3.3.3"
     },
     "devDependencies": {
+        "@types/cls-hooked": "^4.3.3",
         "@types/compression": "1.7.0",
-        "@types/mongoose": "5.10.0",
         "@types/nconf": "0.10.0",
-        "@types/swagger-ui-express": "4.1.2",
-        "ts-node": "9.0.0"
+        "@types/swagger-ui-express": "4.1.2"
     },
     "peerDependencies": {}
 }

@@ -7,7 +7,6 @@ import path from 'path';
 import dotenv from 'dotenv';
 
 import * as Dolittle from './dolittle';
-import { Mongoose } from './data';
 import * as Express from './web';
 import * as DependencyInversion from '@dolittle/vanir-dependency-inversion';
 
@@ -17,6 +16,9 @@ import '@dolittle/projections';
 import { Configuration } from './Configuration';
 import { BackendArguments } from './BackendArguments';
 import { container } from 'tsyringe';
+
+import { MongoDb } from './mongodb';
+import { Resources } from './resources';
 
 export class Host {
     static async start(startArguments: BackendArguments) {
@@ -28,7 +30,8 @@ export class Host {
 
         container.registerInstance(Configuration, configuration);
 
-        await Mongoose.initialize(configuration);
+        MongoDb.initialize();
+        await Resources.initialize();
         await Dolittle.initialize(configuration, startArguments.dolittleCallback);
         await Express.initialize(configuration, startArguments.graphQLResolvers, startArguments.swaggerDoc, startArguments.expressCallback);
     }

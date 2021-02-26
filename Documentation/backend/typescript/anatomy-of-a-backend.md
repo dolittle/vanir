@@ -71,84 +71,23 @@ In the backend you would then have a starting point for the microservice; `index
 Leveraging the shared backend setup.
 
 ```javascript
-import path from 'path';
-import { startBackend } from '@shared/backend';
-
-import { getSchema } from './schema';
-import { ProductAdded, ProductHandler } from './configuration';
+import 'reflect-metadata';
+import { Host } from '@dolittle/vanir-backend';
 
 (async () => {
-    const schema = await getSchema();                           <-- This is the exposed GraphQL schema exposed
-
-    await startBackend({
-        microserviceId: '08fe9d6d-874e-45d5-b4f6-b31a099645a3',     <-- Unique identifier that will be used for the microservice configuration in general
-        prefix: '/_/<microservice>',                                <-- URL prefix for frontend, APIs and GraphQL endpoints - each microservice has their own unique
-        publicPath: './public',                                     <-- The path to where the static web pages are served from (if any)
-        port: 3003,                                                 <-- Development port the backend will be served from - must be unique per Microservice
-        dolittleRuntimePort: 50057,                                 <-- The Dolittle runtime port to connect to in the local development environment
-        graphQLSchema: schema,                                      <-- Pass in the GraphQL schema generated
-        defaultDatabaseName: '<microservice>',                      <-- Default name for database - unique per microservice
-        defaultEventStoreDatabaseName: <microservice-event-store>,  <-- The default name for the event store database - same as in the resources.json for the microservice in environments.
-        expressCallback: _ => {
-            /* _ is the Express app instance */
+    await Host.start({
+        graphQLResolvers: []            // Array of graphql resolvers
+        expressCallback: (app) => {
         },
-        dolittleCallback: _ => _
-            /*
-            _ is the Dolittle client builder instance
-
-            this is where you'd start registering things like
-            events, projections and more.
-            */
-        });
+        dolittleCallback: (dolittle) => {
+        }
+    });
 })();
 ```
 
-For the GraphQL schema, add a file called `schema.ts`. The code above relies on this to be there.
-A starting point would be to put it something that doesn't add any specific model or queries.
+Any GraphQL resolvers can then be added to the array of graphql resolvers, be it queries or mutations.
 
-> The GraphQL system requires something, so one can't pass an empty schema.
-
-Add the "empty" schema:
-
-```javascript
-import { buildSchema, Field, ObjectType, Query, Resolver, ResolverData } from 'type-graphql';
-import { modelOptions, Severity } from '@typegoose/typegoose';
-import { guid, GuidScalar } from '@shared/backend/data';
-import { Guid } from '@dolittle/rudiments';
-import { GraphQLSchema } from 'graphql';
-import { container } from 'tsyringe';
-
-@ObjectType()
-@modelOptions({ options: { allowMixed: Severity.ALLOW } })
-class Nothing {
-    @Field({ name: 'id' })
-    @guid()
-    _id?: Guid;
-}
-
-@Resolver(Nothing)
-class NoQueries {
-    @Query(returns => [Nothing])
-    async noresults() {
-        return [];
-    }
-}
-
-export async function getSchema(): Promise<GraphQLSchema> {
-    const schema = await buildSchema({
-        resolvers: [NoQueries],
-        container: {
-            get(someClass: any, resolverData: ResolverData<any>): any | Promise<any> {
-                return container.resolve(someClass);
-            }
-        },
-        scalarsMap: [
-            { type: Guid, scalar: GuidScalar }
-        ]
-    });
-    return schema;
-}
-```
+> Apollo crashes if you add mutations here and no query - if all you have are mutations, you should add a query that doesn't do anything.
 
 ## APIs
 
@@ -194,42 +133,21 @@ import { RegisterRoutes } from './routes';
 import * as swaggerDoc from './swagger.json';
 ```
 
-Within the `startBackend()` call block, you can now add the swagger doc into it:
+Within the `Host.start()` call block, you can now add the swagger doc into it:
 
 ```javascript
-import path from 'path';
-import { startBackend } from '@shared/backend';
-
-import { getSchema } from './schema';
-import { ProductAdded, ProductHandler } from './configuration';
-
+import 'reflect-metadata';
+import { Host } from '@dolittle/vanir-backend';
 import { RegisterRoutes } from './routes';
-const swaggerDoc = require('./swagger.json');
+import * as swaggerDoc from './swagger.json';
 
 (async () => {
-    const schema = await getSchema();
-
-    await startBackend({
-        microserviceId: '08fe9d6d-874e-45d5-b4f6-b31a099645a3',
-        prefix: '/_/<microservice>',
-        publicPath: './public',
-        port: 3003,
-        dolittleRuntimePort: 50057,
-        graphQLSchema: schema,
-        defaultDatabaseName: '<microservice>',
-        defaultEventStoreDatabaseName: <microservice-event-store>,
-        swaggerDoc,                                               // This is the swagger doc.
-        expressCallback: _ => {
-            /* _ is the Express app instance */
-        },
-        dolittleCallback: _ => _
-            /*
-            _ is the Dolittle client builder instance
-
-            this is where you'd start registering things like
-            events, projections and more.
-            */
-        });
+    await Host.start({
+        swaggerDoc,                     // This is the swagger doc.
+        expressCallback: (app) => {
+            RegisterRoutes(app);        // Register the routes
+        }
+    });
 })();
 ```
 
@@ -237,4 +155,3 @@ With this, you'll now have a new swagger endpoint and all your APIs accessible, 
 You should therefor be able to navigate to the URL e.g. http://localhost:3003/_/mymicroservice/api/swagger.
 
 Read more about TSOA and concrete samples [here](https://tsoa-community.github.io/docs/examples.html).
-

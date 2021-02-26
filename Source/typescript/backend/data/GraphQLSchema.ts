@@ -8,12 +8,10 @@ import { GraphQLSchema } from 'graphql';
 
 import { GuidScalar } from '.';
 import { container } from 'tsyringe';
-import { guid } from './guid';
 
 @ObjectType()
 class Nothing {
     @Field({ name: 'id' })
-    @guid()
     _id?: Guid;
 }
 

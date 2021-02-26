@@ -2,7 +2,6 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 import nconf from 'nconf';
-import { DatabaseConfiguration } from './DatabaseConfiguration';
 import defaults from './DefaultConfiguration';
 import { DolittleConfiguration } from './DolittleConfiguration';
 
@@ -14,16 +13,11 @@ export class Configuration {
     port: number = 80;
     microserviceId: string = '';
 
-    database: DatabaseConfiguration;
-    eventstore: DatabaseConfiguration;
-
     dolittle: DolittleConfiguration;
 
     environment: string = 'development';
 
     constructor() {
-        this.database = new DatabaseConfiguration();
-        this.eventstore = new DatabaseConfiguration();
         this.dolittle = new DolittleConfiguration();
     }
 

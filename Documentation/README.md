@@ -17,3 +17,4 @@ for everyone participating in this project to see what is expected.
 | [Microservice Instance](./microservice.md) | How a Vanir based Dolittle microservice is packaged and run |
 | [Frontend](./frontend/index.md) | Details about the frontend support |
 | [Getting started](./getting-started.md) | A quick guide on getting started |
+| [TypeScript Backend](./backend/typescript/index.md) | Topics specific for TypeScript based backends |

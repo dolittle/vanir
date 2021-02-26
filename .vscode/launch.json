@@ -5,13 +5,18 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Attach by Process ID",
-            "processId": "${command:PickProcess}",
-            "request": "attach",
+            "name": "Launch Basic Sample",
+            "type": "node",
+            "request": "launch",
+            "runtimeExecutable": "node",
+            "runtimeArgs": ["--nolazy", "-r", "ts-node/register/transpile-only"],
+            "args": ["${workspaceFolder}/Samples/Source/Typescript/Backend/index.ts"],
+            "cwd": "${workspaceFolder}/Samples/Source/Typescript/Backend",
+            "preLaunchTask": "tsc: build - Typescript Sample",
             "skipFiles": [
-                "<node_internals>/**"
-            ],
-            "type": "pwa-node"
+                "<node_internals>/**",
+                "node_modules/**"
+            ]
         }
     ]
 }

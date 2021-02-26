@@ -9,16 +9,6 @@ export default {
     publicPath: './public',
     port: 80,
     microserviceId: Guid.empty.toString(),
-    database: {
-        host: 'localhost',
-        database: 'data',
-        port: 27017
-    },
-    eventstore: {
-        host: 'localhost',
-        database: 'events',
-        port: 27017
-    },
     dolittle: {
         runtime: {
             host: 'localhost',
