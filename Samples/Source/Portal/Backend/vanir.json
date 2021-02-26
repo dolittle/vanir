@@ -8,11 +8,5 @@
         "runtime": {
             "port": 50057
         }
-    },
-    "database": {
-        "name": "read_models_portal"
-    },
-    "eventstore": {
-        "name": "event_store_portal"
     }
 }
