@@ -129,6 +129,27 @@ export class MyModel {
 }
 ```
 
+### Cursors / find*() methods
+
+In the collection API of the MongoDB driver there are methods for finding things in the database.
+These methods return a cursor. Vanir hooks into this and extends the Cursor API and also intercepts
+some of the calls on the Cursor API. The purpose of this is to be able to do the `CustomType` deserialization
+when getting items from the database in a way what primarily lets you as a developer leverage the well
+defined and familiar APIs of the underlying [MongoDB driver package](https://www.npmjs.com/package/mongodb).
+
+That enables you to use the async iterator of the cursor and things like the `toArray()` method on it.
+However, if you require to get the result to a different type or be explicit about the type, there is a
+method called `toTypedArray()` with the following signature:
+
+```typescript
+interface Cursor<T> {
+    toTypedArray<T>(type: Constructor<T>): Promise<T[]>;
+}
+```
+
+This allows you to specify a type that will then be used for instantiation giving you a typed array were
+all the elements within the array are of that exact type.
+
 ## Guid
 
 For `Guid` there already is a build in custom type serializer, with a custom decorator as well:
