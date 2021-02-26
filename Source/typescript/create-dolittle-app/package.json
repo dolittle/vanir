@@ -1,6 +1,6 @@
 {
     "name": "create-dolittle-app",
-    "version": "8.0.5",
+    "version": "9.0.0",
     "description": "",
     "author": "Dolittle",
     "license": "MIT",
@@ -43,9 +43,9 @@
         "ci": "yarn clean && yarn lint:ci && yarn build && yarn test"
     },
     "dependencies": {
-        "@dolittle/vanir-cli": "8.0.5",
+        "@dolittle/vanir-cli": "9.0.0",
         "commander": "6.2.1",
-        "create-dolittle-microservice": "8.0.5"
+        "create-dolittle-microservice": "9.0.0"
     },
     "devDependencies": {}
 }
