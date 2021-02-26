@@ -30,10 +30,10 @@ export class ResourceConfigurations implements IResourceConfigurations {
 
     /** @inheritdoc */
     getFor<TResource extends ResourceConfiguration>(resourceConfigurationType: Constructor<TResource>, tenantId: TenantId): TResource {
-        this.ThrowIfMissingResourceConfigurationsForTenant(tenantId);
+        this.throwIfMissingResourceConfigurationsForTenant(tenantId);
 
         const resourceConfigurations = this._resourceConfigurationsByTenants.get(tenantId.toString());
-        this.ThrowIfMissingResourceConfigurationOfType<TResource>(resourceConfigurations, resourceConfigurationType, tenantId);
+        this.throwIfMissingResourceConfigurationOfType<TResource>(resourceConfigurations, resourceConfigurationType, tenantId);
 
         return resourceConfigurations?.get(resourceConfigurationType) as TResource;
     }
@@ -64,13 +64,13 @@ export class ResourceConfigurations implements IResourceConfigurations {
         }
     }
 
-    private ThrowIfMissingResourceConfigurationOfType<TResource extends ResourceConfiguration>(resourceConfigurations: Map<Constructor<{}>, any> | undefined, resourceConfigurationType: Constructor<TResource>, tenantId: TenantId) {
+    private throwIfMissingResourceConfigurationOfType<TResource extends ResourceConfiguration>(resourceConfigurations: Map<Constructor<{}>, any> | undefined, resourceConfigurationType: Constructor<TResource>, tenantId: TenantId) {
         if (!resourceConfigurations || !resourceConfigurations.has(resourceConfigurationType)) {
             throw new MissingResourceConfigurationOfType(tenantId, resourceConfigurationType);
         }
     }
 
-    private ThrowIfMissingResourceConfigurationsForTenant(tenantId: TenantId) {
+    private throwIfMissingResourceConfigurationsForTenant(tenantId: TenantId) {
         if (!this._resourceConfigurationsByTenants.has(tenantId.toString())) {
             throw new MissingResourceConfigurationsForTenant(tenantId);
         }
