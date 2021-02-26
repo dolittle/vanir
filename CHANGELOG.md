@@ -1,3 +1,26 @@
+# [9.0.0] - 2021-2-26 [PR: #118](https://github.com/dolittle-entropy/vanir/pull/118)
+## Summary
+
+This pull request is a major change.
+The biggest change is the removal of TypeGoose and Mongoose as default - instead it leverages now the native MongoDB driver and all setup is configured for this.
+
+### Added
+
+- Resource system for getting resource configurations per type per tenant (#111)
+- Introducing an unobtrusive way to work with MongoDB driver and still get the benefits of custom serialization with custom types.
+- Context object configured through middleware containing the tenant identifier, user id and cookies. (#112)
+
+### Changed
+
+- Changing from TypeGoose to native MongoDB driver for NodeJS and configured it by default
+- TenantId on Context is now the type TenantId from @dolittle/sdk.execution
+
+### Removed
+
+- TypeGoose and Mongoose are both moved as dependency and hence not configured by default as a consequence
+- Environment variables for configuring database and event store access
+
+
 # [8.0.5] - 2021-2-18 [PR: #117](https://github.com/dolittle-entropy/vanir/pull/117)
 ## Summary
 
