@@ -15,7 +15,7 @@ import { Configuration } from '../Configuration';
 import { logger } from '../logging';
 import { IResourceConfigurations } from '../resources/IResourceConfigurations';
 import { MongoDbReadModelsConfiguration } from '../mongodb/index';
-import { EventStoreConfiguration } from '../resources/index';
+import { EventStoreConfiguration } from '../dolittle';
 
 export type DolittleClientBuilderCallback = (clientBuilder: ClientBuilder) => void;
 
