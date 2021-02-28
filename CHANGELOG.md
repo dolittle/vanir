@@ -1,3 +1,13 @@
+# [9.0.1] - 2021-2-28 [PR: #122](https://github.com/dolittle-entropy/vanir/pull/122)
+## Summary
+
+Typo when getting HTTP header for Tenant
+
+### Fixed
+
+- Fixing usage of correct HTTP header for tenant; Tenant-ID not Tenant-Id
+
+
 # [9.0.0] - 2021-2-26 [PR: #118](https://github.com/dolittle-entropy/vanir/pull/118)
 ## Summary
 
