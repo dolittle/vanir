@@ -14,7 +14,7 @@ export class Context {
     cookies: string = '';
 
     static fromRequest(req: Request): Context {
-        const tenantId = req.header('Tenant-Id') || TenantId.development;
+        const tenantId = req.header('Tenant-ID') || TenantId.development;
 
         const context: Context = {
             userId: req.header('User-ID') || '',

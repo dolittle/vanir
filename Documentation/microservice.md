@@ -40,7 +40,7 @@ be leveraged in the frontend and the backend.
 | Name | Description |
 | ----- | ----------- |
 | User-ID | The unique identifier of the user logging in |
-| Tenant-Id | The unique identifier of the tenant the user is logged into |
+| Tenant-ID | The unique identifier of the tenant the user is logged into |
 | Cookie | The authentication cookie used |
 
 ## Packaging
