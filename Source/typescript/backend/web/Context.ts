@@ -40,7 +40,7 @@ export function ContextMiddleware(req: Request, res: Response, next: NextFunctio
 
 export function getCurrentContext(): Context {
     if (ns.active) {
-        ns.get(ContextKey) as Context;
+        return ns.get(ContextKey) as Context;
     }
     return {
         userId: '',
