@@ -1,3 +1,13 @@
+# [9.0.2] - 2021-2-28 [PR: #123](https://github.com/dolittle-entropy/vanir/pull/123)
+## Summary
+
+Fixes so that the correct context is returned.
+
+### Fixed
+
+- Fixes so that the correct context is returned - not the default one.
+
+
 # [9.0.1] - 2021-2-28 [PR: #122](https://github.com/dolittle-entropy/vanir/pull/122)
 ## Summary
 
