@@ -36,6 +36,6 @@ export class Host {
             await Resources.initialize();
             await Dolittle.initialize(configuration, startArguments.dolittleCallback);
             await Express.initialize(configuration, startArguments.graphQLResolvers, startArguments.swaggerDoc, startArguments.expressCallback);
-        })
+        });
     }
 }
