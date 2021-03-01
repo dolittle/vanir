@@ -3,21 +3,14 @@
 
 import cls from 'cls-hooked';
 import { Constructor } from '@dolittle/types';
-import { Request, Response, NextFunction } from 'express';
+import { HostContext } from '../HostContext';
 
-const ns = cls.createNamespace('c5da357c-42b4-4c04-8ff5-2ba3804ede42');
-
-export function MongoDbContextMiddleware(req: Request, res: Response, next: NextFunction) {
-    ns.run(() => {
-        next();
-    });
-}
-
+const CollectionPrefix = 'MongoDbCollection:';
 
 export function setCollectionType(collectionName: string, type: Constructor) {
-    ns.set(collectionName, type);
+    HostContext.set(`${CollectionPrefix}${collectionName}`, type);
 }
 
 export function getCollectionType(collectionName): Constructor | undefined {
-    return ns.get(collectionName);
+    return HostContext.get(`${CollectionPrefix}${collectionName}`);
 }

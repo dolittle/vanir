@@ -19,20 +19,23 @@ import { container } from 'tsyringe';
 
 import { MongoDb } from './mongodb';
 import { Resources } from './resources';
+import { HostContext } from './HostContext';
 
 export class Host {
     static async start(startArguments: BackendArguments) {
-        const envPath = path.resolve(process.cwd(), '.env');
-        dotenv.config({ path: envPath });
-        const configuration = Configuration.create();
+        HostContext.run(async () => {
+            const envPath = path.resolve(process.cwd(), '.env');
+            dotenv.config({ path: envPath });
+            const configuration = Configuration.create();
 
-        DependencyInversion.initialize();
+            DependencyInversion.initialize();
 
-        container.registerInstance(Configuration, configuration);
+            container.registerInstance(Configuration, configuration);
 
-        MongoDb.initialize();
-        await Resources.initialize();
-        await Dolittle.initialize(configuration, startArguments.dolittleCallback);
-        await Express.initialize(configuration, startArguments.graphQLResolvers, startArguments.swaggerDoc, startArguments.expressCallback);
+            MongoDb.initialize();
+            await Resources.initialize();
+            await Dolittle.initialize(configuration, startArguments.dolittleCallback);
+            await Express.initialize(configuration, startArguments.graphQLResolvers, startArguments.swaggerDoc, startArguments.expressCallback);
+        })
     }
 }
