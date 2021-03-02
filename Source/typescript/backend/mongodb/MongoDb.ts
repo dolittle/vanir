@@ -7,7 +7,7 @@ import { container, DependencyContainer } from 'tsyringe';
 import { IResourceConfigurations } from '../resources/IResourceConfigurations';
 import { MongoDbReadModelsConfiguration } from './MongoDbReadModelsConfiguration';
 
-import { getCurrentContext } from '../web';
+import { getCurrentContext } from '../index';
 import { IMongoDatabase } from './IMongoDatabase';
 import { MongoDatabase } from './MongoDatabase';
 

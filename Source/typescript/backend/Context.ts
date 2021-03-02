@@ -3,7 +3,7 @@
 
 import { Request, Response, NextFunction } from 'express';
 import { TenantId } from '@dolittle/sdk.execution';
-import { HostContext } from '../HostContext';
+import { HostContext } from './HostContext';
 
 const ContextKey = 'Context';
 

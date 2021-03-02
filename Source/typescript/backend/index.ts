@@ -4,6 +4,8 @@
 export * from './Configuration';
 export * from './Host';
 export * from './logging';
+export * from './Context';
+export * from './HostContext';
 
 export * as data from './data';
 export * as dolittle from './dolittle';

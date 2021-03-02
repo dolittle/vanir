@@ -4,6 +4,7 @@ import { IMongoDatabase } from '../../../../Source/typescript/backend/mongodb/IM
 import { Nothing } from './Nothing';
 import { DoStuff } from './DoStuff';
 import { constructor } from '@dolittle/vanir-dependency-inversion';
+import { IEventStore } from '@dolittle/vanir-backend/dist/dolittle';
 
 
 
@@ -11,7 +12,7 @@ import { constructor } from '@dolittle/vanir-dependency-inversion';
 @Resolver()
 export class NoQueries {
 
-    constructor(private readonly _mongoDatabase: IMongoDatabase) {
+    constructor(private readonly _mongoDatabase: IMongoDatabase, private readonly _eventStore: IEventStore) {
 
         this._mongoDatabase = container.resolve(IMongoDatabase as constructor<IMongoDatabase>);
         let i=0;

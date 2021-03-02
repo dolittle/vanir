@@ -12,7 +12,7 @@ import { Configuration } from '../Configuration';
 import { logger } from '../logging';
 import { getSchemaFor } from '../data';
 import swaggerUI from 'swagger-ui-express';
-import { ContextMiddleware, Context, getCurrentContext } from './Context';
+import { ContextMiddleware, getCurrentContext } from '../Context';
 
 export let app: Express;
 export type ExpressConfigCallback = (app: Express) => void;

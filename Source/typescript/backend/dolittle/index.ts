@@ -8,7 +8,7 @@ import { constructor, containerInstance } from '@dolittle/vanir-dependency-inver
 
 import { Client, ClientBuilder } from '@dolittle/sdk';
 import { Logger } from 'winston';
-import { container } from 'tsyringe';
+import { container, DependencyContainer } from 'tsyringe';
 import { IEventStore } from './IEventStore';
 import { IEventTypes } from './IEventTypes';
 import { Configuration } from '../Configuration';
@@ -16,6 +16,7 @@ import { logger } from '../logging';
 import { IResourceConfigurations } from '../resources/IResourceConfigurations';
 import { MongoDbReadModelsConfiguration } from '../mongodb/index';
 import { EventStoreConfiguration } from '../dolittle';
+import { getCurrentContext } from '../index';
 
 export type DolittleClientBuilderCallback = (clientBuilder: ClientBuilder) => void;
 
@@ -46,9 +47,12 @@ export async function initialize(configuration: Configuration, callback?: Dolitt
     callback?.(clientBuilder);
 
     const client = clientBuilder.build();
+    container.register(IEventStore as constructor<IEventStore>, {
+        useFactory: (dependencyContainer: DependencyContainer) => {
+            return client.eventStore.forTenant(getCurrentContext().tenantId);
+        }
+    });
 
-    const eventStore = client.eventStore.forTenant('508c1745-5f2a-4b4c-b7a5-2fbb1484346d');
-    container.registerInstance(IEventStore as constructor<IEventStore>, eventStore);
     container.registerInstance(IEventTypes as constructor<IEventTypes>, client.eventTypes);
 
     return client;
