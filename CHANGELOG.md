@@ -1,3 +1,13 @@
+# [9.0.3] - 2021-3-2 [PR: #126](https://github.com/dolittle-entropy/vanir/pull/126)
+## Summary
+
+Making sure we have the right context both for regular Express middlewares and GraphQL.
+
+### Fixed
+
+- Fixes so that the context is correct in all call paths
+
+
 # [9.0.2] - 2021-2-28 [PR: #123](https://github.com/dolittle-entropy/vanir/pull/123)
 ## Summary
 
