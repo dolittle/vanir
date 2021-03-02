@@ -4,11 +4,14 @@
 import 'reflect-metadata';
 import { Host } from '@dolittle/vanir-backend';
 import { RegisterRoutes } from './routes';
+import { NoQueries } from './NoQueries';
 const swaggerDoc = require('./swagger.json');
+
 
 (async () => {
     await Host.start({
         swaggerDoc,
+        graphQLResolvers: [NoQueries],
         expressCallback: (app) => {
             RegisterRoutes(app);
         }
