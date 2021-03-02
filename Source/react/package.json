@@ -1,6 +1,6 @@
 {
     "name": "@dolittle/vanir-react",
-    "version": "9.0.2",
+    "version": "9.0.3",
     "description": "",
     "author": "Dolittle",
     "license": "MIT",
@@ -38,8 +38,8 @@
     },
     "dependencies": {
         "@dolittle/rudiments": "5.0.1",
-        "@dolittle/vanir-dependency-inversion": "9.0.2",
-        "@dolittle/vanir-web": "9.0.2",
+        "@dolittle/vanir-dependency-inversion": "9.0.3",
+        "@dolittle/vanir-web": "9.0.3",
         "@types/react": "16.9.10",
         "@types/react-dom": "16.9.10",
         "@types/react-router-dom": "5.1.6",
