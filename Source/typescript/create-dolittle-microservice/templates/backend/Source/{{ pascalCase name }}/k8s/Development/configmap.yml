@@ -1,32 +1,60 @@
 ---
 apiVersion: v1
-kind: ConfigMap
+kind: Secret
 metadata:
-  namespace: application-{{applicationId}}
-  name: {{lowerCase applicationName}}-dev-{{lowerCase name}}-env-variables
+  annotations:
+    dolittle.io/tenant-id: {{tenantId}}
+    dolittle.io/application-id: {{applicationId}}
+    dolittle.io/microservice-id: {{id}}
   labels:
     tenant: {{tenant}}
-    application: {{pascalCase applicationName}}-Dev
+    application: {{pascalCase applicationName}}
+    environment: Dev
     microservice: {{pascalCase name}}
+  name:  dev-{{lowercase name}}-secret-env-variables
+  namespace: application-{{applicationId}}
+type: Opaque
 data:
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  annotations:
+    dolittle.io/tenant-id: {{tenantId}}
+    dolittle.io/application-id: {{applicationId}}
+    dolittle.io/microservice-id: {{id}}
+  labels:
+    tenant: {{tenant}}
+    application: {{pascalCase applicationName}}
+    environment: Dev
+    microservice: {{pascalCase name}}
+  name: dev-{{lowercase name}}-env-variables
+  namespace: application-{{applicationId}}
+data:
+  DATABASE__HOST: "dev-mongo.application-{{applicationId}}.svc.cluster.local"
+  DATABASE__NAME: "read_models_{{lowercase name}}"
+  DOLITTLE__RUNTIME__HHOST: "localhost"
+  DOLITTLE__RUNTIME__HPORT: "50053"
+  EVENTSTORE__HOST: "dev-mongo.application-{{applicationId}}.svc.cluster.local"
+  EVENTSTORE__NAME: "event_store_{{lowercase name}}"
   NODE_ENV: "production"
-  DATABASE_HOST: "{{lowerCase applicationName}}-dev-mongo.application-{{applicationId}}.svc.cluster.local"
-  DATABASE_NAME: "read_models_{{lowerCase name}}"
-  EVENTSTORE_HOST: "{{lowerCase applicationName}}-dev-mongo.application-{{applicationId}}.svc.cluster.local"
-  EVENTSTORE_NAME: "event_store_{{lowerCase name}}"
-  DOLITTLE_RUNTIME_HOST: "localhost"
-  DOLITTLE_RUNTIME_PORT: "50053"
   PORT: "80"
 
 ---
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  namespace: application-{{applicationId}}
-  name: {{lowerCase applicationName}}-dev-{{lowerCase name}}-config-files
+  annotations:
+    dolittle.io/tenant-id: {{tenantId}}
+    dolittle.io/application-id: {{applicationId}}
+    dolittle.io/microservice-id: {{id}}
   labels:
     tenant: {{tenant}}
-    application: {{pascalCase applicationName}}-Dev
+    application: {{pascalCase applicationName}}
+    environment: Dev
     microservice: {{pascalCase name}}
+  name: dev-{{lowercase name}}-config-files
+  namespace: application-{{applicationId}}
 data:
 
