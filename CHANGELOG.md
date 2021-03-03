@@ -1,3 +1,13 @@
+# [9.0.7] - 2021-3-3 [PR: #132](https://github.com/dolittle-entropy/vanir/pull/132)
+## Summary
+
+update prod configmap template to reflect new structure
+
+### Fixed
+
+- update prod configmap template to reflect new structure
+
+
 # [9.0.3] - 2021-3-2 [PR: #126](https://github.com/dolittle-entropy/vanir/pull/126)
 ## Summary
 
