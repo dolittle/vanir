@@ -4,6 +4,7 @@ With the [IoC](./ioc.md) that is configured, during startup of the [host](./host
 that gets hooked up that can be used directly in your code.
 
 | Type | Import Location | Description |
+| ---- | --------------- | ----------- |
 | Configuration | @dolittle/vanir-backend | The configuration of the microservice |
 | IEventStore | @dolittle/vanir-backend | The Dolittle event store - scoped correctly for the current tenant |
 | IEventTypes | @dolittle/vanir-backend | The event types registered with the Dolittle runtime |
