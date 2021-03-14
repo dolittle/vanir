@@ -9,5 +9,6 @@ export * from './guid';
 export * from './GuidCustomType';
 export * from './MongoDb';
 export * from './IMongoDatabase';
+export * from './MongoDatabaseProvider';
 export * from './MongoDbReadModelsConfiguration';
 export * from './MongoDbContext';
