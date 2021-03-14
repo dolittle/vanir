@@ -17,5 +17,5 @@ you.
 
 | Title | Description |
 | ----- | ----------- |
-| [Getting started](./react/getting-started.md) | How to create maintainable popup dialogs |
-| [Dialogs](./react/dialogs.md) | How to create maintainable popup dialogs |
+| [Getting started](./getting-started.md) | How to create maintainable popup dialogs |
+| [Dialogs](./dialogs.md) | How to create maintainable popup dialogs |
