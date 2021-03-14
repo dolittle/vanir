@@ -3,6 +3,7 @@
 
 export * from './MissingResourceConfigurationOfType';
 export * from './MissingResourceConfigurationsForTenant';
+export * from './IResourceConfigurations';
 export * from './ResourceConfiguration';
 export * from './ResourceConfigurations';
 export * from './Resources';
