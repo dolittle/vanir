@@ -1,11 +1,12 @@
 # [9.0.8] - 2021-3-10 [PR: #133](https://github.com/dolittle-entropy/vanir/pull/133)
 ## Summary
 
-Makes scaffolding of new projects correct.
+Makes scaffolding of new projects correct and also makes sure `IEventStore` instance is for the correct tenant.
 
 ### Fixed
 
 - Fixes so we don't use webpack-cli but webpack directly for yarn:dev scripts in package.json
+- When taking `IEventStore` as a dependency - it is now resolved using the correct tenant-id (#125)
 
 
 # [9.0.7] - 2021-3-3 [PR: #132](https://github.com/dolittle-entropy/vanir/pull/132)
