@@ -11,7 +11,7 @@ metadata:
     application: {{pascalCase applicationName}}
     environment: Dev
     microservice: {{pascalCase name}}
-  name:  dev-{{lowercase name}}-secret-env-variables
+  name:  dev-{{lowerCase name}}-secret-env-variables
   namespace: application-{{applicationId}}
 type: Opaque
 data:
@@ -29,15 +29,15 @@ metadata:
     application: {{pascalCase applicationName}}
     environment: Dev
     microservice: {{pascalCase name}}
-  name: dev-{{lowercase name}}-env-variables
+  name: dev-{{lowerCase name}}-env-variables
   namespace: application-{{applicationId}}
 data:
   DATABASE__HOST: "dev-mongo.application-{{applicationId}}.svc.cluster.local"
-  DATABASE__NAME: "read_models_{{lowercase name}}"
+  DATABASE__NAME: "read_models_{{lowerCase name}}"
   DOLITTLE__RUNTIME__HHOST: "localhost"
   DOLITTLE__RUNTIME__HPORT: "50053"
   EVENTSTORE__HOST: "dev-mongo.application-{{applicationId}}.svc.cluster.local"
-  EVENTSTORE__NAME: "event_store_{{lowercase name}}"
+  EVENTSTORE__NAME: "event_store_{{lowerCase name}}"
   NODE_ENV: "production"
   PORT: "80"
 
@@ -54,7 +54,7 @@ metadata:
     application: {{pascalCase applicationName}}
     environment: Dev
     microservice: {{pascalCase name}}
-  name: dev-{{lowercase name}}-config-files
+  name: dev-{{lowerCase name}}-config-files
   namespace: application-{{applicationId}}
 data:
 
