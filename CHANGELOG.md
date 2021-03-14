@@ -1,3 +1,19 @@
+# [9.1.0] - 2021-3-14 [PR: #138](https://github.com/dolittle-entropy/vanir/pull/138)
+## Summary
+
+Improved developer experience and flexibility for working with resources such as mongo database and the Dolittle even store. 
+
+### Added
+
+- Documentation on available dependencies
+- MongoDatabaseProvider for getting IMongoDatabase instances for specific tenant (Fixes [#128](https://github.com/dolittle-entropy/vanir/issues/128))
+- Adds the Dolittle client as an available dependency (Fixes [#127](https://github.com/dolittle-entropy/vanir/issues/127)).
+
+### Fixed
+
+- Exports at root level of backend - exposing common types to avoid having '/dist' in imports
+
+
 # [9.0.9] - 2021-3-14 [PR: #136](https://github.com/dolittle-entropy/vanir/pull/136)
 ## Summary
 
