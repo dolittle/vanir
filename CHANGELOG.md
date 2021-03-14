@@ -1,3 +1,13 @@
+# [9.0.9] - 2021-3-14 [PR: #136](https://github.com/dolittle-entropy/vanir/pull/136)
+## Summary
+
+Fixing the scaffolding.
+
+### Fixed
+
+- Fixes [#135](https://github.com/dolittle-entropy/vanir/issues/135) - casing issue in templates.
+
+
 # [9.0.8] - 2021-3-10 [PR: #133](https://github.com/dolittle-entropy/vanir/pull/133)
 ## Summary
 
