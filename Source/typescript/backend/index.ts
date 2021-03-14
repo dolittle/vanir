@@ -13,10 +13,22 @@ export * as logging from './logging';
 export * as tsoa from './tsoa';
 export * as web from './web';
 
-import * as mongodb from './mongodb';
 export {
-    mongodb
-};
+    IEventStore,
+    IEventTypes
+} from './dolittle';
 
-export { IMongoDatabase } from './mongodb';
+export {
+    ILogger
+} from './logging';
 
+export {
+    IMongoDatabase,
+    MongoDatabaseProvider,
+    MongoDbReadModelsConfiguration,
+    guid
+} from './mongodb';
+
+export {
+    IResourceConfigurations
+} from './resources';

@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 export * from './IEventStore';
+export * from './IEventTypes';
 export * from './EventStoreConfiguration';
 
 import { constructor, containerInstance } from '@dolittle/vanir-dependency-inversion';
@@ -53,6 +54,7 @@ export async function initialize(configuration: Configuration, callback?: Dolitt
         }
     });
 
+    container.registerInstance(Client, client);
     container.registerInstance(IEventTypes as constructor<IEventTypes>, client.eventTypes);
 
     return client;

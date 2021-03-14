@@ -10,10 +10,13 @@ import { MongoDbReadModelsConfiguration } from './MongoDbReadModelsConfiguration
 import { getCurrentContext } from '../index';
 import { IMongoDatabase } from './IMongoDatabase';
 import { MongoDatabase } from './MongoDatabase';
+import { MongoDatabaseProvider } from './MongoDatabaseProvider';
 
 export class MongoDb {
 
     static initialize() {
+        container.registerSingleton(MongoDatabaseProvider);
+
         container.register(MongoDbReadModelsConfiguration, {
             useFactory: (dependencyContainer: DependencyContainer) => {
                 const resourceConfigurations = dependencyContainer.resolve(IResourceConfigurations as constructor<IResourceConfigurations>);
