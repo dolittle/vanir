@@ -16,3 +16,6 @@ export * from './ICanBeNotifiedWhenBeingAttached';
 export * from './ICanBeNotifiedWhenBeingDetached';
 export * from './ICanBeNotifiedWhenPropsChanged';
 export * from './ICanBeNotifiedWhenRouteChanged';
+
+export * from './observables/observableDecorator';
+export * from './observables/observe';

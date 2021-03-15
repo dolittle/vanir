@@ -15,6 +15,10 @@ export * from './MicroserviceContext';
 export * from './useDialog';
 
 export * as mvvm from './mvvm';
+export {
+    observable,
+    observe
+} from './mvvm'
 export * as routing from './routing';
 
 export function initializeFrontend(configuration: Configuration) {
