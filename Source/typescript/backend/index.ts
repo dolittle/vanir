@@ -7,23 +7,17 @@ export * from './logging';
 export * from './Context';
 export * from './HostContext';
 
-import * as data from './data';
-import * as dolittle from './dolittle';
-import * as logging from './logging';
-import * as tsoa from './tsoa';
-import * as mongodb from './mongodb';
-import * as resources from './resources';
-import * as web from './web';
+export * as data from './data';
+export * as dolittle from './dolittle';
+export * as logging from './logging';
+export * as tsoa from './tsoa';
+export * as mongodb from './mongodb';
+export * as resources from './resources';
+export * as web from './web';
 
 export {
-    data,
-    dolittle,
-    logging,
-    mongodb,
-    tsoa,
-    resources,
-    web
-};
+    GuidScalar
+} from './data';
 
 export {
     IEventStore,
