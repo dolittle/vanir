@@ -1,3 +1,13 @@
+# [9.1.1] - 2021-3-15 [PR: #140](https://github.com/dolittle-entropy/vanir/pull/140)
+## Summary
+
+Exporting sub modules.
+
+### Fixed
+
+- To avoid consumers of packages having to import `dist` relative paths within the package, we now export the sub-modules as part of the top-level package (e.g. data will be @dolittle/vanir-backend/data instead of @dolittle/vanir-backend/dist/data)
+
+
 # [9.1.0] - 2021-3-14 [PR: #138](https://github.com/dolittle-entropy/vanir/pull/138)
 ## Summary
 
