@@ -1,3 +1,13 @@
+# [9.1.2] - 2021-3-15 [PR: #142](https://github.com/dolittle-entropy/vanir/pull/142)
+## Summary
+
+Making GuidScalar more available
+
+### Fixed
+
+- Exporting GuidScalar from root module @dolittle/vanir-backend
+
+
 # [9.1.1] - 2021-3-15 [PR: #140](https://github.com/dolittle-entropy/vanir/pull/140)
 ## Summary
 
