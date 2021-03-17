@@ -7,6 +7,7 @@ import { injectable } from 'tsyringe';
 import { IMongoDatabase } from './IMongoDatabase';
 import { MongoDbReadModelsConfiguration } from './MongoDbReadModelsConfiguration';
 import { setCollectionType } from './MongoDbContext';
+import { pluralize } from './CollectionNamePluralizer';
 
 /* eslint-disable @typescript-eslint/unified-signatures */
 declare module 'mongodb' {
@@ -27,7 +28,7 @@ export class MongoDatabase implements IMongoDatabase {
     collection<TSchema = any>(type: Constructor<TSchema>, name: string): Promise<Collection<TSchema>>;
     collection<TSchema = any>(type: Constructor<TSchema>, name: string, options: DbCollectionOptions): Promise<Collection<TSchema>>;
     async collection<TSchema = any>(typeOrName: Constructor<TSchema> | string, nameOrOption?: string | DbCollectionOptions, options?: DbCollectionOptions): Promise<Collection<TSchema>> {
-        let name = (typeOrName instanceof String) ? (typeOrName as string) : (typeOrName as Constructor).name;
+        let name = (typeOrName instanceof String) ? (typeOrName as string) : pluralize((typeOrName as Constructor).name);
 
         if (nameOrOption) {
             if (nameOrOption instanceof String) {
