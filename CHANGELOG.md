@@ -1,3 +1,13 @@
+# [9.1.3] - 2021-3-17 [PR: #143](https://github.com/dolittle-entropy/vanir/pull/143)
+## Summary
+
+This fixes an undesired breaking change from version 8 to 9. Collection names would by default be the type name- but we expect the same default behavior as with Mongoose, which is making it lowercase and pluralized. This particular code is now brought in from Mongoose to make sure we have the same behavior and is as expected.
+
+### Fixed
+
+- Collection names are now correct; lowercase + pluralized
+
+
 # [9.1.2] - 2021-3-15 [PR: #142](https://github.com/dolittle-entropy/vanir/pull/142)
 ## Summary
 
