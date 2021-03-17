@@ -12,3 +12,4 @@ export * from './IMongoDatabase';
 export * from './MongoDatabaseProvider';
 export * from './MongoDbReadModelsConfiguration';
 export * from './MongoDbContext';
+export * from './CollectionNamePluralizer';

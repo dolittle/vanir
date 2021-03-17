@@ -47,6 +47,7 @@
         "Configurator",
         "Deduplication",
         "MUUID",
+        "Pluralizer",
         "actionbar",
         "dependencyinversion",
         "eventstore",
