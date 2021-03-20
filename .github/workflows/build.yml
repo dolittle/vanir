@@ -31,7 +31,7 @@ jobs:
         id: eslint-cache
         with:
           path: '**/.eslintcache'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/*.ts') }}
+          key: ${{ runner.os }}-modules-eslint
 
       - name: Yarn install
         if: steps.yarn-cache.outputs.cache-hit != 'true'
