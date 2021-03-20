@@ -3,6 +3,9 @@
 
 namespace Dolittle.Vanir.Backend
 {
+    /// <summary>
+    /// Something
+    /// </summary>
     public class Vanir
     {
     }
