@@ -5,6 +5,7 @@
     <PropertyGroup>
         <AssemblyName>Dolittle.Vanir.Backend</AssemblyName>
         <RootNamespace>Dolittle.Vanir.Backend</RootNamespace>
+        <IsPackable>true</IsPackable>
     </PropertyGroup>
 
     <ItemGroup>
