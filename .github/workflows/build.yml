@@ -8,7 +8,26 @@ on:
       - "Source/**"
 
 jobs:
-  build:
+  build-node:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup node v14
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+          registry-url: "https://registry.npmjs.org"
+      - name: Build
+        run: |
+          export NODE_OPTIONS="--max-old-space-size=4096"
+          yarn
+          yarn ci
+
+
+  build-dotnet:
     runs-on: ubuntu-latest
 
     steps:
@@ -23,15 +42,3 @@ jobs:
         run: dotnet build --configuration Release
       - name: Test .NET
         run: dotnet test --configuration Release --no-build
-
-      - name: Setup node v14
-        uses: actions/setup-node@v1
-        with:
-          node-version: 14.x
-          registry-url: "https://registry.npmjs.org"
-      - name: Build
-        run: |
-          export NODE_OPTIONS="--max-old-space-size=4096"
-          yarn
-          yarn ci
-
