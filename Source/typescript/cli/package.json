@@ -30,8 +30,8 @@
         "prepublish": "yarn build",
         "clean": "tsc -b --clean",
         "build": "tsc -b",
-        "lint": "eslint '**/*.{js,ts,tsx}' --quiet --fix",
-        "lint:ci": "eslint '**/*.{js,ts,tsx}' --quiet",
+        "lint": "eslint --cache '**/*.{js,ts,tsx}' --quiet --fix",
+        "lint:ci": "eslint --cache '**/*.{js,ts,tsx}' --quiet",
         "test": "mocha",
         "ci": "yarn clean && yarn lint:ci && yarn build && yarn test",
         "start": "ts-node index.ts"
