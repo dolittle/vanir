@@ -1,0 +1,12 @@
+<Project>
+    <Import Project="versions.props"/>
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <NoWarn>RCS1090,RCS1018;RCS1194</NoWarn>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <!--<PackageReference Include="Dolittle.Common" Version="2.*" PrivateAssets="All"/>-->
+    </ItemGroup>
+</Project>

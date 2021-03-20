@@ -18,8 +18,19 @@ jobs:
         with:
           node-version: 14.x
           registry-url: "https://registry.npmjs.org"
-      - run: yarn
-      - run: yarn ci
+      - name: Build Node packages
+        run: |
+          yarn
+          yarn ci
+
+      - name: Setup .Net
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '5.0.102'
+      - name: Build .NET
+        run: dotnet build --configuration Release
+      - name: Test .NET
+        run: dotnet test --configuration Release --no-build
 
       - name: Establish context
         id: context
@@ -60,6 +71,15 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           yarn publish-version ${{ steps.increment-version.outputs.next-version }}
+
+      - name: Create NuGet packages
+        if: ${{ steps.context.outputs.should-publish == 'true' }}
+        run: dotnet pack --no-build --configuration Release -o ${{ env.NUGET_OUTPUT }} /p:PackageVersion=${{ steps.increment-version.outputs.next-version }} -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg
+
+
+      - name: Push NuGet packages
+        if: ${{ steps.context.outputs.should-publish == 'true' }}
+        run: dotnet nuget push --skip-duplicate '${{ env.NUGET_OUTPUT }}/*.nupkg' --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
 
       - name: Commit any updated packages
         if: always()

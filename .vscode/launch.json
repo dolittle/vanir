@@ -5,6 +5,17 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": ".NET Core Launch (AspnetCore Sample)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build aspnetcore sample",
+            "program": "${workspaceFolder}/Samples/Source/Aspnetcore/Backend/bin/Debug/net5.0/Backend.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/Samples/Source/Aspnetcore/Backend",
+            "stopAtEntry": false,
+            "console": "internalConsole"
+        },
+        {
             "name": "Launch Basic Sample",
             "type": "node",
             "request": "launch",

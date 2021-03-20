@@ -2,12 +2,19 @@ using System;
 using System.ComponentModel;
 using GraphQL.AspNet.Attributes;
 using GraphQL.AspNet.Controllers;
-using GraphQL.AspNet.Interfaces.Controllers;
+using MongoDB.Driver;
 
 namespace Backend
 {
     public class Things : GraphController
     {
+        private readonly IMongoDatabase _mongoDatabase;
+
+        public Things(IMongoDatabase mongoDatabase)
+        {
+            _mongoDatabase = mongoDatabase;
+        }
+
         [QueryRoot]
         public Owner TheOwner(int id)
         {
