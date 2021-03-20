@@ -4,7 +4,7 @@
 namespace Dolittle.Vanir.Backend
 {
     /// <summary>
-    /// Something something something something
+    /// Something something something something something
     /// </summary>
     public class Vanir
     {
