@@ -5,6 +5,5 @@ namespace Dolittle.Vanir.Backend
 {
     public class Vanir
     {
-
     }
 }
