@@ -9,7 +9,7 @@ on:
 
 jobs:
   build-node:
-    runs-on: ubuntu-latest
+    runs-on: vanir-runner
 
     steps:
       - name: Checkout code
@@ -28,7 +28,7 @@ jobs:
 
 
   build-dotnet:
-    runs-on: ubuntu-latest
+    runs-on: vanir-runner
 
     steps:
       - name: Checkout code
