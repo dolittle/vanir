@@ -15,20 +15,25 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - uses: actions/cache@v2
-        with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
-
       - name: Setup node v14
         uses: actions/setup-node@v1
         with:
           node-version: 14.x
           registry-url: "https://registry.npmjs.org"
+
+      - name: yarn-cache
+        uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Yarn install
+        if: steps.yarn-cache.outputs.cache-hit != 'true'
+        run: yarn
+
       - name: Build
         run: |
           export NODE_OPTIONS="--max-old-space-size=4096"
-          yarn
           yarn ci
 
 
