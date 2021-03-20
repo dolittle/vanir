@@ -1,3 +1,16 @@
+# [9.4.0] - 2021-3-20 [PR: #146](https://github.com/dolittle-entropy/vanir/pull/146)
+## Summary
+
+Shaping up the C# setup for resources, graphql and all.
+
+### Added
+
+- [C#] Support for taking dependency to IMongoDatabase and it resolve to correct tenant based on resources.json config file
+- [C#] GraphQL routes adhering to the vanir.json file setup
+- [C#] ExecutionContext setup properly based on the Tenant-ID HTTP header
+- [C#] Microservice.json configuration support added - ExecutionContext leverages this
+
+
 # [9.3.0] - 2021-3-20 [PR: #145](https://github.com/dolittle-entropy/vanir/pull/145)
 ## Summary
 
