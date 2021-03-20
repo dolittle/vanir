@@ -7,7 +7,7 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ConfigurationExtensions
     {
-        public static void AddVanirConfiguration(this IServiceCollection services)
+        public static Dolittle.Vanir.Backend.Config.Configuration AddVanirConfiguration(this IServiceCollection services)
         {
             var builder = new ConfigurationBuilder();
             builder.AddJsonFile("vanir.json", true);
@@ -17,6 +17,7 @@ namespace Microsoft.Extensions.DependencyInjection
             var config = root.Get<Dolittle.Vanir.Backend.Config.Configuration>();
             services.AddSingleton(config);
 
+            return config;
         }
     }
 }

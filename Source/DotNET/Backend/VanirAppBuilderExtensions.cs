@@ -1,12 +1,14 @@
 // Copyright (c) Dolittle. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using Dolittle.Vanir.Backend;
+using Dolittle.Vanir.Backend.Config;
 using GraphQL.AspNet.Configuration.Mvc;
 using GraphQL.Server.Ui.Playground;
-using GraphQL.Types;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace Microsoft.AspNetCore.Builder
 {
@@ -18,15 +20,22 @@ namespace Microsoft.AspNetCore.Builder
             app.UseGraphQL();
         }
 
-        public static void UseVanir<TSchema>(this IApplicationBuilder app)
-            where TSchema : Schema
-        {
-            app.UseVanirCommon();
-            app.UseGraphQL<TSchema>();
-        }
 
-        private static void UseVanirCommon(this IApplicationBuilder app)
+        static void UseVanirCommon(this IApplicationBuilder app)
         {
+            var logger = app.ApplicationServices.GetService<ILogger<Vanir>>();
+            var configuration = app.ApplicationServices.GetService<Configuration>();
+            var prefix = configuration.Prefix;
+
+            if (prefix.Length > 0)
+            {
+                logger.LogInformation($"Using '{prefix}' as prefix");
+            }
+            else
+            {
+                logger.LogInformation("Using no prefix");
+            }
+
             var env = app.ApplicationServices.GetService<IWebHostEnvironment>();
             if (env.IsDevelopment())
             {
@@ -41,7 +50,11 @@ namespace Microsoft.AspNetCore.Builder
             app.UseStaticFiles();
 
             app.UseRouting();
-            app.UseGraphQLPlayground(options: new GraphQLPlaygroundOptions());
+            app.UseGraphQLPlayground(options: new GraphQLPlaygroundOptions
+            {
+                GraphQLEndPoint = $"{configuration.GraphQLRoute}",
+                Path = $"{configuration.GraphQLRoute}"
+            });
 
             app.UseEndpoints(_ =>
             {
