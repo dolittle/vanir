@@ -25,3 +25,12 @@ jobs:
           export NODE_OPTIONS="--max-old-space-size=4096"
           yarn
           yarn ci
+
+      - name: Setup .Net
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '3.1.301'
+      - name: Build .NET
+        run: dotnet build --configuration Release
+      - name: Test .NET
+        run: dotnet test --configuration Release --no-build
