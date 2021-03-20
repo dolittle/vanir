@@ -31,7 +31,7 @@ Exporting sub modules.
 # [9.1.0] - 2021-3-14 [PR: #138](https://github.com/dolittle-entropy/vanir/pull/138)
 ## Summary
 
-Improved developer experience and flexibility for working with resources such as mongo database and the Dolittle even store. 
+Improved developer experience and flexibility for working with resources such as mongo database and the Dolittle even store.
 
 ### Added
 
