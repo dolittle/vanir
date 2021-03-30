@@ -1,7 +1,5 @@
 using System;
-using System.ComponentModel;
-using GraphQL.AspNet.Attributes;
-using GraphQL.AspNet.Controllers;
+using Dolittle.Vanir.Backend.GraphQL;
 using MongoDB.Driver;
 
 namespace Backend
@@ -15,7 +13,7 @@ namespace Backend
             _mongoDatabase = mongoDatabase;
         }
 
-        [QueryRoot]
+        [Query("MyCustomName")]
         public Owner TheOwner(int id)
         {
             return new Owner
@@ -26,7 +24,6 @@ namespace Backend
         }
 
         [Query]
-        [Description("This thing is awesome")]
         public Owner Something()
         {
             return new Owner();

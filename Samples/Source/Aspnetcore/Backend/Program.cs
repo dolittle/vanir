@@ -1,5 +1,8 @@
+using System.Linq;
+using System.Reflection;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyModel;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using Serilog.Events;
