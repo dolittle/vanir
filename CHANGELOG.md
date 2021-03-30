@@ -1,3 +1,9 @@
+# [9.7.0] - 2021-3-30 [PR: #149](https://github.com/dolittle-entropy/vanir/pull/149)
+### Fixed
+
+- When paths are rooted as described in `vanir.json` - the GraphQL paths will now be single / at the beginning.
+
+
 # [9.6.0] - 2021-3-30 [PR: #148](https://github.com/dolittle-entropy/vanir/pull/148)
 ## Summary
 
