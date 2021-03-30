@@ -3,9 +3,7 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using Microsoft.Extensions.DependencyModel;
+using Dolittle.Vanir.Backend.Reflection;
 
 namespace Dolittle.Vanir.Backend.GraphQL
 {
@@ -14,25 +12,12 @@ namespace Dolittle.Vanir.Backend.GraphQL
     /// </summary>
     public class GraphControllers : IGraphControllers
     {
-        public GraphControllers()
+        public GraphControllers(ITypes types)
         {
-            var entryAssembly = Assembly.GetEntryAssembly();
-            var dependencyModel = DependencyContext.Load(entryAssembly);
-            var assemblies = dependencyModel.RuntimeLibraries
-                                .Where(_ => _.Type.Equals("project", StringComparison.InvariantCultureIgnoreCase))
-                                .Select(_ => Assembly.Load(_.Name))
-                                .ToArray();
-
-            var types = new List<Type>();
-            var graphControllerType = typeof(GraphController);
-            foreach (var assembly in assemblies)
-            {
-                types.AddRange(assembly.DefinedTypes.Where(_ => _ != graphControllerType &&
-                                                                _.IsAssignableTo(graphControllerType)).ToArray());
-            }
-
-            All = types;
+            All = types.FindMultiple<GraphController>();
         }
+
+        /// <inheritdoc/>
         public IEnumerable<Type> All { get; }
     }
 }

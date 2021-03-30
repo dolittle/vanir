@@ -2,7 +2,9 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using Dolittle.Vanir.Backend;
+using Dolittle.Vanir.Backend.Collections;
 using Dolittle.Vanir.Backend.GraphQL;
+using Dolittle.Vanir.Backend.Reflection;
 using HotChocolate.Types;
 
 namespace Microsoft.Extensions.DependencyInjection
@@ -16,9 +18,15 @@ namespace Microsoft.Extensions.DependencyInjection
         /// Add GraphQL services.
         /// </summary>
         /// <param name="services"><see cref="IServiceColletion"/> to add to.</param>
-        public static void AddGraphQL(this IServiceCollection services)
+        public static void AddGraphQL(this IServiceCollection services, ITypes types = null)
         {
-            var graphControllers = new GraphControllers();
+            if (types == null)
+            {
+                types = new Types();
+                services.Add(new ServiceDescriptor(typeof(ITypes), types));
+            }
+
+            var graphControllers = new GraphControllers(types);
             services.Add(new ServiceDescriptor(typeof(IGraphControllers), graphControllers));
 
             foreach (var graphControllerType in graphControllers.All)
@@ -28,9 +36,11 @@ namespace Microsoft.Extensions.DependencyInjection
 
             var graphQLBuilder = services
                                     .AddGraphQLServer()
-                                     .AddType(new UuidType('D'))
+                                    .AddType(new UuidType('D'))
                                     .AddQueryType<QueryType>()
                                     .AddMutationType<MutationType>();
+
+            types.FindMultiple<ScalarType>().ForEach(_ => graphQLBuilder.AddType(_));
 
             if (RuntimeEnvironment.isDevelopment)
             {
