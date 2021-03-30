@@ -1,3 +1,12 @@
+# [9.8.0] - 2021-3-30 [PR: #150](https://github.com/dolittle-entropy/vanir/pull/150)
+### Added
+
+- Convenient Collection Extensions
+- Simple type discovery for project referenced assemblies
+- Automatic hook up of any `ScalarType` / `ScalarType<>` implementations
+- Ability to configure Hot Chocolate GraphQL properties manually
+
+
 # [9.7.0] - 2021-3-30 [PR: #149](https://github.com/dolittle-entropy/vanir/pull/149)
 ### Fixed
 
