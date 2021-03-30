@@ -1,3 +1,14 @@
+# [9.6.0] - 2021-3-30 [PR: #148](https://github.com/dolittle-entropy/vanir/pull/148)
+## Summary
+
+Making it simpler to work with Hot Chocolate type of GraphQL - heavily influenced by GraphQL AspNetCore.
+
+
+### Added
+
+- GraphController, QueryAttribute nad MutationAttribute - as found in GraphQL AspNetCore
+
+
 # [9.5.0] - 2021-3-20 [PR: #147](https://github.com/dolittle-entropy/vanir/pull/147)
 ## Summary
 
