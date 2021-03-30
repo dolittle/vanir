@@ -24,7 +24,7 @@ jobs:
         id: yarn-cache
         with:
           path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/package.json') }}
 
       - uses: actions/cache@v2
         id: eslint-cache
