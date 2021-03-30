@@ -1,29 +1,30 @@
 // Copyright (c) Dolittle. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using Dolittle.Vanir.Backend;
 using Dolittle.Vanir.Backend.Config;
-using GraphQL.AspNet.Configuration.Mvc;
 using GraphQL.Server.Ui.Playground;
+using HotChocolate.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 namespace Microsoft.AspNetCore.Builder
 {
+
     public static class VanirAppBuilderExtensions
     {
         public static void UseVanir(this IApplicationBuilder app)
         {
             app.UseVanirCommon();
-            app.UseGraphQL();
         }
-
 
         static void UseVanirCommon(this IApplicationBuilder app)
         {
-            var logger = app.ApplicationServices.GetService<ILogger<Vanir>>();
+            Dolittle.Vanir.Backend.Container.ServiceProvider = app.ApplicationServices;
+
+            var logger = app.ApplicationServices.GetService<ILogger<Dolittle.Vanir.Backend.Vanir>>();
             var configuration = app.ApplicationServices.GetService<Configuration>();
             var prefix = configuration.Prefix;
 
@@ -50,15 +51,33 @@ namespace Microsoft.AspNetCore.Builder
             app.UseStaticFiles();
 
             app.UseRouting();
-            app.UseGraphQLPlayground(options: new GraphQLPlaygroundOptions
+
+            app.Use(async (context, next) =>
             {
-                GraphQLEndPoint = $"{configuration.GraphQLRoute}",
-                Path = $"{configuration.GraphQLRoute}"
+                if (context.Request.Path.Value == configuration.GraphQLRoute && !context.Request.HasJsonContentType())
+                {
+                    logger.LogInformation("Hello there");
+                    context.Request.Path = configuration.GraphQLPlaygroundRoute;
+                }
+                await next();
             });
 
             app.UseEndpoints(_ =>
             {
                 _.MapControllers();
+                if (env.IsDevelopment())
+                {
+                    logger.LogInformation($"Hosting Playground at '{configuration.GraphQLPlaygroundRoute}'");
+                    _.MapGraphQLPlayground(new PlaygroundOptions { GraphQLEndPoint = configuration.GraphQLRoute }, configuration.GraphQLPlaygroundRoute);
+                }
+
+
+                logger.LogInformation($"GraphQL endpoint is located at '{configuration.GraphQLRoute}'");
+                _.MapGraphQL(configuration.GraphQLRoute).WithOptions(new GraphQLServerOptions
+                {
+                    Tool = { Enable = false }
+                });
+
                 _.MapDefaultControllerRoute();
             });
         }

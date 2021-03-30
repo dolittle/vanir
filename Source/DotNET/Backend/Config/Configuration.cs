@@ -21,5 +21,7 @@ namespace Dolittle.Vanir.Backend.Config
 
         public string Prefix => $"{(IsRooted ? "" : "/_")}/{RouteSegment}";
         public string GraphQLRoute => $"{Prefix}/graphql";
+
+        public string GraphQLPlaygroundRoute => $"{GraphQLRoute}/ui";
     }
 }

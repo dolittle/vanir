@@ -1,21 +1,20 @@
 // Copyright (c) Dolittle. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using GraphQL.AspNet.Configuration.Mvc;
+using Dolittle.Vanir.Backend;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
+
 namespace Microsoft.Extensions.DependencyInjection
 {
+
     public static class VanirServiceCollectionExtension
     {
         public static void AddVanir(this IServiceCollection services)
         {
-            var configuration = services.AddVanirConfiguration();
+            services.Add(new ServiceDescriptor(typeof(IContainer), typeof(Container), ServiceLifetime.Singleton));
 
-            var schemaOptions = services.AddGraphQL(_ =>
-            {
-                _.ExecutionOptions.EnableMetrics = true;
-                _.QueryHandler.Route = configuration.GraphQLRoute;
-            });
+            var configuration = services.AddVanirConfiguration();
+            services.AddGraphQL();
 
             services.Configure<KestrelServerOptions>(options => options.AllowSynchronousIO = true);
 

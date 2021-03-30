@@ -1,12 +1,12 @@
 // Copyright (c) Dolittle. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-namespace Dolittle.Vanir.Backend
+namespace Dolittle.Vanir.Backend.GraphQL
 {
     /// <summary>
-    /// Type used for identifying logging
+    /// The root Mutation object.
     /// </summary>
-    public class Vanir
+    public class Mutation
     {
     }
 }
