@@ -19,7 +19,7 @@ namespace Dolittle.Vanir.Backend.Config
         public bool IsDevelopment => Environment == "development";
         public bool IsProduction => Environment == "production";
 
-        public string Prefix => $"{(IsRooted ? "" : "/_")}/{RouteSegment}";
+        public string Prefix => $"{(IsRooted ? "" : "/_")}{(RouteSegment.Length > 0 ? "/" : "")}{RouteSegment}";
         public string GraphQLRoute => $"{Prefix}/graphql";
 
         public string GraphQLPlaygroundRoute => $"{GraphQLRoute}/ui";
