@@ -13,6 +13,14 @@ namespace Backend
             _mongoDatabase = mongoDatabase;
         }
 
+        [Mutation]
+        public bool DoSomething()
+        {
+            Console.WriteLine("Hello world");
+            return true;
+        }
+
+
         [Query("MyCustomName")]
         public Owner TheOwner(int id)
         {
