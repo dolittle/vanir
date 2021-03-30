@@ -18,7 +18,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// Add GraphQL services.
         /// </summary>
         /// <param name="services"><see cref="IServiceColletion"/> to add to.</param>
-        public static void AddGraphQL(this IServiceCollection services, ITypes types = null)
+        public static void AddGraphQL(this IServiceCollection services, BackendArguments arguments = null, ITypes types = null)
         {
             if (types == null)
             {
@@ -39,6 +39,8 @@ namespace Microsoft.Extensions.DependencyInjection
                                     .AddType(new UuidType('D'))
                                     .AddQueryType<QueryType>()
                                     .AddMutationType<MutationType>();
+
+            arguments?.GraphQLExecutorBuilder(graphQLBuilder);
 
             types.FindMultiple<ScalarType>().ForEach(_ => graphQLBuilder.AddType(_));
 

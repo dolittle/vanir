@@ -9,14 +9,14 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static class VanirServiceCollectionExtension
     {
-        public static void AddVanir(this IServiceCollection services)
+        public static void AddVanir(this IServiceCollection services, BackendArguments arguments = null)
         {
             services.Add(new ServiceDescriptor(typeof(IContainer), typeof(Container), ServiceLifetime.Singleton));
             var types = new Types();
             services.Add(new ServiceDescriptor(typeof(ITypes), types));
 
             var configuration = services.AddVanirConfiguration();
-            services.AddGraphQL(types);
+            services.AddGraphQL(arguments, types);
 
             services.Configure<KestrelServerOptions>(options => options.AllowSynchronousIO = true);
 
