@@ -11,7 +11,7 @@ using MongoDB.Driver;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
-    public static class ServiceCollectionExtensions
+    public static class ResourcesServiceCollectionExtensions
     {
         readonly static Dictionary<TenantId, IMongoDatabase> _mongoDatabaseByTenant = new();
 
