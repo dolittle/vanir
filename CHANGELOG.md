@@ -1,3 +1,9 @@
+# [9.10.0] - 2021-3-31 [PR: #152](https://github.com/dolittle-entropy/vanir/pull/152)
+### Added
+
+- Enum naming convention adds a suffix of enum to type name
+
+
 # [9.9.0] - 2021-3-31 [PR: #151](https://github.com/dolittle-entropy/vanir/pull/151)
 ### Added
 
