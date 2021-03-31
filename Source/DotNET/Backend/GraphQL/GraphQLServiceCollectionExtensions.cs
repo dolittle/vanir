@@ -9,6 +9,7 @@ using Dolittle.Vanir.Backend.GraphQL;
 using Dolittle.Vanir.Backend.GraphQL.Concepts;
 using Dolittle.Vanir.Backend.Reflection;
 using HotChocolate.Types;
+using HotChocolate.Types.Descriptors;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -50,6 +51,8 @@ namespace Microsoft.Extensions.DependencyInjection
 
             types.FindMultiple(typeof(ConceptAs<>)).ForEach(_ => graphQLBuilder.AddConceptTypeConverter(_));
 
+            services.AddSingleton<INamingConventions, NamingConventions>();
+
             arguments?.GraphQLExecutorBuilder(graphQLBuilder);
 
             if (RuntimeEnvironment.isDevelopment)
@@ -58,4 +61,5 @@ namespace Microsoft.Extensions.DependencyInjection
             }
         }
     }
+
 }
