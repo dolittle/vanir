@@ -14,12 +14,11 @@ namespace Backend
         }
 
         [Mutation]
-        public bool DoSomething()
+        public bool DoSomething(OwnerId input)
         {
-            Console.WriteLine("Hello world");
+            Console.WriteLine($"Hello world - {input}");
             return true;
         }
-
 
         [Query("MyCustomName")]
         public Owner TheOwner(int id)
