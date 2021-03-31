@@ -1,3 +1,11 @@
+# [9.9.0] - 2021-3-31 [PR: #151](https://github.com/dolittle-entropy/vanir/pull/151)
+### Added
+
+- ConceptAs extensions to make it easier to work with ConceptAs
+- Reflection extensions to make it easier to work with type reflection
+- Automatic hookup of Type conversion for GraphQL for ConceptAs and base type mapping. This enables use of concepts in any GraphQL construct (ObjectType) and it will map to the underlying system type it is a concept as of.
+
+
 # [9.8.0] - 2021-3-30 [PR: #150](https://github.com/dolittle-entropy/vanir/pull/150)
 ### Added
 
