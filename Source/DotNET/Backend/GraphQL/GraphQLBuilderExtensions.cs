@@ -40,7 +40,7 @@ namespace Dolittle.Vanir.Backend.GraphQL
             where TAttribute : Attribute, ICanHavePath
         {
             var methods = GetMethodsAdornedWithAttribute<TAttribute>(graphControllers, namingConventions);
-            var root = new SchemaRoute(string.Empty, rootName);
+            var root = new SchemaRoute(string.Empty, rootName, rootName);
             var routesByPath = BuildRouteHierarchy(root, methods);
 
             var topLevelRoutes = routesByPath.Where((keyValue) => !keyValue.Key.Contains('/') && keyValue.Key.Length > 0).Select((keyValue) => keyValue.Value);
@@ -106,7 +106,7 @@ namespace Dolittle.Vanir.Backend.GraphQL
                     }
                     else
                     {
-                        currentRoute = new SchemaRoute(current, segment);
+                        currentRoute = new SchemaRoute(current, segment, $"_{segment}");
                         routesByPath[current] = currentRoute;
                         parentRoute?.AddChild(currentRoute);
                     }

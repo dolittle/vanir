@@ -11,14 +11,16 @@ namespace Dolittle.Vanir.Backend.GraphQL
         readonly List<SchemaRoute> _children = new();
         readonly List<SchemaRouteItem> _items = new();
 
-        public SchemaRoute(string path, string localName)
+        public SchemaRoute(string path, string localName, string typeName)
         {
             Path = path;
             LocalName = localName;
+            TypeName = typeName;
         }
 
         public string Path { get; }
         public string LocalName { get; }
+        public string TypeName { get; }
 
         public void AddChild(SchemaRoute child)
         {
@@ -32,7 +34,7 @@ namespace Dolittle.Vanir.Backend.GraphQL
 
         protected override void Configure(IObjectTypeDescriptor descriptor)
         {
-            descriptor.Name(LocalName);
+            descriptor.Name(TypeName);
 
             foreach (var item in _items)
             {
