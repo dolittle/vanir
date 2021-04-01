@@ -1,0 +1,120 @@
+// Copyright (c) Dolittle. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using Dolittle.Vanir.Backend.Collections;
+using HotChocolate.Execution.Configuration;
+using HotChocolate.Types;
+using HotChocolate.Types.Descriptors;
+using Microsoft.Extensions.DependencyInjection;
+
+namespace Dolittle.Vanir.Backend.GraphQL
+{
+    public static class GraphQLBuilderExtensions
+    {
+        class MethodAtPath
+        {
+            public string Path { get; set; }
+            public string Name { get; set; }
+            public MethodInfo Method { get; set; }
+        }
+
+        public static IRequestExecutorBuilder AddQueries(this IRequestExecutorBuilder builder, IGraphControllers graphControllers, INamingConventions namingConventions)
+        {
+            var query = BuildSchemaRoutesWithItems<QueryAttribute>("Query", graphControllers, namingConventions);
+            builder.AddQueryType(query);
+            return builder;
+        }
+
+        public static IRequestExecutorBuilder AddMutations(this IRequestExecutorBuilder builder, IGraphControllers graphControllers, INamingConventions namingConventions)
+        {
+            var mutation = BuildSchemaRoutesWithItems<MutationAttribute>("Mutation", graphControllers, namingConventions);
+            builder.AddMutationType(mutation);
+            return builder;
+        }
+
+        static SchemaRoute BuildSchemaRoutesWithItems<TAttribute>(string rootName, IGraphControllers graphControllers, INamingConventions namingConventions)
+            where TAttribute : Attribute, ICanHavePath
+        {
+            var methods = GetMethodsAdornedWithAttribute<TAttribute>(graphControllers, namingConventions);
+            var root = new SchemaRoute(string.Empty, rootName);
+            var routesByPath = BuildRouteHierarchy(root, methods);
+
+            var topLevelRoutes = routesByPath.Where((keyValue) => !keyValue.Key.Contains('/') && keyValue.Key.Length > 0).Select((keyValue) => keyValue.Value);
+            topLevelRoutes.ForEach(root.AddChild);
+            methods.ForEach(_ => routesByPath[_.Path].AddItem(new SchemaRouteItem(_.Method, _.Name)));
+
+            return root;
+        }
+
+        static IOrderedEnumerable<MethodAtPath> GetMethodsAdornedWithAttribute<TAttribute>(IGraphControllers graphControllers, INamingConventions namingConventions) where TAttribute : Attribute, ICanHavePath
+        {
+            return graphControllers.All
+                .SelectMany(_ => _.GetMethodsWithAttribute<TAttribute>())
+                .Select(_ =>
+                {
+                    var rootPath = _.DeclaringType.GetRootPath();
+                    var hasPath = _.HasPath<TAttribute>();
+                    var localPath = hasPath ? _.GetPath<TAttribute>() : namingConventions.GetMemberName(_, MemberKind.Field).Value;
+                    var path = $"{rootPath}{(rootPath.Length > 0 ? "/" : "")}{localPath}";
+                    var lastSlash = path.LastIndexOf("/");
+                    var name = path;
+
+                    if (lastSlash >= 0)
+                    {
+                        name = path[(lastSlash + 1)..];
+                        path = path[..lastSlash];
+                    }
+                    else
+                    {
+                        path = string.Empty;
+                    }
+
+                    return new MethodAtPath
+                    {
+                        Path = path,
+                        Name = name,
+                        Method = _
+                    };
+                })
+                .OrderBy(_ => _.Path);
+        }
+
+        static IDictionary<string, SchemaRoute> BuildRouteHierarchy(SchemaRoute root, IEnumerable<MethodAtPath> methods)
+        {
+            var distinctPaths = methods.GroupBy(_ => _.Path).Select(_ => _.First()).Select(_ => _.Path);
+            var routesByPath = new Dictionary<string, SchemaRoute>
+            {
+                { string.Empty, root }
+            };
+
+            foreach (var path in distinctPaths)
+            {
+                var current = string.Empty;
+                var segments = path.Split('/');
+                SchemaRoute currentRoute = null;
+                SchemaRoute parentRoute = null;
+                foreach (var segment in segments)
+                {
+                    current = $"{current}{(current.Length > 0 ? "/" : "")}{segment}";
+                    if (routesByPath.ContainsKey(current))
+                    {
+                        currentRoute = routesByPath[current];
+                    }
+                    else
+                    {
+                        currentRoute = new SchemaRoute(current, segment);
+                        routesByPath[current] = currentRoute;
+                        parentRoute?.AddChild(currentRoute);
+                    }
+                    parentRoute = currentRoute;
+                }
+            }
+
+            return routesByPath;
+        }
+    }
+}

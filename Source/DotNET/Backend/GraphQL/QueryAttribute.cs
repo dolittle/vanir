@@ -9,21 +9,21 @@ namespace Dolittle.Vanir.Backend.GraphQL
     /// Attribute to use for adorning methods indicating it represents a query on a <see cref="GraphController"/>
     /// </summary>
     [AttributeUsage(AttributeTargets.Method)]
-    public class QueryAttribute : Attribute, ICanHaveName
+    public class QueryAttribute : Attribute, ICanHavePath
     {
         /// <summary>
         /// Initializes a new instance of <see cref="QueryAttribute"/>
         /// </summary>
-        /// <param name="name">Optional name of the query - for overriding the default picked from the method name</param>
-        public QueryAttribute(string name = null)
+        /// <param name="path">Optional path of the query - for overriding the default picked from the method name</param>
+        public QueryAttribute(string path = null)
         {
-            Name = name;
+            Path = path;
         }
 
         /// <inheritdoc/>
-        public string Name { get; }
+        public string Path { get; }
 
         /// <inheritdoc/>
-        public bool HasName => Name is not null;
+        public bool HasPath => Path is not null;
     }
 }

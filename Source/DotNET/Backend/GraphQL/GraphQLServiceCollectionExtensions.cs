@@ -45,13 +45,15 @@ namespace Microsoft.Extensions.DependencyInjection
                                     .AddType(new UuidType(UuidFormat));
             types.FindMultiple<ScalarType>().Where(_ => !_.IsGenericType).ForEach(_ => graphQLBuilder.AddType(_));
 
+            var namingConventions = new NamingConventions();
+
             graphQLBuilder
-                .AddQueryType<QueryType>()
-                .AddMutationType<MutationType>();
+                .AddQueries(graphControllers, namingConventions)
+                .AddMutations(graphControllers, namingConventions);
 
             types.FindMultiple(typeof(ConceptAs<>)).ForEach(_ => graphQLBuilder.AddConceptTypeConverter(_));
 
-            services.AddSingleton<INamingConventions, NamingConventions>();
+            services.AddSingleton<INamingConventions>(namingConventions);
 
             arguments?.GraphQLExecutorBuilder(graphQLBuilder);
 
