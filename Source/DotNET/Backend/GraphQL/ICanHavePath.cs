@@ -6,16 +6,16 @@ namespace Dolittle.Vanir.Backend.GraphQL
     /// <summary>
     /// Defines something that has a name.
     /// </summary>
-    public interface ICanHaveName
+    public interface ICanHavePath
     {
         /// <summary>
         /// Gets the name.
         /// </summary>
-        string Name { get; }
+        string Path { get; }
 
         /// <summary>
         /// Check whether or not the name is set.
         /// </summary>
-        bool HasName { get; }
+        bool HasPath { get; }
     }
 }

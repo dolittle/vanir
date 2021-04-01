@@ -9,21 +9,21 @@ namespace Dolittle.Vanir.Backend.GraphQL
     /// Attribute to use for adorning methods indicating it represents a mutation on a <see cref="GraphController"/>
     /// </summary>
     [AttributeUsage(AttributeTargets.Method)]
-    public class MutationAttribute : Attribute, ICanHaveName
+    public class MutationAttribute : Attribute, ICanHavePath
     {
         /// <summary>
         /// Initializes a new instance of <see cref="MutationAttribute"/>
         /// </summary>
-        /// <param name="name">Optional name of the mutation - for overriding the default picked from the method name</param>
-        public MutationAttribute(string name = null)
+        /// <param name="path">Optional path of the mutation - for overriding the default picked from the method name</param>
+        public MutationAttribute(string path = null)
         {
-            Name = name;
+            Path = path;
         }
 
         /// <inheritdoc/>
-        public string Name { get; }
+        public string Path { get; }
 
         /// <inheritdoc/>
-        public bool HasName => Name is not null;
+        public bool HasPath => Path is not null;
     }
 }
