@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace Dolittle.Vanir.Backend.Reflection
 {
+
     /// <summary>
     /// Represents an implementation of <see cref="IContractToImplementorsMap"/>.
     /// </summary>
