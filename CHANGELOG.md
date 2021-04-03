@@ -1,3 +1,9 @@
+# [9.13.1] - 2021-4-3 [PR: #155](https://github.com/dolittle-entropy/vanir/pull/155)
+### Fixed
+
+- Avoid getting duplicate keys for the population of validation types by type
+
+
 # [9.13.0] - 2021-4-3 [PR: #154](https://github.com/dolittle-entropy/vanir/pull/154)
 ### Added
 
