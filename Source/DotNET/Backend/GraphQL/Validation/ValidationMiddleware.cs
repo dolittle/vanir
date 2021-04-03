@@ -34,7 +34,7 @@ namespace Dolittle.Vanir.Backend.GraphQL.Validation
                 {
                     var instance = context.CallGenericMethod<object, IMiddlewareContext, NameString>(_ => _.ArgumentValue<object>, argument.Name, argument.RuntimeType);
                     var errors = new List<IError>();
-                    await CheckAndValidate(context, instance, argument.RuntimeType, errors);
+                    await CheckAndValidate(context, instance, argument.RuntimeType, errors, argument.Name);
                     if (errors.Count > 0)
                     {
                         context.Result = errors;
@@ -46,39 +46,40 @@ namespace Dolittle.Vanir.Backend.GraphQL.Validation
             await _next(context);
         }
 
-        async Task CheckAndValidate(IMiddlewareContext context, object instance, Type type, List<IError> errors, PropertyInfo parentProperty = null)
+        async Task CheckAndValidate(IMiddlewareContext context, object instance, Type type, List<IError> errors, string propertyPath)
         {
-            var validator = _validators.GetFor(type);
-            var validationContextType = typeof(ValidationContext<>).MakeGenericType(type);
-            var validationContext = Activator.CreateInstance(validationContextType, instance) as IValidationContext;
-            var result = await validator.ValidateAsync(validationContext);
-            if (!result.IsValid)
+            if (_validators.HasFor(type))
             {
-                CollectErrors(context, result, errors, type, parentProperty);
+                var validator = _validators.GetFor(type);
+                var validationContextType = typeof(ValidationContext<>).MakeGenericType(type);
+                var validationContext = Activator.CreateInstance(validationContextType, instance) as IValidationContext;
+                var result = await validator.ValidateAsync(validationContext);
+                if (!result.IsValid)
+                {
+                    CollectErrors(context, result, errors, type, propertyPath);
+                }
             }
-            foreach (var property in type.GetProperties())
+
+            if (!type.IsAPrimitiveType())
             {
-                if (_validators.HasFor(property.PropertyType))
+                foreach (var property in type.GetProperties())
                 {
                     var propertyInstance = property.GetValue(instance);
                     if (propertyInstance != null)
                     {
-                        await CheckAndValidate(context, propertyInstance, property.PropertyType, errors, property);
+                        var localPropertyPath = $"{propertyPath}.{property.Name.ToCamelCase()}";
+                        await CheckAndValidate(context, propertyInstance, property.PropertyType, errors, localPropertyPath);
                     }
                 }
             }
         }
 
-        void CollectErrors(IMiddlewareContext context, ValidationResult result, List<IError> errors, Type type, PropertyInfo parentProperty = null)
+
+        void CollectErrors(IMiddlewareContext context, ValidationResult result, List<IError> errors, Type type, string propertyPath)
         {
             foreach (var validationError in result.Errors)
             {
-                var propertyName = validationError.PropertyName;
-                if (type.IsConcept() && parentProperty != null)
-                {
-                    propertyName = parentProperty.Name;
-                }
-                propertyName = propertyName.ToCamelCase();
+                var propertyName = type.IsConcept() ? propertyPath : $"{propertyPath}.{validationError.PropertyName.ToCamelCase()}";
                 errors.Add(ErrorBuilder.New()
                 .SetMessage(validationError.ErrorCode)
                 .SetExtension(propertyName, validationError.ErrorMessage)
