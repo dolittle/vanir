@@ -1,3 +1,13 @@
+# [9.13.0] - 2021-4-3 [PR: #154](https://github.com/dolittle-entropy/vanir/pull/154)
+### Added
+
+- `GraphRoot` attribute that will enable you to set the root object - can be nested, delimited by /
+- `Query` attribute now supports path relative to `GraphRoot` or root if not `GraphRoot` is used - can be nested, delimited by /
+- `Mutation` attribute now supports path relative to `GraphRoot` or root if not `GraphRoot` is used - can be nested, delimited by /
+- Support for FluentValidations AbstractValidator - automatically hooked up on any input arguments
+- AbstractValidator<> can be for any type - any input type with a property of a type with a validator will be evaluated as well
+
+
 # [9.10.0] - 2021-3-31 [PR: #152](https://github.com/dolittle-entropy/vanir/pull/152)
 ### Added
 
