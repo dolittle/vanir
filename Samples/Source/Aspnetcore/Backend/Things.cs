@@ -37,6 +37,7 @@ namespace Backend
         {
             RuleFor(_ => _.Something).NotNull().NotEmpty().WithMessage("This should be set");
             RuleFor(_ => _.SomeNumber).GreaterThan(42).WithMessage("Must be greater than 42");
+            RuleFor(_ => _.Concept).SetValidator(new SomeConceptValidator());
         }
     }
 

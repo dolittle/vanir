@@ -3,7 +3,7 @@
 
 using System;
 using System.Collections.Generic;
-using System.Reflection;
+using System.Linq;
 using System.Threading.Tasks;
 using Dolittle.Vanir.Backend.Concepts;
 using Dolittle.Vanir.Backend.Reflection;
@@ -56,7 +56,7 @@ namespace Dolittle.Vanir.Backend.GraphQL.Validation
                 var result = await validator.ValidateAsync(validationContext);
                 if (!result.IsValid)
                 {
-                    CollectErrors(context, result, errors, type, propertyPath);
+                    CollectErrors(context, instance, result, errors, type, propertyPath);
                 }
             }
 
@@ -77,18 +77,37 @@ namespace Dolittle.Vanir.Backend.GraphQL.Validation
             }
         }
 
-
-        void CollectErrors(IMiddlewareContext context, ValidationResult result, List<IError> errors, Type type, string propertyPath)
+        void CollectErrors(IMiddlewareContext context, object instance, ValidationResult result, List<IError> errors, Type type, string propertyPath)
         {
             foreach (var validationError in result.Errors)
             {
-                var propertyName = type.IsConcept() ? propertyPath : $"{propertyPath}.{validationError.PropertyName.ToCamelCase()}";
-                errors.Add(ErrorBuilder.New()
-                .SetMessage(validationError.ErrorCode)
-                .SetExtension(propertyName, validationError.ErrorMessage)
-                .SetPath(context.Path)
-                .Build());
+                var fullPropertyPath = GetFullPropertyPath(instance, type, propertyPath, validationError);
+                if (!errors.Any(_ => _.Extensions.ContainsKey(fullPropertyPath)))
+                {
+                    errors.Add(
+                        ErrorBuilder.New()
+                            .SetMessage(validationError.ErrorCode)
+                            .SetExtension(fullPropertyPath, validationError.ErrorMessage)
+                            .SetPath(context.Path)
+                            .Build());
+                }
             }
+        }
+
+        string GetFullPropertyPath(object instance, Type type, string propertyPath, ValidationFailure validationError)
+        {
+            var fullPropertyPath = type.IsConcept() ? propertyPath : $"{propertyPath}.{validationError.PropertyName.ToCamelCase()}";
+            if (validationError.PropertyName.IndexOf(".") > 0)
+            {
+                var propertyName = validationError.PropertyName[..validationError.PropertyName.IndexOf(".")];
+                var property = instance.GetType().GetProperty(propertyName);
+                if (property?.PropertyType.IsConcept() == true)
+                {
+                    fullPropertyPath = $"{propertyPath}.{propertyName.ToCamelCase()}";
+                }
+            }
+
+            return fullPropertyPath;
         }
     }
 }
