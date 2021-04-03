@@ -12,7 +12,6 @@ using FluentValidation;
 using FluentValidation.Results;
 using HotChocolate;
 using HotChocolate.Resolvers;
-using HotChocolate.Types.Descriptors;
 
 namespace Dolittle.Vanir.Backend.GraphQL.Validation
 {
@@ -20,13 +19,11 @@ namespace Dolittle.Vanir.Backend.GraphQL.Validation
     {
         readonly FieldDelegate _next;
         readonly IValidators _validators;
-        readonly INamingConventions _namingConventions;
 
-        public ValidationMiddleware(FieldDelegate next, IValidators validators, INamingConventions namingConventions)
+        public ValidationMiddleware(FieldDelegate next, IValidators validators)
         {
             _next = next;
             _validators = validators;
-            _namingConventions = namingConventions;
         }
 
         public async Task InvokeAsync(IMiddlewareContext context)
