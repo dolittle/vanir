@@ -1,5 +1,9 @@
 # Vanir
 
+[![Build](https://github.com/dolittle-entropy/vanir/actions/workflows/build.yml/badge.svg)](https://github.com/dolittle-entropy/vanir/actions/workflows/build.yml)
+![Nuget](https://img.shields.io/nuget/v/Dolittle.Vanir.Backend)
+![npm](https://img.shields.io/npm/v/@dolittle/vanir-backend)
+
 In Norse mythology, the Vanir are a group of gods associated with health, fertility, wisdom, and the ability to see the future.
 
 This repository is similar in the way that it is a group of packages offering a sane combination of technologies and packages
