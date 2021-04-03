@@ -3,7 +3,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Threading.Tasks;
+using Dolittle.Vanir.Backend.Concepts;
 using Dolittle.Vanir.Backend.Reflection;
 using FluentValidation;
 using FluentValidation.Results;
@@ -46,7 +48,7 @@ namespace Dolittle.Vanir.Backend.GraphQL.Validation
             await _next(context);
         }
 
-        async Task CheckAndValidate(IMiddlewareContext context, object instance, Type type, List<IError> errors)
+        async Task CheckAndValidate(IMiddlewareContext context, object instance, Type type, List<IError> errors, PropertyInfo parentProperty = null)
         {
             var validator = _validators.GetFor(type);
             var validationContextType = typeof(ValidationContext<>).MakeGenericType(type);
@@ -54,7 +56,7 @@ namespace Dolittle.Vanir.Backend.GraphQL.Validation
             var result = await validator.ValidateAsync(validationContext);
             if (!result.IsValid)
             {
-                CollectErrors(context, result, errors);
+                CollectErrors(context, result, errors, type, parentProperty);
             }
             foreach (var property in type.GetProperties())
             {
@@ -63,19 +65,24 @@ namespace Dolittle.Vanir.Backend.GraphQL.Validation
                     var propertyInstance = property.GetValue(instance);
                     if (propertyInstance != null)
                     {
-                        await CheckAndValidate(context, propertyInstance, property.PropertyType, errors);
+                        await CheckAndValidate(context, propertyInstance, property.PropertyType, errors, property);
                     }
                 }
             }
         }
 
-        void CollectErrors(IMiddlewareContext context, ValidationResult result, List<IError> errors)
+        void CollectErrors(IMiddlewareContext context, ValidationResult result, List<IError> errors, Type type, PropertyInfo parentProperty = null)
         {
             foreach (var validationError in result.Errors)
             {
+                var propertyName = validationError.PropertyName;
+                if (type.IsConcept() && parentProperty != null)
+                {
+                    propertyName = parentProperty.Name;
+                }
                 errors.Add(ErrorBuilder.New()
                 .SetMessage(validationError.ErrorCode)
-                .SetExtension(validationError.PropertyName, validationError.ErrorMessage)
+                .SetExtension(propertyName, validationError.ErrorMessage)
                 .SetPath(context.Path)
                 .Build());
             }
