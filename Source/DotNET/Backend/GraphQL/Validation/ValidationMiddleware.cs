@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Dolittle.Vanir.Backend.Concepts;
 using Dolittle.Vanir.Backend.Reflection;
+using Dolittle.Vanir.Backend.Strings;
 using FluentValidation;
 using FluentValidation.Results;
 using HotChocolate;
@@ -80,6 +81,7 @@ namespace Dolittle.Vanir.Backend.GraphQL.Validation
                 {
                     propertyName = parentProperty.Name;
                 }
+                propertyName = propertyName.ToCamelCase();
                 errors.Add(ErrorBuilder.New()
                 .SetMessage(validationError.ErrorCode)
                 .SetExtension(propertyName, validationError.ErrorMessage)
