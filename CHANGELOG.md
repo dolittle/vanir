@@ -74,38 +74,6 @@ Shaping up the C# setup for resources, graphql and all.
 - [C#] Microservice.json configuration support added - ExecutionContext leverages this
 
 
-# [9.3.0] - 2021-3-20 [PR: #145](https://github.com/dolittle-entropy/vanir/pull/145)
-## Summary
-
-Summary of the PR here. The GitHub release description is created from this comment so keep it nice and descriptive.
-
-Remember to remove sections that you don't need or use.
-
-### Added
-
-- Describe the added features
-
-### Changed
-
-- Describe the outwards facing code change
-
-### Fixed
-
-- Describe the fix and the bug
-
-### Removed
-
-- Describe what was removed and why
-
-### Security
-
-- Describe the security issue and the fix
-
-### Deprecated
-
-- Describe the part of the code being deprecated and why
-
-
 # [9.1.3] - 2021-3-17 [PR: #143](https://github.com/dolittle-entropy/vanir/pull/143)
 ## Summary
 
