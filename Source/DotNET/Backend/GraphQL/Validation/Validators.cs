@@ -20,22 +20,7 @@ namespace Dolittle.Vanir.Backend.GraphQL.Validation
             _types = types;
             _container = container;
 
-            var validatorTypes = _types.FindMultiple(typeof(AbstractValidator<>));
-            _validatorTypesByType = validatorTypes.ToDictionary(_ =>
-            {
-                var baseTypes = _.AllBaseAndImplementingTypes();
-                var type = baseTypes.Single(_ =>
-                {
-                    if (_.GenericTypeArguments.Length == 1)
-                    {
-                        return _ == typeof(AbstractValidator<>).MakeGenericType(_.GenericTypeArguments[0]);
-                    }
-
-                    return false;
-                });
-
-                return type.GenericTypeArguments[0];
-            }, _ => _);
+            PopulateValidatorTypesByType();
         }
 
         public IEnumerable<Type> All => _validatorTypesByType.Values;
@@ -48,6 +33,29 @@ namespace Dolittle.Vanir.Backend.GraphQL.Validation
         public IValidator GetFor(Type type)
         {
             return _container.Get(_validatorTypesByType[type]) as IValidator;
+        }
+
+        void PopulateValidatorTypesByType()
+        {
+            var validatorTypes = _types.FindMultiple(typeof(AbstractValidator<>));
+            foreach (var validatorType in validatorTypes)
+            {
+                var baseTypes = validatorType.AllBaseAndImplementingTypes();
+                var type = baseTypes.Single(_ =>
+                {
+                    if (_.GenericTypeArguments.Length == 1)
+                    {
+                        return _ == typeof(AbstractValidator<>).MakeGenericType(_.GenericTypeArguments[0]);
+                    }
+
+                    return false;
+                });
+
+                if (!_validatorTypesByType.ContainsKey(type.GenericTypeArguments[0]))
+                {
+                    _validatorTypesByType[type.GenericTypeArguments[0]] = validatorType;
+                }
+            }
         }
     }
 }
