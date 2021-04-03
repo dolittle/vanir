@@ -64,11 +64,14 @@ namespace Dolittle.Vanir.Backend.GraphQL.Validation
             {
                 foreach (var property in type.GetProperties())
                 {
-                    var propertyInstance = property.GetValue(instance);
-                    if (propertyInstance != null)
+                    if (property.PropertyType != type)
                     {
-                        var localPropertyPath = $"{propertyPath}.{property.Name.ToCamelCase()}";
-                        await CheckAndValidate(context, propertyInstance, property.PropertyType, errors, localPropertyPath);
+                        var propertyInstance = property.GetValue(instance);
+                        if (propertyInstance != null)
+                        {
+                            var localPropertyPath = $"{propertyPath}.{property.Name.ToCamelCase()}";
+                            await CheckAndValidate(context, propertyInstance, property.PropertyType, errors, localPropertyPath);
+                        }
                     }
                 }
             }
