@@ -1,3 +1,9 @@
+# [9.13.2] - 2021-4-3 [PR: #156](https://github.com/dolittle-entropy/vanir/pull/156)
+### Fixed
+
+- Skip properties in validation recursion when property type is of same as parent to avoid stack overflow exception
+
+
 # [9.13.1] - 2021-4-3 [PR: #155](https://github.com/dolittle-entropy/vanir/pull/155)
 ### Fixed
 
