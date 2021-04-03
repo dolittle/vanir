@@ -9,6 +9,7 @@ using FluentValidation;
 using FluentValidation.Results;
 using HotChocolate;
 using HotChocolate.Resolvers;
+using HotChocolate.Types.Descriptors;
 
 namespace Dolittle.Vanir.Backend.GraphQL.Validation
 {
@@ -16,11 +17,13 @@ namespace Dolittle.Vanir.Backend.GraphQL.Validation
     {
         readonly FieldDelegate _next;
         readonly IValidators _validators;
+        readonly INamingConventions _namingConventions;
 
-        public ValidationMiddleware(FieldDelegate next, IValidators validators)
+        public ValidationMiddleware(FieldDelegate next, IValidators validators, INamingConventions namingConventions)
         {
             _next = next;
             _validators = validators;
+            _namingConventions = namingConventions;
         }
 
         public async Task InvokeAsync(IMiddlewareContext context)
@@ -29,14 +32,12 @@ namespace Dolittle.Vanir.Backend.GraphQL.Validation
             {
                 if (_validators.HasFor(argument.RuntimeType))
                 {
-                    var validator = _validators.GetFor(argument.RuntimeType);
                     var instance = context.CallGenericMethod<object, IMiddlewareContext, NameString>(_ => _.ArgumentValue<object>, argument.Name, argument.RuntimeType);
-                    var validationContextType = typeof(ValidationContext<>).MakeGenericType(argument.RuntimeType);
-                    var validationContext = Activator.CreateInstance(validationContextType, instance) as IValidationContext;
-                    var result = await validator.ValidateAsync(validationContext);
-                    if (!result.IsValid)
+                    var errors = new List<IError>();
+                    await CheckAndValidate(context, instance, argument.RuntimeType, errors);
+                    if (errors.Count > 0)
                     {
-                        SetResult(context, result);
+                        context.Result = errors;
                         return;
                     }
                 }
@@ -45,9 +46,31 @@ namespace Dolittle.Vanir.Backend.GraphQL.Validation
             await _next(context);
         }
 
-        void SetResult(IMiddlewareContext context, ValidationResult result)
+        async Task CheckAndValidate(IMiddlewareContext context, object instance, Type type, List<IError> errors)
         {
-            List<IError> errors = new();
+            var validator = _validators.GetFor(type);
+            var validationContextType = typeof(ValidationContext<>).MakeGenericType(type);
+            var validationContext = Activator.CreateInstance(validationContextType, instance) as IValidationContext;
+            var result = await validator.ValidateAsync(validationContext);
+            if (!result.IsValid)
+            {
+                CollectErrors(context, result, errors);
+            }
+            foreach (var property in type.GetProperties())
+            {
+                if (_validators.HasFor(property.PropertyType))
+                {
+                    var propertyInstance = property.GetValue(instance);
+                    if (propertyInstance != null)
+                    {
+                        await CheckAndValidate(context, propertyInstance, property.PropertyType, errors);
+                    }
+                }
+            }
+        }
+
+        void CollectErrors(IMiddlewareContext context, ValidationResult result, List<IError> errors)
+        {
             foreach (var validationError in result.Errors)
             {
                 errors.Add(ErrorBuilder.New()
@@ -56,7 +79,6 @@ namespace Dolittle.Vanir.Backend.GraphQL.Validation
                 .SetPath(context.Path)
                 .Build());
             }
-            context.Result = errors;
         }
     }
 }
