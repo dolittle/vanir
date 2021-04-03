@@ -11,12 +11,13 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static void AddVanir(this IServiceCollection services, BackendArguments arguments = null)
         {
-            services.Add(new ServiceDescriptor(typeof(IContainer), typeof(Container), ServiceLifetime.Singleton));
+            var container = new Container();
+            services.AddSingleton<IContainer>(container);
             var types = new Types();
             services.Add(new ServiceDescriptor(typeof(ITypes), types));
 
             var configuration = services.AddVanirConfiguration();
-            services.AddGraphQL(arguments, types);
+            services.AddGraphQL(container, arguments, types);
 
             services.Configure<KestrelServerOptions>(options => options.AllowSynchronousIO = true);
 

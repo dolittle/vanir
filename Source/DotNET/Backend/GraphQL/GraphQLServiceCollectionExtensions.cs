@@ -7,7 +7,9 @@ using Dolittle.Vanir.Backend;
 using Dolittle.Vanir.Backend.Collections;
 using Dolittle.Vanir.Backend.GraphQL;
 using Dolittle.Vanir.Backend.GraphQL.Concepts;
+using Dolittle.Vanir.Backend.GraphQL.Validation;
 using Dolittle.Vanir.Backend.Reflection;
+using FluentValidation;
 using HotChocolate.Types;
 using HotChocolate.Types.Descriptors;
 
@@ -24,13 +26,15 @@ namespace Microsoft.Extensions.DependencyInjection
         /// Add GraphQL services.
         /// </summary>
         /// <param name="services"><see cref="IServiceColletion"/> to add to.</param>
-        public static void AddGraphQL(this IServiceCollection services, BackendArguments arguments = null, ITypes types = null)
+        public static void AddGraphQL(this IServiceCollection services, IContainer container, BackendArguments arguments = null, ITypes types = null)
         {
             if (types == null)
             {
                 types = new Types();
                 services.Add(new ServiceDescriptor(typeof(ITypes), types));
             }
+
+            services.AddFluentValidation(container, types);
 
             var graphControllers = new GraphControllers(types);
             services.Add(new ServiceDescriptor(typeof(IGraphControllers), graphControllers));
@@ -42,6 +46,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
             var graphQLBuilder = services
                                     .AddGraphQLServer()
+                                    .UseFluentValidation()
                                     .AddType(new UuidType(UuidFormat));
             types.FindMultiple<ScalarType>().Where(_ => !_.IsGenericType).ForEach(_ => graphQLBuilder.AddType(_));
 
