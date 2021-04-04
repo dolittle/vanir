@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Dolittle.SDK.Aggregates;
 using Dolittle.SDK.Concepts;
 using Dolittle.SDK.Events;
 using Dolittle.SDK.Events.Handling;
@@ -46,6 +47,27 @@ namespace Backend
         }
     }
 
+    [AggregateRoot("01ad9a9f-711f-47a8-8549-43320f782a1e")]
+    public class Kitchen : AggregateRoot
+    {
+        int _counter;
+
+        public Kitchen(EventSourceId eventSource)
+            : base(eventSource)
+        {
+        }
+
+        public void PrepareDish(string dish, string chef)
+        {
+            if (_counter >= 2) throw new Exception("Cannot prepare more than 2 dishes");
+            Apply(new DishPrepared(dish, chef));
+            Console.WriteLine($"Kitchen Aggregate {EventSourceId} has applied {_counter} {typeof(DishPrepared)} events");
+        }
+
+        void On(DishPrepared @event)
+            => _counter++;
+    }
+
     [EventType("2977fd82-9614-4082-ab8e-d436ed129248")]
     public class DishPrepared
     {
@@ -80,17 +102,22 @@ namespace Backend
     {
         readonly IMongoDatabase _mongoDatabase;
         readonly IEventStore _eventStore;
+        readonly IAggregateOf<Kitchen> _kitchen;
 
-        public Things(IMongoDatabase mongoDatabase, IEventStore eventStore)
+        public Things(IMongoDatabase mongoDatabase, IEventStore eventStore, IAggregateOf<Kitchen> kitchen)
         {
             _mongoDatabase = mongoDatabase;
             _eventStore = eventStore;
+            _kitchen = kitchen;
         }
 
         [Mutation]
-        public bool DoMore()
+        public async Task<bool> DoMore()
         {
-            _eventStore.CommitEvent(new DishPrepared("Bean Blaster Taco", "Mr. Taco"), Guid.NewGuid());
+            //_eventStore.CommitEvent(new DishPrepared("Bean Blaster Taco", "Mr. Taco"), Guid.NewGuid());
+            await _kitchen
+                .Get(Guid.NewGuid())
+                .Perform(_ => _.PrepareDish("Bean Blaster Taco", "Mr. Taco"));
             return true;
         }
 
