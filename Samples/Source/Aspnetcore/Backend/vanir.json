@@ -6,7 +6,7 @@
     "publicPath": "./public",
     "dolittle": {
         "runtime": {
-            "port": 50057
+            "port": 50055
         }
     }
 }
