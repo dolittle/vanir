@@ -1,3 +1,9 @@
+# [9.15.0] - 2021-4-4 [PR: #158](https://github.com/dolittle-entropy/vanir/pull/158)
+### Added
+
+- `AddVanir()` now returns a `Services` object that holds for now the `ITypes` for type discovery but can then be expanded on in the future.
+
+
 # [9.14.0] - 2021-4-3 [PR: #157](https://github.com/dolittle-entropy/vanir/pull/157)
 ### Fixed
 
