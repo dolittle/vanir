@@ -16,9 +16,9 @@ The goal is to provide a good starting point when creating applications and Doli
 
 ## Not a framework
 
-It is vital to not look at this as a framework of any sort that owns its own concepts. Look at it as a springboard for
-projects with what we believe are sane combinations of technologies. There are also some interesting tools within here
-that stand on their own.
+This is not a framework that introduces its own concepts. Look at it as a springboard for projects with what we believe are
+sane combinations of technologies and Vanir being the glue that glues it together. Part of this glue is to make the 3rd parties
+Vanir relies on more accessible or hooked up in an easier way. There are also some interesting tools within here that stand on their own.
 
 To set expectations even further; this is not core technology at Dolittle but serves an interest for Dolittle internally
 while building things like our [Studio](https://github.com/dolittle/studio). The projects in this repository are only maintained
