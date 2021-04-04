@@ -1,8 +1,8 @@
 # Vanir
 
 [![Build](https://github.com/dolittle-entropy/vanir/actions/workflows/build.yml/badge.svg)](https://github.com/dolittle-entropy/vanir/actions/workflows/build.yml)
-![Nuget](https://img.shields.io/nuget/v/Dolittle.Vanir.Backend)
-![npm](https://img.shields.io/npm/v/@dolittle/vanir-backend)
+[![Nuget](https://img.shields.io/nuget/v/Dolittle.Vanir.Backend)](https://www.nuget.org/packages?q=dolittle.vanir)
+[![npm](https://img.shields.io/npm/v/@dolittle/vanir-backend)](https://www.npmjs.com/search?q=%40dolittle%2Fvanir)
 
 In Norse mythology, the Vanir are a group of gods associated with health, fertility, wisdom, and the ability to see the future.
 
