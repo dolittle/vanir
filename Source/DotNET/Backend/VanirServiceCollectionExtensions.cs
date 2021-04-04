@@ -17,6 +17,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.Add(new ServiceDescriptor(typeof(ITypes), types));
 
             var configuration = services.AddVanirConfiguration();
+            services.AddDolittle(configuration, arguments, types);
             services.AddGraphQL(container, arguments, types);
 
             services.Configure<KestrelServerOptions>(options => options.AllowSynchronousIO = true);

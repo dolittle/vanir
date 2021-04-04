@@ -1,7 +1,12 @@
 using System;
+using System.Threading.Tasks;
 using Dolittle.SDK.Concepts;
+using Dolittle.SDK.Events;
+using Dolittle.SDK.Events.Handling;
+using Dolittle.SDK.Events.Store;
 using Dolittle.Vanir.Backend.GraphQL;
 using FluentValidation;
+using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
 
 namespace Backend
@@ -12,7 +17,7 @@ namespace Backend
 
     public class NestedObject
     {
-        public SomeConcept DeepConcept { get; set; }
+        public SomeConcept DeepConcept { get; set; }
     }
 
     public class SomeConceptValidator : AbstractValidator<SomeConcept>
@@ -27,8 +32,8 @@ namespace Backend
     {
         public string Something { get; set; }
         public int SomeNumber { get; set; }
-        public SomeConcept Concept { get; set; }
-        public NestedObject Nested { get; set; }
+        public SomeConcept Concept { get; set; }
+        public NestedObject Nested { get; set; }
     }
 
     public class MyObjectValidator : AbstractValidator<MyObject>
@@ -41,13 +46,52 @@ namespace Backend
         }
     }
 
+    [EventType("2977fd82-9614-4082-ab8e-d436ed129248")]
+    public class DishPrepared
+    {
+        public DishPrepared(string dish, string chef)
+        {
+            Dish = dish;
+            Chef = chef;
+        }
+        public string Dish { get; }
+        public string Chef { get; }
+    }
+
+    [EventHandler("db2bb639-937c-49ca-946e-ad3868882080")]
+    public class MyEventHandler
+    {
+        readonly ILogger<MyEventHandler> _logger;
+
+        public MyEventHandler(ILogger<MyEventHandler> logger)
+        {
+            _logger = logger;
+        }
+
+        public async Task Handle(DishPrepared @event, EventContext context)
+        {
+            _logger.LogInformation($"{@event.Chef} has prepared {@event.Dish}. Yummm!");
+            await Task.CompletedTask;
+        }
+    }
+
+
     public class Things : GraphController
     {
-        private readonly IMongoDatabase _mongoDatabase;
+        readonly IMongoDatabase _mongoDatabase;
+        readonly IEventStore _eventStore;
 
-        public Things(IMongoDatabase mongoDatabase)
+        public Things(IMongoDatabase mongoDatabase, IEventStore eventStore)
         {
             _mongoDatabase = mongoDatabase;
+            _eventStore = eventStore;
+        }
+
+        [Mutation]
+        public bool DoMore()
+        {
+            _eventStore.CommitEvent(new DishPrepared("Bean Blaster Taco", "Mr. Taco"), Guid.NewGuid());
+            return true;
         }
 
         [Mutation]

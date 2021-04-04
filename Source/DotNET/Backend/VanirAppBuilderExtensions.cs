@@ -23,6 +23,7 @@ namespace Microsoft.AspNetCore.Builder
         static void UseVanirCommon(this IApplicationBuilder app)
         {
             Dolittle.Vanir.Backend.Container.ServiceProvider = app.ApplicationServices;
+            Dolittle.Vanir.Backend.Dolittle.DolittleContainer.ServiceProvider = app.ApplicationServices;
 
             var logger = app.ApplicationServices.GetService<ILogger<Dolittle.Vanir.Backend.Vanir>>();
             var configuration = app.ApplicationServices.GetService<Configuration>();
@@ -80,6 +81,8 @@ namespace Microsoft.AspNetCore.Builder
 
                 _.MapDefaultControllerRoute();
             });
+
+            app.UseDolittle();
         }
     }
 }

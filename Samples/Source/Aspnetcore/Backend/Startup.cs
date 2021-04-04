@@ -1,8 +1,11 @@
 using Autofac;
+using Dolittle.SDK;
 using HotChocolate.Execution.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace Backend
 {
@@ -12,9 +15,17 @@ namespace Backend
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            var loggerFactory = new LoggerFactory();
+            loggerFactory.AddSerilog(Log.Logger);
+
             services.AddVanir(new()
             {
-                GraphQLExecutorBuilder = (IRequestExecutorBuilder _) => {
+                LoggerFactory = loggerFactory,
+                GraphQLExecutorBuilder = (IRequestExecutorBuilder _) =>
+                {
+                },
+                DolittleClientBuilderCallback = (ClientBuilder _) =>
+                {
                 }
             });
         }

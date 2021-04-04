@@ -14,7 +14,8 @@ namespace Dolittle.Vanir.Backend.Reflection
     /// </summary>
     public class Types : ITypes
     {
-        private readonly IContractToImplementorsMap  _contractToImplementorsMap = new ContractToImplementorsMap();
+        readonly IContractToImplementorsMap _contractToImplementorsMap = new ContractToImplementorsMap();
+        readonly List<Assembly> _assemblies = new();
 
         /// <summary>
         /// Initializes a new instance of <see cref="Types"/>
@@ -24,6 +25,9 @@ namespace Dolittle.Vanir.Backend.Reflection
             Populate();
             _contractToImplementorsMap.Feed(All);
         }
+
+        /// <inheritdoc/>
+        public IEnumerable<Assembly> Assemblies => _assemblies;
 
         /// <inheritdoc/>
         public IEnumerable<Type> All { get; private set; }
@@ -84,6 +88,7 @@ namespace Dolittle.Vanir.Backend.Reflection
                                 .Where(_ => _.Type.Equals("project", StringComparison.InvariantCultureIgnoreCase))
                                 .Select(_ => Assembly.Load(_.Name))
                                 .ToArray();
+            _assemblies.AddRange(assemblies);
 
             var types = new List<Type>();
             foreach (var assembly in assemblies)

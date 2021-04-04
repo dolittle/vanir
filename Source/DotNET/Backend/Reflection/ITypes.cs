@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace Dolittle.Vanir.Backend.Reflection
 {
@@ -11,6 +12,11 @@ namespace Dolittle.Vanir.Backend.Reflection
     /// </summary>
     public interface ITypes
     {
+        /// <summary>
+        /// Gets all assemblies used for type discovery.
+        /// </summary>
+        IEnumerable<Assembly> Assemblies { get; }
+
         /// <summary>
         /// Gets returns all collected types.
         /// </summary>

@@ -6,7 +6,7 @@ namespace Dolittle.Vanir.Backend.Config
     public class RuntimeConfiguration
     {
         public string Host { get; set; } = "localhost";
-        public int Port { get; set; } = 50053;
+        public ushort Port { get; set; } = 50053;
     }
 
 }
