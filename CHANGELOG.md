@@ -1,3 +1,10 @@
+# [9.17.0] - 2021-4-4 [PR: #160](https://github.com/dolittle-entropy/vanir/pull/160)
+### Added
+
+- Aggregate root support through dependency injection of IAggregateOf<>
+- Updated dependencies to the latest version of the Dolittle SDK (8.3.2)
+
+
 # [9.16.0] - 2021-4-4 [PR: #159](https://github.com/dolittle-entropy/vanir/pull/159)
 ### Added
 
