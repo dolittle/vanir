@@ -9,7 +9,7 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static class VanirServiceCollectionExtension
     {
-        public static void AddVanir(this IServiceCollection services, BackendArguments arguments = null)
+        public static Services AddVanir(this IServiceCollection services, BackendArguments arguments = null)
         {
             var container = new Container();
             services.AddSingleton<IContainer>(container);
@@ -24,6 +24,8 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddControllers();
             services.AddSwaggerGen();
             services.AddResources();
+
+            return new Services { Types = types };
         }
     }
 }
