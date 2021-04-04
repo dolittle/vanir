@@ -1,3 +1,11 @@
+# [9.16.0] - 2021-4-4 [PR: #159](https://github.com/dolittle-entropy/vanir/pull/159)
+### Added
+
+- `ITypes` now exposes the assemblies used for type discovery
+- Reflection utility methods for working with attributes and interfaces
+- Dolittle Runtime support implemented with automatic discovery of EventTypes and EventHandlers - it also hooks up `IEventStore` propely as a dependency that can be used and is resolved in the right context.
+
+
 # [9.15.0] - 2021-4-4 [PR: #158](https://github.com/dolittle-entropy/vanir/pull/158)
 ### Added
 
