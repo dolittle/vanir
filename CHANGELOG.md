@@ -1,3 +1,10 @@
+# [9.14.0] - 2021-4-3 [PR: #157](https://github.com/dolittle-entropy/vanir/pull/157)
+### Fixed
+
+- Removes ".Value" for concepts being set using .SetValidator typically
+- Does not add errors that are already there - avoids duplicate error messages for same proprty if one has added multiple instances of same validator
+
+
 # [9.13.2] - 2021-4-3 [PR: #156](https://github.com/dolittle-entropy/vanir/pull/156)
 ### Fixed
 
