@@ -13,17 +13,17 @@ namespace Dolittle.Vanir.Backend.Reflection
     /// </summary>
     public static class TypeExtensions
     {
-        static readonly HashSet<Type> _additionalPrimitiveTypes = new()
-        {
-            typeof(decimal),
-            typeof(string),
-            typeof(Guid),
-            typeof(DateTime),
-            typeof(DateTimeOffset),
-            typeof(TimeSpan)
-        };
+        static readonly HashSet<Type> _additionalPrimitiveTypes = new ()
+            {
+                typeof(decimal),
+                typeof(string),
+                typeof(Guid),
+                typeof(DateTime),
+                typeof(DateTimeOffset),
+                typeof(TimeSpan)
+            };
 
-        static readonly HashSet<Type> _numericTypes = new()
+        static readonly HashSet<Type> _numericTypes = new ()
         {
             typeof(byte),
             typeof(sbyte),
@@ -39,37 +39,16 @@ namespace Dolittle.Vanir.Backend.Reflection
         };
 
         /// <summary>
-        /// Check if a type derives from an open generic type.
+        /// Check if a type has an attribute associated with it.
         /// </summary>
+        /// <typeparam name="T">Attribute type to check for.</typeparam>
         /// <param name="type"><see cref="Type"/> to check.</param>
-        /// <param name="openGenericType">Open generic <see cref="Type"/> to check for.</param>
-        /// <returns>True if type matches the open generic <see cref="Type"/>.</returns>
-        public static bool IsDerivedFromOpenGeneric(this Type type, Type openGenericType)
+        /// <returns>True if there is an attribute, false if not.</returns>
+        public static bool HasAttribute<T>(this Type type)
+            where T : Attribute
         {
-            var typeToCheck = type;
-            while (typeToCheck != null && typeToCheck != typeof(object))
-            {
-                var currentType = typeToCheck.GetTypeInfo().IsGenericType ? typeToCheck.GetGenericTypeDefinition() : typeToCheck;
-                if (openGenericType == currentType)
-                    return true;
-
-                typeToCheck = typeToCheck.GetTypeInfo().BaseType;
-            }
-
-            return false;
-        }
-
-        /// <summary>
-        /// Returns all base types of a given type, both open and closed generic (if any), including itself.
-        /// </summary>
-        /// <param name="type"><see cref="Type"/> to get for.</param>
-        /// <returns>All base and implementing <see cref="Type">types</see>.</returns>
-        public static IEnumerable<Type> AllBaseAndImplementingTypes(this Type type)
-        {
-            return type.BaseTypes()
-                .Concat(type.GetTypeInfo().GetInterfaces())
-                .SelectMany(ThisAndMaybeOpenType)
-                .Where(t => t != type && t != typeof(object));
+            var attributes = type.GetTypeInfo().GetCustomAttributes(typeof(T), false).ToArray();
+            return attributes.Length == 1;
         }
 
         /// <summary>
@@ -166,6 +145,102 @@ namespace Dolittle.Vanir.Backend.Reflection
         }
 
         /// <summary>
+        /// Gets all the public properties with setters.
+        /// </summary>
+        /// <param name="type"><see cref="Type"/> to get settable properties for.</param>
+        /// <returns>Settable <see cref="PropertyInfo">properties</see>.</returns>
+        public static PropertyInfo[] GetSettableProperties(this Type type)
+        {
+            return type.GetProperties(BindingFlags.Public | BindingFlags.Instance).Where(p => p.CanWrite).ToArray();
+        }
+
+        /// <summary>
+        /// Gets the element type of an enumerable.
+        /// </summary>
+        /// <param name="enumerableType">The <see cref="Type">type of the enumerable</see>.</param>
+        /// <returns>Enumerable element <see cref="Type"/>.</returns>
+        /// <remarks>
+        /// https://stackoverflow.com/questions/906499/getting-type-t-from-ienumerablet.
+        /// </remarks>
+        public static Type GetEnumerableElementType(this Type enumerableType)
+        {
+            if (enumerableType.IsArray)
+            {
+                return enumerableType.GetElementType();
+            }
+            else if (enumerableType.IsGenericType && enumerableType.GetGenericTypeDefinition() == typeof(IEnumerable<>))
+            {
+                return enumerableType.GetGenericArguments()[0];
+            }
+            else
+            {
+                return enumerableType.GetInterfaces()
+                    .Where(t => t.IsGenericType &&
+                        t.GetGenericTypeDefinition() == typeof(IEnumerable<>))
+                    .Select(t => t.GenericTypeArguments[0]).FirstOrDefault();
+            }
+        }
+
+        /// <summary>
+        /// Check if a type implements a specific interface.
+        /// </summary>
+        /// <typeparam name="T">Interface to check for.</typeparam>
+        /// <param name="type"><see cref="Type"/> to check.</param>
+        /// <returns>True if the type implements the interface, false if not.</returns>
+        public static bool HasInterface<T>(this Type type)
+        {
+            var hasInterface = type.HasInterface(typeof(T));
+            return hasInterface;
+        }
+
+        /// <summary>
+        /// Check if a type implements a specific interface.
+        /// </summary>
+        /// <param name="type"><see cref="Type"/> to check.</param>
+        /// <param name="interfaceType">Interface to check for.</param>
+        /// <returns>True if the type implements the interface, false if not.</returns>
+        public static bool HasInterface(this Type type, Type interfaceType)
+        {
+            return type.GetTypeInfo().ImplementedInterfaces.Count(t => $"{t.Namespace}.{t.Name}" == $"{interfaceType.Namespace}.{interfaceType.Name}") == 1;
+        }
+
+        /// <summary>
+        /// Check if a type derives from an open generic type.
+        /// </summary>
+        /// <param name="type"><see cref="Type"/> to check.</param>
+        /// <param name="openGenericType">Open generic <see cref="Type"/> to check for.</param>
+        /// <returns>True if type matches the open generic <see cref="Type"/>.</returns>
+        public static bool IsDerivedFromOpenGeneric(this Type type, Type openGenericType)
+        {
+            var typeToCheck = type;
+            while (typeToCheck != null && typeToCheck != typeof(object))
+            {
+                var currentType = typeToCheck.GetTypeInfo().IsGenericType ? typeToCheck.GetGenericTypeDefinition() : typeToCheck;
+                if (openGenericType == currentType)
+                    return true;
+
+                typeToCheck = typeToCheck.GetTypeInfo().BaseType;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Check if a type implements an open generic type.
+        /// </summary>
+        /// <param name="type"><see cref="Type"/> to check.</param>
+        /// <param name="openGenericType">Open generic <see cref="Type"/> to check for.</param>
+        /// <returns>True if type implements the open generic <see cref="Type"/>.</returns>
+        public static bool ImplementsOpenGeneric(this Type type, Type openGenericType)
+        {
+            var openGenericTypeInfo = openGenericType.GetTypeInfo();
+            var typeInfo = type.GetTypeInfo();
+
+            return typeInfo.GetInterfaces()
+                .Any(i => i.GetTypeInfo().IsGenericType && i.GetTypeInfo().GetGenericTypeDefinition().GetTypeInfo() == openGenericTypeInfo);
+        }
+
+        /// <summary>
         /// Check if a type is a "primitve" type.  This is not just dot net primitives but basic types like string, decimal, datetime,
         /// that are not classified as primitive types.
         /// </summary>
@@ -175,6 +250,40 @@ namespace Dolittle.Vanir.Backend.Reflection
         {
             return type.GetTypeInfo().IsPrimitive
                     || type.IsNullable() || _additionalPrimitiveTypes.Contains(type);
+        }
+
+        /// <summary>
+        /// Check if a type implements another type - supporting interfaces, abstract types, with or without generics.
+        /// </summary>
+        /// <param name="type"><see cref="Type"/> to check.</param>
+        /// <param name="super">Super / parent type to check against.</param>
+        /// <returns>True if derived, false if not.</returns>
+        public static bool Implements(this Type type, Type super)
+        {
+            return type.AllBaseAndImplementingTypes().Contains(super);
+        }
+
+        /// <summary>
+        /// Returns all base types of a given type, both open and closed generic (if any), including itself.
+        /// </summary>
+        /// <param name="type"><see cref="Type"/> to get for.</param>
+        /// <returns>All base and implementing <see cref="Type">types</see>.</returns>
+        public static IEnumerable<Type> AllBaseAndImplementingTypes(this Type type)
+        {
+            return type.BaseTypes()
+                .Concat(type.GetTypeInfo().GetInterfaces())
+                .SelectMany(ThisAndMaybeOpenType)
+                .Where(t => t != type && t != typeof(object));
+        }
+
+        /// <summary>
+        /// Indicates whether the Type has any public properties to get or set state.
+        /// </summary>
+        /// <param name="type"><see cref="Type"/> to check.</param>
+        /// <returns>True if there are public properties (get or set), false otherwise.</returns>
+        public static bool HasVisibleProperties(this Type type)
+        {
+            return type.GetProperties(BindingFlags.Public | BindingFlags.Instance).Length > 0;
         }
 
         /// <summary>
