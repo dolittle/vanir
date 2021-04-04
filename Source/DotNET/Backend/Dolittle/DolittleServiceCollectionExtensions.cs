@@ -4,6 +4,7 @@
 using System;
 using System.Linq;
 using Dolittle.SDK;
+using Dolittle.SDK.Aggregates;
 using Dolittle.SDK.Events;
 using Dolittle.SDK.Events.Builders;
 using Dolittle.SDK.Events.Handling;
@@ -37,8 +38,24 @@ namespace Microsoft.Extensions.DependencyInjection
 
             arguments.DolittleClientBuilderCallback(clientBuilder);
 
-            services.AddSingleton(_ => DolittleClient);
-            services.AddTransient(_ => DolittleClient.EventStore.ForTenant(ExecutionContextManager.Current.Tenant));
+            services.AddSingleton(_ =>
+            {
+                ThrowIfClientNotBuilt();
+                return DolittleClient;
+            });
+            services.AddTransient(_ =>
+            {
+                ThrowIfClientNotBuilt();
+                return DolittleClient.EventStore.ForTenant(ExecutionContextManager.Current.Tenant);
+            });
+            services.AddTransient(typeof(IAggregateOf<>), typeof(AggregateOf<>));
+
+            services.AddSingleton<IEventTypes>(_ =>
+            {
+                ThrowIfClientNotBuilt();
+                return DolittleClient.EventTypes;
+            });
+
             DolittleClientBuilder = clientBuilder;
         }
 
@@ -62,7 +79,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
         static void ThrowIfClientNotBuilt()
         {
-            if( DolittleClient == null )
+            if (DolittleClient == null)
             {
                 throw new ArgumentException("You need to call UseDolittle() or UseVanir().");
             }
