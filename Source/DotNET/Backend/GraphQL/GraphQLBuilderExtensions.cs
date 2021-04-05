@@ -29,9 +29,15 @@ namespace Dolittle.Vanir.Backend.GraphQL
             return builder;
         }
 
+
         public static IRequestExecutorBuilder AddMutations(this IRequestExecutorBuilder builder, IGraphControllers graphControllers, INamingConventions namingConventions)
         {
-            var mutation = BuildSchemaRoutesWithItems<MutationAttribute>("Mutation", graphControllers, namingConventions);
+            return builder.AddMutations(graphControllers, namingConventions, out _);
+        }
+
+        public static IRequestExecutorBuilder AddMutations(this IRequestExecutorBuilder builder, IGraphControllers graphControllers, INamingConventions namingConventions, out SchemaRoute mutation)
+        {
+            mutation = BuildSchemaRoutesWithItems<MutationAttribute>("Mutation", graphControllers, namingConventions);
             builder.AddMutationType(mutation);
             return builder;
         }
