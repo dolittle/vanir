@@ -5,6 +5,7 @@ using System.Linq;
 using Dolittle.SDK.Concepts;
 using Dolittle.Vanir.Backend;
 using Dolittle.Vanir.Backend.Collections;
+using Dolittle.Vanir.Backend.Dolittle;
 using Dolittle.Vanir.Backend.GraphQL;
 using Dolittle.Vanir.Backend.GraphQL.Concepts;
 using Dolittle.Vanir.Backend.GraphQL.Validation;
@@ -54,7 +55,9 @@ namespace Microsoft.Extensions.DependencyInjection
 
             graphQLBuilder
                 .AddQueries(graphControllers, namingConventions)
-                .AddMutations(graphControllers, namingConventions);
+                .AddMutations(graphControllers, namingConventions, out SchemaRoute mutations);
+
+            mutations.AddEventsAsMutations(types);
 
             types.FindMultiple(typeof(ConceptAs<>)).ForEach(_ => graphQLBuilder.AddConceptTypeConverter(_));
 
