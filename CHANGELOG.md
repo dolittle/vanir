@@ -3,6 +3,10 @@
 
 - Event mutations should only be exposed when running in development
 
+# [9.18.0] - 2021-4-5 [PR: #162](https://github.com/dolittle-entropy/vanir/pull/161)
+### Added
+
+- Exposing all event types based on types discovered into the GraphQL schema under mutation. Names are linked to the typename. This allowes for `mutation { events { ...nameOfEventType } }`
 
 # [9.17.0] - 2021-4-4 [PR: #160](https://github.com/dolittle-entropy/vanir/pull/160)
 ### Added
