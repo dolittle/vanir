@@ -57,8 +57,6 @@ namespace Microsoft.Extensions.DependencyInjection
                 .AddQueries(graphControllers, namingConventions)
                 .AddMutations(graphControllers, namingConventions, out SchemaRoute mutations);
 
-            mutations.AddEventsAsMutations(types);
-
             types.FindMultiple(typeof(ConceptAs<>)).ForEach(_ => graphQLBuilder.AddConceptTypeConverter(_));
 
             services.AddSingleton<INamingConventions>(namingConventions);
@@ -67,6 +65,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
             if (RuntimeEnvironment.isDevelopment)
             {
+                mutations.AddEventsAsMutations(types);
                 graphQLBuilder.AddApolloTracing();
             }
         }
