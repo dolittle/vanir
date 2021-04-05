@@ -1,3 +1,9 @@
+# [9.18.1] - 2021-4-5 [PR: #162](https://github.com/dolittle-entropy/vanir/pull/162)
+### Fixed
+
+- Event mutations should only be exposed when running in development
+
+
 # [9.17.0] - 2021-4-4 [PR: #160](https://github.com/dolittle-entropy/vanir/pull/160)
 ### Added
 
