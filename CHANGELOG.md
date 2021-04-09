@@ -1,3 +1,9 @@
+# [9.18.2] - 2021-4-5 [PR: #163](https://github.com/dolittle-entropy/vanir/pull/163)
+### Fixed
+
+- Enabling queries and mutations to live on the same route by postfixing the types used within Query and Mutation types and their children. Postifxes are "Queries" and "Mutations" for the types.
+
+
 # [9.18.1] - 2021-4-5 [PR: #162](https://github.com/dolittle-entropy/vanir/pull/162)
 ### Fixed
 

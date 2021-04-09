@@ -24,11 +24,10 @@ namespace Dolittle.Vanir.Backend.GraphQL
 
         public static IRequestExecutorBuilder AddQueries(this IRequestExecutorBuilder builder, IGraphControllers graphControllers, INamingConventions namingConventions)
         {
-            var query = BuildSchemaRoutesWithItems<QueryAttribute>("Query", graphControllers, namingConventions);
+            var query = BuildSchemaRoutesWithItems<QueryAttribute>("Query", graphControllers, namingConventions, "Queries");
             builder.AddQueryType(query);
             return builder;
         }
-
 
         public static IRequestExecutorBuilder AddMutations(this IRequestExecutorBuilder builder, IGraphControllers graphControllers, INamingConventions namingConventions)
         {
@@ -37,17 +36,17 @@ namespace Dolittle.Vanir.Backend.GraphQL
 
         public static IRequestExecutorBuilder AddMutations(this IRequestExecutorBuilder builder, IGraphControllers graphControllers, INamingConventions namingConventions, out SchemaRoute mutation)
         {
-            mutation = BuildSchemaRoutesWithItems<MutationAttribute>("Mutation", graphControllers, namingConventions);
+            mutation = BuildSchemaRoutesWithItems<MutationAttribute>("Mutation", graphControllers, namingConventions, "Mutations");
             builder.AddMutationType(mutation);
             return builder;
         }
 
-        static SchemaRoute BuildSchemaRoutesWithItems<TAttribute>(string rootName, IGraphControllers graphControllers, INamingConventions namingConventions)
+        static SchemaRoute BuildSchemaRoutesWithItems<TAttribute>(string rootName, IGraphControllers graphControllers, INamingConventions namingConventions, string postFix)
             where TAttribute : Attribute, ICanHavePath
         {
             var methods = GetMethodsAdornedWithAttribute<TAttribute>(graphControllers, namingConventions);
             var root = new SchemaRoute(string.Empty, rootName, rootName);
-            var routesByPath = BuildRouteHierarchy(root, methods);
+            var routesByPath = BuildRouteHierarchy(root, methods, postFix);
 
             var topLevelRoutes = routesByPath.Where((keyValue) => !keyValue.Key.Contains('/') && keyValue.Key.Length > 0).Select((keyValue) => keyValue.Value);
             topLevelRoutes.ForEach(root.AddChild);
@@ -89,7 +88,7 @@ namespace Dolittle.Vanir.Backend.GraphQL
                 .OrderBy(_ => _.Path);
         }
 
-        static IDictionary<string, SchemaRoute> BuildRouteHierarchy(SchemaRoute root, IEnumerable<MethodAtPath> methods)
+        static IDictionary<string, SchemaRoute> BuildRouteHierarchy(SchemaRoute root, IEnumerable<MethodAtPath> methods, string postFix)
         {
             var distinctPaths = methods.GroupBy(_ => _.Path).Select(_ => _.First()).Select(_ => _.Path);
             var routesByPath = new Dictionary<string, SchemaRoute>
@@ -112,7 +111,7 @@ namespace Dolittle.Vanir.Backend.GraphQL
                     }
                     else
                     {
-                        currentRoute = new SchemaRoute(current, segment, $"_{segment}");
+                        currentRoute = new SchemaRoute(current, segment, $"_{segment}{postFix}");
                         routesByPath[current] = currentRoute;
                         parentRoute?.AddChild(currentRoute);
                     }
