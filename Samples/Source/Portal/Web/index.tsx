@@ -7,7 +7,7 @@ import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 
 import { Bootstrapper } from '@dolittle/vanir-react';
-import { VersionInfo } from '@dolittle/vanir-web';
+import { IMessenger, NavigatedTo, VersionInfo } from '@dolittle/vanir-web';
 
 const version = require('../microservice.json') as VersionInfo;
 
@@ -17,10 +17,54 @@ import { Home } from './Home';
 import { useState } from 'react';
 import { Route, useHistory, Link } from 'react-router-dom';
 import { Stack } from '@fluentui/react';
+import { container } from 'tsyringe';
+import { constructor } from '@dolittle/vanir-dependency-inversion';
+import { Observable } from 'rxjs';
+
+import * as H from 'history';
+
+let navigatedToObservable: Observable<NavigatedTo> | undefined
+
+function getNavigatedToObservable() {
+    if (!navigatedToObservable) {
+        const messenger = container.resolve(IMessenger as constructor<IMessenger>);
+        navigatedToObservable = messenger.observe(NavigatedTo);
+    }
+
+    return navigatedToObservable;
+}
+
+
+export function useNavigation(): [H.History, H.Location] {
+    const history = useHistory();
+    const [location, setLocation] = useState(history.location)
+
+    useEffect(() => {
+        const subscription = getNavigatedToObservable().subscribe((msg) => {
+            setLocation(H.parsePath(msg.path));
+        });
+
+        return () => subscription.unsubscribe();
+    }, [history]);
+
+    useEffect(() => {
+        const unregisterListener = history.listen(() => {
+            setLocation(history.location);
+        })
+        return () => unregisterListener();
+    }, [history]);
+
+    return [
+        history,
+        location
+    ];
+}
+
 
 export default function App() {
     const [state, setState] = useState(0);
 
+    /*
     useEffect(() => {
         const interval = setInterval(() => {
             setState(state + 1);
@@ -29,9 +73,10 @@ export default function App() {
         return () => {
             clearInterval(interval);
         };
-    });
+    });*/
 
-    const history = useHistory();
+    const [history, location] = useNavigation();
+    console.log(`We're at ${location.pathname}`);
 
 
     return (
