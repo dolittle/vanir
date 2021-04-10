@@ -21,12 +21,10 @@ export class Messenger implements IMessenger {
 
         this._messages.subscribe(message => {
             if (this._contentDocument) {
-                console.log(`Dispatching message of type '${message.type.name}' to content document`);
                 this.dispatchMessageAsCustomEventTo(this._contentDocument, message.content);
             }
 
             if (window.parent !== window && window.parent.document) {
-                console.log(`Dispatching message of type '${message.type.name}' to parent document`);
                 this.dispatchMessageAsCustomEventTo(window.parent.document, message.content);
             }
         });
@@ -52,7 +50,6 @@ export class Messenger implements IMessenger {
     }
 
     publish(message: any) {
-        console.log(`Publishing message of type '${message.constructor.name}'`);
         this._messages.next({ source: this._source, type: message.constructor, content: message });
     }
 
