@@ -7,8 +7,8 @@ import { Route, RouteProps, useLocation } from 'react-router-dom';
 import { ContentFrame } from './ContentFrame';
 
 export interface CompositionRouteProps extends RouteProps {
-    load: Function;
-    loaded: Function;
+    load?: Function;
+    loaded?: Function;
 }
 
 export const CompositionRoute = (props: CompositionRouteProps) => {

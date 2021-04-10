@@ -8,8 +8,8 @@ import { container } from 'tsyringe';
 
 export type ContentFrameProps = {
     src: string;
-    load: Function;
-    loaded: Function;
+    load?: Function;
+    loaded?: Function;
 };
 
 export const ContentFrame = (props: ContentFrameProps) => {
@@ -23,8 +23,8 @@ export const ContentFrame = (props: ContentFrameProps) => {
         },
         frameBorder: 1,
         allowFullScreen: true,
-        onLoadStart: () => props.load(),
-        onLoad: () => props.loaded()
+        onLoadStart: () => props.load?.(),
+        onLoad: () => props.loaded?.()
     });
     if (iframeRef && iframeRef.current && iframeRef.current.contentDocument) {
         container.resolve(IMessenger as constructor<IMessenger>).setCurrentContentDocument(iframeRef.current.contentDocument);
