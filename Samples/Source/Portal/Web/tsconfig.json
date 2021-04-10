@@ -11,6 +11,9 @@
     },
     "references": [
         {
+            "path": "../../Shared/Portal"
+        },
+        {
             "path": "../../Shared/Styles"
         },
         {
