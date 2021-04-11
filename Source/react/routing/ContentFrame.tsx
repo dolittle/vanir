@@ -28,7 +28,7 @@ export const ContentFrame = (props: ContentFrameProps) => {
             if (iframeRef && iframeRef.current && iframeRef.current.contentDocument) {
                 container.resolve(IMessenger as constructor<IMessenger>).setCurrentContentDocument(iframeRef.current.contentDocument);
             }
-            props.loaded?.()
+            props.loaded?.();
         }
     });
 

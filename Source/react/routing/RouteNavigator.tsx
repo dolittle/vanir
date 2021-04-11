@@ -7,7 +7,7 @@ import { IMessenger, NavigatedTo } from '@dolittle/vanir-web';
 import { Observable } from 'rxjs';
 import { container } from 'tsyringe';
 import { useHistory } from 'react-router-dom';
-let navigatedToObservable: Observable<NavigatedTo> | undefined
+let navigatedToObservable: Observable<NavigatedTo> | undefined;
 
 function getNavigatedToObservable() {
     if (!navigatedToObservable) {
@@ -32,5 +32,5 @@ export const RouteNavigator = () => {
 
     return (
         <></>
-    )
-}
+    );
+};
