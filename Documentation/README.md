@@ -12,6 +12,7 @@ for everyone participating in this project to see what is expected.
 | Title | Description |
 | ----- | ----------- |
 | [Architecture](./architecture.md) | How it all fits together |
+| [General Guidance](./guidance/general.md) | General guidance on building |
 | [Concepts](./concepts.md) | Important concepts for a Vanir based Dolittle microservice |
 | [Structure](./structure.md) | Guide on the expected structure |
 | [Microservice Instance](./microservice.md) | How a Vanir based Dolittle microservice is packaged and run |
