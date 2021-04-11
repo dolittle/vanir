@@ -1,3 +1,17 @@
+# [9.18.3] - 2021-4-11 [PR: #174](https://github.com/dolittle-entropy/vanir/pull/174)
+### Added
+
+- Documentation for working with the frontend and specifically React and related to the MVVM model. Fixes #172, #166, #165
+
+### Changed
+
+- Patch level change - non breaking - callbacks for ContentFrame / CompositionRoute is now optional
+
+### Fixed
+
+- Making sure to cause re-render when route changes occur as a consequence of using the `INavigator`. Fixes #170.
+
+
 # [9.18.2] - 2021-4-5 [PR: #163](https://github.com/dolittle-entropy/vanir/pull/163)
 ### Fixed
 
