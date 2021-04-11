@@ -24,11 +24,13 @@ export const ContentFrame = (props: ContentFrameProps) => {
         frameBorder: 1,
         allowFullScreen: true,
         onLoadStart: () => props.load?.(),
-        onLoad: () => props.loaded?.()
+        onLoad: () => {
+            if (iframeRef && iframeRef.current && iframeRef.current.contentDocument) {
+                container.resolve(IMessenger as constructor<IMessenger>).setCurrentContentDocument(iframeRef.current.contentDocument);
+            }
+            props.loaded?.()
+        }
     });
-    if (iframeRef && iframeRef.current && iframeRef.current.contentDocument) {
-        container.resolve(IMessenger as constructor<IMessenger>).setCurrentContentDocument(iframeRef.current.contentDocument);
-    }
 
     return iframe;
 };
