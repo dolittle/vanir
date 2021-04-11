@@ -12,6 +12,7 @@ export const TopLevelMenu = () => {
         <Pivot onLinkClick={linkClicked}>
             <PivotItem headerText="Home" itemIcon="Home" itemKey="/" />
             <PivotItem headerText="Menu" itemIcon="ProductCatalog" itemKey="/menu" />
+            <PivotItem headerText="Restaurant" itemIcon="GenericScanFilled" itemKey="/restaurant" />
         </Pivot>
     )
 }

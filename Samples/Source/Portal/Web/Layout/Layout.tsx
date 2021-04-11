@@ -7,6 +7,7 @@ import { SearchResult } from '../Search/SearchResult';
 
 import { default as styles } from './Layout.module.scss';
 import { Blah } from '../Blah';
+import { CompositionRoute } from '@dolittle/vanir-react';
 
 export const Layout = () => {
     return (
@@ -27,8 +28,10 @@ export const Layout = () => {
                         <SearchResult />
                     </Route>
                     <Route path="/blah">
-                        <Blah/>
+                        <Blah />
                     </Route>
+                    <CompositionRoute path="/restaurant" />
+                    <CompositionRoute path="/kitchen" />
                 </Switch>
             </div>
         </div>
