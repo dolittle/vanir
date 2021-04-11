@@ -18,4 +18,7 @@ you.
 | Title | Description |
 | ----- | ----------- |
 | [Getting started](./getting-started.md) | How to create maintainable popup dialogs |
+| [Routing](./routing.md) | Routing and how this works |
+| [View Models](./view-models.md) | How to leverage view models |
+| [Microservice Context](./microservice-context.md) | The microservice context |
 | [Dialogs](./dialogs.md) | How to create maintainable popup dialogs |
