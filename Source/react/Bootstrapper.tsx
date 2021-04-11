@@ -7,6 +7,7 @@ import { MicroserviceContext } from './MicroserviceContext';
 import { container } from 'tsyringe';
 import { MicroserviceConfiguration, VersionInfo } from '@dolittle/vanir-web';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { RouteNavigator } from './routing';
 
 export interface BootstrapperProps {
     name: string;
@@ -29,6 +30,7 @@ export const Bootstrapper = (props: BootstrapperProps) => {
         <>
             <Router>
                 <MicroserviceContext.Provider value={configuration}>
+                    <RouteNavigator />
                     {props.children}
                 </MicroserviceContext.Provider>
             </Router>

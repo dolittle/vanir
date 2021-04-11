@@ -46,3 +46,10 @@ connecting to the backend. In the props you'll see the `prefix` - this is the pr
 at and the GraphQL endpoint will be relative to. So for instance you could have your microservice be located at `/my-microservice`
 and then the GraphQL endpoint would be `/my-microservice/graphql`. The prefix then should be `/my-microservice`.
 This is detailed more in [composition](../composition.md).
+
+## Microservices in a composition
+
+In the `<Bootstrapper/>` component, the property `prefix` is very important. This is as mentioned the actual location where
+your microservice is expected to be. By convention in Vanir, a microservice in a composition is prefixed with `/_/<name of microservice>`
+and everything hinges off of this. That means that any microservice within a composition should have its prefix set to something
+that matches the convention. This is actively used by [routing](./routing.md).

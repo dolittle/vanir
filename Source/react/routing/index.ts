@@ -2,5 +2,6 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 export * from './Routing';
+export * from './RouteNavigator';
 export * from './MicroserviceRoute';
 export * from './CompositionRoute';

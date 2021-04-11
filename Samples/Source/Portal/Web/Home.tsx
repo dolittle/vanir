@@ -5,19 +5,16 @@ import React from 'react';
 import { withViewModel } from '@dolittle/vanir-react';
 import { HomeViewModel } from './HomeViewModel';
 
-import { default as styles } from './Home.module.scss';
-import { HomeProps } from './HomeProps';
+import { default as styles } from './Home.module.scss';
 import { PrimaryButton } from '@fluentui/react';
 
-export const Home = withViewModel<HomeViewModel, HomeProps>(HomeViewModel, ({viewModel, props}) => {
-//export const Home = (props: HomeProps) => {
+export const Home = withViewModel(HomeViewModel, ({ viewModel }) => {
 
     return (
-        <div className={styles.content}>
+        <>
             Hello world : {viewModel.counter}
 
             <PrimaryButton onClick={viewModel.goAway}>Navigate somewhere</PrimaryButton>
-
-        </div>
+        </>
     )
 });

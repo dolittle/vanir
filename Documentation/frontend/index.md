@@ -15,3 +15,5 @@ is expected to grow over time as we discover new needs and patterns.
 | [Anatomy](./anatomy-of-a-frontend.md) | The anatomy of a Vanir frontend |
 | [Composition](./composition.md) | How composition is done out of the box |
 | [React](./react/index.md) | All the React specifics |
+| [Navigator](./navigator.md) | The general purpose navigator |
+| [Messenger](./messenger.md) | The general purpose messenger used for decoupling |

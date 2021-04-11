@@ -1,0 +1,12 @@
+{
+    "name": "@shared/portal",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.ts",
+    "author": "Dolittle",
+    "license": "MIT",
+    "private": true,
+    "dependencies": {
+        "@shared/common": "1.0.0"
+    }
+}
