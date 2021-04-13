@@ -9,7 +9,8 @@ import swaggerUI from 'swagger-ui-express';
 export interface BackendArguments {
     graphQLResolvers?: Constructor[];
     swaggerDoc?: swaggerUI.JsonObject;
-
+    eventTypes?: Constructor[];
+    eventHandlerTypes?: Constructor[];
     expressCallback?: ExpressConfigCallback;
     dolittleCallback?: DolittleClientBuilderCallback;
 }
