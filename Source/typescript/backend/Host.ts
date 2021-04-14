@@ -34,7 +34,7 @@ export class Host {
 
             MongoDb.initialize();
             await Resources.initialize();
-            await Dolittle.initialize(configuration, startArguments.dolittleCallback);
+            await Dolittle.initialize(configuration, startArguments);
             await Express.initialize(configuration, startArguments.graphQLResolvers, startArguments.swaggerDoc, startArguments.expressCallback);
         });
     }

@@ -18,17 +18,21 @@ import { IResourceConfigurations } from '../resources/IResourceConfigurations';
 import { MongoDbReadModelsConfiguration } from '../mongodb/index';
 import { EventStoreConfiguration } from '../dolittle';
 import { getCurrentContext } from '../index';
+import { Aggregate, IAggregate } from '../aggregates';
+import { BackendArguments } from '../BackendArguments';
 
 export type DolittleClientBuilderCallback = (clientBuilder: ClientBuilder) => void;
 
 
-export async function initialize(configuration: Configuration, callback?: DolittleClientBuilderCallback): Promise<Client> {
+export async function initialize(configuration: Configuration, startArguments: BackendArguments): Promise<Client> {
     const clientBuilder = Client
         .forMicroservice(configuration.microserviceId)
         .withLogging(logger as Logger)
         .withContainer(containerInstance)
         .withRuntimeOn(configuration.dolittle.runtime.host, configuration.dolittle.runtime.port)
-        .withProjections(p => p.storeInMongoUsingProvider((eventContext) => {
+        .withEventTypes(_ => startArguments.eventTypes?.forEach(et => _.register(et)))
+        .withEventHandlers(_ => startArguments.eventHandlerTypes?.forEach(eh => _.register(eh)))
+        .useProjections(p => p.storeInMongoUsingProvider((eventContext) => {
             const resourceConfigurations = container.resolve(IResourceConfigurations as constructor<IResourceConfigurations>);
             const configuration = resourceConfigurations.getFor(MongoDbReadModelsConfiguration, eventContext.executionContext.tenantId);
             return {
@@ -36,7 +40,7 @@ export async function initialize(configuration: Configuration, callback?: Dolitt
                 databaseName: configuration.database
             };
         }))
-        .withProjectionIntermediates(p => p.storeInMongoUsingProvider((eventContext) => {
+        .useProjectionsIntermediates(p => p.storeInMongoUsingProvider((eventContext) => {
             const resourceConfigurations = container.resolve(IResourceConfigurations as constructor<IResourceConfigurations>);
             const configuration = resourceConfigurations.getFor(EventStoreConfiguration, eventContext.executionContext.tenantId);
             return {
@@ -45,7 +49,7 @@ export async function initialize(configuration: Configuration, callback?: Dolitt
             };
         }));
 
-    callback?.(clientBuilder);
+    startArguments.dolittleCallback?.(clientBuilder);
 
     const client = clientBuilder.build();
     container.register(IEventStore as constructor<IEventStore>, {
@@ -56,6 +60,7 @@ export async function initialize(configuration: Configuration, callback?: Dolitt
 
     container.registerInstance(Client, client);
     container.registerInstance(IEventTypes as constructor<IEventTypes>, client.eventTypes);
+    container.register(IAggregate as constructor<IAggregate>, Aggregate);
 
     return client;
 }
