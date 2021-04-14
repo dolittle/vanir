@@ -1,13 +1,28 @@
 // Copyright (c) Dolittle. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-import { AggregateRoot, IAggregateRootOperations } from '@dolittle/sdk.aggregates';
 import { injectable } from 'tsyringe';
 import { Constructor } from '@dolittle/types';
 import { IAggregate } from './IAggregate';
-import { EventSourceId, CommittedAggregateEvent, CommittedAggregateEvents, EventTypeId } from '@dolittle/sdk.events';
-import { AggregateRootOperations, AggregateRootDecoratedTypes, OnDecoratedMethod, OnDecoratedMethods } from '@dolittle/sdk.aggregates';
-import { AggregateRootVersionIsOutOfOrder, EventWasAppliedByOtherAggregateRoot, EventWasAppliedToOtherEventSource } from '@dolittle/sdk.events'
+import {
+    AggregateRootVersionIsOutOfOrder,
+    EventWasAppliedByOtherAggregateRoot,
+    EventWasAppliedToOtherEventSource,
+    EventSourceId,
+    CommittedAggregateEvent,
+    CommittedAggregateEvents,
+    EventTypeId
+} from '@dolittle/sdk.events';
+
+import {
+    AggregateRoot,
+    IAggregateRootOperations,
+    AggregateRootOperations,
+    AggregateRootDecoratedTypes,
+    OnDecoratedMethod,
+    OnDecoratedMethods
+} from '@dolittle/sdk.aggregates';
+
 import { Guid } from '@dolittle/rudiments';
 import { ILogger } from '../logging/ILogger';
 import { IEventTypes, IEventStore } from '../dolittle';
