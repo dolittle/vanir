@@ -1,3 +1,17 @@
+# [9.19.0] - 2021-4-14 [PR: #182](https://github.com/dolittle-entropy/vanir/pull/182)
+### Added
+
+- eventTypes and eventHandlerTypes can now be configured during start of host
+- BrokenRule, typically used in aggregates to convey when something is not allowed - a broken rule
+- Aggregate support for IoC purposes
+
+### Changed
+
+- Upgraded to version 14.3.0 of the TypeScript SDK
+- Upgraded to version 2.0.0 of the Dolittle declarative projections
+- Upgraded samples to use vrsion 5.5.0 of the Dolittle Runtime
+
+
 # [9.18.3] - 2021-4-11 [PR: #174](https://github.com/dolittle-entropy/vanir/pull/174)
 ### Added
 
