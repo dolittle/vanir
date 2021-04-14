@@ -3,11 +3,12 @@
 
 import { Guid } from '@dolittle/rudiments';
 import { Constructor } from '@dolittle/types';
-import { buildSchema, Field, ObjectType, Query, Resolver, ResolverData } from 'type-graphql';
+import { buildSchema, Field, MiddlewareFn, ObjectType, Query, Resolver, ResolverData } from 'type-graphql';
 import { GraphQLSchema } from 'graphql';
 
 import { GuidScalar } from '.';
 import { container } from 'tsyringe';
+import { BrokenErrorInterceptor } from './BrokenErrorInterceptor';
 
 @ObjectType()
 class Nothing {
@@ -27,6 +28,7 @@ export async function getSchemaFor(resolvers: Constructor[]): Promise<GraphQLSch
 
     const schema = await buildSchema({
         resolvers: resolvers.length > 0 ? resolvers as any : [NoQueries],
+        globalMiddlewares: [BrokenErrorInterceptor],
         container: {
             get(someClass: any, resolverData: ResolverData<any>): any | Promise<any> {
                 return container.resolve(someClass);
