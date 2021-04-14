@@ -16,7 +16,7 @@
             "console": "internalConsole"
         },
         {
-            "name": "Launch Basic Sample",
+            "name": "Launch TypeScript Sample",
             "type": "node",
             "request": "launch",
             "runtimeExecutable": "node",
