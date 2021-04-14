@@ -79,6 +79,6 @@ declare module '@dolittle/sdk.aggregates' {
 
 AggregateRoot.prototype.fail = function (rule: BrokenRule, argsOrMessage: any | string) {
     rule.fail(argsOrMessage, this.constructor.name);
-}
+};
 
 
