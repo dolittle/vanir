@@ -1,8 +1,6 @@
 version: '3.1'
 services:
   sampleapp-mongo:
-    logging:
-        driver: none
     labels:
       - dolittle="77628df0-f46f-2e46-87a6-bc5a75578bcf"
     image: dolittle/mongodb:4.2.2
@@ -10,8 +8,6 @@ services:
       - 27017:27017
 
   sampleapp-ingress:
-    logging:
-        driver: none
     labels:
       - dolittle="77628df0-f46f-2e46-87a6-bc5a75578bcf"
     image: nginx:1.18.0
@@ -24,7 +20,7 @@ services:
   sampleapp-runtime-portal:
     labels:
       - dolittle="77628df0-f46f-2e46-87a6-bc5a75578bcf"
-    image: dolittle/runtime:5.4.2
+    image: dolittle/runtime:5.5.0
     volumes:
       - ./Portal/resources.json:/app/.dolittle/resources.json
       - ./tenants.json:/app/.dolittle/tenants.json
@@ -38,7 +34,7 @@ services:
   sampleapp-runtime-aspnetcore:
     labels:
       - dolittle="77628df0-f46f-2e46-87a6-bc5a75578bcf"
-    image: dolittle/runtime:5.4.2
+    image: dolittle/runtime:5.5.0
     volumes:
       - ./AspNetCore/resources.json:/app/.dolittle/resources.json
       - ./tenants.json:/app/.dolittle/tenants.json
@@ -52,7 +48,7 @@ services:
   sampleapp-runtime-typescript:
     labels:
       - dolittle="77628df0-f46f-2e46-87a6-bc5a75578bcf"
-    image: dolittle/runtime:5.4.2
+    image: dolittle/runtime:5.5.0
     volumes:
       - ./Typescript/resources.json:/app/.dolittle/resources.json
       - ./tenants.json:/app/.dolittle/tenants.json
