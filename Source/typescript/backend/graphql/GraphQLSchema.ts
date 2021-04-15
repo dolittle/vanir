@@ -3,7 +3,7 @@
 
 import { Guid } from '@dolittle/rudiments';
 import { Constructor } from '@dolittle/types';
-import { buildSchema, Field, MiddlewareFn, ObjectType, Query, Resolver, ResolverData } from 'type-graphql';
+import { buildSchema, Field, FieldResolver, MiddlewareFn, ObjectType, Query, Resolver, ResolverData, Root } from 'type-graphql';
 import { GraphQLSchema } from 'graphql';
 
 import { GuidScalar } from '.';
@@ -24,11 +24,13 @@ class NoQueries {
     }
 }
 
+
 export async function getSchemaFor(resolvers: Constructor[]): Promise<GraphQLSchema> {
 
     const actualResolvers = resolvers.length > 0 ? resolvers as any : [NoQueries];
 
-    const schema = await buildSchema({
+
+    let schema = await buildSchema({
         resolvers: actualResolvers,
         globalMiddlewares: [BrokenRuleErrorInterceptor],
         container: {
@@ -39,8 +41,36 @@ export async function getSchemaFor(resolvers: Constructor[]): Promise<GraphQLSch
         scalarsMap: [
             { type: Guid, scalar: GuidScalar }
         ]
-
     });
+
+    // Filter out all resolvers that are decorated with graphRoot() - this means they shouldn't be on root
+    // Wrap these in GraphQLObjectType... :
+
+    /*
+    fields: () => ({
+            users: { type: UserQueries, resolve: () => [] },
+        }) as any,
+
+    export const UserQueries = new GraphQLObjectType<any, any, any>({
+        name: 'UserQueries',
+        fields: () => ({
+            getByEmail: {
+                type: UserType,
+                description: UserType.description,
+                args: typedArgs<GetByEmailRequest>({
+                    locale: { type: GraphQLNonNull(GraphQLString) },
+                    email: { type: GraphQLNonNull(GraphQLString) },
+                }),
+                resolve: (_: any, args: GetByEmailRequest) => userService.getByEmail(args.email),
+            },
+        }),
+    });
+    */
+
+    const config = schema.toConfig();
+    const queryType = config.query?.toConfig();
+    schema = new GraphQLSchema(config);
+
 
     return schema;
 }
