@@ -26,8 +26,10 @@ class NoQueries {
 
 export async function getSchemaFor(resolvers: Constructor[]): Promise<GraphQLSchema> {
 
+    const actualResolvers = resolvers.length > 0 ? resolvers as any : [NoQueries];
+
     const schema = await buildSchema({
-        resolvers: resolvers.length > 0 ? resolvers as any : [NoQueries],
+        resolvers: actualResolvers,
         globalMiddlewares: [BrokenRuleErrorInterceptor],
         container: {
             get(someClass: any, resolverData: ResolverData<any>): any | Promise<any> {

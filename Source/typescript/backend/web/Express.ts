@@ -10,7 +10,7 @@ import bodyParser from 'body-parser';
 import path from 'path';
 import { Configuration } from '../Configuration';
 import { logger } from '../logging';
-import { getSchemaFor } from '../data';
+import { getSchemaFor } from '../graphql';
 import swaggerUI from 'swagger-ui-express';
 import { ContextMiddleware, getCurrentContext } from '../Context';
 

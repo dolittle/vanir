@@ -8,7 +8,7 @@ export * from './logging';
 export * from './Context';
 export * from './HostContext';
 
-export * as data from './data';
+export * as graphql from './graphql';
 export * as dolittle from './dolittle';
 export * as logging from './logging';
 export * as tsoa from './tsoa';
@@ -18,7 +18,7 @@ export * as web from './web';
 
 export {
     GuidScalar
-} from './data';
+} from './graphql';
 
 export {
     IEventStore,
