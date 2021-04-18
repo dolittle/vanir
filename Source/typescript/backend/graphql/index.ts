@@ -6,3 +6,4 @@ import './GuidExtensions';
 export * from './GuidExtensions';
 export * from './GuidScalar';
 export * from './GraphQLSchema';
+export * from './graphRootDecorator';
