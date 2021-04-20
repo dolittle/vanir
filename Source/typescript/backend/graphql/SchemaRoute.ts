@@ -1,11 +1,11 @@
 // Copyright (c) Dolittle. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-import { SchemaRouteItem } from './SchemaRouteItem';
+import { GraphQLField } from 'graphql';
 
 export class SchemaRoute {
     readonly children: SchemaRoute[] = [];
-    readonly items: SchemaRouteItem[] = [];
+    readonly items: GraphQLField<any, any>[] = [];
 
     constructor(readonly path: string, readonly localName: string, readonly typeName: string) { }
 
@@ -13,7 +13,7 @@ export class SchemaRoute {
         this.children.push(child);
     }
 
-    addItem(item: SchemaRouteItem) {
+    addItem(item: GraphQLField<any, any>) {
         this.items.push(item);
     }
 }

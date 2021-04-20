@@ -2,23 +2,27 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 import { ResolverAtPath } from './ResolverAtPath';
-import { GraphQLField, GraphQLSchemaConfig } from 'graphql';
+import { GraphQLField, GraphQLSchemaConfig, GraphQLObjectType } from 'graphql';
+import { SchemaRoute } from './SchemaRoute';
 
 export class GraphQLSchemaRouteBuilder {
     static handleQueries(config: GraphQLSchemaConfig): void {
         if (config.query) {
-            const queries = Object.values(config.query.getFields());
-            const resolversAtPath = this.getResolversWithPath(queries);
-
-            const resolversByPath = resolversAtPath.reduce((groups, item) => {
-                groups[item.path] = groups[item.path] || [];
-                groups[item.path].push(item);
-                return groups;
-            }, {});
-
-            let i = 0;
-            i++;
+            this.buildSchemaRoutesWithItems('Query', config.query, 'Queries');
         }
+    }
+
+    static handleMutations(config: GraphQLSchemaConfig): void {
+        if (config.mutation) {
+            this.buildSchemaRoutesWithItems('Mutation', config.mutation, 'Mutations');
+        }
+    }
+
+    private static buildSchemaRoutesWithItems(rootName: string, rootType: GraphQLObjectType<any, any>, postFix: string) {
+        const root = new SchemaRoute('', rootName, rootName);
+        const resolvers = Object.values(rootType.getFields());
+        const resolversAtPath = this.getResolversWithPath(resolvers);
+        this.buildRouteHierarchy(root, resolversAtPath, postFix);
     }
 
 
@@ -35,5 +39,41 @@ export class GraphQLSchemaRouteBuilder {
             }
             return 0;
         });
+    }
+
+    private static buildRouteHierarchy(root: SchemaRoute, resolversAtPath: ResolverAtPath[], postFix: string) {
+        const resolversByPath: { [key: string]: ResolverAtPath[] } = resolversAtPath.reduce((groups, item) => {
+            groups[item.path] = groups[item.path] || [];
+            groups[item.path].push(item);
+            return groups;
+        }, {});
+
+        const routesByPath: { [key: string]: SchemaRoute } = {};
+        routesByPath[''] = root;
+
+        for (const path in resolversByPath) {
+
+            let current = '';
+            const segments = path.split('/');
+            let currentRoute: SchemaRoute | undefined;
+            let parentRoute: SchemaRoute = root;
+
+            for (const segment of segments) {
+                current = `${current}${(current.length > 0 ? '/' : '')}${segment}`;
+                if (routesByPath.hasOwnProperty(current)) {
+                    currentRoute = routesByPath[current];
+                } else {
+                    currentRoute = new SchemaRoute(current, segment, `_${segment}${postFix}`);
+                    routesByPath[current] = currentRoute;
+                    parentRoute?.addChild(currentRoute);
+                }
+
+                parentRoute = currentRoute!;
+            }
+
+            for (const resolver of resolversByPath[path]) {
+                currentRoute?.addItem(resolver.resolver);
+            }
+        }
     }
 }

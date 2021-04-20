@@ -167,6 +167,7 @@ export interface GraphQLArgumentConfig {
     */
 
     GraphQLSchemaRouteBuilder.handleQueries(config);
+    GraphQLSchemaRouteBuilder.handleMutations(config);
 
     //const types = config.types.filter(_ => _.name !== 'Query');
     //config.query = queryType;
