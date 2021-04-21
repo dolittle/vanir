@@ -19,7 +19,7 @@ export class SchemaRoute {
     }
 
     get isRoot() {
-        return this.path == '';
+        return this.path === '';
     }
 
     toGraphQLObjectType(): GraphQLObjectType {
@@ -30,7 +30,7 @@ export class SchemaRoute {
             fields[route.localName] = {
                 type,
                 resolve: () => []
-            }
+            };
         }
 
         for (const item of this.items) {

@@ -65,7 +65,7 @@ export class EventMutations {
 
                         return -1;
                     }
-                })
+                });
             }
         }
     }
