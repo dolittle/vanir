@@ -27,12 +27,11 @@ export class AppViewModel {
     }
 
     routeChanged(routeInfo: RouteInfo<Params>): void {
-        debugger;
     }
 
     navigateToSearch(query) {
         if (query) {
-            this._navigator.navigateTo(`/typescript/search?q=${query}`);
+            this._navigator.navigateTo(`/typescript/search/${query}`);
         }
     }
 
