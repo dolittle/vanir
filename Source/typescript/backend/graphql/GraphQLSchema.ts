@@ -3,10 +3,10 @@
 
 import { Guid } from '@dolittle/rudiments';
 import { Constructor } from '@dolittle/types';
-import { buildSchema, Field, FieldResolver, MiddlewareFn, ObjectType, Query, Resolver, ResolverData, Root } from 'type-graphql';
-import { GraphQLSchema, GraphQLObjectType, GraphQLFieldConfig, GraphQLArgumentConfig, GraphQLFieldConfigMap } from 'graphql';
+import { buildSchema, Field, ObjectType, Query, Resolver, ResolverData } from 'type-graphql';
+import { GraphQLSchema } from 'graphql';
 
-import { GuidScalar } from '.';
+import { GuidScalar } from './GuidScalar';
 import { container } from 'tsyringe';
 import { BrokenRuleErrorInterceptor } from './BrokenRuleErrorInterceptor';
 import { GraphQLSchemaRouteBuilder } from './GraphQLSchemaRouteBuilder';
