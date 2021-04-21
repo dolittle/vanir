@@ -22,11 +22,11 @@ export class SchemaRoute {
         return this.path == '';
     }
 
-    toGraphQLObjectType(namespaceTypes: GraphQLObjectType[]): GraphQLObjectType {
+    toGraphQLObjectType(): GraphQLObjectType {
         const fields: GraphQLFieldConfigMap<any, any> = {};
 
         for (const route of this.children) {
-            const type = route.toGraphQLObjectType(namespaceTypes);
+            const type = route.toGraphQLObjectType();
             fields[route.localName] = {
                 type,
                 resolve: () => []
@@ -49,8 +49,6 @@ export class SchemaRoute {
             name: this.typeName,
             fields
         });
-
-        namespaceTypes.push(type);
 
         return type;
     }

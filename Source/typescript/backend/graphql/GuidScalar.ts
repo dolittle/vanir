@@ -21,3 +21,4 @@ export const GuidScalar = new GraphQLScalarType({
         return null;
     }
 });
+

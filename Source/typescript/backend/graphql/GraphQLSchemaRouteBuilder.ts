@@ -4,28 +4,41 @@
 import { ResolverAtPath } from './ResolverAtPath';
 import { GraphQLField, GraphQLSchemaConfig, GraphQLObjectType } from 'graphql';
 import { SchemaRoute } from './SchemaRoute';
+import { Configuration } from '../Configuration';
+import { BackendArguments } from '../BackendArguments';
+import { EventMutations } from '../dolittle/EventMutations';
 
 export class GraphQLSchemaRouteBuilder {
     static handleQueries(config: GraphQLSchemaConfig): void {
         if (config.query) {
-            config.query = this.buildSchemaRoutesWithItems(config, 'Query', config.query, 'Queries');
+            config.query = this.buildSchemaRoutesWithItems('Query', config.query, 'Queries');
         }
     }
 
-    static handleMutations(config: GraphQLSchemaConfig): void {
+    static handleMutations(configuration: Configuration, config: GraphQLSchemaConfig, backendArguments: BackendArguments): void {
         if (config.mutation) {
-            config.mutation = this.buildSchemaRoutesWithItems(config, 'Mutation', config.mutation, 'Mutations');
+            config.mutation = this.buildSchemaRoutesWithItems('Mutation', config.mutation, 'Mutations', (root) => {
+                if (configuration.isDevelopment) {
+                    EventMutations.addAllEvents(root, backendArguments);
+                }
+            });
         }
     }
 
-    private static buildSchemaRoutesWithItems(config: GraphQLSchemaConfig, rootName: string, rootType: GraphQLObjectType<any, any>, postFix: string): GraphQLObjectType {
+    private static buildSchemaRoutesWithItems(
+        rootName: string,
+        rootType: GraphQLObjectType<any, any>,
+        postFix: string,
+        preBuildCallback?: (root: SchemaRoute) => void): GraphQLObjectType {
+
         const root = new SchemaRoute('', rootName, rootName);
         const resolvers = Object.values(rootType.getFields());
         const resolversAtPath = this.getResolversWithPath(resolvers);
         this.buildRouteHierarchy(root, resolversAtPath, postFix);
 
-        const newTypes: GraphQLObjectType[] = [];
-        const newRoot = root.toGraphQLObjectType(newTypes);
+        if (preBuildCallback) preBuildCallback(root);
+
+        const newRoot = root.toGraphQLObjectType();
         return newRoot;
     }
 

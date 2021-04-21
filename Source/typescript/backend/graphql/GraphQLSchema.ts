@@ -2,7 +2,6 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 import { Guid } from '@dolittle/rudiments';
-import { Constructor } from '@dolittle/types';
 import { buildSchema, Field, ObjectType, Query, Resolver, ResolverData } from 'type-graphql';
 import { GraphQLSchema } from 'graphql';
 
@@ -10,6 +9,8 @@ import { GuidScalar } from './GuidScalar';
 import { container } from 'tsyringe';
 import { BrokenRuleErrorInterceptor } from './BrokenRuleErrorInterceptor';
 import { GraphQLSchemaRouteBuilder } from './GraphQLSchemaRouteBuilder';
+import { BackendArguments } from '../BackendArguments';
+import { Configuration } from '../Configuration';
 
 @ObjectType()
 class Nothing {
@@ -26,7 +27,8 @@ class NoQueries {
 }
 
 
-export async function getSchemaFor(resolvers: Constructor[]): Promise<GraphQLSchema> {
+export async function getSchemaFor(configuration: Configuration, backendArguments: BackendArguments): Promise<GraphQLSchema> {
+    const resolvers = backendArguments.graphQLResolvers || [];
     const actualResolvers = resolvers.length > 0 ? resolvers as any : [NoQueries];
 
     let schema = await buildSchema({
@@ -45,9 +47,11 @@ export async function getSchemaFor(resolvers: Constructor[]): Promise<GraphQLSch
     const config = schema.toConfig();
 
     GraphQLSchemaRouteBuilder.handleQueries(config);
-    GraphQLSchemaRouteBuilder.handleMutations(config);
+    GraphQLSchemaRouteBuilder.handleMutations(configuration, config, backendArguments);
+
     config.types = [];
     schema = new GraphQLSchema(config);
+
 
     return schema;
 }
