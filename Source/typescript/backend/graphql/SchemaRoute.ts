@@ -2,10 +2,11 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 import { GraphQLField, GraphQLFieldConfig, GraphQLFieldConfigMap, argsToArgsConfig } from 'graphql/type/definition';
+import { GraphQLObjectType } from 'graphql';
 
 export class SchemaRoute {
     readonly children: SchemaRoute[] = [];
-    readonly items: GraphQLFieldConfig<any, any>[] = [];
+    readonly items: GraphQLField<any, any>[] = [];
 
     constructor(readonly path: string, readonly localName: string, readonly typeName: string) { }
 
@@ -14,14 +15,43 @@ export class SchemaRoute {
     }
 
     addItem(item: GraphQLField<any, any>) {
-        this.items.push({
-            description: item.description,
-            type: item.type,
-            args: argsToArgsConfig(item.args),
-            resolve: item.resolve,
-            subscribe: item.subscribe,
-            deprecationReason: item.deprecationReason,
-            extensions: item.extensions
+        this.items.push(item);
+    }
+
+    get isRoot() {
+        return this.path == '';
+    }
+
+    toGraphQLObjectType(namespaceTypes: GraphQLObjectType[]): GraphQLObjectType {
+        const fields: GraphQLFieldConfigMap<any, any> = {};
+
+        for (const route of this.children) {
+            const type = route.toGraphQLObjectType(namespaceTypes);
+            fields[route.localName] = {
+                type,
+                resolve: () => []
+            }
+        }
+
+        for (const item of this.items) {
+            fields[item.name] = {
+                description: item.description,
+                type: item.type,
+                args: argsToArgsConfig(item.args),
+                resolve: item.resolve,
+                subscribe: item.subscribe,
+                deprecationReason: item.deprecationReason,
+                extensions: item.extensions
+            };
+        }
+
+        const type = new GraphQLObjectType({
+            name: this.typeName,
+            fields
         });
+
+        namespaceTypes.push(type);
+
+        return type;
     }
 }

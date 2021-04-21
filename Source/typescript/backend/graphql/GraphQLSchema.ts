@@ -9,7 +9,6 @@ import { GraphQLSchema, GraphQLObjectType, GraphQLFieldConfig, GraphQLArgumentCo
 import { GuidScalar } from '.';
 import { container } from 'tsyringe';
 import { BrokenRuleErrorInterceptor } from './BrokenRuleErrorInterceptor';
-import { any } from 'nconf';
 import { GraphQLSchemaRouteBuilder } from './GraphQLSchemaRouteBuilder';
 
 @ObjectType()
@@ -28,9 +27,7 @@ class NoQueries {
 
 
 export async function getSchemaFor(resolvers: Constructor[]): Promise<GraphQLSchema> {
-
     const actualResolvers = resolvers.length > 0 ? resolvers as any : [NoQueries];
-
 
     let schema = await buildSchema({
         resolvers: actualResolvers,
@@ -45,133 +42,11 @@ export async function getSchemaFor(resolvers: Constructor[]): Promise<GraphQLSch
         ]
     });
 
-    // Filter out all resolvers that are decorated with graphRoot() - this means they shouldn't be on root
-    // Wrap these in GraphQLObjectType... :
-
-    /*
-    fields: () => ({
-            users: { type: UserQueries, resolve: () => [] },
-        }) as any,
-
-    export const UserQueries = new GraphQLObjectType<any, any, any>({
-        name: 'UserQueries',
-        fields: () => ({
-            getByEmail: {
-                type: UserType,
-                description: UserType.description,
-                args: typedArgs<GetByEmailRequest>({
-                    locale: { type: GraphQLNonNull(GraphQLString) },
-                    email: { type: GraphQLNonNull(GraphQLString) },
-                }),
-                resolve: (_: any, args: GetByEmailRequest) => userService.getByEmail(args.email),
-            },
-        }),
-    });
-
-
-export interface GraphQLFieldConfig<
-  TSource,
-  TContext,
-  TArgs = { [argName: string]: any }
-> {
-  description?: Maybe<string>;
-  type: GraphQLOutputType;
-  args?: GraphQLFieldConfigArgumentMap;
-  resolve?: GraphQLFieldResolver<TSource, TContext, TArgs>;
-  subscribe?: GraphQLFieldResolver<TSource, TContext, TArgs>;
-  deprecationReason?: Maybe<string>;
-  extensions?: Maybe<
-    Readonly<GraphQLFieldExtensions<TSource, TContext, TArgs>>
-  >;
-  astNode?: Maybe<FieldDefinitionNode>;
-}
-
-export interface GraphQLArgumentConfig {
-  description?: Maybe<string>;
-  type: GraphQLInputType;
-  defaultValue?: any;
-  deprecationReason?: Maybe<string>;
-  extensions?: Maybe<Readonly<GraphQLArgumentExtensions>>;
-  astNode?: Maybe<InputValueDefinitionNode>;
-}
-    */
-
-
     const config = schema.toConfig();
-    //const queryType = config.query?.toConfig();
-
-    /*
-    const namespaceTypes: GraphQLObjectType<any, any>[] = [];
-
-    if (config.query) {
-        const rootFields = config.query.getFields();
-        const currentFields = {} as GraphQLFieldConfigMap<any, any>;
-        for (const fieldName in rootFields) {
-            const field = rootFields[fieldName];
-            if (field.extensions?.graphRoot) {
-                const namespaces = field.extensions?.graphRoot.split('/');
-                for (const ns of namespaces) {
-                }
-            } else {
-                currentFields[fieldName] = {
-                    description: field.description,
-                    type: field.type,
-                    resolve: field.resolve,
-                    subscribe: field.subscribe,
-                    deprecationReason: field.deprecationReason,
-                    extensions: field.extensions
-                };
-            }
-        }
-    }
-    */
-
-    //const allApplications = rootFields!.allApplications;
-
-    /*
-    const namespaceType = new GraphQLObjectType<any, any>({
-        name: '_namespaceType',
-        fields: () => ({
-            allApplications: {
-                description: allApplications.description,
-                type: allApplications.type,
-                // args: allApplications.args.map(_ => {
-                //     return {
-                //         description: _.description,
-                //         type: _.type,
-                //         defaultValue: _.defaultValue,
-                //         deprecationReason: _.deprecationReason,
-                //         extensions: _.extensions
-                //     } as GraphQLArgumentConfig;
-                // }),
-                resolve: allApplications.resolve,
-                subscribe: allApplications.subscribe,
-                deprecationReason: allApplications.deprecationReason,
-                extensions: allApplications.extensions
-            }
-        })
-    });
-    */
-
-    /*
-    const queryType = new GraphQLObjectType<any, any>({
-        name: 'Query',
-        fields: () => ({
-            something: {
-                type: namespaceType,
-                description: 'This is the namespace',
-                resolve: () => []
-            }
-        })
-    });
-    */
 
     GraphQLSchemaRouteBuilder.handleQueries(config);
     GraphQLSchemaRouteBuilder.handleMutations(config);
-
-    //const types = config.types.filter(_ => _.name !== 'Query');
-    //config.query = queryType;
-    //config.types = [...[queryType, namespaceType], ...types];
+    config.types = [];
     schema = new GraphQLSchema(config);
 
     return schema;

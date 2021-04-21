@@ -8,21 +8,25 @@ import { SchemaRoute } from './SchemaRoute';
 export class GraphQLSchemaRouteBuilder {
     static handleQueries(config: GraphQLSchemaConfig): void {
         if (config.query) {
-            this.buildSchemaRoutesWithItems('Query', config.query, 'Queries');
+            config.query = this.buildSchemaRoutesWithItems(config, 'Query', config.query, 'Queries');
         }
     }
 
     static handleMutations(config: GraphQLSchemaConfig): void {
         if (config.mutation) {
-            this.buildSchemaRoutesWithItems('Mutation', config.mutation, 'Mutations');
+            config.mutation = this.buildSchemaRoutesWithItems(config, 'Mutation', config.mutation, 'Mutations');
         }
     }
 
-    private static buildSchemaRoutesWithItems(rootName: string, rootType: GraphQLObjectType<any, any>, postFix: string) {
+    private static buildSchemaRoutesWithItems(config: GraphQLSchemaConfig, rootName: string, rootType: GraphQLObjectType<any, any>, postFix: string): GraphQLObjectType {
         const root = new SchemaRoute('', rootName, rootName);
         const resolvers = Object.values(rootType.getFields());
         const resolversAtPath = this.getResolversWithPath(resolvers);
         this.buildRouteHierarchy(root, resolversAtPath, postFix);
+
+        const newTypes: GraphQLObjectType[] = [];
+        const newRoot = root.toGraphQLObjectType(newTypes);
+        return newRoot;
     }
 
 
