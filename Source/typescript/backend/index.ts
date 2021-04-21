@@ -17,7 +17,8 @@ export * as resources from './resources';
 export * as web from './web';
 
 export {
-    GuidScalar
+    GuidScalar,
+    graphRoot
 } from './graphql';
 
 export {
