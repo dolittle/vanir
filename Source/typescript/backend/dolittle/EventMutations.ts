@@ -14,30 +14,13 @@ import { constructor } from '@dolittle/vanir-dependency-inversion';
 import { IEventTypes } from './IEventTypes';
 
 export class EventMutations {
-
-    /*
-    constructor(private readonly _eventStore: IEventStore) {
-    }
-
-    @Mutation(() => Number)
-    async commit(@Arg('eventSourceId') eventSourceId: Guid, @Arg('event') event: T): Promise<Number> {
-        const committedEvents = await this._eventStore.commit(event, eventSourceId);
-        if (!committedEvents.failed) {
-            const committedEvent = committedEvents.events.toArray()[0];
-            return committedEvent.eventLogSequenceNumber.value;
-        }
-
-        return -1;
-    }*/
-
-
     static addAllEvents(root: SchemaRoute, backendArguments: BackendArguments) {
         if (backendArguments.eventTypes) {
             const events = new SchemaRoute('events', 'events', '_events');
             root.addChild(events);
 
             for (const eventType of backendArguments.eventTypes) {
-                const instance = new eventType()
+                const instance = new eventType();
                 const properties = Object.getOwnPropertyNames(eventType.prototype);
                 const eventName = `${eventType.name[0].toLowerCase()}${eventType.name.substr(1)}`;
                 const args: GraphQLArgument[] = [
