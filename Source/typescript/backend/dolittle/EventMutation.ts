@@ -22,3 +22,5 @@ export class EventMutationFor<T> {
         return -1;
     }
 }
+
+
