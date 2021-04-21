@@ -8,6 +8,9 @@ import { MessageHandler } from './MessageHandler';
 import { Message } from './Message';
 import { IMessenger } from './IMessenger';
 
+const Portal = 'portal';
+const Content = 'content';
+
 export class Messenger implements IMessenger {
     private _source: string;
     private _otherSource: string;
@@ -18,13 +21,14 @@ export class Messenger implements IMessenger {
     constructor() {
         this._source = this.getSource();
         this._otherSource = this.getOtherSource();
-
         this._messages.subscribe(message => {
             if (this._contentDocument) {
                 this.dispatchMessageAsCustomEventTo(this._contentDocument, message.content);
             }
 
-            if (window.parent !== window && window.parent.document) {
+            if (window.parent !== window &&
+                window.parent.document &&
+                message.source !== Portal) {
                 this.dispatchMessageAsCustomEventTo(window.parent.document, message.content);
             }
         });
@@ -70,11 +74,11 @@ export class Messenger implements IMessenger {
     }
 
     private getSource() {
-        return (window.parent !== window) ? 'content' : 'portal';
+        return (window.parent !== window) ? Content : Portal;
     }
 
     private getOtherSource() {
-        return (window.parent !== window) ? 'portal' : 'content';
+        return (window.parent !== window) ? Portal : Content;
     }
 
     private dispatchMessageAsCustomEventTo(document: Document, message: any) {

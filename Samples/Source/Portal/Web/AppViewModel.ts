@@ -9,7 +9,7 @@ export class AppViewModel {
         private readonly _messenger: IMessenger) {
         _messenger.subscribeTo(SearchRequest, (search) => {
             const path = `/search/${search.query}`;
-            _navigator.navigateTo(path);
+            //_navigator.navigateTo(path);
         });
     }
 }
