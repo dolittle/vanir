@@ -30,6 +30,7 @@ export const Layout = () => {
                     <Route path="/blah">
                         <Blah />
                     </Route>
+                    <CompositionRoute path="/typescript" />
                     <CompositionRoute path="/restaurant" />
                     <CompositionRoute path="/kitchen" />
                 </Switch>
