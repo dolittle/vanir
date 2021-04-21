@@ -1,12 +1,17 @@
-import { Directive, Field, InputType } from 'type-graphql';
-
-
+import { Field, InputType } from 'type-graphql';
+import { Guid } from '@dolittle/rudiments';
+import {Length } from 'class-validator';
 
 @InputType()
 export class DoStuff {
 
     @Field()
-    @Directive('@specifiedBy(url: "Use newasdasd")')
-    @Directive('@deprecated(reason: "Use newField")')
-    something!: string;
+    id!: Guid;
+
+    @Field()
+    something!: number;
+
+    @Field()
+    @Length(5, 10)
+    someString!: string;
 }

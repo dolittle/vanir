@@ -4,7 +4,7 @@
 import { Binary } from 'mongodb';
 import { Guid } from '@dolittle/rudiments';
 import { CustomType } from './index';
-import '../data/GuidExtensions';
+import '../graphql/GuidExtensions';
 
 
 /**

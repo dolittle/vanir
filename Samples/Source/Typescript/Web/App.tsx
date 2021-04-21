@@ -1,46 +1,22 @@
-import { withViewModel, RouteInfo } from '@dolittle/vanir-react';
-import { IMessenger, INavigator } from '@dolittle/vanir-web';
-import React from 'react';
-import { injectable } from 'tsyringe';
-import { SearchRequest } from '@shared/portal/search';
-
-
-type Params = {
-    q: string;
-}
-
-@injectable()
-export class AppViewModel {
-
-    constructor(
-        private readonly _messenger: IMessenger,
-        private readonly _navigator: INavigator
-    ) { }
-
-    attached(routeInfo: RouteInfo): void {
-        this._messenger.subscribeTo(
-            SearchRequest,
-            (request) => {
-                this.navigateToSearch(request.query.trim());
-            }
-        );
-    }
-
-    routeChanged(routeInfo: RouteInfo<Params>): void {
-    }
-
-    navigateToSearch(query) {
-        if (query) {
-            this._navigator.navigateTo(`/typescript/search/${query}`);
-        }
-    }
-
-}
+import React, { useState } from 'react';
+import { PrimaryButton, TextField, DetailsList, IColumn } from '@fluentui/react';
+import { withViewModel } from '@dolittle/vanir-react';
+import { AppViewModel } from './AppViewModel';
 
 export const App = withViewModel(AppViewModel, ({ viewModel }) => {
+    const [name, setName] = useState('');
+    const columns: IColumn[] = [
+        { name: "Name", key: "name", fieldName: "name", minWidth: 100 }
+    ];
+
+
     return (
         <>
-            This is it...
+            <TextField label="Application name" onChange={(ev, nv) => setName(nv!)} />
+            <PrimaryButton onClick={() => viewModel.createApplication(name)}>Click me for magic</PrimaryButton>
+
+            <DetailsList columns={columns} items={viewModel.applications}>
+            </DetailsList>
         </>
     );
 });
