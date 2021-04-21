@@ -1,3 +1,10 @@
+# [9.20.0] - 2021-4-21 [PR: #191](https://github.com/dolittle-entropy/vanir/pull/191)
+### Added
+
+- Support for @graphRoot decorator to be able to root resolver classes and resolver methods to build a structured schema.
+- Preliminary support for calling event mutations directly - without type details - you give it a JSON string as event content / payload
+
+
 # [9.19.1] - 2021-4-21 [PR: #190](https://github.com/dolittle-entropy/vanir/pull/190)
 ### Fixed
 
