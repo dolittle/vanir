@@ -1,3 +1,11 @@
+# [9.19.1] - 2021-4-21 [PR: #190](https://github.com/dolittle-entropy/vanir/pull/190)
+### Fixed
+
+- Fixed so that Messenger doesn't publish a message that came from the 'portal' back to the 'portal' from a content frame
+- Added the missing ? search/query string key/value to the params
+- Make sure to pass the search/query string along to the ContentFrame from the portal frame
+
+
 # [9.19.0] - 2021-4-14 [PR: #182](https://github.com/dolittle-entropy/vanir/pull/182)
 ### Added
 
