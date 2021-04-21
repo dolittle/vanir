@@ -21,7 +21,7 @@ export const CompositionRoute = (props: CompositionRouteProps) => {
                 if (path.startsWith('/')) {
                     path = path.substr(1);
                 }
-                const src = `/_/${path}`;
+                const src = `/_/${path}${location.search}`;
                 return (
                     <Route {...props}>
                         <ContentFrame src={src} load={props.load} loaded={props.loaded} />
