@@ -30,7 +30,7 @@ function getSearchStringParams(searchString: string): any {
             continue;
         }
 
-        let value: any = decodeURIComponent(keyAndValue[1].replace(/\+/g, " "));
+        let value: any = decodeURIComponent(keyAndValue[1].replace(/\+/g, ' '));
         if (value !== '' && !isNaN(value as any)) {
             value = parseFloat(value);
         }
