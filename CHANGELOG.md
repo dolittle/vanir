@@ -1,3 +1,9 @@
+# [9.20.1] - 2021-4-25 [PR: #198](https://github.com/dolittle/vanir/pull/198)
+### Changed
+
+- @dolittle/projections upgraded to v2.1.0 for supporting Guid conversion to and from Mongo
+
+
 # [9.20.0] - 2021-4-21 [PR: #191](https://github.com/dolittle-entropy/vanir/pull/191)
 ### Added
 
