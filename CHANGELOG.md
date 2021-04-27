@@ -1,3 +1,9 @@
+# [9.20.2] - 2021-4-27 [PR: #199](https://github.com/dolittle/vanir/pull/199)
+### Fixed
+
+- Apollo + GraphQL dependencies moved from React to Web - which is more correct. If you don't use React, you'll then get the dependencies we really rely on.
+
+
 # [9.20.1] - 2021-4-25 [PR: #198](https://github.com/dolittle/vanir/pull/198)
 ### Changed
 
