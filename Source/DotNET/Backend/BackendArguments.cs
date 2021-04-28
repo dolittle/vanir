@@ -6,6 +6,7 @@ using Dolittle.SDK;
 using HotChocolate.Execution.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
+using MongoDB.Driver;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -14,5 +15,6 @@ namespace Microsoft.Extensions.DependencyInjection
         public ILoggerFactory LoggerFactory { get; set; } = new NullLoggerFactory();
         public Action<IRequestExecutorBuilder> GraphQLExecutorBuilder = (b) => {};
         public Action<ClientBuilder> DolittleClientBuilderCallback = (b) => {};
+        public Action<MongoClientSettings> MongoClientSettingsCallback = (b) => {};
     }
 }

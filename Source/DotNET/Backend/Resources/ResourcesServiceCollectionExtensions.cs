@@ -15,7 +15,7 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         readonly static Dictionary<TenantId, IMongoDatabase> _mongoDatabaseByTenant = new();
 
-        public static void AddResources(this IServiceCollection services)
+        public static void AddResources(this IServiceCollection services, BackendArguments arguments)
         {
             var conventionPack = new ConventionPack {
                     new CamelCaseElementNameConvention()
@@ -36,6 +36,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 var url = MongoUrl.Create(config.Host);
                 var settings = MongoClientSettings.FromUrl(url);
                 settings.GuidRepresentation = GuidRepresentation.Standard;
+                arguments?.MongoClientSettingsCallback(settings);
                 var client = new MongoClient(settings.Freeze());
                 var database = client.GetDatabase(config.Database);
                 _mongoDatabaseByTenant[tenant] = database;

@@ -24,7 +24,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
             services.AddControllers();
             services.AddSwaggerGen();
-            services.AddResources();
+            services.AddResources(arguments);
 
             return new Services { Types = types };
         }
