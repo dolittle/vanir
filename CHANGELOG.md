@@ -1,3 +1,9 @@
+# [9.21.0] - 2021-4-28 [PR: #201](https://github.com/dolittle/vanir/pull/201)
+### Added
+
+- [C#] Added a callback to the BackendArguments to be able to configure the Mongo DB settings before they're frozen for the client instance
+
+
 # [9.20.2] - 2021-4-27 [PR: #199](https://github.com/dolittle/vanir/pull/199)
 ### Fixed
 
