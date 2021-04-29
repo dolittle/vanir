@@ -1,3 +1,9 @@
+# [9.21.1] - 2021-4-29 [PR: #204](https://github.com/dolittle/vanir/pull/204)
+### Fixed
+
+- [C#] During GraphQL calls, all validators for a type using FluentValidation is now included automatically. Not just the first it discovers.
+
+
 # [9.21.0] - 2021-4-28 [PR: #201](https://github.com/dolittle/vanir/pull/201)
 ### Added
 
