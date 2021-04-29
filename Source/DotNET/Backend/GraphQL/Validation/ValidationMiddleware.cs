@@ -50,13 +50,16 @@ namespace Dolittle.Vanir.Backend.GraphQL.Validation
         {
             if (_validators.HasFor(type))
             {
-                var validator = _validators.GetFor(type);
+                var validators = _validators.GetFor(type);
                 var validationContextType = typeof(ValidationContext<>).MakeGenericType(type);
                 var validationContext = Activator.CreateInstance(validationContextType, instance) as IValidationContext;
-                var result = await validator.ValidateAsync(validationContext);
-                if (!result.IsValid)
+                foreach (var validator in validators)
                 {
-                    CollectErrors(context, instance, result, errors, type, propertyPath);
+                    var result = await validator.ValidateAsync(validationContext);
+                    if (!result.IsValid)
+                    {
+                        CollectErrors(context, instance, result, errors, type, propertyPath);
+                    }
                 }
             }
 

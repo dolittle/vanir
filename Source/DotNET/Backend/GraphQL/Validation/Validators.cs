@@ -13,7 +13,7 @@ namespace Dolittle.Vanir.Backend.GraphQL.Validation
     {
         readonly ITypes _types;
         readonly IContainer _container;
-        readonly Dictionary<Type, Type> _validatorTypesByType = new();
+        readonly Dictionary<Type, List<Type>> _validatorTypesByType = new();
 
         public Validators(ITypes types, IContainer container)
         {
@@ -23,22 +23,21 @@ namespace Dolittle.Vanir.Backend.GraphQL.Validation
             PopulateValidatorTypesByType();
         }
 
-        public IEnumerable<Type> All => _validatorTypesByType.Values;
+        public IEnumerable<Type> All => _validatorTypesByType.SelectMany(kvp => kvp.Value);
 
         public bool HasFor(Type type)
         {
             return _validatorTypesByType.ContainsKey(type);
         }
 
-        public IValidator GetFor(Type type)
+        public IEnumerable<IValidator> GetFor(Type type)
         {
-            return _container.Get(_validatorTypesByType[type]) as IValidator;
+            return _validatorTypesByType[type].Select(_ => _container.Get(_) as IValidator);
         }
 
         void PopulateValidatorTypesByType()
         {
-            var validatorTypes = _types.FindMultiple(typeof(AbstractValidator<>));
-            foreach (var validatorType in validatorTypes)
+            foreach (var validatorType in _types.FindMultiple(typeof(AbstractValidator<>)))
             {
                 var baseTypes = validatorType.AllBaseAndImplementingTypes();
                 var type = baseTypes.Single(_ =>
@@ -53,8 +52,9 @@ namespace Dolittle.Vanir.Backend.GraphQL.Validation
 
                 if (!_validatorTypesByType.ContainsKey(type.GenericTypeArguments[0]))
                 {
-                    _validatorTypesByType[type.GenericTypeArguments[0]] = validatorType;
+                    _validatorTypesByType[type.GenericTypeArguments[0]] = new();
                 }
+                _validatorTypesByType[type.GenericTypeArguments[0]].Add(validatorType);
             }
         }
     }
