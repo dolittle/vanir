@@ -42,6 +42,13 @@ namespace Backend
         public MyObjectValidator()
         {
             RuleFor(_ => _.Something).NotNull().NotEmpty().WithMessage("This should be set");
+        }
+    }
+
+    public class MySecondObjectValidator : AbstractValidator<MyObject>
+    {
+        public MySecondObjectValidator()
+        {
             RuleFor(_ => _.SomeNumber).GreaterThan(42).WithMessage("Must be greater than 42");
             RuleFor(_ => _.Concept).SetValidator(new SomeConceptValidator());
         }
