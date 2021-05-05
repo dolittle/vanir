@@ -35,6 +35,9 @@
         "**/*.scss.ts": true,
         "**/temp": true
     },
+    "dotnet-test-explorer.testProjectPath":"Source/**/*.Specs.csproj",
+    "dotnet-test-explorer.treeMode": "full",
+    "dotnet-test-explorer.runInParallel": true,
     "typescript.preferences.includePackageJsonAutoImports": "on",
     "typescript.preferences.importModuleSpecifier": "relative",
     "typescript.preferences.importModuleSpecifierEnding": "index",

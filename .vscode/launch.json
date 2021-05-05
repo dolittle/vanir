@@ -16,6 +16,17 @@
             "console": "internalConsole"
         },
         {
+            "name": ".NET Core Launch (ProxyGenerator)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build proxygenerator",
+            "program": "${workspaceFolder}/Source/DotNET/ProxyGenerator/bin/Debug/net5.0/Dolittle.Vanir.ProxyGenerator.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/Source/DotNET/ProxyGenerator",
+            "stopAtEntry": false,
+            "console": "internalConsole"
+        },
+        {
             "name": "Launch TypeScript Sample",
             "type": "node",
             "request": "launch",
