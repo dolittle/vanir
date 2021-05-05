@@ -1,3 +1,9 @@
+# [9.22.1] - 2021-5-5 [PR: #212](https://github.com/dolittle/vanir/pull/212)
+### Added
+
+- Noddin
+
+
 # [9.22.0] - 2021-5-5 [PR: #208](https://github.com/dolittle/vanir/pull/208)
 ### Added
 
