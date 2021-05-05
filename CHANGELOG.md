@@ -8,7 +8,6 @@
 
 - [C#] Upgraded to version 8.4.0 of the SDK
 
-
 # [9.21.1] - 2021-4-29 [PR: #204](https://github.com/dolittle/vanir/pull/204)
 ### Fixed
 
