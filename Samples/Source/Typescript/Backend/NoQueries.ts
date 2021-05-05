@@ -19,8 +19,9 @@ export class CustomError extends Error {
 @aggregateRoot('619d0ab1-a831-48da-a247-673e7799a398')
 export class MyAggregate extends AggregateRoot {
     doStuff(something: number): void {
-        throw new Error('Something is screwed');
+        //throw new Error('Something is screwed');
         this.apply(new MyEvent(something));
+        this.applyPublic(new MyEvent(something));
     }
 
     @on(MyEvent)

@@ -7,18 +7,8 @@ import { RegisterRoutes } from './routes';
 const swaggerDoc = require('./swagger.json');
 import * as applications from './applications';
 import { Bakery } from './groceryStore/bakery/Bakery';
-import { Resolver, Query } from 'type-graphql';
-import { Nothing } from './Nothing';
-
-@Resolver()
-export class NoQueries {
-
-    @Query(returns => [Nothing])
-    async noresults() {
-        return [];
-    }
-}
-
+import { NoQueries } from './NoQueries';
+import { MyEvent } from './MyEvent';
 
 (async () => {
     await Host.start({
@@ -30,7 +20,8 @@ export class NoQueries {
             NoQueries
         ],
         eventTypes: [
-            ...applications.EventTypes
+            ...applications.EventTypes,
+            MyEvent
         ],
         eventHandlerTypes: [
             ...applications.EventHandlers

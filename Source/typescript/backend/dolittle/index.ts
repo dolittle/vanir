@@ -36,9 +36,11 @@ export async function initialize(configuration: Configuration, startArguments: B
         .withEventHandlers(_ => startArguments.eventHandlerTypes?.forEach(eh => _.register(eh)))
         .withProjections(_ => startArguments.projectionTypes?.forEach(pt => _.register(pt)))
         .withFilters(_ => {
-            if (startArguments.publishAllPublicEvents) {
+            if (startArguments.publishAllPublicEvents !== false) {
                 _.createPublicFilter('2d287d3f-b683-4f27-8145-85534832f6bf', fb => fb
-                    .handle((event, context) => new PartitionedFilterResult(true, PartitionId.unspecified)));
+                    .handle((event, context) => {
+                        return new PartitionedFilterResult(true, PartitionId.unspecified);
+                    }));
             }
         })
         .useProjections(p => p.storeInMongoUsingProvider((eventContext) => {
