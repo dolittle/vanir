@@ -1,3 +1,14 @@
+# [9.22.0] - 2021-5-5 [PR: #208](https://github.com/dolittle/vanir/pull/208)
+### Added
+
+- [C#] Added a default public filter that will forward all events applied/committed as public - this behavior can be overridden by setting `PublishAllPublicEvents` in the `BackendArguments` used in `AddVanir()` method to false. You can then use the Dolittle configuration callback to configure your filter instead: https://dolittle.io/docs/tutorials/event-horizon/
+- [C#] All types adorned with the [Projection] attribute are automatically registered as projections. Read more here: https://dolittle.io/docs/tutorials/projections/
+
+### Changed
+
+- [C#] Upgraded to version 8.4.0 of the SDK
+
+
 # [9.21.1] - 2021-4-29 [PR: #204](https://github.com/dolittle/vanir/pull/204)
 ### Fixed
 
