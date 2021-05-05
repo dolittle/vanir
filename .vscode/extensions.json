@@ -1,0 +1,16 @@
+{
+    "recommendations": [
+      "editorconfig.editorconfig",
+      "dbaeumer.vscode-eslint",
+      "graphql.vscode-graphql",
+      "gabrielnordeborn.vscode-graphiql-explorer",
+      "heaths.vscode-guid",
+      "pmneo.tsimporter",
+      "nsoult.typescript-imports-sort",
+      "dskwrk.vscode-generate-getter-setter",
+      "aeschli.vscode-css-formatter",
+      "github.vscode-pull-request-github",
+      "waderyan.gitblame",
+      "formulahendry.dotnet-test-explorer"
+    ]
+  }
