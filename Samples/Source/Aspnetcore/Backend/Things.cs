@@ -68,6 +68,7 @@ namespace Backend
         {
             if (_counter >= 2) throw new Exception("Cannot prepare more than 2 dishes");
             Apply(new DishPrepared(dish, chef));
+            ApplyPublic(new DishPrepared(dish, chef));
             Console.WriteLine($"Kitchen Aggregate {EventSourceId} has applied {_counter} {typeof(DishPrepared)} events");
         }
 

@@ -3,12 +3,17 @@
 
 using System;
 using System.Linq;
+using System.Reflection;
+using System.Threading.Tasks;
 using Dolittle.SDK;
 using Dolittle.SDK.Aggregates;
 using Dolittle.SDK.Events;
 using Dolittle.SDK.Events.Builders;
+using Dolittle.SDK.Events.Filters;
 using Dolittle.SDK.Events.Handling;
 using Dolittle.SDK.Events.Handling.Builder;
+using Dolittle.SDK.Projections;
+using Dolittle.SDK.Projections.Builder;
 using Dolittle.Vanir.Backend.Collections;
 using Dolittle.Vanir.Backend.Execution;
 using Dolittle.Vanir.Backend.Reflection;
@@ -34,6 +39,15 @@ namespace Microsoft.Extensions.DependencyInjection
                 .WithLogging(arguments.LoggerFactory)
                 .WithRuntimeOn(configuration.Dolittle.Runtime.Host, configuration.Dolittle.Runtime.Port)
                 .WithEventTypes(_ => AllEventTypes(_, types))
+                .WithFilters(_ =>
+                {
+                    if (arguments?.PublishAllPublicEvents == true)
+                    {
+                        _.CreatePublicFilter("2d287d3f-b683-4f27-8145-85534832f6bf", _ => _
+                            .Handle((e, ec) => Task.FromResult(new PartitionedFilterResult(true, PartitionId.Unspecified))));
+                    }
+                })
+                .WithProjections(_ => AllProjections(_, types))
                 .WithEventHandlers(_ => AllEventHandlerTypes(_, services, types));
 
             arguments.DolittleClientBuilderCallback(clientBuilder);
@@ -64,6 +78,13 @@ namespace Microsoft.Extensions.DependencyInjection
             types.All
                     .Where(_ => _.HasAttribute<EventTypeAttribute>())
                     .ForEach(_ => builder.Register(_));
+        }
+
+        static void AllProjections(ProjectionsBuilder builder, ITypes types)
+        {
+            types.All
+                    .Where(_ => _.HasAttribute<ProjectionAttribute>())
+                    .ForEach(_ => builder.RegisterProjection(_));
         }
 
         static void AllEventHandlerTypes(EventHandlersBuilder builder, IServiceCollection services, ITypes types)
