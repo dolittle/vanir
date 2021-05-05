@@ -8,6 +8,8 @@ export * from './EventStoreConfiguration';
 import { constructor, containerInstance } from '@dolittle/vanir-dependency-inversion';
 
 import { Client, ClientBuilder } from '@dolittle/sdk';
+import { PartitionId } from '@dolittle/sdk.events';
+import { PartitionedFilterResult } from '@dolittle/sdk.events.filtering';
 import { Logger } from 'winston';
 import { container, DependencyContainer } from 'tsyringe';
 import { IEventStore } from './IEventStore';
@@ -32,6 +34,13 @@ export async function initialize(configuration: Configuration, startArguments: B
         .withRuntimeOn(configuration.dolittle.runtime.host, configuration.dolittle.runtime.port)
         .withEventTypes(_ => startArguments.eventTypes?.forEach(et => _.register(et)))
         .withEventHandlers(_ => startArguments.eventHandlerTypes?.forEach(eh => _.register(eh)))
+        .withProjections(_ => startArguments.projectionTypes?.forEach(pt => _.register(pt)))
+        .withFilters(_ => {
+            if (startArguments.publishAllPublicEvents) {
+                _.createPublicFilter('2d287d3f-b683-4f27-8145-85534832f6bf', fb => fb
+                    .handle((event, context) => new PartitionedFilterResult(true, PartitionId.unspecified)));
+            }
+        })
         .useProjections(p => p.storeInMongoUsingProvider((eventContext) => {
             const resourceConfigurations = container.resolve(IResourceConfigurations as constructor<IResourceConfigurations>);
             const configuration = resourceConfigurations.getFor(MongoDbReadModelsConfiguration, eventContext.executionContext.tenantId);
