@@ -143,14 +143,11 @@ namespace Backend
         }
 
         [Query("MyCustomName")]
-        public Owner TheOwner(int id)
+        public Owner TheOwner(int id) => new Owner
         {
-            return new Owner
-            {
-                Id = Guid.NewGuid(),
-                Name = "Blah"
-            };
-        }
+            Id = Guid.NewGuid(),
+            Name = "Blah"
+        };
 
         [Query]
         public Owner Something()
