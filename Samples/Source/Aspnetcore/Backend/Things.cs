@@ -72,8 +72,7 @@ namespace Backend
             Console.WriteLine($"Kitchen Aggregate {EventSourceId} has applied {_counter} {typeof(DishPrepared)} events");
         }
 
-        void On(DishPrepared @event)
-            => _counter++;
+        void On(DishPrepared @event) => _counter++;
     }
 
     [EventType("2977fd82-9614-4082-ab8e-d436ed129248")]
