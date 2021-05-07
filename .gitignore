@@ -85,5 +85,4 @@ packages
 *.nuget.targets
 *.nuget.props
 .vs
-.vscode
 *.idea

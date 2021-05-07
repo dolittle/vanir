@@ -38,6 +38,15 @@
     "dotnet-test-explorer.testProjectPath":"Source/**/*.Specs.csproj",
     "dotnet-test-explorer.treeMode": "full",
     "dotnet-test-explorer.runInParallel": true,
+    "dotnet-test-explorer.showCodeLens": true,
+    "dotnet-test-explorer.autoExpandTree": true,
+    "[csharp]": {
+        "editor.defaultFormatter": "ms-dotnettools.csharp"
+     },
+    "omnisharp.enableMsBuildLoadProjectsOnDemand": true,
+    "omnisharp.enableEditorConfigSupport": true,
+    "omnisharp.enableRoslynAnalyzers": true,
+    "omnisharp.useEditorFormattingSettings": true,
     "typescript.preferences.includePackageJsonAutoImports": "on",
     "typescript.preferences.importModuleSpecifier": "relative",
     "typescript.preferences.importModuleSpecifierEnding": "index",
