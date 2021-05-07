@@ -11,7 +11,7 @@ using It = Machine.Specifications.It;
 
 namespace Dolittle.Vanir.Backend.Specs.Validation.for_Validators
 {
-    public class when_validating_instance_with_two_validators_with_errors_in_both
+    public class when_validating_instance_async_with_two_validators_with_errors_in_both
     {
         static Validators validators;
         static Mock<ITypes> types;
@@ -30,7 +30,7 @@ namespace Dolittle.Vanir.Backend.Specs.Validation.for_Validators
             validators = new Validators(types.Object, container.Object);
         };
 
-        Because of = () => result = validators.Validate(new TypeWithValidation());
+        Because of = () => validators.ValidateAsync(new TypeWithValidation()).ContinueWith(_ => result = _.Result).Wait();
 
         It should_return_result_with_two_errors = () => result.Errors.Count.ShouldEqual(2);
         It should_have_first_validators_message = () => result.Errors[0].ErrorMessage.ShouldEqual(FirstValidator.ErrorMessage);

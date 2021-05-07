@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using FluentValidation;
 using FluentValidation.Results;
 
@@ -38,5 +39,12 @@ namespace Dolittle.Vanir.Backend.Validation
         /// <param name="instanceToValidate">Instance to validate.</param>
         /// <returns>The <see cref="ValidationResult">result</see> of the validation.</returns>
         ValidationResult Validate<T>(T instanceToValidate);
+
+        /// <summary>
+        /// Validate an instance async.
+        /// </summary>
+        /// <param name="instanceToValidate">Instance to validate.</param>
+        /// <returns>The Task continuation for <see cref="ValidationResult">result</see> of the validation.</returns>
+        Task<ValidationResult> ValidateAsync<T>(T instanceToValidate);
     }
 }

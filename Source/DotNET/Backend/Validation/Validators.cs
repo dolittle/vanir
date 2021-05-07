@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Dolittle.Vanir.Backend.Reflection;
 using FluentValidation;
 using FluentValidation.Results;
@@ -60,6 +61,22 @@ namespace Dolittle.Vanir.Backend.Validation
 
             return result;
         }
+
+        /// <inheritdoc/>
+        public async Task<ValidationResult> ValidateAsync<T>(T instanceToValidate)
+        {
+            var result = new ValidationResult();
+            var validators = GetFor(instanceToValidate.GetType());
+            var context = new ValidationContext<T>(instanceToValidate);
+            foreach (var validator in validators)
+            {
+                var currentValidatorResult = await validator.ValidateAsync(context);
+                result = result.MergeWith(currentValidatorResult);
+            }
+
+            return result;
+        }
+
 
         void PopulateValidatorTypesByType()
         {
