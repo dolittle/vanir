@@ -7,8 +7,9 @@ namespace Dolittle.Vanir.ProxyGenerator
 {
     public interface ITemplates
     {
-        HandlebarsTemplate<object, object> MutationTemplate { get; }
-        HandlebarsTemplate<object, object> QueryTemplate { get; }
-        HandlebarsTemplate<object, object> TypeTemplate { get; }
+        HandlebarsTemplate<object, object> Mutation { get; }
+        HandlebarsTemplate<object, object> Query { get; }
+        HandlebarsTemplate<object, object> Type { get; }
+        HandlebarsTemplate<object, object> Property { get; }
     }
 }

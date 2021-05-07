@@ -5,17 +5,28 @@ using HandlebarsDotNet;
 
 namespace Dolittle.Vanir.ProxyGenerator
 {
-    public class Templates : ITemplates
+   public class Templates : ITemplates
     {
-        public HandlebarsTemplate<object, object> MutationTemplate => throw new System.NotImplementedException();
+        readonly ITemplateLoaders _templateLoaders;
 
-        public HandlebarsTemplate<object, object> QueryTemplate => throw new System.NotImplementedException();
-
-        public HandlebarsTemplate<object, object> TypeTemplate => throw new System.NotImplementedException();
-
-        public Templates()
+        public Templates(ITemplateLoaders templateLoader)
         {
+            _templateLoaders = templateLoader;
 
+            Mutation = Handlebars.Compile(_templateLoaders.Load("Mutation.hbs"));
+            Query = Handlebars.Compile(_templateLoaders.Load("Query.hbs"));
+            Type = Handlebars.Compile(_templateLoaders.Load("Type.hbs"));
+            var propertyTemplate = _templateLoaders.Load("Property.hbs");
+            Property = Handlebars.Compile(propertyTemplate);
+            Handlebars.RegisterTemplate("property", propertyTemplate);
         }
+
+        public HandlebarsTemplate<object, object> Mutation { get; }
+
+        public HandlebarsTemplate<object, object> Query { get; }
+
+        public HandlebarsTemplate<object, object> Type { get; }
+
+        public HandlebarsTemplate<object, object> Property { get; }
     }
 }
