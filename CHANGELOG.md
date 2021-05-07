@@ -1,3 +1,9 @@
+# [9.22.2] - 2021-5-7 [PR: #215](https://github.com/dolittle/vanir/pull/215)
+### Added
+
+- [C#] Ability to run validators on instance by consuming `IValidators` interface in `Dolittle.Vanir.Backend.Validation` namespace and call either `Validate()` or `ValidateAsync()`
+
+
 # [9.22.1] - 2021-5-5 [PR: #212](https://github.com/dolittle/vanir/pull/212)
 ### Added
 
