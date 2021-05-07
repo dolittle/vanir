@@ -1,4 +1,4 @@
-﻿# EditorConfig helps create consistency for formatting of all 
+﻿# EditorConfig helps create consistency for formatting of all
 #
 # http://EditorConfig.org
 
@@ -13,6 +13,7 @@ charset = utf-8
 [*.yml]
 indent_size = 2
 
+# https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/code-style-rule-options?view=vs-2019
 [*.{cs,vb}]
 dotnet_sort_system_directives_first                                             = true
 
@@ -29,6 +30,7 @@ dotnet_naming_style.instance_field_style.capitalization                         
 dotnet_naming_style.instance_field_style.required_prefix                        = _
 dotnet_naming_symbols.instance_fields.applicable_kinds                          = field
 dotnet_naming_symbols.instance_fields.applicable_accessibilities                = private
+dotnet_naming_symbols.instance_fields.required_modifiers                        =
 
 dotnet_naming_rule.public_members_must_be_capitalized.style                     = first_word_upper_case_style
 dotnet_naming_style.first_word_upper_case_style.capitalization                  = first_word_upper
@@ -36,3 +38,11 @@ dotnet_naming_rule.public_members_must_be_capitalized.symbols                   
 dotnet_naming_symbols.public_symbols.applicable_kinds                           = property,method,field,event,delegate
 dotnet_naming_symbols.public_symbols.applicable_accessibilities                 = public
 dotnet_naming_symbols.public_symbols.required_modifiers                         = readonly
+dotnet_naming_symbols.types.required_modifiers                                  =
+
+dotnet_diagnostic.IDE0052.severity                                              = none
+dotnet_diagnostic.RCS1090.severity                                              = none
+dotnet_diagnostic.RCS1018.severity                                              = none
+dotnet_diagnostic.RCS1194.severity                                              = none
+dotnet_diagnostic.CA1822.severity                                               = none
+dotnet_diagnostic.CA2211.severity                                               = none
