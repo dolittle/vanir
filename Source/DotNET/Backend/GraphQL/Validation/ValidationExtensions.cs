@@ -3,9 +3,9 @@
 
 using Dolittle.Vanir.Backend.Collections;
 using Dolittle.Vanir.Backend.Reflection;
+using Dolittle.Vanir.Backend.Validation;
 using FluentValidation;
 using HotChocolate.Execution.Configuration;
-using HotChocolate.Types.Descriptors;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Dolittle.Vanir.Backend.GraphQL.Validation

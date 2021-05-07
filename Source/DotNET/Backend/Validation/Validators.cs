@@ -4,17 +4,27 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Dolittle.Vanir.Backend.Reflection;
 using FluentValidation;
+using FluentValidation.Results;
 
-namespace Dolittle.Vanir.Backend.GraphQL.Validation
+namespace Dolittle.Vanir.Backend.Validation
 {
+    /// <summary>
+    /// Represents an implementation of <see cref="IValidators"/>.
+    /// </summary>
     public class Validators : IValidators
     {
         readonly ITypes _types;
         readonly IContainer _container;
         readonly Dictionary<Type, List<Type>> _validatorTypesByType = new();
 
+        /// <summary>
+        /// Initializes a new instance of <see cref="Validators"/>
+        /// </summary>
+        /// <param name="types"><see cref="ITypes"/> to use for discovery.</param>
+        /// <param name="container"><see cref="IContainer"/> to use for instantiation of validators.</param>
         public Validators(ITypes types, IContainer container)
         {
             _types = types;
@@ -23,17 +33,50 @@ namespace Dolittle.Vanir.Backend.GraphQL.Validation
             PopulateValidatorTypesByType();
         }
 
+        /// <inheritdoc/>
         public IEnumerable<Type> All => _validatorTypesByType.SelectMany(kvp => kvp.Value);
 
+        /// <inheritdoc/>
         public bool HasFor(Type type)
         {
             return _validatorTypesByType.ContainsKey(type);
         }
 
+        /// <inheritdoc/>
         public IEnumerable<IValidator> GetFor(Type type)
         {
             return _validatorTypesByType[type].Select(_ => _container.Get(_) as IValidator);
         }
+
+        /// <inheritdoc/>
+        public ValidationResult Validate<T>(T instanceToValidate)
+        {
+            var result = new ValidationResult();
+            var validators = GetFor(instanceToValidate.GetType());
+            var context = new ValidationContext<T>(instanceToValidate);
+            foreach (var validator in validators)
+            {
+                result = result.MergeWith(validator.Validate(context));
+            }
+
+            return result;
+        }
+
+        /// <inheritdoc/>
+        public async Task<ValidationResult> ValidateAsync<T>(T instanceToValidate)
+        {
+            var result = new ValidationResult();
+            var validators = GetFor(instanceToValidate.GetType());
+            var context = new ValidationContext<T>(instanceToValidate);
+            foreach (var validator in validators)
+            {
+                var currentValidatorResult = await validator.ValidateAsync(context);
+                result = result.MergeWith(currentValidatorResult);
+            }
+
+            return result;
+        }
+
 
         void PopulateValidatorTypesByType()
         {
