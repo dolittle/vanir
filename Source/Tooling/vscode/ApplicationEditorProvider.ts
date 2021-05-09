@@ -22,10 +22,18 @@ export class ApplicationEditorProvider implements vscode.CustomTextEditorProvide
         webviewPanel: vscode.WebviewPanel,
         token: vscode.CancellationToken
     ): Promise<void> {
+
+        const channel = vscode.window.createOutputChannel('Dolittle Application');
+        channel.appendLine('Starting custom text editor');
         webviewPanel.webview.options = {
             enableScripts: true
         };
         webviewPanel.webview.html = this.getHtmlForWebview(webviewPanel.webview);
+
+        webviewPanel.webview.onDidReceiveMessage(e => {
+            channel.appendLine(e.type);
+            vscode.window.showInformationMessage(e.type);
+        });
 
         function updateWebview() {
             webviewPanel.webview.postMessage({
