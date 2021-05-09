@@ -8,6 +8,8 @@ import React, { FC } from 'react';
 import ReactDOM from 'react-dom';
 import ReactFlow, { ArrowHeadType, Controls, Handle, MiniMap, Node, Position } from 'react-flow-renderer';
 
+import { DocumentCard, DocumentCardActions, DocumentCardTitle, initializeIcons, PrimaryButton } from '@fluentui/react';
+
 import './index.scss';
 
 const elements = [
@@ -32,15 +34,8 @@ const elements = [
         data: { text: 'Another node' },
     },
     { id: 'e2-2', source: '5', target: '6', sourceHandle: 'a', targetHandle: 'a', animated: true },
-
-
 ];
 
-const customNodeStyles = {
-    background: '#9CA8B3',
-    color: '#FFF',
-    padding: 10,
-};
 
 /*
 https://reactnativeexample.com/an-animated-and-customizable-circular-floating-menu/
@@ -55,12 +50,46 @@ https://codepen.io/maskedcoder/pen/zqgpr
 
 https://codepen.io/mahmoud-nb/pen/pbNBYP
 */
+const onActionClick = (action: string, ev: React.SyntheticEvent<HTMLElement>): void => {
+    console.log(`You clicked the ${action} action`);
+    ev.stopPropagation();
+    ev.preventDefault();
+};
+
+const documentCardActions = [
+    {
+        iconProps: { iconName: 'Share' },
+        ariaLabel: 'share action',
+    },
+    {
+        iconProps: { iconName: 'Pin' },
+        ariaLabel: 'pin action',
+    },
+    {
+        iconProps: { iconName: 'Ringer' },
+        ariaLabel: 'notifications action',
+    },
+];
+
+const customNodeStyles = {
+    background: '#9CA8B3',
+    color: '#FFF',
+    padding: 0,
+};
+
+initializeIcons();
 
 const CustomNodeComponent: FC<Node> = ({ data }) => {
+
+
     return (
         <div style={customNodeStyles}>
             <Handle id="a" type="source" position={Position.Top} style={{ borderRadius: 0 }} />
-            <div>{(data as any).text}</div>
+
+            <DocumentCard>
+                <DocumentCardTitle title={data.text} />
+                <DocumentCardActions actions={documentCardActions} />
+            </DocumentCard>
             <Handle
                 type="source"
                 position={Position.Left}
@@ -85,9 +114,10 @@ const nodeTypes = {
 ReactDOM.render(
 
     <ReactFlow elements={elements} nodeTypes={nodeTypes}>
-        <MiniMap
-        />
         <Controls />
     </ReactFlow>,
     document.getElementById('root')
 );
+
+
+// <MiniMap />

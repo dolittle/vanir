@@ -44,6 +44,9 @@
         "@dolittle/vanir-dependency-inversion": "9.22.2",
         "@dolittle/vanir-react": "9.22.2",
         "@dolittle/vanir-web": "9.22.2",
-        "react-flow-renderer": "^9.5.4"
+        "react-flow-renderer": "^9.5.4",
+        "@fluentui/react": "8.14.4",
+        "@fluentui/react-hooks": "8.2.0",
+        "@fluentui/react-icons": "1.1.123"
     }
 }

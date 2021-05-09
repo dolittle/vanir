@@ -43,18 +43,6 @@ export class ApplicationEditorProvider implements vscode.CustomTextEditorProvide
         const scriptUri = webview.asWebviewUri(vscode.Uri.joinPath(
             this.context.extensionUri, 'dist/microservices/index.js'));
 
-        const styleResetUri = webview.asWebviewUri(vscode.Uri.joinPath(
-            this.context.extensionUri, 'media', 'reset.css'));
-
-        const styleVSCodeUri = webview.asWebviewUri(vscode.Uri.joinPath(
-            this.context.extensionUri, 'media', 'vscode.css'));
-
-        const styleMainUri = webview.asWebviewUri(vscode.Uri.joinPath(
-            this.context.extensionUri, 'media', 'catScratch.css'));
-
-        vscode.window.showInformationMessage(`Path : ${scriptUri}`);
-
-        // Use a nonce to whitelist which scripts can be run
         const nonce = getNonce();
 
         return /* html */`
@@ -65,9 +53,6 @@ export class ApplicationEditorProvider implements vscode.CustomTextEditorProvide
                 <meta charset="utf-8" />
                 <title>Dolittle Application</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1">
-                <link href="${styleResetUri}" rel="stylesheet" />
-                <link href="${styleVSCodeUri}" rel="stylesheet" />
-                <link href="${styleMainUri}" rel="stylesheet" />
             </head>
 
             <body class="ms-Fabric">
