@@ -63,6 +63,9 @@ package-lock.json
 
 .yarn
 
+
+wwwroot
+
 # .NET #
 ########
 bin
@@ -85,5 +88,4 @@ packages
 *.nuget.targets
 *.nuget.props
 .vs
-.vscode
 *.idea
