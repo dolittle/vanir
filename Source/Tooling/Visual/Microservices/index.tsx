@@ -13,6 +13,22 @@ import { DocumentCard, DocumentCardActions, DocumentCardTitle, initializeIcons, 
 import './index.scss';
 import { createTheme, loadTheme } from '@fluentui/react/lib/Styling';
 
+/*
+https://reactnativeexample.com/an-animated-and-customizable-circular-floating-menu/
+https://antho2407.github.io/react-radial-menu/
+https://fabiobiondi.github.io/react-circular-menu/
+
+https://codepen.io/logrithumn/pen/yMwYXX
+
+https://codepen.io/lenymo/pen/rwmBGq
+
+https://codepen.io/maskedcoder/pen/zqgpr
+
+https://codepen.io/mahmoud-nb/pen/pbNBYP
+*/
+
+const vscode = window.acquireVsCodeApi();
+
 const elements = [
     { id: '1', data: { label: 'Flattened JSON Producer' }, position: { x: 250, y: 5 } },
     // you can also pass a React component as a label
@@ -38,29 +54,22 @@ const elements = [
 ];
 
 
-/*
-https://reactnativeexample.com/an-animated-and-customizable-circular-floating-menu/
-https://antho2407.github.io/react-radial-menu/
-https://fabiobiondi.github.io/react-circular-menu/
+const onActionClick = (): void => {
+    console.log('Hello world');
 
-https://codepen.io/logrithumn/pen/yMwYXX
+    const root = document.getElementById('root');
+    root?.appendChild(document.createTextNode('<button>click</button>'));
+    vscode.postMessage({ type: 'hello' });
 
-https://codepen.io/lenymo/pen/rwmBGq
-
-https://codepen.io/maskedcoder/pen/zqgpr
-
-https://codepen.io/mahmoud-nb/pen/pbNBYP
-*/
-const onActionClick = (action: string, ev: React.SyntheticEvent<HTMLElement>): void => {
-    console.log(`You clicked the ${action} action`);
-    ev.stopPropagation();
-    ev.preventDefault();
+    //ev.stopPropagation();
+    //ev.preventDefault();
 };
 
 const documentCardActions = [
     {
-        iconProps: { iconName: 'Share' },
-        ariaLabel: 'share action',
+        iconProps: { iconName: 'AllApps' },
+        onClick: onActionClick,
+        ariaLabel: 'Features',
     },
     {
         iconProps: { iconName: 'Pin' },
@@ -76,6 +85,40 @@ const customNodeStyles = {
     background: '#9CA8B3',
     color: '#FFF',
     padding: 0,
+};
+
+
+const CustomNodeComponent: FC<Node> = ({ data }) => {
+
+
+    return (
+        <div style={customNodeStyles}>
+            <Handle id="a" type="source" position={Position.Top} style={{ borderRadius: 0 }} />
+
+            <DocumentCard>
+                <DocumentCardTitle title={data.text} />
+                <DocumentCardActions actions={documentCardActions} />
+            </DocumentCard>
+            <PrimaryButton onClick={() => console.log('hello')}>Click me </PrimaryButton>
+            <Handle
+                type="source"
+                position={Position.Left}
+                id="b"
+                style={{ borderRadius: 0 }}
+            />
+            <Handle
+                type="target"
+                position={Position.Right}
+                id="c"
+                style={{ borderRadius: 0 }}
+            />
+            <Handle id="d" type="source" position={Position.Bottom} style={{ borderRadius: 0 }} />
+        </div>
+    );
+};
+
+const nodeTypes = {
+    special: CustomNodeComponent,
 };
 
 initializeIcons();
@@ -109,38 +152,6 @@ const myTheme = createTheme({
 
 loadTheme(myTheme);
 
-
-const CustomNodeComponent: FC<Node> = ({ data }) => {
-
-
-    return (
-        <div style={customNodeStyles}>
-            <Handle id="a" type="source" position={Position.Top} style={{ borderRadius: 0 }} />
-
-            <DocumentCard>
-                <DocumentCardTitle title={data.text} />
-                <DocumentCardActions actions={documentCardActions} />
-            </DocumentCard>
-            <Handle
-                type="source"
-                position={Position.Left}
-                id="b"
-                style={{ borderRadius: 0 }}
-            />
-            <Handle
-                type="target"
-                position={Position.Right}
-                id="c"
-                style={{ borderRadius: 0 }}
-            />
-            <Handle id="d" type="source" position={Position.Bottom} style={{ borderRadius: 0 }} />
-        </div>
-    );
-};
-
-const nodeTypes = {
-    special: CustomNodeComponent,
-};
 
 ReactDOM.render(
 

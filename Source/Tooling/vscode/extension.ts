@@ -5,7 +5,6 @@ import * as vscode from 'vscode';
 import { ApplicationEditorProvider } from './ApplicationEditorProvider';
 
 export function activate(context: vscode.ExtensionContext) {
-    console.log('Hello from Dolittle');
     context.subscriptions.push(ApplicationEditorProvider.register(context));
 }
 
