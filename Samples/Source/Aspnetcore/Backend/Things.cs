@@ -29,12 +29,17 @@ namespace Backend
         }
     }
 
+    public class UserId : ConceptAs<Guid>
+    {
+    }
+
     public class MyObject
     {
         public string Something { get; set; }
         public int SomeNumber { get; set; }
         public SomeConcept Concept { get; set; }
         public NestedObject Nested { get; set; }
+        public UserId UserId { get; set; }
     }
 
     public class MyObjectValidator : AbstractValidator<MyObject>

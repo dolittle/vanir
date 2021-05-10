@@ -1,6 +1,8 @@
+using System;
 using Autofac;
 using Dolittle.SDK;
 using HotChocolate.Execution.Configuration;
+using HotChocolate.Types;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,6 +11,7 @@ using Serilog;
 
 namespace Backend
 {
+
     public class Startup
     {
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -23,6 +26,8 @@ namespace Backend
                 LoggerFactory = loggerFactory,
                 GraphQLExecutorBuilder = (IRequestExecutorBuilder _) =>
                 {
+                    _.BindRuntimeType<UserId, StringType>();
+                    _.AddTypeConverter<string, UserId>(input => new UserId { Value = Guid.Parse("2c6b9328-93b6-4c84-9523-9a7b2b745f64") });
                 },
                 DolittleClientBuilderCallback = (ClientBuilder _) =>
                 {
