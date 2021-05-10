@@ -13,13 +13,13 @@ namespace Dolittle.Vanir.Backend.Dolittle
 
         public object Get(Type service, ExecutionContext context)
         {
-            ExecutionContextManager.Set(context);
+            ExecutionContextManager.SetCurrent(context);
             return ServiceProvider.GetService(service);
         }
 
         public T Get<T>(ExecutionContext context) where T : class
         {
-            ExecutionContextManager.Set(context);
+            ExecutionContextManager.SetCurrent(context);
             return (T)ServiceProvider.GetService(typeof(T));
         }
     }

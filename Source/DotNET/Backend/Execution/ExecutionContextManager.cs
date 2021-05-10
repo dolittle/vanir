@@ -13,12 +13,30 @@ using ExecutionContext = Dolittle.SDK.Execution.ExecutionContext;
 
 namespace Dolittle.Vanir.Backend.Execution
 {
-    public static class ExecutionContextManager
+    /// <summary>
+    /// Represents an implementation of <see cref="IExecutionContextManager"/>.
+    /// </summary>
+    public class ExecutionContextManager : IExecutionContextManager
     {
         static readonly AsyncLocal<ExecutionContext> _currentExecutionContext = new();
-        public static ExecutionContext Current => _currentExecutionContext.Value;
 
-        public static ExecutionContext Establish(TenantId tenantId, CorrelationId correlationId)
+        /// <summary>
+        /// Get current <see cref="ExecutionContext"/>.
+        /// </summary>
+        /// <returns>Current <see cref="ExecutionContext"/>.</returns>
+        public static ExecutionContext GetCurrent() => _currentExecutionContext.Value;
+
+        /// <summary>
+        /// Set a <see cref="ExecutionContext"/> for current call path.
+        /// </summary>
+        /// <param name="context"><see cref="ExecutionContext"/> to set.</param>
+        public static void SetCurrent(ExecutionContext context) => _currentExecutionContext.Value = context;
+
+        /// <inheritdoc/>
+        public ExecutionContext Current => _currentExecutionContext.Value;
+
+        /// <inheritdoc/>
+        public ExecutionContext Establish(TenantId tenantId, CorrelationId correlationId)
         {
             _currentExecutionContext.Value = new ExecutionContext(
                 MicroserviceManager.Current.Id,
@@ -32,6 +50,7 @@ namespace Dolittle.Vanir.Backend.Execution
             return _currentExecutionContext.Value;
         }
 
-        public static void Set(ExecutionContext context) => _currentExecutionContext.Value = context;
+        /// <inheritdoc/>
+        public void Set(ExecutionContext context) => _currentExecutionContext.Value = context;
     }
 }
