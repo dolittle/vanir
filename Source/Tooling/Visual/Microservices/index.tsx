@@ -8,7 +8,7 @@ import React, { FC } from 'react';
 import ReactDOM from 'react-dom';
 import ReactFlow, { ArrowHeadType, Controls, Handle, MiniMap, Node, Position } from 'react-flow-renderer';
 
-import { DocumentCard, DocumentCardActions, DocumentCardTitle, initializeIcons, PrimaryButton } from '@fluentui/react';
+import { DocumentCard, DocumentCardActions, DocumentCardLogo, DocumentCardTitle, DocumentCardType, IButtonProps, initializeIcons, PrimaryButton } from '@fluentui/react';
 
 import './index.scss';
 import { createTheme, loadTheme } from '@fluentui/react/lib/Styling';
@@ -55,29 +55,33 @@ const elements = [
 
 
 const onActionClick = (): void => {
-    console.log('Hello world');
-
-    const root = document.getElementById('root');
-    root?.appendChild(document.createTextNode('<button>click</button>'));
     vscode.postMessage({ type: 'hello' });
 
     //ev.stopPropagation();
     //ev.preventDefault();
 };
 
-const documentCardActions = [
+const documentCardActions: IButtonProps[] = [
+    {
+        iconProps: { iconName: 'Play' },
+        ariaLabel: 'Start',
+        title: 'Start',
+    },
     {
         iconProps: { iconName: 'AllApps' },
         onClick: onActionClick,
         ariaLabel: 'Features',
+        title: 'Features',
     },
     {
-        iconProps: { iconName: 'Pin' },
-        ariaLabel: 'pin action',
+        iconProps: { iconName: 'BullseyeTarget' },
+        ariaLabel: 'Event Horizon',
+        title: 'Event Horizon',
     },
     {
-        iconProps: { iconName: 'Ringer' },
-        ariaLabel: 'notifications action',
+        iconProps: { iconName: 'SearchData' },
+        ariaLabel: 'Event Store',
+        title: 'Event Store',
     },
 ];
 
@@ -95,11 +99,10 @@ const CustomNodeComponent: FC<Node> = ({ data }) => {
         <div style={customNodeStyles}>
             <Handle id="a" type="source" position={Position.Top} style={{ borderRadius: 0 }} />
 
-            <DocumentCard>
+            <DocumentCard type={DocumentCardType.normal}>
                 <DocumentCardTitle title={data.text} />
                 <DocumentCardActions actions={documentCardActions} />
             </DocumentCard>
-            <PrimaryButton onClick={() => console.log('hello')}>Click me </PrimaryButton>
             <Handle
                 type="source"
                 position={Position.Left}
