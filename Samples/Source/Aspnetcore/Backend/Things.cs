@@ -5,6 +5,7 @@ using Dolittle.SDK.Concepts;
 using Dolittle.SDK.Events;
 using Dolittle.SDK.Events.Handling;
 using Dolittle.SDK.Events.Store;
+using Dolittle.Vanir.Backend.Execution;
 using Dolittle.Vanir.Backend.GraphQL;
 using FluentValidation;
 using Microsoft.Extensions.Logging;
@@ -116,7 +117,7 @@ namespace Backend
         readonly IEventStore _eventStore;
         readonly IAggregateOf<Kitchen> _kitchen;
 
-        public Things(IMongoDatabase mongoDatabase, IEventStore eventStore, IAggregateOf<Kitchen> kitchen)
+        public Things(IMongoDatabase mongoDatabase, IEventStore eventStore, IAggregateOf<Kitchen> kitchen, IExecutionContextManager executionContextManager)
         {
             _mongoDatabase = mongoDatabase;
             _eventStore = eventStore;
