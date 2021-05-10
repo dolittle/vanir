@@ -1,3 +1,9 @@
+# [9.23.0] - 2021-5-10 [PR: #216](https://github.com/dolittle/vanir/pull/216)
+### Added
+
+- [C#] `IExecutionContextManager` interface - making it possible not lock one into the implementation. This enables more predictability for automated tests, which could potentially have side-effects with its async local implementation for holding current.
+
+
 # [9.22.2] - 2021-5-7 [PR: #215](https://github.com/dolittle/vanir/pull/215)
 ### Added
 
