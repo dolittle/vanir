@@ -8,9 +8,9 @@ using Dolittle.Vanir.Backend.Execution;
 
 namespace Microsoft.AspNetCore.Builder
 {
-    public static class ExecutionContextExtensions
+    public static class ExecutionContextAppBuilderExtensions
     {
-        const string TENANT_ID = "Tenant-ID";
+        const string _tenantId = "Tenant-ID";
 
         public static void UseExecutionContext(this IApplicationBuilder app)
         {
@@ -18,12 +18,13 @@ namespace Microsoft.AspNetCore.Builder
             {
                 var tenantId = TenantId.Development;
 
-                if (context.Request.Headers.ContainsKey(TENANT_ID))
+                if (context.Request.Headers.ContainsKey(_tenantId))
                 {
-                    tenantId = context.Request.Headers[TENANT_ID].First();
+                    tenantId = context.Request.Headers[_tenantId].First();
                 }
 
-                ExecutionContextManager.Establish(tenantId, Guid.NewGuid());
+                var executionContextManager = app.ApplicationServices.GetService(typeof(IExecutionContextManager)) as IExecutionContextManager;
+                executionContextManager.Establish(tenantId, Guid.NewGuid());
                 await next.Invoke().ConfigureAwait(false);
             });
         }
