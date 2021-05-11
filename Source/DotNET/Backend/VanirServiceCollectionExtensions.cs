@@ -25,6 +25,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
             services.AddControllers();
             services.AddSwaggerGen();
+            services.AddMongoDB();
             services.AddResources(arguments);
 
             return new Services { Types = types };
