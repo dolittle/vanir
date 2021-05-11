@@ -17,13 +17,17 @@ namespace Dolittle.Vanir.Backend.Specs.GraphQL.for_SchemaRoute.when_configuring
 {
     public class and_there_are_items_with_authorization_on_class_and_methods : given.an_empty_schema_route
     {
-        [Authorize(Policy = "ClassPolicy")]
+        [Authorize(Policy = ClassPolicy)]
         class ClassWithMethods
         {
-            [Authorize(Policy = "FirstMethodPolicy")]
+            public const string ClassPolicy = "ClassPolicy";
+            public const string FirstMethodPolicy = "FirstMethodPolicy";
+            public const string SecondMethodPolicy = "SecondMethodPolicy";
+
+            [Authorize(Policy = FirstMethodPolicy)]
             public void FirstMethod() { }
 
-            [Authorize(Policy = "SecondMethodPolicy")]
+            [Authorize(Policy = SecondMethodPolicy)]
             public void SecondMethod() { }
         }
 
@@ -57,11 +61,9 @@ namespace Dolittle.Vanir.Backend.Specs.GraphQL.for_SchemaRoute.when_configuring
 
         Because of = () => Configure();
 
-        It should_add_field_for_first_method = () => object_type_descriptor.Verify(_ => _.Field(first_item.Method), Once());
-        It should_add_field_for_second_method = () => object_type_descriptor.Verify(_ => _.Field(second_item.Method), Once());
-        It should_set_name_for_first_method = () => object_field_descriptor.Verify(_ => _.Name(first_item.Name), Once());
-        It should_set_name_for_second_method = () => object_field_descriptor.Verify(_ => _.Name(second_item.Name), Once());
-
-        It should_set_method_authorization_for_first_method = () => first_method_descriptor.Verify(_ => _.Directive(Is<AuthorizeDirective>(a => a.Policy == "FirstMethodPolicy")), Once());
+        It should_set_method_authorization_for_first_method = () => first_method_descriptor.Verify(_ => _.Directive(Is<AuthorizeDirective>(a => a.Policy == ClassWithMethods.FirstMethodPolicy)), Once());
+        It should_set_method_authorization_for_second_method = () => second_method_descriptor.Verify(_ => _.Directive(Is<AuthorizeDirective>(a => a.Policy == ClassWithMethods.SecondMethodPolicy)), Once());
+        It should_set_class_authorization_for_first_method = () => first_method_descriptor.Verify(_ => _.Directive(Is<AuthorizeDirective>(a => a.Policy == ClassWithMethods.ClassPolicy)), Once());
+        It should_set_class_authorization_for_second_method = () => second_method_descriptor.Verify(_ => _.Directive(Is<AuthorizeDirective>(a => a.Policy == ClassWithMethods.ClassPolicy)), Once());
     }
 }
