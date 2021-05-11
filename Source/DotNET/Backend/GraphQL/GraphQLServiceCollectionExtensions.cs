@@ -47,6 +47,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
             var graphQLBuilder = services
                                     .AddGraphQLServer()
+                                    .AddAuthorization()
                                     .UseFluentValidation()
                                     .AddType(new UuidType(UuidFormat));
             types.FindMultiple<ScalarType>().Where(_ => !_.IsGenericType).ForEach(_ => graphQLBuilder.AddType(_));

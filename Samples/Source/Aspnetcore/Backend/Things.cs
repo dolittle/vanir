@@ -8,6 +8,7 @@ using Dolittle.SDK.Events.Store;
 using Dolittle.Vanir.Backend.Execution;
 using Dolittle.Vanir.Backend.GraphQL;
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
 
