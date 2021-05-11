@@ -26,7 +26,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.Add(new ServiceDescriptor(typeof(ResourceConfigurations), resourceConfigurations));
             services.Add(new ServiceDescriptor(typeof(IMongoDatabase), (provider) =>
             {
-                var tenant = ExecutionContextManager.Current.Tenant;
+                var tenant = ExecutionContextManager.GetCurrent().Tenant;
                 if (_mongoDatabaseByTenant.ContainsKey(tenant))
                 {
                     return _mongoDatabaseByTenant[tenant];

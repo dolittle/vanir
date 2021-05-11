@@ -3,7 +3,6 @@
 
 using System;
 using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 using Dolittle.SDK;
 using Dolittle.SDK.Aggregates;
@@ -60,7 +59,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddTransient(_ =>
             {
                 ThrowIfClientNotBuilt();
-                return DolittleClient.EventStore.ForTenant(ExecutionContextManager.Current.Tenant);
+                return DolittleClient.EventStore.ForTenant(ExecutionContextManager.GetCurrent().Tenant);
             });
             services.AddTransient(typeof(IAggregateOf<>), typeof(AggregateOf<>));
 

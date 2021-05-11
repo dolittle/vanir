@@ -5,13 +5,20 @@ using Dolittle.SDK.Concepts;
 using Dolittle.SDK.Events;
 using Dolittle.SDK.Events.Handling;
 using Dolittle.SDK.Events.Store;
+using Dolittle.Vanir.Backend.Execution;
 using Dolittle.Vanir.Backend.GraphQL;
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
 
 namespace Backend
 {
+    public class CommonObject
+    {
+        public string Something { get; set; }
+    }
+
     public class SomeConcept : ConceptAs<string>
     {
     }
@@ -29,12 +36,18 @@ namespace Backend
         }
     }
 
+    public class UserId : ConceptAs<Guid>
+    {
+    }
+
     public class MyObject
     {
         public string Something { get; set; }
         public int SomeNumber { get; set; }
         public SomeConcept Concept { get; set; }
         public NestedObject Nested { get; set; }
+        public UserId UserId { get; set; }
+        public CommonObject CommonObject { get; set; }
     }
 
     public class MyObjectValidator : AbstractValidator<MyObject>
@@ -67,8 +80,8 @@ namespace Backend
         public void PrepareDish(string dish, string chef)
         {
             if (_counter >= 2) throw new Exception("Cannot prepare more than 2 dishes");
-            Apply(new DishPrepared(dish, chef));
-            ApplyPublic(new DishPrepared(dish, chef));
+            Apply(new DishPrepared { Dish = dish, Chef = chef });
+            ApplyPublic(new DishPrepared { Dish = dish, Chef = chef });
             Console.WriteLine($"Kitchen Aggregate {EventSourceId} has applied {_counter} {typeof(DishPrepared)} events");
         }
 
@@ -78,13 +91,15 @@ namespace Backend
     [EventType("2977fd82-9614-4082-ab8e-d436ed129248")]
     public class DishPrepared
     {
-        public DishPrepared(string dish, string chef)
+        public string Dish { get; init; }
+        public string Chef { get; init; }
+
+        public CommonObject CommonObject { get; }
+
+        public DishPrepared()
         {
-            Dish = dish;
-            Chef = chef;
+            CommonObject = new CommonObject();
         }
-        public string Dish { get; }
-        public string Chef { get; }
     }
 
     [EventHandler("db2bb639-937c-49ca-946e-ad3868882080")]
@@ -111,7 +126,7 @@ namespace Backend
         readonly IEventStore _eventStore;
         readonly IAggregateOf<Kitchen> _kitchen;
 
-        public Things(IMongoDatabase mongoDatabase, IEventStore eventStore, IAggregateOf<Kitchen> kitchen)
+        public Things(IMongoDatabase mongoDatabase, IEventStore eventStore, IAggregateOf<Kitchen> kitchen, IExecutionContextManager executionContextManager)
         {
             _mongoDatabase = mongoDatabase;
             _eventStore = eventStore;

@@ -1,4 +1,38 @@
-# [9.22.0 - 9.22.1] - 2021-5-5 [PR: #208](https://github.com/dolittle/vanir/pull/208)
+# [9.25.0] - 2021-5-11 [PR: #220](https://github.com/dolittle/vanir/pull/220)
+### Added
+
+- MongoDB serializer and provider for concepts added - all concepts will now serialize to their primitive underlying value and back to concepts when reading from MongoDB.
+
+### Fixed
+
+- Filtering out properties that are read only, as we have no way of instantiating these
+
+
+# [9.24.0] - 2021-5-11 [PR: #219](https://github.com/dolittle/vanir/pull/219)
+### Added
+
+- Support for using the ASP.NET Core `[Authorize]` attribute and its policies for authorization
+
+
+# [9.23.0] - 2021-5-10 [PR: #216](https://github.com/dolittle/vanir/pull/216)
+### Added
+
+- [C#] `IExecutionContextManager` interface - making it possible not lock one into the implementation. This enables more predictability for automated tests, which could potentially have side-effects with its async local implementation for holding current.
+
+
+# [9.22.2] - 2021-5-7 [PR: #215](https://github.com/dolittle/vanir/pull/215)
+### Added
+
+- [C#] Ability to run validators on instance by consuming `IValidators` interface in `Dolittle.Vanir.Backend.Validation` namespace and call either `Validate()` or `ValidateAsync()`
+
+
+# [9.22.1] - 2021-5-5 [PR: #212](https://github.com/dolittle/vanir/pull/212)
+### Added
+
+- Noddin
+
+
+# [9.22.0] - 2021-5-5 [PR: #208](https://github.com/dolittle/vanir/pull/208)
 ### Added
 
 - [C#] Added a default public filter that will forward all events applied/committed as public - this behavior can be overridden by setting `PublishAllPublicEvents` in the `BackendArguments` used in `AddVanir()` method to false. You can then use the Dolittle configuration callback to configure your filter instead: https://dolittle.io/docs/tutorials/event-horizon/

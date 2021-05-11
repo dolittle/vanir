@@ -18,12 +18,14 @@ namespace Microsoft.Extensions.DependencyInjection
 
             var configuration = services.AddVanirConfiguration();
             services.AddDolittle(configuration, arguments, types);
+            services.AddExecutionContext();
             services.AddGraphQL(container, arguments, types);
 
             services.Configure<KestrelServerOptions>(options => options.AllowSynchronousIO = true);
 
             services.AddControllers();
             services.AddSwaggerGen();
+            services.AddMongoDB();
             services.AddResources(arguments);
 
             return new Services { Types = types };

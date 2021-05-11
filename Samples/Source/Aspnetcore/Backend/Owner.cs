@@ -19,5 +19,6 @@ namespace Backend
         public string Name { get; set; }
         public string Address { get; set; }
         public ICollection<Account> Accounts { get; set; }
+        public CommonObject CommonObject { get; set; }
     }
 }

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Dolittle.Vanir.Backend.Concepts;
 using Dolittle.Vanir.Backend.Reflection;
 using Dolittle.Vanir.Backend.Strings;
+using Dolittle.Vanir.Backend.Validation;
 using FluentValidation;
 using FluentValidation.Results;
 using HotChocolate;

@@ -40,6 +40,8 @@ namespace Microsoft.Extensions.DependencyInjection
             var graphControllers = new GraphControllers(types);
             services.Add(new ServiceDescriptor(typeof(IGraphControllers), graphControllers));
 
+            services.AddSingleton<ITypeInspector, TypeInspector>();
+
             foreach (var graphControllerType in graphControllers.All)
             {
                 services.Add(new ServiceDescriptor(graphControllerType, graphControllerType, ServiceLifetime.Transient));
@@ -47,6 +49,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
             var graphQLBuilder = services
                                     .AddGraphQLServer()
+                                    .AddAuthorization()
                                     .UseFluentValidation()
                                     .AddType(new UuidType(UuidFormat));
             types.FindMultiple<ScalarType>().Where(_ => !_.IsGenericType).ForEach(_ => graphQLBuilder.AddType(_));

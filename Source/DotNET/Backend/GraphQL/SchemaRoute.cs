@@ -3,6 +3,7 @@
 
 using System.Collections.Generic;
 using HotChocolate.Types;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Dolittle.Vanir.Backend.GraphQL
 {
@@ -20,7 +21,7 @@ namespace Dolittle.Vanir.Backend.GraphQL
 
         public string Path { get; }
         public string LocalName { get; }
-        public string TypeName { get; }
+        public string TypeName { get; }
 
         public void AddChild(SchemaRoute child)
         {
@@ -38,7 +39,9 @@ namespace Dolittle.Vanir.Backend.GraphQL
 
             foreach (var item in _items)
             {
-                descriptor.Field(item.Method).Name(item.Name);
+                var fieldDescriptor = descriptor.Field(item.Method).Name(item.Name);
+
+                AddAdornedAuthorization(item, fieldDescriptor);
             }
 
             foreach (var child in _children)
@@ -49,6 +52,25 @@ namespace Dolittle.Vanir.Backend.GraphQL
             if (_items.Count == 0)
             {
                 descriptor.Field("Default").Resolve(() => "Configure your first item");
+            }
+        }
+
+        void AddAdornedAuthorization(SchemaRouteItem item, IObjectFieldDescriptor fieldDescriptor)
+        {
+            var authorizeAttributes = new List<AuthorizeAttribute>();
+            authorizeAttributes.AddRange(item.Method.GetCustomAttributes(typeof(AuthorizeAttribute), true) as AuthorizeAttribute[]);
+            authorizeAttributes.AddRange(item.Method.DeclaringType.GetCustomAttributes(typeof(AuthorizeAttribute), true) as AuthorizeAttribute[]);
+
+            foreach (var authorizeAttribute in authorizeAttributes)
+            {
+                if (string.IsNullOrEmpty(authorizeAttribute.Policy))
+                {
+                    fieldDescriptor.Authorize();
+                }
+                else
+                {
+                    fieldDescriptor.Authorize(authorizeAttribute.Policy);
+                }
             }
         }
     }

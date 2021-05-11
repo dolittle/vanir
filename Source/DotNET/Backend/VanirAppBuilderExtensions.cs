@@ -12,7 +12,6 @@ using Microsoft.Extensions.Logging;
 
 namespace Microsoft.AspNetCore.Builder
 {
-
     public static class VanirAppBuilderExtensions
     {
         public static void UseVanir(this IApplicationBuilder app)
@@ -71,7 +70,6 @@ namespace Microsoft.AspNetCore.Builder
                     logger.LogInformation($"Hosting Playground at '{configuration.GraphQLPlaygroundRoute}'");
                     _.MapGraphQLPlayground(new PlaygroundOptions { GraphQLEndPoint = configuration.GraphQLRoute }, configuration.GraphQLPlaygroundRoute);
                 }
-
 
                 logger.LogInformation($"GraphQL endpoint is located at '{configuration.GraphQLRoute}'");
                 _.MapGraphQL(configuration.GraphQLRoute).WithOptions(new GraphQLServerOptions
