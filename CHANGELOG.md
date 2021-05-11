@@ -1,3 +1,13 @@
+# [9.25.0] - 2021-5-11 [PR: #220](https://github.com/dolittle/vanir/pull/220)
+### Added
+
+- MongoDB serializer and provider for concepts added - all concepts will now serialize to their primitive underlying value and back to concepts when reading from MongoDB.
+
+### Fixed
+
+- Filtering out properties that are read only, as we have no way of instantiating these
+
+
 # [9.24.0] - 2021-5-11 [PR: #219](https://github.com/dolittle/vanir/pull/219)
 ### Added
 
