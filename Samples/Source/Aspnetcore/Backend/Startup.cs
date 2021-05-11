@@ -1,8 +1,12 @@
 using System;
+using System.Collections.Generic;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using Autofac;
 using Dolittle.SDK;
 using HotChocolate.Execution.Configuration;
 using HotChocolate.Types;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,6 +15,18 @@ using Serilog;
 
 namespace Backend
 {
+    public class MyPolicy : IAuthorizationService
+    {
+        public Task<AuthorizationResult> AuthorizeAsync(ClaimsPrincipal user, object resource, IEnumerable<IAuthorizationRequirement> requirements)
+        {
+            return Task.FromResult(AuthorizationResult.Failed());
+        }
+
+        public Task<AuthorizationResult> AuthorizeAsync(ClaimsPrincipal user, object resource, string policyName)
+        {
+            return Task.FromResult(AuthorizationResult.Failed());
+        }
+    }
 
     public class Startup
     {
@@ -20,6 +36,10 @@ namespace Backend
         {
             var loggerFactory = new LoggerFactory();
             loggerFactory.AddSerilog(Log.Logger);
+
+            services.AddAuthorization(options => options
+                .AddPolicy("MyPolicy", policy =>
+                 policy.RequireClaim("Admin")));
 
             services.AddVanir(new()
             {
