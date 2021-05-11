@@ -1,3 +1,9 @@
+# [9.24.0] - 2021-5-11 [PR: #219](https://github.com/dolittle/vanir/pull/219)
+### Added
+
+- Support for using the ASP.NET Core `[Authorize]` attribute and its policies for authorization
+
+
 # [9.23.0] - 2021-5-10 [PR: #216](https://github.com/dolittle/vanir/pull/216)
 ### Added
 
