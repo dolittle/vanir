@@ -15,6 +15,7 @@ namespace Dolittle.Vanir.CLI
         {
             var assembly = typeof(Program).Assembly;
             var containerBuilder = new ContainerBuilder();
+            containerBuilder.RegisterSource<SelfBindingRegistrationSource>();
             containerBuilder.RegisterAssemblyModules(assembly);
             Container = containerBuilder.Build();
 
