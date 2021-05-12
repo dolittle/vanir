@@ -7,12 +7,12 @@ namespace Dolittle.Vanir.CLI.Templates
     {
         public bool Exists(string templateName)
         {
-            throw new System.NotImplementedException();
+            return false;
         }
 
         public string Load(string templateName)
         {
-            throw new System.NotImplementedException();
+            return string.Empty;
         }
     }
 }

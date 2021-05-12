@@ -9,22 +9,22 @@ namespace Dolittle.Vanir.CLI
 
     static class Program
     {
-        internal static IContainer Container { get; private set; }
-
         static int Main(string[] args)
         {
             var assembly = typeof(Program).Assembly;
+            IContainer container = null;
             var containerBuilder = new ContainerBuilder();
             containerBuilder.RegisterSource<SelfBindingRegistrationSource>();
             containerBuilder.RegisterAssemblyModules(assembly);
-            Container = containerBuilder.Build();
+            containerBuilder.Register(_ => container).As<IContainer>().SingleInstance();
+            container = containerBuilder.Build();
 
             var rootCommand = new RootCommand
             {
                 Description = "Vanir Command Line Tool"
             };
 
-            Container.Resolve<CommandProviders>().AddAllCommandsFromProvidersTo(rootCommand);
+            container.Resolve<CommandProviders>().AddAllCommandsFromProvidersTo(rootCommand);
 
             return rootCommand.InvokeAsync(args).Result;
         }
