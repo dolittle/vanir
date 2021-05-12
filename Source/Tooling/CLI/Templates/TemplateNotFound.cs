@@ -3,7 +3,7 @@
 
 using System;
 
-namespace Dolittle.Vanir.CLI.ProxyGenerator
+namespace Dolittle.Vanir.CLI.Templates
 {
     public class TemplateNotFound : ArgumentException
     {

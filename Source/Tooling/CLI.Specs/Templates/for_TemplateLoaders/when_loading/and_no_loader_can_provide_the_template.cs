@@ -5,7 +5,7 @@ using System;
 using Machine.Specifications;
 using It = Machine.Specifications.It;
 
-namespace Dolittle.Vanir.CLI.ProxyGenerator.Specs.for_TemplateLoaders.when_loading
+namespace Dolittle.Vanir.CLI.Templates.for_TemplateLoaders.when_loading
 {
     public class and_no_loader_can_provide_the_template : given.two_template_loaders
     {

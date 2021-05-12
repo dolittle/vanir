@@ -5,7 +5,7 @@ using Machine.Specifications;
 using Moq;
 using It = Machine.Specifications.It;
 
-namespace Dolittle.Vanir.CLI.ProxyGenerator.Specs.for_TemplateLoaders.when_loading
+namespace Dolittle.Vanir.CLI.Templates.for_TemplateLoaders.when_loading
 {
     public class and_the_first_loader_does_not_have_template : given.two_template_loaders
     {

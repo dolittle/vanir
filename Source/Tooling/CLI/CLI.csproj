@@ -14,13 +14,14 @@
         <PackageReference Include="Handlebars.Net" Version="2.0.7" />
         <PackageReference Include="Microsoft.Extensions.DependencyModel" Version="5.0.0" />
         <PackageReference Include="MongoDB.Driver" Version="2.12.1" />
+        <PackageReference Include="System.CommandLine" Version="2.0.0-beta1.21216.1" />
     </ItemGroup>
 
     <ItemGroup>
-        <EmbeddedResource Include="ProxyGenerator/Templates/*"/>
+        <EmbeddedResource Include="ProxyGenerator/Templates/*" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="../../DotNET/Backend/Backend.csproj"/>
+        <ProjectReference Include="../../DotNET/Backend/Backend.csproj" />
     </ItemGroup>
 </Project>
