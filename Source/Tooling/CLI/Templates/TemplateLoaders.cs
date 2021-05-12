@@ -6,6 +6,7 @@ using System.Linq;
 
 namespace Dolittle.Vanir.CLI.Templates
 {
+    [Singleton]
     public class TemplateLoaders : ITemplateLoaders
     {
         readonly IEnumerable<ITemplateLoader> _loaders;
