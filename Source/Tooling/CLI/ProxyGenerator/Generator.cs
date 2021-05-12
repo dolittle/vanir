@@ -15,8 +15,24 @@ using Types = Dolittle.Vanir.CLI.ProxyGenerator.Types;
 
 namespace Dolittle.Vanir.CLI
 {
-    public static class Generator
+
+    public class Generator : IGenerator
     {
+        readonly ITemplates _templates;
+
+        public Generator(ITemplates templates)
+        {
+            _templates = templates;
+        }
+
+        public void Generate(FileInfo assembly, DirectoryInfo outputPath)
+        {
+            Console.WriteLine(assembly.FullName);
+            Console.WriteLine(outputPath.FullName);
+
+        }
+
+        /*
         public static void Generate()
         {
             var currentDirectory = Directory.GetCurrentDirectory();
@@ -185,5 +201,6 @@ namespace Dolittle.Vanir.CLI
                 File.WriteAllText(commandPath, result);
             }
         }
+        */
     }
 }
