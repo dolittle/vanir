@@ -38,12 +38,12 @@
             }
         },
         {
-            "label": "build proxygenerator",
+            "label": "build CLI",
             "command": "dotnet",
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/Source/DotNET/ProxyGenerator/ProxyGenerator.csproj",
+                "${workspaceFolder}/Source/Tooling/CLI/CLI.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],

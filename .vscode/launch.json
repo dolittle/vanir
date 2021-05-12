@@ -16,13 +16,13 @@
             "console": "internalConsole"
         },
         {
-            "name": ".NET Core Launch (ProxyGenerator)",
+            "name": ".NET Core Launch (CLI)",
             "type": "coreclr",
             "request": "launch",
-            "preLaunchTask": "build proxygenerator",
-            "program": "${workspaceFolder}/Source/DotNET/ProxyGenerator/bin/Debug/net5.0/Dolittle.Vanir.ProxyGenerator.dll",
+            "preLaunchTask": "build CLI",
+            "program": "${workspaceFolder}/Source/Tooling/CLI/bin/Debug/net5.0/Dolittle.Vanir.CLI.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/Source/DotNET/ProxyGenerator",
+            "cwd": "${workspaceFolder}/Source/Tooling/CLI",
             "stopAtEntry": false,
             "console": "internalConsole"
         },

@@ -1,14 +1,16 @@
 // Copyright (c) Dolittle. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
+using System.CommandLine;
 using System.CommandLine.Invocation;
 using System.IO;
 
-namespace System.CommandLine
+namespace Dolittle.Vanir.CLI.ProxyGenerator
 {
-    public static class ProxyCommands
+    public class ProxyCommandProvider : ICanProvideCommand
     {
-        public static void AddProxyCommands(this RootCommand rootCommand)
+        public Command Provide()
         {
             var proxyCommand = new Command("proxy", "Generate proxy objects")
             {
@@ -20,7 +22,7 @@ namespace System.CommandLine
                 Console.WriteLine(assembly.FullName);
                 Console.WriteLine(outputPath.FullName);
             });
-            rootCommand.AddCommand(proxyCommand);
+            return proxyCommand;
         }
     }
 }
