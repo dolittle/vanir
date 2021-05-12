@@ -8,7 +8,7 @@ using System.Reflection;
 using Dolittle.Vanir.Backend.GraphQL;
 using Dolittle.Vanir.Backend.Reflection;
 
-namespace Dolittle.Vanir.ProxyGenerator
+namespace Dolittle.Vanir.CLI.ProxyGenerator
 {
     public static class TypesExtensions
     {

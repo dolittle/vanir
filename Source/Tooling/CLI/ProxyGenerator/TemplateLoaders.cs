@@ -4,7 +4,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Dolittle.Vanir.ProxyGenerator
+namespace Dolittle.Vanir.CLI.ProxyGenerator
 {
     public class TemplateLoaders : ITemplateLoaders
     {

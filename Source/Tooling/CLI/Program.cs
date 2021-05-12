@@ -9,9 +9,11 @@ using System.Reflection;
 using Dolittle.Vanir.Backend.GraphQL;
 using Dolittle.Vanir.Backend.Reflection;
 using Dolittle.Vanir.Backend.Strings;
+using Dolittle.Vanir.CLI.ProxyGenerator;
 using HandlebarsDotNet;
+using Types = Dolittle.Vanir.CLI.ProxyGenerator.Types;
 
-namespace Dolittle.Vanir.ProxyGenerator
+namespace Dolittle.Vanir.CLI
 {
     static class Program
     {

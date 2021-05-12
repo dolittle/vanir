@@ -3,7 +3,7 @@
 
 using HandlebarsDotNet;
 
-namespace Dolittle.Vanir.ProxyGenerator
+namespace Dolittle.Vanir.CLI.ProxyGenerator
 {
     public interface ITemplates
     {

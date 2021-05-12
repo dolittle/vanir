@@ -4,7 +4,7 @@
 using System;
 using Dolittle.Vanir.Backend.Concepts;
 
-namespace Dolittle.Vanir.ProxyGenerator
+namespace Dolittle.Vanir.CLI.ProxyGenerator
 {
     public static class TypeExtensions
     {

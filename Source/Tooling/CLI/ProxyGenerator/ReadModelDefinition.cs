@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Dolittle.Vanir.ProxyGenerator
+namespace Dolittle.Vanir.CLI.ProxyGenerator
 {
     public class ReadModelDefinition : IProxyType, IEqualityComparer<ReadModelDefinition>
     {
@@ -17,7 +17,7 @@ namespace Dolittle.Vanir.ProxyGenerator
 
         public IEnumerable<PropertyDefinition> Properties { get; init; }
 
-        public bool Equals(ReadModelDefinition? x, ReadModelDefinition? y)
+        public bool Equals(ReadModelDefinition x, ReadModelDefinition y)
         {
             return x?.Type == y?.Type;
         }

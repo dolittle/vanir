@@ -4,7 +4,7 @@
 using Machine.Specifications;
 using Moq;
 
-namespace Dolittle.Vanir.ProxyGenerator.Specs.for_TemplateLoaders.given
+namespace Dolittle.Vanir.CLI.ProxyGenerator.Specs.for_TemplateLoaders.given
 {
     public class two_template_loaders
     {

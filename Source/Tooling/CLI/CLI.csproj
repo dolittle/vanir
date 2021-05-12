@@ -3,8 +3,8 @@
     <Import Project="../../../default.props" />
 
     <PropertyGroup>
-        <AssemblyName>Dolittle.Vanir.ProxyGenerator</AssemblyName>
-        <RootNamespace>Dolittle.Vanir.ProxyGenerator</RootNamespace>
+        <AssemblyName>Dolittle.Vanir.CLI</AssemblyName>
+        <RootNamespace>Dolittle.Vanir.CLI</RootNamespace>
         <OutputType>Exe</OutputType>
         <TargetFramework>net5.0</TargetFramework>
         <NoWarn>RCS1018</NoWarn>
@@ -17,10 +17,10 @@
     </ItemGroup>
 
     <ItemGroup>
-        <EmbeddedResource Include="Templates/*"/>
+        <EmbeddedResource Include="ProxyGenerator/Templates/*"/>
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="../Backend/Backend.csproj"/>
+        <ProjectReference Include="../../DotNET/Backend/Backend.csproj"/>
     </ItemGroup>
 </Project>

@@ -3,7 +3,7 @@
 
 using System.Reflection;
 
-namespace Dolittle.Vanir.ProxyGenerator
+namespace Dolittle.Vanir.CLI.ProxyGenerator
 {
     public class QueryDefinition : IProxyType
     {

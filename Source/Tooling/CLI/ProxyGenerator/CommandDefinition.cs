@@ -4,7 +4,7 @@
 using System;
 using System.Reflection;
 
-namespace Dolittle.Vanir.ProxyGenerator
+namespace Dolittle.Vanir.CLI.ProxyGenerator
 {
     public class CommandDefinition : IProxyType
     {

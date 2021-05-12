@@ -4,11 +4,11 @@
   <Import Project="../../../specs.props"/>
 
   <PropertyGroup>
-    <AssemblyName>Dolittle.Vanir.ProxyGenerator.Specs</AssemblyName>
+    <AssemblyName>Dolittle.Vanir.CLI.Specs</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../ProxyGenerator/ProxyGenerator.csproj" />
+    <ProjectReference Include="../CLI/CLI.csproj" />
   </ItemGroup>
 
 </Project>
