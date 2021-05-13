@@ -4,7 +4,7 @@
 using System.Collections.Generic;
 using Autofac;
 
-namespace Dolittle.Vanir.CLI.Templates
+namespace Dolittle.Vanir.CLI.Templating
 {
     public class TemplatesModule : Module
     {

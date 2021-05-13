@@ -4,7 +4,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Dolittle.Vanir.CLI.Templates
+namespace Dolittle.Vanir.CLI.Templating
 {
     [Singleton]
     public class TemplateLoaders : ITemplateLoaders

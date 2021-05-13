@@ -3,7 +3,7 @@
 
 using System;
 
-namespace Dolittle.Vanir.CLI.Templates
+namespace Dolittle.Vanir.CLI.Templating
 {
     public class TemplateNotFound : ArgumentException
     {

@@ -3,9 +3,10 @@
 
 namespace Dolittle.Vanir.CLI.Templates
 {
-    public interface ITemplateLoader
+    /// <summary>
+    /// This class only exists to avoid magic strings. Used to identify namespace prefix of resources - do not remove.
+    /// /// </summary>
+    public class DoNotRemove
     {
-        bool Exists(string templateName);
-        string Load(string templateName);
     }
 }

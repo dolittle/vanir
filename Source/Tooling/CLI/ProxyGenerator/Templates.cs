@@ -2,7 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using HandlebarsDotNet;
-using Dolittle.Vanir.CLI.Templates;
+using Dolittle.Vanir.CLI.Templating;
 
 namespace Dolittle.Vanir.CLI.ProxyGenerator
 {
@@ -14,10 +14,10 @@ namespace Dolittle.Vanir.CLI.ProxyGenerator
         {
             _templateLoaders = templateLoader;
 
-            Mutation = Handlebars.Compile(_templateLoaders.Load("Mutation.hbs"));
-            Query = Handlebars.Compile(_templateLoaders.Load("Query.hbs"));
-            Type = Handlebars.Compile(_templateLoaders.Load("Type.hbs"));
-            var propertyTemplate = _templateLoaders.Load("Property.hbs");
+            Mutation = Handlebars.Compile(_templateLoaders.Load("ProxyGeneration.Mutation.hbs"));
+            Query = Handlebars.Compile(_templateLoaders.Load("ProxyGeneration.Query.hbs"));
+            Type = Handlebars.Compile(_templateLoaders.Load("ProxyGeneration.Type.hbs"));
+            var propertyTemplate = _templateLoaders.Load("ProxyGeneration.Property.hbs");
             Property = Handlebars.Compile(propertyTemplate);
             Handlebars.RegisterTemplate("property", propertyTemplate);
         }
