@@ -163,7 +163,17 @@ const menu = 0;
 
 const menus = {
     CONTRAST: {
-        data: [{ label: '', icon: '', value: 20, bg: 'white', color: '#512DA8', type: 'ROOT' }, { label: 'contrast', icon: '', value: 20, bg: '#9575CD', color: 'white', type: 'ROOT' }, { label: 'battery', icon: '', value: 20, bg: '#7E57C2', color: 'white', type: 'ROOT' }, { label: 'bluetooth', icon: '', value: 20, bg: '#673AB7', color: 'white', type: 'ROOT' }, { label: 'light', icon: '', value: 20, bg: '#5E35B1', color: 'white', type: 'ROOT' }, { label: 'settings', icon: '', value: 20, bg: '#512DA8', color: 'white', type: 'ROOT' }, { label: 'contrast', icon: '', value: 20, bg: '#9575CD', color: 'white', type: 'ROOT' }, { label: 'View', icon: '', value: 20, bg: '#7E57C2', color: 'white', type: 'ROOT' }, { label: 'bluetooth', icon: '', value: 20, bg: '#673AB7', color: 'white', type: 'ROOT' }, { label: 'light', icon: '', value: 20, bg: '#5E35B1', color: 'white', type: 'ROOT' }],
+        data: [
+            { label: '', icon: '', value: 20, bg: 'white', color: '#512DA8', type: 'ROOT' },
+            { label: 'contrast', icon: '', value: 20, bg: '#9575CD', color: 'white', type: 'ROOT' },
+            { label: 'battery', icon: '', value: 20, bg: '#7E57C2', color: 'white', type: 'ROOT' },
+            { label: 'bluetooth', icon: '', value: 20, bg: '#673AB7', color: 'white', type: 'ROOT' },
+            { label: 'light', icon: '', value: 20, bg: '#5E35B1', color: 'white', type: 'ROOT' },
+            { label: 'settings', icon: '', value: 20, bg: '#512DA8', color: 'white', type: 'ROOT' },
+            { label: 'contrast', icon: '', value: 20, bg: '#9575CD', color: 'white', type: 'ROOT' },
+            { label: 'View', icon: '', value: 20, bg: '#7E57C2', color: 'white', type: 'ROOT' },
+            { label: 'bluetooth', icon: '', value: 20, bg: '#673AB7', color: 'white', type: 'ROOT' },
+            { label: 'light', icon: '', value: 20, bg: '#5E35B1', color: 'white', type: 'ROOT' }],
         config: {
             type: PieTypes.CIRCLE,
             colors: [],
@@ -227,7 +237,7 @@ const menus = {
         config: {
             type: PieTypes.CIRCLE,
             colors: [],
-            width: null,
+            width: 400,
             showIcon: true,
             sizeIcon: '1.2em',
             pieSize: 50,
@@ -238,17 +248,23 @@ const menus = {
 
 const Menu = () => {
     const [menu, setMenu] = useState(menus.ROOT);
+    const [visible, setVisible] = useState(true);
 
 
     return (
         <>
-            <CircularMenu
-                config={menu.config as any}
-                data={menu.data} style={{ width: '50%', height: '50%' }}
-                onItemClick={(d) => {
-                    setMenu(menus[d.type]);
-                }}
-            />
+            <div onClick={() => {
+                setVisible(true);
+            }}>
+                <CircularMenu
+                    show={visible}
+                    config={menu.config as any}
+                    data={menu.data} style={{ width: '50%', height: '50%' }}
+                    onItemClick={(d) => {
+                        setMenu(menus[d.type]);
+                    }}
+                />
+            </div>
         </>
     );
 };

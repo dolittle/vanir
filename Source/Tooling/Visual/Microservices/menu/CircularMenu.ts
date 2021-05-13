@@ -29,6 +29,7 @@ export interface CircularMenuProps {
     style: any,
     data: any[];
     config: CircularMenuConfig;
+    show: boolean;
     // innerRadius: PropTypes.number,
     onItemClick?: ItemClicked,
     onItemMouseOver?: ItemMouseOver,
@@ -63,13 +64,17 @@ export class CircularMenu extends Component<CircularMenuProps> {
         // Namespaced resize event
         const ns = new Date().valueOf();
         d3.select(window).on('resize.' + ns, () => {
-            return this.redraw(this.props);
+            if (this.props.show) {
+                return this.redraw(this.props);
+            }
         });
     }
 
 
     UNSAFE_componentWillReceiveProps(nextProps: CircularMenuProps) {
-        this.redraw(nextProps);
+        if (nextProps.show) {
+            this.redraw(nextProps);
+        }
     }
 
     onItemClick(d) {
@@ -77,7 +82,7 @@ export class CircularMenu extends Component<CircularMenuProps> {
     };
 
     onItemMouseOver(d) {
-        const configuration = { ...DEFAULT_CONFIG, ...this.props.config};
+        const configuration = { ...DEFAULT_CONFIG, ...this.props.config };
         if (configuration.showCenteredLabel) {
             this.text.render(d.label, configuration.type, configuration.centeredLabelFontSize);
             this.props.onItemMouseOver?.(d);
@@ -101,7 +106,7 @@ export class CircularMenu extends Component<CircularMenuProps> {
         const data = props.data;
         const config = props.config;
 
-        const configuration = { ...DEFAULT_CONFIG, ...config};
+        const configuration = { ...DEFAULT_CONFIG, ...config };
 
         if (data) {
             // render svg

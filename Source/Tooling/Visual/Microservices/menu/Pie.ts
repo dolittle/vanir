@@ -74,7 +74,7 @@ export class Pie {
     // Tween used to animated the radius
     private tweenRadius(b) {
         return (a, i) => {
-            const d = b.call(self, a, i);
+            const d = b.call(this, a, i);
             const _i = d3.interpolate(a, d);
             for (const k in d) {
                 if (a) {
@@ -103,10 +103,12 @@ export class Pie {
         // path segments join
         const path = this._svgInstance.container.selectAll('path').data(this.pie(this._data));
 
-        const factory = this.tweenRadius(() => {
+        const factory = this.tweenRadius((a,i) => {
             return {
+                startAngle: a.startAngle,
+                endAngle: a.endAngle,
                 innerRadius: w,
-                outerRadius: w - this._config.pieSize
+                outerRadius: w - this._config.pieSize,
             };
         });
         path.transition().duration(1000).attrTween('d', factory as any);
