@@ -257,7 +257,9 @@ const Menu = () => {
 
 ReactDOM.render(
     <>
-        <Menu />
+        <div style={{ width: '400px', height: '400px' }}>
+            <Menu />
+        </div>
     </>,
 
     document.getElementById('root')
