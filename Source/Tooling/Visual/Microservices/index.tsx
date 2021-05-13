@@ -12,6 +12,9 @@ import { DocumentCard, DocumentCardActions, DocumentCardLogo, DocumentCardTitle,
 
 import './index.scss';
 import { createTheme, loadTheme } from '@fluentui/react/lib/Styling';
+import * as PieTypes from './menu/PieTypes';
+import { CircularMenu } from './menu/CircularMenu';
+import { CircularMenuConfig } from './menu/CircularMenuConfig';
 
 /*
 https://reactnativeexample.com/an-animated-and-customizable-circular-floating-menu/
@@ -27,7 +30,7 @@ https://codepen.io/maskedcoder/pen/zqgpr
 https://codepen.io/mahmoud-nb/pen/pbNBYP
 */
 
-const vscode = window.acquireVsCodeApi();
+//const vscode = window.acquireVsCodeApi();
 
 const elements = [
     { id: '1', data: { label: 'Flattened JSON Producer' }, position: { x: 250, y: 5 } },
@@ -55,7 +58,7 @@ const elements = [
 
 
 const onActionClick = (): void => {
-    vscode.postMessage({ type: 'hello' });
+    //vscode.postMessage({ type: 'hello' });
 
     //ev.stopPropagation();
     //ev.preventDefault();
@@ -155,14 +158,63 @@ const myTheme = createTheme({
 
 loadTheme(myTheme);
 
+const menus = [{
+    data: [{ label: 'contrast', icon: '', value: 20, bg: '#E0E0E0', color: '#222' }, { label: 'battery', icon: '', value: 20, bg: '#BDBDBD', color: '#222' }, { label: 'bluetooth', icon: '', value: 20, bg: '#9E9E9E', color: '#222' }, { label: 'light', icon: '', value: 20, bg: '#757575', color: 'white' }, { label: 'settings', icon: '', value: 20, bg: '#616161', color: 'white' }],
+    config: {
+        type: PieTypes.HALF,
+        colors: [],
+        width: null,
+        showIcon: true,
+        sizeIcon: '1.5em',
+        pieSize: 120
+    }
+}, {
+    data: [{ label: 'contrast', icon: '', value: 20, bg: 'rgb(158, 35, 88)', color: 'white' }, { label: 'battery', icon: '', value: 20, bg: 'rgb(189, 53, 111)', color: 'white' }, { label: 'bluetooth', icon: '', value: 20, bg: 'rgb(195, 62, 120)', color: 'white' }, { label: 'light', icon: '', value: 20, bg: 'rgb(210, 77, 134)', color: 'white' }, { label: 'settings', icon: '', value: 20, bg: 'rgb(217, 120, 162)', color: 'white' }],
+    config: {
+        type: PieTypes.CIRCLE,
+        colors: [],
+        width: null,
+        showIcon: true,
+        sizeIcon: '1em',
+        pieSize: 40
+    }
+}, {
+    data: [{ label: 'save', icon: '', value: 30, bg: '#F0F4C3' }, { label: 'edit', icon: '', value: 40, bg: '#E6EE9C' }, { label: 'send', icon: '', value: 30, bg: '#DCE775' }],
+    config: {
+        type: PieTypes.CIRCLE,
+        colors: [],
+        width: null,
+        showIcon: false,
+        sizeIcon: '1em',
+        pieSize: 100
+    }
+}, {
+    data: [{ label: 'save', icon: '', value: 30, color: 'white' }, { label: 'edit', icon: '', value: 40, color: 'white' }, { label: 'send', icon: '', value: 30, color: 'white' }],
+    config: {
+        type: PieTypes.HALF,
+        colors: [],
+        width: null,
+        showIcon: true,
+        sizeIcon: '2em',
+        pieSize: 70
+    }
+}];
+
+const menu = 0;
 
 ReactDOM.render(
+    <>
+        <CircularMenu config={menus[menu].config as any} data={menus[menu].data} style={{ width: '100%', height: '100%' }} />
+    </>,
 
-    <ReactFlow elements={elements} nodeTypes={nodeTypes}>
-        <Controls />
-    </ReactFlow>,
     document.getElementById('root')
 );
 
 
 // <MiniMap />
+/*
+        <ReactFlow elements={elements} nodeTypes={nodeTypes}>
+            <Controls />
+        </ReactFlow>
+
+*/
