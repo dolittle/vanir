@@ -4,7 +4,7 @@
 /* eslint-disable react/prop-types */
 import 'reflect-metadata';
 
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import ReactDOM from 'react-dom';
 import ReactFlow, { ArrowHeadType, Controls, Handle, MiniMap, Node, Position } from 'react-flow-renderer';
 
@@ -158,53 +158,106 @@ const myTheme = createTheme({
 
 loadTheme(myTheme);
 
-const menus = [{
-    data: [{ label: 'contrast', icon: '', value: 20, bg: '#E0E0E0', color: '#222' }, { label: 'battery', icon: '', value: 20, bg: '#BDBDBD', color: '#222' }, { label: 'bluetooth', icon: '', value: 20, bg: '#9E9E9E', color: '#222' }, { label: 'light', icon: '', value: 20, bg: '#757575', color: 'white' }, { label: 'settings', icon: '', value: 20, bg: '#616161', color: 'white' }],
-    config: {
-        type: PieTypes.HALF,
-        colors: [],
-        width: null,
-        showIcon: true,
-        sizeIcon: '1.5em',
-        pieSize: 120
-    }
-}, {
-    data: [{ label: 'contrast', icon: '', value: 20, bg: 'rgb(158, 35, 88)', color: 'white' }, { label: 'battery', icon: '', value: 20, bg: 'rgb(189, 53, 111)', color: 'white' }, { label: 'bluetooth', icon: '', value: 20, bg: 'rgb(195, 62, 120)', color: 'white' }, { label: 'light', icon: '', value: 20, bg: 'rgb(210, 77, 134)', color: 'white' }, { label: 'settings', icon: '', value: 20, bg: 'rgb(217, 120, 162)', color: 'white' }],
-    config: {
-        type: PieTypes.CIRCLE,
-        colors: [],
-        width: null,
-        showIcon: true,
-        sizeIcon: '1em',
-        pieSize: 40
-    }
-}, {
-    data: [{ label: 'save', icon: '', value: 30, bg: '#F0F4C3' }, { label: 'edit', icon: '', value: 40, bg: '#E6EE9C' }, { label: 'send', icon: '', value: 30, bg: '#DCE775' }],
-    config: {
-        type: PieTypes.CIRCLE,
-        colors: [],
-        width: null,
-        showIcon: false,
-        sizeIcon: '1em',
-        pieSize: 100
-    }
-}, {
-    data: [{ label: 'save', icon: '', value: 30, color: 'white' }, { label: 'edit', icon: '', value: 40, color: 'white' }, { label: 'send', icon: '', value: 30, color: 'white' }],
-    config: {
-        type: PieTypes.HALF,
-        colors: [],
-        width: null,
-        showIcon: true,
-        sizeIcon: '2em',
-        pieSize: 70
-    }
-}];
 
 const menu = 0;
 
+const menus = {
+    CONTRAST: {
+        data: [{ label: '', icon: '', value: 20, bg: 'white', color: '#512DA8', type: 'ROOT' }, { label: 'contrast', icon: '', value: 20, bg: '#9575CD', color: 'white', type: 'ROOT' }, { label: 'battery', icon: '', value: 20, bg: '#7E57C2', color: 'white', type: 'ROOT' }, { label: 'bluetooth', icon: '', value: 20, bg: '#673AB7', color: 'white', type: 'ROOT' }, { label: 'light', icon: '', value: 20, bg: '#5E35B1', color: 'white', type: 'ROOT' }, { label: 'settings', icon: '', value: 20, bg: '#512DA8', color: 'white', type: 'ROOT' }, { label: 'contrast', icon: '', value: 20, bg: '#9575CD', color: 'white', type: 'ROOT' }, { label: 'View', icon: '', value: 20, bg: '#7E57C2', color: 'white', type: 'ROOT' }, { label: 'bluetooth', icon: '', value: 20, bg: '#673AB7', color: 'white', type: 'ROOT' }, { label: 'light', icon: '', value: 20, bg: '#5E35B1', color: 'white', type: 'ROOT' }],
+        config: {
+            type: PieTypes.CIRCLE,
+            colors: [],
+            width: null,
+            showIcon: true,
+            sizeIcon: '1.6em',
+            pieSize: 70
+        }
+    },
+
+    BATTERY: {
+        data: [{ label: '', icon: '', value: 20, bg: 'white', color: 'rgb(121, 121, 121)', type: 'ROOT' }, { label: 'contrast', icon: '', value: 20, bg: 'rgb(179, 179, 179)', color: '#222', type: 'ROOT' }, { label: 'battery', icon: '', value: 20, bg: 'rgb(140, 140, 140)', color: '#222', type: 'ROOT' }, { label: 'bluetooth', icon: '', value: 20, bg: 'rgb(133, 133, 133)', color: '#222', type: 'ROOT' }],
+        config: {
+            type: PieTypes.CIRCLE,
+            colors: [],
+            width: null,
+            showIcon: true,
+            sizeIcon: '1.2m',
+            pieSize: 70
+        }
+    },
+
+    LIGHTS: {
+        data: [{ label: '', icon: '', value: 20, bg: 'white', color: 'rgb(193, 186, 33)', type: 'ROOT' }, { label: 'contrast', icon: '', value: 20, bg: 'rgb(238, 232, 85)', color: '#bdac18', type: 'ROOT' }, { label: 'battery', icon: '', value: 20, bg: 'rgb(246, 242, 130)', color: '#bdac18', type: 'ROOT' }, { label: 'bluetooth', icon: '', value: 20, bg: 'rgb(238, 232, 85)', color: '#bdac18', type: 'ROOT' }],
+        config: {
+            type: PieTypes.CIRCLE,
+            colors: [],
+            width: null,
+            showIcon: true,
+            sizeIcon: '1.6em',
+            pieSize: 70
+        }
+    },
+
+    SETTINGS: {
+        data: [{ label: '', icon: '', value: 20, bg: 'white', color: 'rgb(121, 121, 121)', type: 'ROOT' }, { label: 'contrast', icon: '', value: 20, bg: 'rgb(179, 179, 179)', color: '#222', type: 'ROOT' }, { label: 'battery', icon: '', value: 20, bg: 'rgb(140, 140, 140)', color: '#222', type: 'ROOT' }, { label: 'bluetooth', icon: '', value: 20, bg: 'rgb(133, 133, 133)', color: '#222', type: 'ROOT' }],
+        config: {
+            type: PieTypes.CIRCLE,
+            colors: [],
+            width: null,
+            showIcon: true,
+            sizeIcon: '1.2m',
+            pieSize: 70
+        }
+    },
+
+    BLUETOOTH: {
+        data: [{ label: 'enable', value: 70, bg: 'rgb(57, 172, 221)', color: 'white', type: 'ROOT' }, { label: 'back', value: 30, bg: 'white', color: 'rgb(57, 172, 221)', type: 'ROOT' }],
+        config: {
+            type: PieTypes.CIRCLE,
+            colors: [],
+            width: null,
+            showIcon: false,
+            sizeIcon: '1em',
+            pieSize: 100
+        }
+    },
+
+    ROOT: {
+        data: [{ label: 'contrast', icon: '', value: 20, bg: '#9575CD', color: 'white', type: 'CONTRAST' }, { label: 'battery', icon: '', value: 20, bg: 'grey', color: 'white', type: 'BATTERY' }, { label: 'bluetooth', icon: '', value: 20, bg: 'rgb(142, 186, 223)', color: 'white', type: 'BLUETOOTH' }, { label: 'light', icon: '', value: 20, bg: 'rgb(242, 224, 131)', color: 'white', type: 'LIGHTS' }, { label: 'settings', icon: '', value: 20, bg: 'rgb(201, 143, 110)', color: 'white', type: 'SETTINGS' }],
+        config: {
+            type: PieTypes.CIRCLE,
+            colors: [],
+            width: null,
+            showIcon: true,
+            sizeIcon: '1.2em',
+            pieSize: 50,
+            showCenteredLabel: false
+        }
+    }
+};
+
+const Menu = () => {
+    const [menu, setMenu] = useState(menus.ROOT);
+
+
+    return (
+        <>
+            <CircularMenu
+                config={menu.config as any}
+                data={menu.data} style={{ width: '50%', height: '50%' }}
+                onItemClick={(d) => {
+                    setMenu(menus[d.type]);
+                }}
+            />
+        </>
+    );
+};
+
+
+
 ReactDOM.render(
     <>
-        <CircularMenu config={menus[menu].config as any} data={menus[menu].data} style={{ width: '100%', height: '100%' }} />
+        <Menu />
     </>,
 
     document.getElementById('root')

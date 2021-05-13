@@ -1,7 +1,6 @@
 // Copyright (c) Dolittle. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-
 import * as d3 from 'd3';
 import * as PieTypes from './PieTypes';
 import { SvgInstance } from './SvgInstance';
@@ -75,7 +74,7 @@ export class Pie {
     // Tween used to animated the radius
     private tweenRadius(b) {
         return (a, i) => {
-            const d = b.call(this, a, i);
+            const d = b.call(self, a, i);
             const _i = d3.interpolate(a, d);
             for (const k in d) {
                 if (a) {
@@ -134,12 +133,12 @@ export class Pie {
                 // Todo
                 // d3.event.stopPropagation();
                 this._itemClicked(d.data);
-            }).on('mouseover', (d) => {
+            }).on('mouseover', (e, d) => {
                 // Todo
                 //d3.event.stopPropagation();
                 //d3.select(this).style('opacity', 0.7).style('cursor', 'pointer');
                 this._itemMouseOver(d.data);
-            }).on('mouseout', (d) => {
+            }).on('mouseout', (e, d) => {
                 // Todo
                 //d3.event.stopPropagation();
                 //d3.select(this).style('opacity', 1).style('cursor', 'auto');
@@ -147,10 +146,10 @@ export class Pie {
             });
 
         // Exit selection
-        path.exit().transition().duration(750).attrTween('d', this.arcTweenOut as any).remove();
+        path.exit().transition().duration(750).attrTween('d', this.arcTweenOut.bind(this) as any).remove();
 
         // Update selection
-        path.transition().duration(750).attrTween('d', this.arcTween as any).style('opacity', 1).attr('fill', (d, i) => {
+        path.transition().duration(750).attrTween('d', this.arcTween.bind(this) as any).style('opacity', 1).attr('fill', (d, i) => {
             const dt = this._data[i];
             return dt.bg ? dt.bg : bg[i];
         });
