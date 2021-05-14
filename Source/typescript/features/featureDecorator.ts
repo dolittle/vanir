@@ -4,7 +4,5 @@
 export function feature(name: string): ClassDecorator & MethodDecorator;
 export function feature(name: string): ClassDecorator | MethodDecorator {
     return function (target: any, propertyKey: string | symbol, descriptor: TypedPropertyDescriptor<any>) {
-    }
+    };
 }
-
-

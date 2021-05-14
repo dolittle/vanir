@@ -68,7 +68,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
             if (RuntimeEnvironment.isDevelopment)
             {
-                mutations.AddEventsAsMutations(types);
+                if (arguments.ExposeEventsInGraphQLSchema) mutations.AddEventsAsMutations(types);
                 graphQLBuilder.AddApolloTracing();
             }
         }
