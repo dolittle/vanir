@@ -10,8 +10,8 @@ namespace Dolittle.Vanir.CLI.GraphQL
     /// </summary>
     public class Schema
     {
-        IEnumerable<MutationDefinition> Mutations { get; init; }
-        IEnumerable<QueryDefinition> Queries { get; init; }
-        IEnumerable<ReadModelDefinition> Types { get; init; }
+        public IEnumerable<OperationDefinition> Mutations { get; init; }
+        public IEnumerable<OperationDefinition> Queries { get; init; }
+        public IEnumerable<TypeDefinition> Types { get; init; }
     }
 }

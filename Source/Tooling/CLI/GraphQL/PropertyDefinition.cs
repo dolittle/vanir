@@ -8,9 +8,9 @@ namespace Dolittle.Vanir.CLI.GraphQL
     public class PropertyDefinition
     {
         public string Name { get; init; }
-        public Type Type { get; init; }
         public bool IsEnumerable { get; init; }
-        public bool IsComplex { get; init; }
-        public ReadModelDefinition ReadModel { get; init; }
+        public bool IsComplex { get; init; }
+        public Type Type { get; init; }
+        public TypeDefinition TypeDefinition { get; init; }
     }
 }

@@ -5,14 +5,16 @@ using System.Reflection;
 
 namespace Dolittle.Vanir.CLI.GraphQL
 {
-    public class QueryDefinition : ISchemaType
+    public class OperationDefinition : ISchemaType
     {
         public string Name { get; init; }
         public string Namespace { get; init; }
         public string FilePathForImports { get; init; }
         public MethodInfo Method { get; init; }
         public string[] GraphPath { get; init; }
-        public ReadModelDefinition ReadModel { get; init; }
-        public bool Enumerable { get; init; }
+        public TypeDefinition[] ParameterTypes { get; init; }
+        public ParameterInfo[] Parameters { get; init; }
+        public TypeDefinition ReturnType { get; init; }
+        public bool IsReturnTypeEnumerable { get; init; }
     }
 }

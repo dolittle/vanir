@@ -7,7 +7,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Dolittle.Vanir.CLI.GraphQL
 {
-    public class ReadModelDefinition : ISchemaType, IEqualityComparer<ReadModelDefinition>
+    public class TypeDefinition : ISchemaType, IEqualityComparer<TypeDefinition>
     {
         public string Name { get; init; }
         public string Namespace { get; init; }
@@ -15,14 +15,14 @@ namespace Dolittle.Vanir.CLI.GraphQL
 
         public Type Type { get; init; }
 
-        public IEnumerable<PropertyDefinition> Properties { get; init; }
+        public IEnumerable<PropertyDefinition> Properties { get; set; }
 
-        public bool Equals(ReadModelDefinition x, ReadModelDefinition y)
+        public bool Equals(TypeDefinition x, TypeDefinition y)
         {
             return x?.Type == y?.Type;
         }
 
-        public int GetHashCode([DisallowNull] ReadModelDefinition obj)
+        public int GetHashCode([DisallowNull] TypeDefinition obj)
         {
             return obj.Type.GetHashCode();
         }

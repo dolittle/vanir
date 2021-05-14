@@ -11,7 +11,7 @@ namespace Dolittle.Vanir.CLI.GraphQL
         public string Name { get; init; }
         public string Namespace { get; init; }
         public string FilePathForImports { get; init; }
-        public Type Type { get; init; }
+        public TypeDefinition Type { get; init; }
         public string[] GraphPath { get; init; }
         public ParameterInfo Parameter { get; init; }
     }

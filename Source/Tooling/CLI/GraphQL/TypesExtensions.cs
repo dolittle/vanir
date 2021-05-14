@@ -11,11 +11,12 @@ using Dolittle.Vanir.CLI.Reflection;
 
 namespace Dolittle.Vanir.CLI.GraphQL
 {
+#if(false)
     public static class TypesExtensions
     {
         public static string RootPath = string.Empty;
 
-        static void CreateAndAddReadModelDefinition(Type type, List<ReadModelDefinition> readModels, string filePathForImports = null)
+        static void CreateAndAddReadModelDefinition(Type type, List<TypeDefinition> readModels, string filePathForImports = null)
         {
             if (readModels.Any(_ => _.Type == type)) return;
 
@@ -24,7 +25,7 @@ namespace Dolittle.Vanir.CLI.GraphQL
                 filePathForImports = GetFilePathFor(type);
             }
 
-            var definition = new ReadModelDefinition
+            var definition = new TypeDefinition
             {
                 Name = type.Name,
                 Namespace = type.Namespace,
@@ -43,7 +44,7 @@ namespace Dolittle.Vanir.CLI.GraphQL
                         type = type.GetNullableType();
                     }
                     var complex = type.IsComplexType();
-                    ReadModelDefinition readModel = null;
+                    TypeDefinition readModel = null;
                     if (complex)
                     {
                         CreateAndAddReadModelDefinition(type, readModels);
@@ -63,9 +64,9 @@ namespace Dolittle.Vanir.CLI.GraphQL
             readModels.Add(definition);
         }
 
-        public static IEnumerable<ReadModelDefinition> GetReadModelTypes(this IEnumerable<Type> allTypes, IEnumerable<TypeInfo> graphControllers)
+        public static IEnumerable<TypeDefinition> GetReadModelTypes(this IEnumerable<Type> allTypes, IEnumerable<TypeInfo> graphControllers)
         {
-            var readModelDefinitions = new List<ReadModelDefinition>();
+            var readModelDefinitions = new List<TypeDefinition>();
 
             var queryMethods = graphControllers.GetQueryMethods();
             var queryReadModels = queryMethods.Select(_ => _.ReturnType.IsEnumerable() ?
@@ -87,7 +88,7 @@ namespace Dolittle.Vanir.CLI.GraphQL
             return graphControllers.SelectMany(_ => _.GetMethodsWithAttribute<QueryAttribute>());
         }
 
-        public static IEnumerable<QueryDefinition> GetQueryTypes(this IEnumerable<TypeInfo> graphControllers, IEnumerable<ReadModelDefinition> readModels)
+        public static IEnumerable<OperationDefinition> GetQueryTypes(this IEnumerable<TypeInfo> graphControllers, IEnumerable<TypeDefinition> readModels)
         {
             var queryMethods = graphControllers.GetQueryMethods();
             return queryMethods.Select(_ =>
@@ -98,15 +99,15 @@ namespace Dolittle.Vanir.CLI.GraphQL
 
                 var readModel = readModels.Single(_ => _.Type == returnType);
 
-                return new QueryDefinition
+                return new OperationDefinition
                 {
                     Name = _.DeclaringType.Name,
                     Namespace = _.DeclaringType.Namespace,
                     FilePathForImports = GetFilePathFor(_.DeclaringType),
                     GraphPath = GetGraphRootPath(_),
                     Method = _,
-                    ReadModel = readModel,
-                    Enumerable = _.ReturnType.IsEnumerable()
+                    ReturnType = readModel,
+                    IsReturnTypeEnumerable = _.ReturnType.IsEnumerable()
                 };
             });
         }
@@ -156,4 +157,5 @@ namespace Dolittle.Vanir.CLI.GraphQL
             return $"{RootPath}/{relative}/{type.Name}";
         }
     }
+#endif
 }
