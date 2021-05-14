@@ -223,7 +223,7 @@ const menus = {
     BLUETOOTH: {
         data: [
             { label: 'enable', value: 70, bg: 'rgb(57, 172, 221)', color: 'white', type: 'ROOT' },
-        { label: 'back', value: 30, bg: 'white', color: 'rgb(57, 172, 221)', type: 'ROOT' }],
+            { label: 'back', value: 30, bg: 'white', color: 'rgb(57, 172, 221)', type: 'ROOT' }],
         config: {
             type: PieTypes.CIRCLE,
             colors: [],
@@ -239,7 +239,7 @@ const menus = {
         config: {
             type: PieTypes.CIRCLE,
             colors: [],
-            width: 400,
+            width: null,
             showIcon: true,
             sizeIcon: '1.2em',
             pieSize: 50,
@@ -249,9 +249,8 @@ const menus = {
 };
 
 const Menu = () => {
-    const [menu, setMenu] = useState(menus.BLUETOOTH);
-    const [visible, setVisible] = useState(true);
-
+    const [menu, setMenu] = useState(menus.ROOT);
+    const [visible, setVisible] = useState(false);
 
     return (
         <>
@@ -261,7 +260,7 @@ const Menu = () => {
                 <CircularMenu
                     show={visible}
                     config={menu.config as any}
-                    data={menu.data} style={{ width: '50%', height: '50%' }}
+                    data={menu.data}
                     onItemClick={(d) => {
                         setMenu(menus[d.type]);
                     }}

@@ -28,7 +28,7 @@ export const DEFAULT_CONFIG = {
 };
 
 export interface CircularMenuProps {
-    style: any,
+    style?: any,
     data: CircularMenuItem[];
     config: CircularMenuConfig;
     show: boolean;
@@ -85,7 +85,6 @@ export const CircularMenu = (props: CircularMenuProps) => {
                 render(svgInstance, pie, text);
             }
         });
-        render(svgInstance, pie, text);
     }, []);
 
     if (data && svgInstance && pie && text) {
@@ -95,6 +94,6 @@ export const CircularMenu = (props: CircularMenuProps) => {
     return (
         <div ref={node => {
             root = node;
-        }} style={props.style} />
+        }} style={...props.style} />
     );
 };
