@@ -1,3 +1,9 @@
+# [9.27.0] - 2021-5-14 [PR: #229](https://github.com/dolittle/vanir/pull/229)
+### Added
+
+- [C#] Added Hot Chocolate type interceptor for adding read only properties on object types and making them readable during execution (#226)
+
+
 # [9.26.0] - 2021-5-14 [PR: #225](https://github.com/dolittle/vanir/pull/225)
 ### Added
 
