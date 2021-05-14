@@ -11,6 +11,8 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static Services AddVanir(this IServiceCollection services, BackendArguments arguments = null)
         {
+            if (arguments == null) arguments = new();
+
             var container = new Container();
             services.AddSingleton<IContainer>(container);
             var types = new Types();
