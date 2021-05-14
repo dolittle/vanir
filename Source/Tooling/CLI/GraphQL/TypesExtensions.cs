@@ -7,8 +7,9 @@ using System.Linq;
 using System.Reflection;
 using Dolittle.Vanir.Backend.GraphQL;
 using Dolittle.Vanir.Backend.Reflection;
+using Dolittle.Vanir.CLI.Reflection;
 
-namespace Dolittle.Vanir.CLI.ProxyGenerator
+namespace Dolittle.Vanir.CLI.GraphQL
 {
     public static class TypesExtensions
     {
@@ -110,7 +111,7 @@ namespace Dolittle.Vanir.CLI.ProxyGenerator
             });
         }
 
-        public static IEnumerable<CommandDefinition> GetCommandTypes(this IEnumerable<TypeInfo> graphControllers)
+        public static IEnumerable<MutationDefinition> GetMutationTypes(this IEnumerable<TypeInfo> graphControllers)
         {
             var mutationMethods = graphControllers.SelectMany(_ => _.GetMethodsWithAttribute<MutationAttribute>());
             return mutationMethods.Select(_ =>
@@ -118,7 +119,7 @@ namespace Dolittle.Vanir.CLI.ProxyGenerator
                 var parameters = _.GetParameters();
                 if (parameters.Length == 1)
                 {
-                    return new CommandDefinition
+                    return new MutationDefinition
                     {
                         Name = _.Name,
                         Namespace = parameters[0].ParameterType.Namespace,
@@ -129,7 +130,7 @@ namespace Dolittle.Vanir.CLI.ProxyGenerator
                     };
                 }
                 return default;
-            }).Where<CommandDefinition>(_ => _ != default);
+            }).Where(_ => _ != default);
         }
 
         static string[] GetGraphRootPath(MethodInfo method)

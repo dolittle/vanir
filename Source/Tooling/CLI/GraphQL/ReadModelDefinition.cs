@@ -5,9 +5,9 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Dolittle.Vanir.CLI.ProxyGenerator
+namespace Dolittle.Vanir.CLI.GraphQL
 {
-    public class ReadModelDefinition : IProxyType, IEqualityComparer<ReadModelDefinition>
+    public class ReadModelDefinition : ISchemaType, IEqualityComparer<ReadModelDefinition>
     {
         public string Name { get; init; }
         public string Namespace { get; init; }

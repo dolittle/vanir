@@ -2,26 +2,30 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using Microsoft.Extensions.DependencyModel;
 
-namespace Dolittle.Vanir.CLI.ProxyGenerator
+namespace Dolittle.Vanir.CLI.Reflection
 {
-    public static class Types
+    /// <summary>
+    /// Represents an implementation of <see cref="ITypeDiscoverer"/>.
+    /// </summary>
+    public class TypeDiscoverer : ITypeDiscoverer
     {
-        public static IEnumerable<TypeInfo> GetAllTypesFromProjectReferencedAssemblies(string path, string directory)
+        /// <inheritdoc/>
+        public Types GetAllTypesFromProjectReferencedAssemblies(string path)
         {
+            var directory = Path.GetDirectoryName(path);
             var assembly = Assembly.LoadFrom(path);
             var dependencyModel = DependencyContext.Load(assembly);
             var assemblies = dependencyModel.RuntimeLibraries
                                 .Where(_ => _.Type.Equals("project", StringComparison.InvariantCultureIgnoreCase))
                                 .Select(_ =>
                                 {
-                                    var group = _.RuntimeAssemblyGroups.FirstOrDefault();
-                                    var file = group?.RuntimeFiles.FirstOrDefault();
+                                    var group = _.RuntimeAssemblyGroups[0];
+                                    var file = group?.RuntimeFiles[0];
                                     if (file != default)
                                     {
                                         var filePath = Path.Combine(directory, file.Path);
@@ -32,7 +36,7 @@ namespace Dolittle.Vanir.CLI.ProxyGenerator
                                 .Where(_ => _ != default)
                                 .ToArray();
 
-            return assemblies.SelectMany(asm => asm.DefinedTypes);
+            return new Types(assemblies.SelectMany(asm => asm.DefinedTypes));
         }
     }
 }

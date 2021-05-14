@@ -6,7 +6,7 @@ using Dolittle.Vanir.CLI.Templating;
 
 namespace Dolittle.Vanir.CLI.ProxyGenerator
 {
-   public class Templates : ITemplates
+   public class Templates
     {
         readonly ITemplateLoaders _templateLoaders;
 

@@ -5,10 +5,10 @@
             "label": "build aspnetcore sample",
             "command": "dotnet",
             "type": "process",
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
+            // "group": {
+            //     "kind": "build",
+            //     "isDefault": true
+            // },
             "args": [
                 "build",
                 "${workspaceFolder}/Samples/Source/Aspnetcore/Backend/Backend.csproj",
@@ -41,6 +41,10 @@
             "label": "build CLI",
             "command": "dotnet",
             "type": "process",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
             "args": [
                 "build",
                 "${workspaceFolder}/Source/Tooling/CLI/CLI.csproj",

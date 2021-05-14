@@ -1,35 +1,33 @@
 ﻿// Copyright (c) Dolittle. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using Dolittle.Vanir.Backend.GraphQL;
 using Dolittle.Vanir.Backend.Reflection;
-using Dolittle.Vanir.Backend.Strings;
-using Dolittle.Vanir.CLI.ProxyGenerator;
-using HandlebarsDotNet;
-using Types = Dolittle.Vanir.CLI.ProxyGenerator.Types;
+using Dolittle.Vanir.CLI.GraphQL;
+using Dolittle.Vanir.CLI.Reflection;
 
-namespace Dolittle.Vanir.CLI
+namespace Dolittle.Vanir.CLI.ProxyGenerator
 {
 
     public class Generator : IGenerator
     {
-        readonly ITemplates _templates;
+        readonly Templates _templates;
+        readonly ITypeDiscoverer _typeDiscoverer;
+        readonly ISchemaBuilder _schemaBuilder;
 
-        public Generator(ITemplates templates)
+        public Generator(Templates templates, ITypeDiscoverer typeDiscoverer, ISchemaBuilder schemaBuilder)
         {
             _templates = templates;
+            _typeDiscoverer = typeDiscoverer;
+            _schemaBuilder = schemaBuilder;
         }
 
         public void Generate(FileInfo assembly, DirectoryInfo outputPath)
         {
-            Console.WriteLine(assembly.FullName);
-            Console.WriteLine(outputPath.FullName);
-
+            var allTypes = _typeDiscoverer.GetAllTypesFromProjectReferencedAssemblies(assembly.FullName);
+            var schema = _schemaBuilder.BuildFrom(allTypes);
         }
 
         /*

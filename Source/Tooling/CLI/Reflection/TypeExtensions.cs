@@ -3,20 +3,12 @@
 
 using System;
 using Dolittle.Vanir.Backend.Concepts;
+using Dolittle.Vanir.Backend.Reflection;
 
-namespace Dolittle.Vanir.CLI.ProxyGenerator
+namespace Dolittle.Vanir.CLI.Reflection
 {
     public static class TypeExtensions
     {
-        public static bool IsNullable(this Type type)
-        {
-            return Nullable.GetUnderlyingType(type) != null;
-        }
-
-        public static Type GetNullableType(this Type type)
-        {
-            return type.GetGenericArguments()[0];
-        }
 
         public static bool IsComplexType(this Type type)
         {
