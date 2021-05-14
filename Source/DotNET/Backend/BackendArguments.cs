@@ -13,9 +13,9 @@ namespace Microsoft.Extensions.DependencyInjection
     public class BackendArguments
     {
         public ILoggerFactory LoggerFactory { get; set; } = new NullLoggerFactory();
-        public Action<IRequestExecutorBuilder> GraphQLExecutorBuilder = (b) => {};
-        public Action<ClientBuilder> DolittleClientBuilderCallback = (b) => {};
-        public Action<MongoClientSettings> MongoClientSettingsCallback = (b) => {};
+        public Action<IRequestExecutorBuilder> GraphQLExecutorBuilder = (b) => { };
+        public Action<ClientBuilder> DolittleClientBuilderCallback = (b) => { };
+        public Action<MongoClientSettings> MongoClientSettingsCallback = (b) => { };
 
         /// <summary>
         /// Setting indicating whether or not to automatically forward all public events over the Dolittle Event Horizon or not.
@@ -25,5 +25,13 @@ namespace Microsoft.Extensions.DependencyInjection
         /// callback.
         /// </remarks>
         public bool PublishAllPublicEvents { get; set; } = true;
+
+        /// <summary>
+        /// Indicating whether or not to automatically expose events in GraphQL schema when running in development.
+        /// </summary>
+        /// <remarks>
+        /// Defaults to true.
+        /// </remarks>
+        public bool ExposeEventsInGraphQLSchema { get; set; } = true;
     }
 }
