@@ -1,3 +1,13 @@
+# [9.26.0] - 2021-5-14 [PR: #225](https://github.com/dolittle/vanir/pull/225)
+### Added
+
+- [C#] `BackendArguments` now have a property called `ExposeEventsInGraphQLSchema` that enables you to disable the exposure of events in the GraphQL schema in development mode. This setting is set to true as default.
+
+### Fixed
+
+- [C#] Crash when not passing in a `BackendArguments` instance to `.AddVanir()` (#223). It is now possible to not pass anything in.
+
+
 # [9.25.0] - 2021-5-11 [PR: #220](https://github.com/dolittle/vanir/pull/220)
 ### Added
 
