@@ -221,7 +221,9 @@ const menus = {
     },
 
     BLUETOOTH: {
-        data: [{ label: 'enable', value: 70, bg: 'rgb(57, 172, 221)', color: 'white', type: 'ROOT' }, { label: 'back', value: 30, bg: 'white', color: 'rgb(57, 172, 221)', type: 'ROOT' }],
+        data: [
+            { label: 'enable', value: 70, bg: 'rgb(57, 172, 221)', color: 'white', type: 'ROOT' },
+        { label: 'back', value: 30, bg: 'white', color: 'rgb(57, 172, 221)', type: 'ROOT' }],
         config: {
             type: PieTypes.CIRCLE,
             colors: [],
@@ -247,7 +249,7 @@ const menus = {
 };
 
 const Menu = () => {
-    const [menu, setMenu] = useState(menus.ROOT);
+    const [menu, setMenu] = useState(menus.BLUETOOTH);
     const [visible, setVisible] = useState(true);
 
 
