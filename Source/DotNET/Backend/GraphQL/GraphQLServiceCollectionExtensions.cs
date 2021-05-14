@@ -49,6 +49,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
             var graphQLBuilder = services
                                     .AddGraphQLServer()
+                                    .TryAddTypeInterceptor<ReadOnlyPropertyInterceptor>()
                                     .AddAuthorization()
                                     .UseFluentValidation()
                                     .AddType(new UuidType(UuidFormat));
@@ -73,4 +74,5 @@ namespace Microsoft.Extensions.DependencyInjection
             }
         }
     }
+
 }

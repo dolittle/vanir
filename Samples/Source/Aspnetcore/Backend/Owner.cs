@@ -20,5 +20,7 @@ namespace Backend
         public string Address { get; set; }
         public ICollection<Account> Accounts { get; set; }
         public CommonObject CommonObject { get; set; }
+
+        public int ReadOnlyProperty => 42;
     }
 }
