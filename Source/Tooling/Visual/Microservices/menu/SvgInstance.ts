@@ -1,8 +1,6 @@
 // Copyright (c) Dolittle. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-/* eslint-disable react/no-find-dom-node */
-import ReactDOM from 'react-dom';
 import * as d3 from 'd3';
 import { CircularMenuConfig } from './CircularMenuConfig';
 
@@ -20,7 +18,7 @@ export class SvgInstance {
 
     constructor(private readonly element: Element, private readonly cfg: CircularMenuConfig) {
         // SVG Creation
-        this._el = d3.select(ReactDOM.findDOMNode(element) as Element);
+        this._el = d3.select(element);
         this.svg = this._el.append('svg').style('background-color', cfg.backgroundColor);
         this.container = this.svg.append('svg:g');
     }
