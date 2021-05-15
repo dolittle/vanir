@@ -49,6 +49,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
             var graphQLBuilder = services
                                     .AddGraphQLServer()
+                                    .TryAddTypeInterceptor<FeatureTogglesInterceptor>()
                                     .TryAddTypeInterceptor<ReadOnlyPropertyInterceptor>()
                                     .AddAuthorization()
                                     .UseFluentValidation()
