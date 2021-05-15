@@ -9,20 +9,29 @@ using HotChocolate.Types.Descriptors.Definitions;
 
 namespace Dolittle.Vanir.Backend.GraphQL
 {
+    /// <summary>
+    /// Represents a <see cref="TypeInterceptor"/> that alters the schema according to whether or not features are enabled.
+    /// </summary>
     public class FeatureTogglesInterceptor : TypeInterceptor
     {
         readonly IFeatureToggles _featureToggles;
 
+        /// <summary>
+        /// Initializes a new instance of <see cref="FeatureTogglesInterceptor"/>.
+        /// </summary>
+        /// <param name="featureToggles"><see cref="IFeatureToggles"/> to use.</param>
         public FeatureTogglesInterceptor(IFeatureToggles featureToggles)
         {
             _featureToggles = featureToggles;
         }
 
+        /// <inheritdoc/>
         public override bool CanHandle(ITypeSystemObjectContext context)
         {
             return context.Type is SchemaRoute sr && sr.HasItems;
         }
 
+        /// <inheritdoc/>
         public override void OnBeforeCompleteType(ITypeCompletionContext completionContext, DefinitionBase definition, IDictionary<string, object> contextData)
         {
             if (definition is ObjectTypeDefinition otd)
