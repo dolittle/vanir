@@ -1,3 +1,6 @@
+// Copyright (c) Dolittle. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
 import { Resolver, Query, Arg, Mutation } from 'type-graphql';
 import { injectable, container } from 'tsyringe';
 import { Nothing } from './Nothing';
@@ -9,6 +12,7 @@ import { MyEvent } from './MyEvent';
 import { Guid } from '@dolittle/rudiments';
 
 import { projectionFor, IProjectionFor, ProjectionBuilder } from '@dolittle/projections';
+import { feature } from '@dolittle/vanir-features';
 
 export class CustomError extends Error {
     constructor() {
@@ -65,6 +69,7 @@ export class NoQueries {
     }
 
     @Mutation(() => Boolean)
+    @feature('my.first.feature')
     async perform(@Arg('input') command: DoStuff): Promise<boolean> {
         const aggregate = await this._aggregate.of(MyAggregate, command.id);
         await aggregate.perform(_ => _.doStuff(command.something));
