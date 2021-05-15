@@ -159,6 +159,7 @@ namespace Backend
         }
 
         [Query("MyCustomName")]
+        [Feature("my.first.feature")]
         public Owner TheOwner(int id) => new Owner
         {
             Id = Guid.NewGuid(),
