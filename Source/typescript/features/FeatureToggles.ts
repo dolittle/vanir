@@ -10,7 +10,7 @@ import { IFeatureToggles } from './IFeatureToggles';
 export class FeatureToggles implements IFeatureToggles {
 
     /** @inheritdoc */
-    isFeatureOn(feature: string): boolean {
+    isOn(feature: string): boolean {
         throw new Error('Method not implemented.');
     }
 }

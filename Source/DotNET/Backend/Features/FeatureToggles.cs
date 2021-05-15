@@ -8,10 +8,22 @@ namespace Dolittle.Vanir.Backend.Features
     /// </summary>
     public class FeatureToggles : IFeatureToggles
     {
-        /// <inheritdoc/>
-        public bool IsFeatureOn(string feature)
+        readonly Features _features;
+
+        /// <summary>
+        /// Initializes a new instance of <see cref="FeatureToggles"/>.
+        /// </summary>
+        /// <param name="provider"><see cref="IFeaturesProvider"/> for providing features.</param>
+        public FeatureToggles(IFeaturesProvider provider)
         {
-            throw new System.NotImplementedException();
+            _features = provider.Provide();
+        }
+
+        /// <inheritdoc/>
+        public bool IsOn(string feature)
+        {
+            if (!_features.ContainsKey(feature)) return false;
+            return _features[feature].IsOn;
         }
     }
 }

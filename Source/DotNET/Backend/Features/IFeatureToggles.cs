@@ -14,6 +14,6 @@ namespace Dolittle.Vanir.Backend.Features
         /// <param name="feature">Feature identifier.</param>
         /// <returns>True if on, false it off.</returns>
         /// <remarks>If the feature is not configured, it will return false.</remarks>
-        bool IsFeatureOn(string feature);
+        bool IsOn(string feature);
     }
 }
