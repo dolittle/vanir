@@ -1,6 +1,7 @@
 // Copyright (c) Dolittle. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+
 /**
  * Defines an interface for checking if a feature is on or off.
  */
@@ -13,4 +14,3 @@ export abstract class IFeatureToggles {
      */
     abstract isOn(feature: string): boolean;
 }
-
