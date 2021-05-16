@@ -1,4 +1,5 @@
 import { graphRoot } from '@dolittle/vanir-backend';
+import { feature } from '@dolittle/vanir-features';
 import { Resolver, Query, Arg, ObjectType, Field } from 'type-graphql';
 
 @ObjectType()
@@ -15,6 +16,7 @@ export class Recipe {
 
 @Resolver()
 @graphRoot('groceryStore/bakery')
+@feature('my.first.class.feature')
 export class Bakery {
     @Query(() => [Danish], { name: 'search' })
     @graphRoot('pastries')
@@ -26,6 +28,7 @@ export class Bakery {
 
     @Query(() => Recipe, { name: 'recipe' })
     @graphRoot('pastries')
+    @feature('my.first.method.feature')
     async retrieveRecipe(@Arg('id') id: string): Promise<Recipe> {
         return new Recipe();
     }
