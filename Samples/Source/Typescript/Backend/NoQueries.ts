@@ -69,7 +69,6 @@ export class NoQueries {
     }
 
     @Mutation(() => Boolean)
-    @feature('my.first.feature')
     async perform(@Arg('input') command: DoStuff): Promise<boolean> {
         const aggregate = await this._aggregate.of(MyAggregate, command.id);
         await aggregate.perform(_ => _.doStuff(command.something));
