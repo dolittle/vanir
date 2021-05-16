@@ -5,7 +5,7 @@ import { IFeaturesProvider } from '../../IFeaturesProvider';
 import sinon from 'sinon';
 import { Features } from '../../Features';
 import { FeatureToggles } from '../../FeatureToggles';
-import { IFeatureToggleStrategy } from '../../dist/IFeatureToggleStrategy';
+import { IFeatureToggleStrategy } from '../../IFeatureToggleStrategy';
 
 describe('when asking if feature is on and feature exists and strategy is turned off', () => {
     const feature = 'SomeFeature';
