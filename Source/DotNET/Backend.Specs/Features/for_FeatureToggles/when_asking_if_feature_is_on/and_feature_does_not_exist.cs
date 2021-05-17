@@ -1,6 +1,7 @@
 // Copyright (c) Dolittle. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System.Reactive.Subjects;
 using Machine.Specifications;
 using Moq;
 using It = Machine.Specifications.It;
@@ -15,7 +16,7 @@ namespace Dolittle.Vanir.Backend.Features.for_FeatureToggles.when_asking_if_feat
         Establish context = () =>
         {
             var provider = new Mock<IFeaturesProvider>();
-            provider.Setup(_ => _.Provide()).Returns(new Features());
+            provider.SetupGet(_ => _.Features).Returns(new BehaviorSubject<Features>(new Features()));
             toggles = new FeatureToggles(provider.Object);
         };
 
