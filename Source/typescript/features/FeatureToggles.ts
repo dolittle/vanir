@@ -11,14 +11,14 @@ import { injectable } from 'tsyringe';
  */
 @injectable()
 export class FeatureToggles implements IFeatureToggles {
-    private readonly _features: Features;
+    private _features: Features = new Features();
 
     /**
      *
      * @param {IFeaturesProvider} provider Provider of features.
      */
     constructor(private readonly provider: IFeaturesProvider) {
-        this._features = provider.provide();
+        provider.features.subscribe(_ => this._features = _);
     }
 
     /** @inheritdoc */

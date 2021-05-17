@@ -3,17 +3,15 @@
 
 import { Features } from './Features';
 
+import { Observable } from 'rxjs';
+
 /**
  * Defines a system that can provide {@link Features}
  */
 export abstract class IFeaturesProvider {
 
     /**
-     * Provide {@link Features}.
-     * @returns All {@link Features}.
+     * Features {@link Observable} providing {@link Features}.
      */
-    abstract provide(): Features;
+    abstract readonly features: Observable<Features>;
 }
-
-
-

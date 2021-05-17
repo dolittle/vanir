@@ -2,10 +2,10 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 import { IFeaturesProvider } from '../../IFeaturesProvider';
-import sinon from 'sinon';
 import { Features } from '../../Features';
 import { FeatureToggles } from '../../FeatureToggles';
 import { IFeatureToggleStrategy } from '../../IFeatureToggleStrategy';
+import { BehaviorSubject } from 'rxjs';
 
 describe('when asking if feature is on and feature exists and strategy is turned off', () => {
     const feature = 'SomeFeature';
@@ -16,7 +16,7 @@ describe('when asking if feature is on and feature exists and strategy is turned
     };
 
     const provider: IFeaturesProvider = {
-        provide: sinon.stub().returns(new Features(new Map([
+        features: new BehaviorSubject(new Features(new Map([
             [feature, strategy]
         ])))
     };
