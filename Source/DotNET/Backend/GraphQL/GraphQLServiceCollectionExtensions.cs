@@ -1,11 +1,13 @@
 // Copyright (c) Dolittle. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
 using System.Linq;
 using Dolittle.SDK.Concepts;
 using Dolittle.Vanir.Backend;
 using Dolittle.Vanir.Backend.Collections;
 using Dolittle.Vanir.Backend.Dolittle;
+using Dolittle.Vanir.Backend.Features;
 using Dolittle.Vanir.Backend.GraphQL;
 using Dolittle.Vanir.Backend.GraphQL.Concepts;
 using Dolittle.Vanir.Backend.GraphQL.Validation;
@@ -49,7 +51,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
             var graphQLBuilder = services
                                     .AddGraphQLServer()
-                                    .TryAddTypeInterceptor<FeatureTogglesInterceptor>()
+                                    .AddDirectiveType<FeatureDirectiveType>()
                                     .TryAddTypeInterceptor<ReadOnlyPropertyInterceptor>()
                                     .AddAuthorization()
                                     .UseFluentValidation()

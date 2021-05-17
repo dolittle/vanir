@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Collections.Generic;
+using Dolittle.Vanir.Backend.Features;
 using HotChocolate.Types;
 using Microsoft.AspNetCore.Authorization;
 
@@ -42,6 +43,8 @@ namespace Dolittle.Vanir.Backend.GraphQL
             {
                 var fieldDescriptor = descriptor.Field(item.Method).Name(item.Name);
 
+                AddAdornedFeatures(item, fieldDescriptor);
+
                 AddAdornedAuthorization(item, fieldDescriptor);
             }
 
@@ -53,6 +56,21 @@ namespace Dolittle.Vanir.Backend.GraphQL
             if (_items.Count == 0)
             {
                 descriptor.Field("Default").Resolve(() => "Configure your first item");
+            }
+        }
+
+        void AddAdornedFeatures(SchemaRouteItem item, IObjectFieldDescriptor fieldDescriptor)
+        {
+            var featureAttributes = new List<FeatureAttribute>();
+            featureAttributes.AddRange(item.Method.GetCustomAttributes(typeof(FeatureAttribute), true) as FeatureAttribute[]);
+            featureAttributes.AddRange(item.Method.DeclaringType.GetCustomAttributes(typeof(FeatureAttribute), true) as FeatureAttribute[]);
+
+            if (featureAttributes.Count > 0)
+            {
+                foreach (var featureAttribute in featureAttributes)
+                {
+                    fieldDescriptor.Directive(new FeatureDirective { Name = featureAttribute.Name });
+                }
             }
         }
 
