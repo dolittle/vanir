@@ -43,16 +43,14 @@ namespace Dolittle.Vanir.Backend.Features
             if (!File.Exists(_featuresPath))
             {
                 _features.OnNext(new Features());
+                return;
             }
-            else
-            {
-                var featuresAsJson = File.ReadAllText(_featuresPath);
-                var featureBooleans = JsonConvert.DeserializeObject<Dictionary<string, bool>>(featuresAsJson);
-                var features = featureBooleans.ToDictionary(
-                                    _ => _.Key,
-                                    _ => new BooleanFeatureToggleStrategy { IsOn = _.Value } as IFeatureToggleStrategy);
-                _features.OnNext(new Features(features));
-            }
+            var featuresAsJson = File.ReadAllText(_featuresPath);
+            var featureBooleans = JsonConvert.DeserializeObject<Dictionary<string, bool>>(featuresAsJson);
+            var features = featureBooleans.ToDictionary(
+                                _ => _.Key,
+                                _ => new BooleanFeatureToggleStrategy { IsOn = _.Value } as IFeatureToggleStrategy);
+            _features.OnNext(new Features(features));
         }
 
         public IObservable<Features> Features => _features;
