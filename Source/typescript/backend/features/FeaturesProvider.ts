@@ -3,10 +3,10 @@
 
 import fs from 'fs';
 
-import { Features } from './Features';
-import { IFeaturesProvider } from './IFeaturesProvider';
-import { IFeatureToggleStrategy } from './IFeatureToggleStrategy';
-import { BooleanFeatureToggleStrategy } from './BooleanFeatureToggleStrategy';
+import { Features } from '@dolittle/vanir-features';
+import { IFeaturesProvider } from '@dolittle/vanir-features';
+import { IFeatureToggleStrategy } from '@dolittle/vanir-features';
+import { BooleanFeatureToggleStrategy } from '@dolittle/vanir-features';
 import { injectable } from 'tsyringe';
 import { Observable, BehaviorSubject } from 'rxjs';
 

@@ -43,7 +43,7 @@
         "edit-json-file": "1.5.0",
         "minimist": "1.2.5",
         "plop": "2.7.4",
-        "rxjs": "7.0.1"
+        "rxjs": "6.6.0"
     },
     "devDependencies": {
         "@types/edit-json-file": "1.4.0",

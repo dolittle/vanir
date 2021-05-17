@@ -7,7 +7,7 @@ import path from 'path';
 import dotenv from 'dotenv';
 
 import * as Dolittle from './dolittle';
-import * as Features from '@dolittle/vanir-features';
+import * as Features from './features';
 import * as Express from './web';
 import * as DependencyInversion from '@dolittle/vanir-dependency-inversion';
 
