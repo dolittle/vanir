@@ -4,10 +4,12 @@
 import { IFeatureToggles } from './IFeatureToggles';
 import { IFeaturesProvider } from './IFeaturesProvider';
 import { Features } from './Features';
+import { injectable } from 'tsyringe';
 
 /**
  * Represents an implementation of {@link IFeatureToggles}
  */
+@injectable()
 export class FeatureToggles implements IFeatureToggles {
     private readonly _features: Features;
 

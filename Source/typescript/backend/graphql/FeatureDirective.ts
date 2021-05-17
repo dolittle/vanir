@@ -6,6 +6,10 @@ import { GraphQLSchema, GraphQLField, GraphQLDirective, DirectiveLocation, Graph
 import { SchemaDirectiveVisitor } from 'graphql-tools';
 import { getMetadataStorage } from 'type-graphql/dist/metadata';
 import { Constructor } from '@dolittle/types';
+import { container } from 'tsyringe';
+import { IFeatureToggles } from '@dolittle/vanir-features';
+import { constructor } from '@dolittle/vanir-dependency-inversion';
+import { FeatureDisabled } from './FeatureDisabled';
 
 export class FeatureDirective extends SchemaDirectiveVisitor {
 
@@ -53,7 +57,17 @@ export class FeatureDirective extends SchemaDirectiveVisitor {
     }
 
     visitFieldDefinition(field: GraphQLField<any, any>, details: any) {
-        var i = 0;
-        i++;
+        const resolve = field.resolve;
+        const feature = this.args.name;
+
+        field.resolve = async function (source, { append, ...otherArgs }, context, info) {
+            const featureToggles = container.resolve(IFeatureToggles as constructor<IFeatureToggles>);
+            if (!featureToggles.isOn(feature)) {
+                throw new FeatureDisabled(feature);
+            }
+            const result = await resolve!.call(this, source, otherArgs, context, info);
+            return result;
+        };
     }
 }
+
