@@ -1,6 +1,8 @@
 // Copyright (c) Dolittle. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
+
 namespace Dolittle.Vanir.Backend.Features
 {
     /// <summary>
@@ -8,7 +10,7 @@ namespace Dolittle.Vanir.Backend.Features
     /// </summary>
     public class FeatureToggles : IFeatureToggles
     {
-        readonly Features _features;
+        Features _features;
 
         /// <summary>
         /// Initializes a new instance of <see cref="FeatureToggles"/>.
@@ -16,7 +18,7 @@ namespace Dolittle.Vanir.Backend.Features
         /// <param name="provider"><see cref="IFeaturesProvider"/> for providing features.</param>
         public FeatureToggles(IFeaturesProvider provider)
         {
-            _features = provider.Provide();
+            provider.Features.Subscribe(_ => _features = _);
         }
 
         /// <inheritdoc/>
