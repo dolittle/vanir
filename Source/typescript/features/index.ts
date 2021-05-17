@@ -4,6 +4,7 @@
 
 export * from './BooleanFeatureToggleStrategy';
 export * from './featureDecorator';
+export * from './FeatureDecorators';
 export * from './Features';
 export * from './FeaturesProvider';
 export * from './FeatureToggles';

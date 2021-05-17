@@ -1,6 +1,6 @@
 import { graphRoot } from '@dolittle/vanir-backend';
 import { feature } from '@dolittle/vanir-features';
-import { Resolver, Query, Arg, ObjectType, Field } from 'type-graphql';
+import { Directive, Resolver, Query, Arg, ObjectType, Field } from 'type-graphql';
 
 @ObjectType()
 export class Danish {

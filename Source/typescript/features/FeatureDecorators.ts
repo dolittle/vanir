@@ -3,34 +3,41 @@
 
 import { Constructor } from '@dolittle/types';
 
+export class ClassAndMethod {
+    constructor(readonly target: Constructor, readonly method: string) { }
+}
+
 /**
  * Represents all the feature decorators in the system.
  */
 export class FeatureDecorators {
-    private static readonly _classDecorators: Map<Constructor, string[]> = new Map();
-    private static readonly _methodDecorators: Map<Function, string[]> = new Map();
+    static readonly classFeatures: Map<Constructor, string[]> = new Map();
+    static readonly methodFeatures: Map<ClassAndMethod, string[]> = new Map();
 
     static registerForClass(target: Constructor, feature: string) {
-        if (!this._classDecorators.has(target)) {
-            this._classDecorators.set(target, []);
+        if (!this.classFeatures.has(target)) {
+            this.classFeatures.set(target, []);
         }
 
-        this._classDecorators.set(target, [...this._classDecorators.get(target)!, ...[feature]]);
+        this.classFeatures.set(target, [...this.classFeatures.get(target)!, ...[feature]]);
     }
 
-    static registerForMethod(target: Function, feature: string) {
-        if (!this._methodDecorators.has(target)) {
-            this._methodDecorators.set(target, []);
+    static registerForMethod(target: Constructor, method: string, feature: string) {
+        let existing:ClassAndMethod | undefined;
+        this.methodFeatures.forEach((value, key) => {
+            if( key.target === target && key.method === method ) {
+                existing = key;
+            }
+        });
+
+        if(!existing) {
+            existing = new ClassAndMethod(target, method);
         }
 
-        this._methodDecorators.set(target, [...this._methodDecorators.get(target)!, ...[feature]]);
-    }
+        if (!this.methodFeatures.has(existing)) {
+            this.methodFeatures.set(existing, []);
+        }
 
-    static getForClass(target: Constructor): string[] {
-        return this._classDecorators.get(target) || [];
-    }
-
-    static getForMethod(target: Function): string[] {
-        return this._methodDecorators.get(target) || [];
+        this.methodFeatures.set(existing, [...this.methodFeatures.get(existing)!, ...[feature]]);
     }
 }

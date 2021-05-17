@@ -11,6 +11,8 @@ import { BrokenRuleErrorInterceptor } from './BrokenRuleErrorInterceptor';
 import { GraphQLSchemaRouteBuilder } from './GraphQLSchemaRouteBuilder';
 import { BackendArguments } from '../BackendArguments';
 import { Configuration } from '../Configuration';
+import { SchemaDirectiveVisitor } from 'graphql-tools';
+import { FeatureDirective } from './FeatureDirective';
 
 @ObjectType()
 class Nothing {
@@ -26,10 +28,11 @@ class NoQueries {
     }
 }
 
-
 export async function getSchemaFor(configuration: Configuration, backendArguments: BackendArguments): Promise<GraphQLSchema> {
     const resolvers = backendArguments.graphQLResolvers || [];
     const actualResolvers = resolvers.length > 0 ? resolvers as any : [NoQueries];
+
+    FeatureDirective.extendTypesAndFields();
 
     let schema = await buildSchema({
         resolvers: actualResolvers,
@@ -41,7 +44,14 @@ export async function getSchemaFor(configuration: Configuration, backendArgument
         },
         scalarsMap: [
             { type: Guid, scalar: GuidScalar }
+        ],
+        directives: [
+
         ]
+    });
+
+    SchemaDirectiveVisitor.visitSchemaDirectives(schema, {
+        feature: FeatureDirective
     });
 
     const config = schema.toConfig();
@@ -52,6 +62,9 @@ export async function getSchemaFor(configuration: Configuration, backendArgument
     config.types = [];
     schema = new GraphQLSchema(config);
 
-
     return schema;
 }
+
+
+
+

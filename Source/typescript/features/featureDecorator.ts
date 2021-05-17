@@ -9,7 +9,7 @@ export function feature(name: string): ClassDecorator | MethodDecorator {
         if (!propertyKey) {
             FeatureDecorators.registerForClass(target, name);
         } else {
-            FeatureDecorators.registerForMethod(target[propertyKey], name);
+            FeatureDecorators.registerForMethod(target.constructor, propertyKey as string, name);
         }
     };
 }
