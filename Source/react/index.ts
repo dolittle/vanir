@@ -13,6 +13,7 @@ export * from './routing';
 export * from './MicroserviceContext';
 
 export * from './useDialog';
+export * from './features';
 
 export * as mvvm from './mvvm';
 export * as routing from './routing';
@@ -23,4 +24,3 @@ export function initializeFrontend(configuration: Configuration) {
     WebBindings.initialize(configuration);
     MVVMBindings.initialize();
 }
-

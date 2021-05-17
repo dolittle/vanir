@@ -9,6 +9,9 @@
             "path": "../typescript/dependency-inversion"
         },
         {
+            "path": "../typescript/features"
+        },
+        {
             "path": "../web"
         }
     ]

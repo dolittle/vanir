@@ -1,22 +1,16 @@
+// Copyright (c) Dolittle. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
 import React, { useState } from 'react';
-import { PrimaryButton, TextField, DetailsList, IColumn } from '@fluentui/react';
 import { withViewModel } from '@dolittle/vanir-react';
 import { AppViewModel } from './AppViewModel';
+import { useFeature } from '@dolittle/vanir-react';
 
 export const App = withViewModel(AppViewModel, ({ viewModel }) => {
-    const [name, setName] = useState('');
-    const columns: IColumn[] = [
-        { name: "Name", key: "name", fieldName: "name", minWidth: 100 }
-    ];
-
+    const myFirstFeatureMethodFeature = useFeature('my.first.method.feature');
 
     return (
         <>
-            <TextField label="Application name" onChange={(ev, nv) => setName(nv!)} />
-            <PrimaryButton onClick={() => viewModel.createApplication(name)}>Click me for magic</PrimaryButton>
-
-            <DetailsList columns={columns} items={viewModel.applications}>
-            </DetailsList>
         </>
     );
 });

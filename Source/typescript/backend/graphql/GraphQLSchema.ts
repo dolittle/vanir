@@ -2,7 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 import { Guid } from '@dolittle/rudiments';
-import { buildSchema, Field, ObjectType, Query, Resolver, ResolverData } from 'type-graphql';
+import { buildSchema, Field, NonEmptyArray, ObjectType, Query, Resolver, ResolverData, PubSubEngine } from 'type-graphql';
 import { GraphQLSchema } from 'graphql';
 
 import { GuidScalar } from './GuidScalar';
@@ -13,6 +13,10 @@ import { BackendArguments } from '../BackendArguments';
 import { Configuration } from '../Configuration';
 import { SchemaDirectiveVisitor } from 'graphql-tools';
 import { FeatureDirective } from './FeatureDirective';
+import { FeaturesSubscriptionsResolver } from "../features";
+import { Constructor } from '@dolittle/types';
+import { PubSub } from 'graphql-subscriptions';
+import { constructor } from '@dolittle/vanir-dependency-inversion';
 
 @ObjectType()
 class Nothing {
@@ -29,13 +33,16 @@ class NoQueries {
 }
 
 export async function getSchemaFor(configuration: Configuration, backendArguments: BackendArguments): Promise<GraphQLSchema> {
-    const resolvers = backendArguments.graphQLResolvers || [];
-    const actualResolvers = resolvers.length > 0 ? resolvers as any : [NoQueries];
+    const resolvers = (backendArguments.graphQLResolvers || []) as NonEmptyArray<Constructor>;
+    const actualResolvers = resolvers.length > 0 ? resolvers : [NoQueries] as NonEmptyArray<Constructor>;
 
     FeatureDirective.extendTypesAndFields();
 
+    const pubSub = new PubSub();
+    container.registerInstance(PubSubEngine as constructor<PubSubEngine>, pubSub);
+
     let schema = await buildSchema({
-        resolvers: actualResolvers,
+        resolvers: [...actualResolvers, ...[FeaturesSubscriptionsResolver]],
         globalMiddlewares: [BrokenRuleErrorInterceptor],
         container: {
             get(someClass: any, resolverData: ResolverData<any>): any | Promise<any> {
@@ -45,10 +52,10 @@ export async function getSchemaFor(configuration: Configuration, backendArgument
         scalarsMap: [
             { type: Guid, scalar: GuidScalar }
         ],
-        directives: [
-
-        ]
+        pubSub: pubSub
     });
+
+    FeaturesSubscriptionsResolver.initialize();
 
     SchemaDirectiveVisitor.visitSchemaDirectives(schema, {
         feature: FeatureDirective

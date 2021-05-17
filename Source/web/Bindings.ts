@@ -10,6 +10,7 @@ import { DataSource } from './DataSource';
 import { Configuration } from './Configuration';
 import { INavigator, Navigator } from './routing';
 import { Bindings as MessagingBindings } from './messaging/Bindings';
+import { Bindings as FeaturesBindings } from './features';
 
 export class Bindings {
     static initialize(configuration: Configuration) {
@@ -32,11 +33,10 @@ export class Bindings {
         });
 
         container.registerInstance(DataSource as constructor<DataSource>, client);
-
         container.registerSingleton(INavigator as constructor<INavigator>, Navigator);
-
         container.registerInstance(History, window.history);
 
         MessagingBindings.initialize();
+        FeaturesBindings.initialize();
     }
 }
