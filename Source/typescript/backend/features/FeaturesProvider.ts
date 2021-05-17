@@ -10,6 +10,8 @@ import { BooleanFeatureToggleStrategy } from '@dolittle/vanir-features';
 import { injectable } from 'tsyringe';
 import { Observable, BehaviorSubject } from 'rxjs';
 
+import chokidar from 'chokidar';
+
 const featuresPath = './data/features.json';
 
 /**
@@ -21,7 +23,7 @@ export class FeaturesProvider extends IFeaturesProvider {
 
     constructor() {
         super();
-        fs.watchFile(featuresPath, _ => {
+        chokidar.watch(featuresPath).on('all', (event, path) => {
             this.loadFeatures();
         });
         this.loadFeatures();
