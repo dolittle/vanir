@@ -12,7 +12,7 @@ namespace Dolittle.Vanir.Backend.Features
     public interface IFeaturesProvider
     {
         /// <summary>
-        /// Features <see cref="Subject{T}"/> providing <see cref="Features"/>.
+        /// Features <see cref="IObservable{T}"/> providing <see cref="Features"/>.
         /// </summary>
         IObservable<Features> Features { get; }
     }
