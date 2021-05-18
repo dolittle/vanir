@@ -9,7 +9,6 @@ using HotChocolate.Utilities;
 namespace Dolittle.Vanir.Backend.GraphQL.Concepts
 {
     public class ConceptAsTypeProvider<TConcept> : IChangeTypeProvider
-        where TConcept : new()
     {
         public bool TryCreateConverter(Type source, Type target, ChangeTypeProvider root, [NotNullWhen(true)] out ChangeType converter)
         {

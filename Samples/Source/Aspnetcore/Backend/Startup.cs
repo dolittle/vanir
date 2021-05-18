@@ -41,7 +41,7 @@ namespace Backend
                 .AddPolicy("MyPolicy", policy =>
                  policy.RequireClaim("Admin")));
 
-            services.AddVanir(new()
+            services.AddVanirWithCommon(new()
             {
                 LoggerFactory = loggerFactory,
                 GraphQLExecutorBuilder = (IRequestExecutorBuilder _) =>
@@ -63,7 +63,7 @@ namespace Backend
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseVanir();
+            app.UseVanirWithCommon();
         }
     }
 }

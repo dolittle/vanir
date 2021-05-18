@@ -69,6 +69,8 @@ namespace Microsoft.Extensions.DependencyInjection
                 return DolittleClient.EventTypes;
             });
 
+            services.AddExecutionContext();
+
             DolittleClientBuilder = clientBuilder;
         }
 
