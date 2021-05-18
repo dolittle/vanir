@@ -1,3 +1,9 @@
+# [9.27.1] - 2021-5-18 [PR: #232](https://github.com/dolittle/vanir/pull/232)
+### Fixed
+
+- [C#] Removing new() constraint on ConceptAs type provider - this was an error, it shouldn't have this constraint as we support creating instances of Concept types without default constructors.
+
+
 # [9.27.0] - 2021-5-14 [PR: #229](https://github.com/dolittle/vanir/pull/229)
 ### Added
 
