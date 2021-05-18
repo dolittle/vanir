@@ -49,6 +49,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
             var graphQLBuilder = services
                                     .AddGraphQLServer()
+                                    .ModifyRequestOptions(opt => opt.IncludeExceptionDetails = RuntimeEnvironment.isDevelopment)
                                     .TryAddTypeInterceptor<ReadOnlyPropertyInterceptor>()
                                     .AddAuthorization()
                                     .UseFluentValidation()
