@@ -110,6 +110,7 @@ The following extension methods for `IServiceCollection` are available:
 | .AddDolittle() | Builds the Dolittle client based on the configuration |
 | .AddGraphQL() | Builds the GraphQL Hot Chocolate schema |
 | .AddMongoDB() | Adds the MongoDB default settings and serializers |
+| .AddFeatures() | Adds the feature toggling system |
 | .AddResources() | Adds resources that are according to the current execution context, relies on the execution context being configured properly, which .AddDolittle() includes for instance. |
 | .AddExecutionContext() | Registers the `IExecutionContextManager` and prepares for execution context to work |
 
