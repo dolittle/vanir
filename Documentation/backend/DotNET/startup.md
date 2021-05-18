@@ -115,12 +115,8 @@ The following extension methods for `IServiceCollection` are available:
 
 The following extension methods for `IApplicationBuilder` are available:
 
-| Method  | Description |
-| -------- | ----------- |
-| .UseDolittle() | Starts the Dolittle client |
-| .UseGraphQL() | Configures GraphQL endpoints |
-
 | Method | Description |
 | ------ | ----------- |
-| Blah   | Blah        |
+| .UseDolittle() | Starts the Dolittle client |
+| .UseGraphQL() | Configures GraphQL endpoints |
 
