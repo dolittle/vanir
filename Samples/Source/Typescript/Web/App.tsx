@@ -6,12 +6,16 @@ import { withViewModel } from '@dolittle/vanir-react';
 import { AppViewModel } from './AppViewModel';
 import { useFeature } from '@dolittle/vanir-react';
 
+import { Toggle } from '@fluentui/react';
+
 export const App = withViewModel(AppViewModel, ({ viewModel }) => {
-    const myFirstFeatureMethodFeature = useFeature('my.first.method.feature');
+    const myFirstMethodFeature = useFeature('my.first.method.feature');
+    const myFirstClassFeature = useFeature('my.first.class.feature');
 
     return (
         <>
-            Feature is : {myFirstFeatureMethodFeature ? 'on' : 'off'}
+            <Toggle label="my.first.method.feature" checked={myFirstMethodFeature} onText="On" offText="Off" />
+            <Toggle label="my.first.class.feature" checked={myFirstClassFeature} onText="On" offText="Off" />
         </>
     );
 });
