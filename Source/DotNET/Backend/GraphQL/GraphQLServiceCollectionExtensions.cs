@@ -1,7 +1,10 @@
 // Copyright (c) Dolittle. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
 using Dolittle.SDK.Concepts;
 using Dolittle.Vanir.Backend;
 using Dolittle.Vanir.Backend.Collections;
@@ -16,6 +19,26 @@ using HotChocolate.Types.Descriptors;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
+    public class Feature
+    {
+        public string Name { get; set; }
+        public bool IsOn { get; set; }
+    }
+
+    public class FeatureNotification
+    {
+        public Feature[] Features { get; set; }
+    }
+
+    public class FeaturesSubscriptionsResolver
+    {
+        public Task<FeatureNotification> NewFeatures()
+        {
+            return Task.FromResult(new FeatureNotification());
+        }
+    }
+
+
     /// <summary>
     /// Extension methods for <see cref="IServiceCollection"/> for adding GraphQL services.
     /// </summary>
@@ -57,11 +80,17 @@ namespace Microsoft.Extensions.DependencyInjection
                                     .AddType(new UuidType(UuidFormat));
             types.FindMultiple<ScalarType>().Where(_ => !_.IsGenericType).ForEach(_ => graphQLBuilder.AddType(_));
 
+            services.AddInMemorySubscriptions();
+
             var namingConventions = new NamingConventions();
 
             graphQLBuilder
                 .AddQueries(graphControllers, namingConventions)
-                .AddMutations(graphControllers, namingConventions, out SchemaRoute mutations);
+                .AddMutations(graphControllers, namingConventions, out SchemaRoute mutations)
+                .AddSubscriptions(graphControllers, namingConventions, out SchemaRoute subscriptions);
+
+            Expression<Func<FeaturesSubscriptionsResolver, Task<FeatureNotification>>> asd = (FeaturesSubscriptionsResolver resolver) => resolver.NewFeatures();
+            subscriptions.AddItem(new SchemaRouteItem(asd.GetMethodInfo(), "newFeatures"));
 
             types.FindMultiple(typeof(ConceptAs<>)).ForEach(_ => graphQLBuilder.AddConceptTypeConverter(_));
 
@@ -76,5 +105,4 @@ namespace Microsoft.Extensions.DependencyInjection
             }
         }
     }
-
 }

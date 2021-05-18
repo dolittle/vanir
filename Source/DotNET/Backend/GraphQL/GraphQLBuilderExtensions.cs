@@ -41,6 +41,13 @@ namespace Dolittle.Vanir.Backend.GraphQL
             return builder;
         }
 
+        public static IRequestExecutorBuilder AddSubscriptions(this IRequestExecutorBuilder builder, IGraphControllers graphControllers, INamingConventions namingConventions, out SchemaRoute subscription)
+        {
+            subscription = BuildSchemaRoutesWithItems<SubscriptionAttribute>("Subscription", graphControllers, namingConventions, "Subscriptions");
+            builder.AddSubscriptionType(subscription);
+            return builder;
+        }
+
         static SchemaRoute BuildSchemaRoutesWithItems<TAttribute>(string rootName, IGraphControllers graphControllers, INamingConventions namingConventions, string postFix)
             where TAttribute : Attribute, ICanHavePath
         {
