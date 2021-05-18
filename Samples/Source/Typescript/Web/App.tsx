@@ -11,6 +11,7 @@ export const App = withViewModel(AppViewModel, ({ viewModel }) => {
 
     return (
         <>
+            Feature is : {myFirstFeatureMethodFeature ? 'on' : 'off'}
         </>
     );
 });

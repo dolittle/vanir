@@ -20,7 +20,10 @@ export const useFeature = (name: string) => {
 
     useEffect(() => {
         const subscription = featureProvider.features.subscribe(_ => {
-            setIsOn(featureToggles.isOn(name));
+            const isItOnNow = featureToggles.isOn(name);
+            if (isItOnNow !== isOn) {
+                setIsOn(isItOnNow);
+            }
         });
 
         return () => subscription.unsubscribe();

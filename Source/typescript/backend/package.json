@@ -38,8 +38,8 @@
     "dependencies": {
         "@dolittle/projections": "2.1.0",
         "@dolittle/sdk": "14.3.0",
-        "@dolittle/vanir-features": "9.26.0",
-        "@dolittle/vanir-dependency-inversion": "9.26.0",
+        "@dolittle/vanir-features": "9.27.1",
+        "@dolittle/vanir-dependency-inversion": "9.27.1",
         "@types/mongodb": "3.6.8",
         "apollo-server-express": "2.19.0",
         "body-parser": "1.19.0",

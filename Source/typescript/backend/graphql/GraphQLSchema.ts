@@ -62,7 +62,6 @@ export async function getSchemaFor(configuration: Configuration, backendArgument
     });
 
     const config = schema.toConfig();
-
     GraphQLSchemaRouteBuilder.handleQueries(config);
     GraphQLSchemaRouteBuilder.handleMutations(configuration, config, backendArguments);
 
@@ -71,7 +70,3 @@ export async function getSchemaFor(configuration: Configuration, backendArgument
 
     return schema;
 }
-
-
-
-

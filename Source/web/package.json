@@ -39,9 +39,7 @@
     "dependencies": {
         "@dolittle/vanir-dependency-inversion": "9.27.1",
         "@dolittle/vanir-features": "9.27.1",
-        "apollo-cache-inmemory": "1.6.5",
-        "apollo-client": "2.6.8",
-        "apollo-link-http": "1.5.17",
+        "@apollo/client": "3.3.18",
         "graphql": "15.4.0",
         "graphql-tag": "2.11.0",
         "rxjs": "6.6.0"

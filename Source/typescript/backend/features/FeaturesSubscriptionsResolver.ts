@@ -3,22 +3,23 @@
 
 import { injectable, container, singleton } from 'tsyringe';
 import { PubSubEngine, Query, Resolver, Root, Subscription } from 'type-graphql';
-import { ILogger } from '../logging';
 import { Feature } from './Feature';
 import { FeatureNotification } from './FeatureNotification';
 import { IFeaturesProvider, Features } from '@dolittle/vanir-features';
 import { constructor } from '@dolittle/vanir-dependency-inversion';
 import { FeaturesProvider } from './FeaturesProvider';
+import { graphRoot } from '../graphql/graphRootDecorator';
 
 
 @injectable()
 @singleton()
 @Resolver()
+@graphRoot('system')
 export class FeaturesSubscriptionsResolver {
 
     static initialize() {
-        let featuresProvider = container.resolve(IFeaturesProvider as constructor<IFeaturesProvider>);
-        let pubSub = container.resolve(PubSubEngine as constructor<PubSubEngine>);
+        const featuresProvider = container.resolve(IFeaturesProvider as constructor<IFeaturesProvider>);
+        const pubSub = container.resolve(PubSubEngine as constructor<PubSubEngine>);
 
         featuresProvider.features.subscribe(_ => {
             pubSub.publish('FEATURES', {});
@@ -40,7 +41,7 @@ export class FeaturesSubscriptionsResolver {
     @Subscription(returns => FeatureNotification, {
         topics: 'FEATURES'
     })
-    newFeatures(@Root() notification: any): FeatureNotification {
+    system_newFeatures(@Root() notification: any): FeatureNotification {
         return this.getNotification();
     }
 
