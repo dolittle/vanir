@@ -15,11 +15,13 @@ namespace Microsoft.AspNetCore.Builder
 {
     public static class GraphQLAppBuilderExtensions
     {
-        public static void UseGraphQL(this IApplicationBuilder app)
+        public static IApplicationBuilder UseGraphQL(this IApplicationBuilder app)
         {
             var env = app.ApplicationServices.GetService<IWebHostEnvironment>();
             var logger = app.ApplicationServices.GetService<ILogger<Dolittle.Vanir.Backend.Vanir>>();
             var configuration = app.ApplicationServices.GetService<Configuration>();
+
+            app.UseWebSockets();
 
             app.Use(async (context, next) =>
             {
@@ -29,12 +31,14 @@ namespace Microsoft.AspNetCore.Builder
                 }
                 await next();
             });
+
+            return app;
         }
     }
 
     public static class GraphQLEndpointRouteBuilderExtensions
     {
-        public static void MapGraphQL(this IEndpointRouteBuilder endpoints, IApplicationBuilder app)
+        public static IEndpointRouteBuilder MapGraphQL(this IEndpointRouteBuilder endpoints, IApplicationBuilder app)
         {
             var env = app.ApplicationServices.GetService<IWebHostEnvironment>();
             var logger = app.ApplicationServices.GetService<ILogger<Dolittle.Vanir.Backend.Vanir>>();
@@ -43,14 +47,22 @@ namespace Microsoft.AspNetCore.Builder
             if (env.IsDevelopment())
             {
                 logger.LogInformation($"Hosting Playground at '{configuration.GraphQLPlaygroundRoute}'");
-                endpoints.MapGraphQLPlayground(new PlaygroundOptions { GraphQLEndPoint = configuration.GraphQLRoute }, configuration.GraphQLPlaygroundRoute);
+                endpoints.MapGraphQLPlayground(
+                    new PlaygroundOptions
+                    {
+                        GraphQLEndPoint = configuration.GraphQLRoute,
+                        SubscriptionsEndPoint = configuration.GraphQLRoute
+                    }, configuration.GraphQLPlaygroundRoute);
             }
 
             logger.LogInformation($"GraphQL endpoint is located at '{configuration.GraphQLRoute}'");
+
             endpoints.MapGraphQL(configuration.GraphQLRoute).WithOptions(new GraphQLServerOptions
             {
                 Tool = { Enable = false }
             });
+
+            return endpoints;
         }
     }
 }
