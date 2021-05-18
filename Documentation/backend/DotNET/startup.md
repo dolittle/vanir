@@ -119,3 +119,8 @@ The following extension methods for `IApplicationBuilder` are available:
 | -------- | ----------- |
 | .UseDolittle() | Starts the Dolittle client |
 | .UseGraphQL() | Configures GraphQL endpoints |
+
+| Method | Description |
+| ------ | ----------- |
+| Blah   | Blah        |
+
