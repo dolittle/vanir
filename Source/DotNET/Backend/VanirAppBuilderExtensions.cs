@@ -11,7 +11,7 @@ namespace Microsoft.AspNetCore.Builder
 {
     public static class VanirAppBuilderExtensions
     {
-        public static void UseVanir(this IApplicationBuilder app)
+        public static IApplicationBuilder UseVanir(this IApplicationBuilder app)
         {
             Dolittle.Vanir.Backend.Container.ServiceProvider = app.ApplicationServices;
             var logger = app.ApplicationServices.GetService<ILogger<Dolittle.Vanir.Backend.Vanir>>();
@@ -29,9 +29,10 @@ namespace Microsoft.AspNetCore.Builder
 
             app.UseDolittle();
             app.UseGraphQL();
+            return app;
         }
 
-        public static void UseVanirWithCommon(this IApplicationBuilder app)
+        public static IApplicationBuilder UseVanirWithCommon(this IApplicationBuilder app)
         {
             var env = app.ApplicationServices.GetService<IWebHostEnvironment>();
             if (env.IsDevelopment())
@@ -40,19 +41,21 @@ namespace Microsoft.AspNetCore.Builder
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Swagger"));
             }
+            app
+                .UseDefaultFiles()
+                .UseStaticFiles()
+                .UseVanir()
+                .UseRouting()
+                .UseWebSockets()
 
-            app.UseDefaultFiles();
-            app.UseStaticFiles();
+                .UseEndpoints(_ =>
+                {
+                    _.MapControllers();
+                    _.MapDefaultControllerRoute();
+                    _.MapGraphQL(app);
+                });
 
-            app.UseVanir();
-
-            app.UseRouting();
-            app.UseEndpoints(_ =>
-            {
-                _.MapControllers();
-                _.MapDefaultControllerRoute();
-                _.MapGraphQL(app);
-            });
+            return app;
         }
     }
 }
