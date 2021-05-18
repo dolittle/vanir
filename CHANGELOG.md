@@ -1,3 +1,14 @@
+# [9.28.0] - 2021-5-18 [PR: #234](https://github.com/dolittle/vanir/pull/234)
+### Added
+
+- Documentation added for how `Startup` works
+- Includes exception details during development on GraphQL operations
+
+### Changed
+
+- `.AddVanir()` and `.UseVanir()` are less opionated. If one wants the same level of opinions, use `.AddVanirWithCommon()` and `.UseVanirWithCommon()`.
+
+
 # [9.27.1] - 2021-5-18 [PR: #232](https://github.com/dolittle/vanir/pull/232)
 ### Fixed
 
