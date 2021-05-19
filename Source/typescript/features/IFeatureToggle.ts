@@ -2,7 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 /**
- * Defines a strategy for toggling a {@link Feature}
+ * Defines a toggle for a feature.
  */
 export interface IFeatureToggle {
     /**
