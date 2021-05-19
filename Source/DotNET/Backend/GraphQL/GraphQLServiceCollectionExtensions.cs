@@ -63,6 +63,11 @@ namespace Microsoft.Extensions.DependencyInjection
                 .AddMutations(graphControllers, namingConventions, out SchemaRoute mutations);
 
             types.FindMultiple(typeof(ConceptAs<>)).ForEach(_ => graphQLBuilder.AddConceptTypeConverter(_));
+            types.All.Where(_ => _.IsEnum).ForEach(type =>
+            {
+                graphQLBuilder.BindRuntimeType(type, typeof(IntType));
+                graphQLBuilder.AddTypeConverter(_ => new EnumToIntConverter(type));
+            });
 
             services.AddSingleton<INamingConventions>(namingConventions);
 
