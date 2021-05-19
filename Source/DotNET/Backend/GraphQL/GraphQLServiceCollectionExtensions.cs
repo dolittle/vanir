@@ -81,6 +81,11 @@ namespace Microsoft.Extensions.DependencyInjection
             subscriptions.AddItem(new SchemaRouteItem(asd.GetMethodInfo(), "newFeatures"));
 
             types.FindMultiple(typeof(ConceptAs<>)).ForEach(_ => graphQLBuilder.AddConceptTypeConverter(_));
+            types.All.Where(_ => _.IsEnum).ForEach(type =>
+            {
+                graphQLBuilder.BindRuntimeType(type, typeof(IntType));
+                graphQLBuilder.AddTypeConverter(_ => new EnumToIntConverter(type));
+            });
 
 
             arguments?.GraphQLExecutorBuilder(graphQLBuilder);

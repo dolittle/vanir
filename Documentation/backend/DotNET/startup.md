@@ -104,8 +104,8 @@ That means that if you want to, you can take full control over the startup proce
 
 The following extension methods for `IServiceCollection` are available:
 
-| Method | Description |
-| ------ | ----------- |
+| Method | Description |
+| ------ | ----------- |
 | .AddVanirConfiguration() | Reads the `vanir.json` file and adds its configuration as a configuration object |
 | .AddDolittle() | Builds the Dolittle client based on the configuration |
 | .AddGraphQL() | Builds the GraphQL Hot Chocolate schema |
@@ -117,6 +117,7 @@ The following extension methods for `IServiceCollection` are available:
 The following extension methods for `IApplicationBuilder` are available:
 
 | Method | Description |
-| ------ | ----------- |
+| ------ | ----------- |
 | .UseDolittle() | Starts the Dolittle client |
 | .UseGraphQL() | Configures GraphQL endpoints |
+

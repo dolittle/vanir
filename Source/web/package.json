@@ -1,6 +1,6 @@
 {
     "name": "@dolittle/vanir-web",
-    "version": "9.27.1",
+    "version": "9.28.0",
     "description": "",
     "author": "Dolittle",
     "license": "MIT",
@@ -37,8 +37,8 @@
         "ci": "yarn clean && yarn lint:ci && yarn build && yarn test"
     },
     "dependencies": {
-        "@dolittle/vanir-dependency-inversion": "9.27.1",
-        "@dolittle/vanir-features": "9.27.1",
+        "@dolittle/vanir-dependency-inversion": "9.28.0",
+        "@dolittle/vanir-features": "9.28.0",
         "@apollo/client": "3.3.18",
         "graphql": "15.4.0",
         "graphql-tag": "2.11.0",
