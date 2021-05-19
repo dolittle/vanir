@@ -1,3 +1,9 @@
+# [9.28.1] - 2021-5-19 [PR: #238](https://github.com/dolittle/vanir/pull/238)
+### Fixed
+
+- [C#] For consistency with the Node version, we want enums to be integers by default - by default now it adds a type conversion for this.
+
+
 # [9.28.0] - 2021-5-18 [PR: #234](https://github.com/dolittle/vanir/pull/234)
 ### Added
 
