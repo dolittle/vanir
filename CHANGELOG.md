@@ -1,3 +1,9 @@
+# [9.28.2] - 2021-5-19 [PR: #239](https://github.com/dolittle/vanir/pull/239)
+### Fixed
+
+- [C#] Support type conversion to integer for enum types on the actual ObjectTypes and InputObjectTypes used by queries and mutations. This enables enums from 3rd party assemblies.
+
+
 # [9.28.1] - 2021-5-19 [PR: #238](https://github.com/dolittle/vanir/pull/238)
 ### Fixed
 
