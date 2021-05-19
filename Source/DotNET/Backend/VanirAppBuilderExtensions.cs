@@ -45,8 +45,8 @@ namespace Microsoft.AspNetCore.Builder
                 .UseDefaultFiles()
                 .UseStaticFiles()
                 .UseVanir()
-                .UseRouting()
                 .UseWebSockets()
+                .UseRouting()
 
                 .UseEndpoints(_ =>
                 {

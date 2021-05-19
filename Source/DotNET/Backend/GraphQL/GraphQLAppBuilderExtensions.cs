@@ -1,7 +1,10 @@
 // Copyright (c) Dolittle. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
+using System.Linq;
 using Dolittle.Vanir.Backend.Config;
+using Dolittle.Vanir.Backend.Features;
 using GraphQL.Server.Ui.Playground;
 using HotChocolate.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
@@ -21,16 +24,19 @@ namespace Microsoft.AspNetCore.Builder
             var logger = app.ApplicationServices.GetService<ILogger<Dolittle.Vanir.Backend.Vanir>>();
             var configuration = app.ApplicationServices.GetService<Configuration>();
 
-            app.UseWebSockets();
-
             app.Use(async (context, next) =>
             {
-                if (context.Request.Path.Value == configuration.GraphQLRoute && !context.Request.HasJsonContentType())
+                if (!context.WebSockets.IsWebSocketRequest &&
+                    !context.Request.Headers.ContainsKey("Upgrade") &&
+                    !context.Request.Headers["Upgrade"].ToArray().Any(_ => _.Equals("websocket", StringComparison.InvariantCultureIgnoreCase)) &&
+                    context.Request.Path.Value == configuration.GraphQLRoute && !context.Request.HasJsonContentType())
                 {
                     context.Request.Path = configuration.GraphQLPlaygroundRoute;
                 }
                 await next();
             });
+
+            FeaturesSubscriptionsResolver.Initialize(app);
 
             return app;
         }
