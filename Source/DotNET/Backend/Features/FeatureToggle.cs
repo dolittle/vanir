@@ -3,8 +3,9 @@
 
 namespace Dolittle.Vanir.Backend.Features
 {
-    public class FeatureNotification
+    public class FeatureToggleDefinition
     {
-        public FeatureDefinition[] Features { get; set; }
+        public string Type { get; set; }
+        public bool IsOn { get; set; }
     }
 }

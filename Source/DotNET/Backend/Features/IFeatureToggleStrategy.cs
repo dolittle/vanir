@@ -4,7 +4,7 @@
 namespace Dolittle.Vanir.Backend.Features
 {
     /// <summary>
-    /// Defines a strategy for toggling a <see cref="Feature"/>.
+    /// Defines a strategy for toggling a <see cref="FeatureDefinition"/>.
     /// </summary>
     public interface IFeatureToggleStrategy
     {
