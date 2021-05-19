@@ -4,7 +4,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Dolittle.Vanir.Backend.Collections;
 using HotChocolate.Execution.Configuration;
 using HotChocolate.Types;
