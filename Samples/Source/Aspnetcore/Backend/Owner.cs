@@ -11,6 +11,12 @@ namespace Backend
         public static implicit operator OwnerId(Guid id) => new() { Value = id };
     }
 
+    public enum OwnerType
+    {
+        Awesome=1,
+        Possum
+    }
+
     public class Owner
     {
         [Key]
@@ -22,5 +28,6 @@ namespace Backend
         public CommonObject CommonObject { get; set; }
 
         public int ReadOnlyProperty => 42;
+        public OwnerType Type { get; set; } = OwnerType.Awesome;
     }
 }
