@@ -2,19 +2,15 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 import { gql } from '@apollo/client';
-import { Features, IFeaturesProvider, IFeatureToggleStrategy, BooleanFeatureToggleStrategy } from '@dolittle/vanir-features';
+import { Features, IFeatureDefinition, IFeaturesProvider, BooleanFeatureToggle, Feature } from '@dolittle/vanir-features';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { injectable } from 'tsyringe';
 import { DataSource } from '../DataSource';
 import { Subscriptions } from '../Subscriptions';
-
-export type Feature = {
-    name: string;
-    isOn: boolean;
-};
+import { IFeatureToggleDefinition } from '../../typescript/features/dist/IFeatureToggleDefinition';
 
 export type FeatureNotification = {
-    features: Feature[];
+    features: IFeatureDefinition[];
 };
 
 /**
@@ -45,12 +41,15 @@ export class FeaturesProvider extends IFeaturesProvider {
                     features {
                         features {
                             name
-                            isOn
+                            description
+                            toggles {
+                                type
+                                isOn
+                            }
                         }
                     }
                 }
-            }
-        `;
+            }`;
 
         const result = await this._dataSource.query({ query });
         this.setFeaturesFromNotification(result.data.system.features);
@@ -63,7 +62,11 @@ export class FeaturesProvider extends IFeaturesProvider {
                 system_newFeatures {
                     features {
                         name
-                        isOn
+                        description
+                        toggles {
+                            type
+                            isOn
+                        }
                     }
                 }
             }`;
@@ -75,9 +78,12 @@ export class FeaturesProvider extends IFeaturesProvider {
     }
 
     private setFeaturesFromNotification(notification: FeatureNotification) {
-        const featureMap = new Map<string, IFeatureToggleStrategy>();
+        const featureMap = new Map<string, Feature>();
         for (const feature of notification.features) {
-            featureMap.set(feature.name, new BooleanFeatureToggleStrategy(feature.isOn));
+            featureMap.set(feature.name, new Feature(
+                feature.name,
+                feature.description,
+                feature.toggles.map(_ => new BooleanFeatureToggle(_.isOn))));
         }
         this._features.next(new Features(featureMap));
     }

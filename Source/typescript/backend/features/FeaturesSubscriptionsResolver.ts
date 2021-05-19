@@ -3,13 +3,12 @@
 
 import { injectable, container, singleton } from 'tsyringe';
 import { PubSubEngine, Query, Resolver, Root, Subscription } from 'type-graphql';
-import { Feature } from './Feature';
+import { FeatureDefinition } from './FeatureDefinition';
 import { FeatureNotification } from './FeatureNotification';
 import { IFeaturesProvider, Features } from '@dolittle/vanir-features';
 import { constructor } from '@dolittle/vanir-dependency-inversion';
-import { FeaturesProvider } from './FeaturesProvider';
 import { graphRoot } from '../graphql/graphRootDecorator';
-
+import { FeatureToggleDefinition } from './FeatureToggleDefinition';
 
 @injectable()
 @singleton()
@@ -28,7 +27,7 @@ export class FeaturesSubscriptionsResolver {
 
     private _features!: Features;
 
-    constructor(private readonly featuresProvider: FeaturesProvider) {
+    constructor(private readonly featuresProvider: IFeaturesProvider) {
         featuresProvider.features.subscribe(_ => this._features = _);
     }
 
@@ -48,9 +47,15 @@ export class FeaturesSubscriptionsResolver {
     private getNotification() {
         const message = new FeatureNotification();
         this._features.forEach((value, key, map) => {
-            const feature = new Feature();
+            const feature = new FeatureDefinition();
             feature.name = key;
-            feature.isOn = value.isOn;
+            feature.description = value.description || '';
+            feature.toggles = value.toggles.map(_ => {
+                const toggleDefinition = new FeatureToggleDefinition()
+                toggleDefinition.type = 'Boolean';
+                toggleDefinition.isOn = value.isOn;
+                return toggleDefinition;
+            })
             message.features.push(feature);
         });
         return message;

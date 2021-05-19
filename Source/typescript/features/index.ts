@@ -2,14 +2,17 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 
-export * from './BooleanFeatureToggleStrategy';
+export * from './BooleanFeatureToggle';
 export * from './featureDecorator';
 export * from './FeatureDecorators';
+export * from './Feature';
+export * from './IFeatureDefinition';
+export * from './IFeatureToggleDefinition';
 export * from './Features';
 export * from './FeatureToggles';
 export * from './IFeaturesProvider';
 export * from './IFeatureToggles';
-export * from './IFeatureToggleStrategy';
+export * from './IFeatureToggle';
 import { container } from 'tsyringe';
 import { constructor } from '@dolittle/vanir-dependency-inversion';
 import { IFeatureToggles } from './IFeatureToggles';

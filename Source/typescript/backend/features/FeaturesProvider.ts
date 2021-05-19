@@ -3,16 +3,17 @@
 
 import fs from 'fs';
 
-import { Features } from '@dolittle/vanir-features';
-import { IFeaturesProvider } from '@dolittle/vanir-features';
-import { IFeatureToggleStrategy } from '@dolittle/vanir-features';
-import { BooleanFeatureToggleStrategy } from '@dolittle/vanir-features';
+import { Feature, Features, IFeaturesProvider } from '@dolittle/vanir-features';
+import { BooleanFeatureToggle } from '@dolittle/vanir-features';
 import { injectable } from 'tsyringe';
 import { Observable, BehaviorSubject } from 'rxjs';
 
 import chokidar from 'chokidar';
+import { FeatureDefinition } from './FeatureDefinition';
 
 const featuresPath = './data/features.json';
+
+type FeatureDefinitions = { [key: string]: FeatureDefinition };
 
 /**
  * Represents an implementation of {@link IFeaturesProvider}.
@@ -42,10 +43,15 @@ export class FeaturesProvider extends IFeaturesProvider {
         }
 
         const featuresAsJson = fs.readFileSync(featuresPath).toString();
-        const featuresBooleans = JSON.parse(featuresAsJson);
-        const features = new Map<string, IFeatureToggleStrategy>();
-        for (const feature in featuresBooleans) {
-            features.set(feature, new BooleanFeatureToggleStrategy(featuresBooleans[feature]));
+        const featuresDefinitions = JSON.parse(featuresAsJson) as FeatureDefinitions;
+        const features = new Map<string, Feature>();
+        for (const featureName in featuresDefinitions) {
+            const featureDefinition = featuresDefinitions[featureName];
+
+            features.set(featureName, new Feature(
+                featureName,
+                featureDefinition.description,
+                featureDefinition.toggles.map(_ => new BooleanFeatureToggle(_.isOn))));
         }
         this._features.next(new Features(features));
     }

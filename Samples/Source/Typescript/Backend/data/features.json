@@ -1,4 +1,16 @@
 {
-    "my.first.method.feature": false,
-    "my.first.class.feature": false
+    "my.first.method.feature": {
+        "description": "The ultimate first method feature",
+        "toggles": [{
+            "type": "Boolean",
+            "isOn": true
+        }]
+    },
+    "my.first.class.feature": {
+        "description": "The ultimate first class feature",
+        "toggles": [{
+            "type": "Boolean",
+            "isOn": true
+        }]
+    }
 }

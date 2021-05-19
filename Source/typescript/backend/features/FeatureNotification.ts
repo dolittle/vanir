@@ -2,10 +2,10 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 import { Field, ObjectType } from 'type-graphql';
-import { Feature } from './Feature';
+import { FeatureDefinition } from './FeatureDefinition';
 
 @ObjectType()
 export class FeatureNotification {
-    @Field(type => [Feature])
-    features: Feature[] = [];
+    @Field(type => [FeatureDefinition])
+    features: FeatureDefinition[] = [];
 }

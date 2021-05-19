@@ -4,7 +4,7 @@
 /**
  * Defines a strategy for toggling a {@link Feature}
  */
-export interface IFeatureToggleStrategy {
+export interface IFeatureToggle {
     /**
      * Get whether or not the feature is on.
      */
