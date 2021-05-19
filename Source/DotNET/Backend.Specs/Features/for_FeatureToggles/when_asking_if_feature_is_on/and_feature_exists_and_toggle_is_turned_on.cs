@@ -9,25 +9,32 @@ using It = Machine.Specifications.It;
 
 namespace Dolittle.Vanir.Backend.Features.for_FeatureToggles.when_asking_if_feature_is_on
 {
-    public class and_feature_exists_and_strategy_is_turned_on
+    public class and_feature_exists_and_toggle_is_turned_on
     {
-        const string Feature = "SomeFeature";
+        const string FeatureName = "SomeFeature";
         static FeatureToggles toggles;
         static bool result;
 
         Establish context = () =>
         {
             var provider = new Mock<IFeaturesProvider>();
-            var strategy = new Mock<IFeatureToggleStrategy>();
-            strategy.SetupGet(_ => _.IsOn).Returns(true);
-            provider.SetupGet(_ => _.Features).Returns(new BehaviorSubject<Features>(new Features(new Dictionary<string, IFeatureToggleStrategy>()
+            var toggle = new Mock<IFeatureToggle>();
+            toggle.SetupGet(_ => _.IsOn).Returns(true);
+            var feature = new Feature
             {
-                { Feature, strategy.Object }
+                Name = FeatureName,
+                Description = string.Empty,
+                Toggles = new[] { toggle.Object }
+            };
+
+            provider.SetupGet(_ => _.Features).Returns(new BehaviorSubject<Features>(new Features(new Dictionary<string, Feature>()
+            {
+                { FeatureName, feature }
             })));
             toggles = new FeatureToggles(provider.Object);
         };
 
-        Because of = () => result = toggles.IsOn(Feature);
+        Because of = () => result = toggles.IsOn(FeatureName);
 
         It should_returns_true = () => result.ShouldBeTrue();
     }
