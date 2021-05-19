@@ -1,6 +1,8 @@
 // Copyright (c) Dolittle. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using Dolittle.SDK.Concepts;
 using Dolittle.Vanir.Backend;
@@ -19,7 +21,7 @@ namespace Microsoft.Extensions.DependencyInjection
     /// <summary>
     /// Extension methods for <see cref="IServiceCollection"/> for adding GraphQL services.
     /// </summary>
-    public static class GraphQLServiceCollectionExtensions
+    public static partial class GraphQLServiceCollectionExtensions
     {
         public const char UuidFormat = 'D';
 
@@ -59,16 +61,10 @@ namespace Microsoft.Extensions.DependencyInjection
             var namingConventions = new NamingConventions();
 
             graphQLBuilder
-                .AddQueries(graphControllers, namingConventions)
+                .AddQueries(graphControllers, namingConventions, out SchemaRoute queries)
                 .AddMutations(graphControllers, namingConventions, out SchemaRoute mutations);
 
             types.FindMultiple(typeof(ConceptAs<>)).ForEach(_ => graphQLBuilder.AddConceptTypeConverter(_));
-            types.All.Where(_ => _.IsEnum).ForEach(type =>
-            {
-                graphQLBuilder.BindRuntimeType(type, typeof(IntType));
-                graphQLBuilder.AddTypeConverter(_ => new EnumToIntConverter(type));
-            });
-
             services.AddSingleton<INamingConventions>(namingConventions);
 
             arguments?.GraphQLExecutorBuilder(graphQLBuilder);
@@ -78,7 +74,10 @@ namespace Microsoft.Extensions.DependencyInjection
                 if (arguments.ExposeEventsInGraphQLSchema) mutations.AddEventsAsMutations(types);
                 graphQLBuilder.AddApolloTracing();
             }
+
+            var scannedTypes = new Dictionary<Type, Type>();
+            graphQLBuilder.RegisterAllEnumsFor(queries, scannedTypes);
+            graphQLBuilder.RegisterAllEnumsFor(mutations, scannedTypes);
         }
     }
-
 }
