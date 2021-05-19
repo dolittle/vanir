@@ -2,7 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 import { Request, Response, NextFunction } from 'express';
-import { TenantId } from '@dolittle/sdk.execution';
+import { TenantId, ExecutionContext } from '@dolittle/sdk.execution';
 import { HostContext } from './HostContext';
 
 const ContextKey = 'Context';
@@ -29,6 +29,12 @@ export function ContextMiddleware(req: Request, res: Response, next: NextFunctio
     const context = Context.fromRequest(req);
     HostContext.set(ContextKey, context);
     next();
+}
+
+export function setCurrentContextFromExecutionContext(executionContext: ExecutionContext) {
+    HostContext.set(ContextKey, {
+        tenantId: executionContext.tenantId
+    } as Context);
 }
 
 export function getCurrentContext(): Context {
