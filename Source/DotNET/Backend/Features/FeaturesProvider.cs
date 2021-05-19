@@ -53,7 +53,7 @@ namespace Dolittle.Vanir.Backend.Features
                 {
                     Name = _.Key,
                     Description = _.Value.Description,
-                    Toggles = _.Value.Toggles.Select(t => new BooleanFeatureToggleStrategy { IsOn = t.IsOn })
+                    Toggles = _.Value.Toggles.Select(t => new BooleanFeatureToggle { IsOn = t.IsOn })
                 });
 
             _features.OnNext(new Features(features));

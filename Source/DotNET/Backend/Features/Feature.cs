@@ -24,7 +24,7 @@ namespace Dolittle.Vanir.Backend.Features
         /// <summary>
         /// Gets all the toggles for the feature.
         /// </summary>
-        public IEnumerable<IFeatureToggleStrategy> Toggles { get; init; }
+        public IEnumerable<IFeatureToggle> Toggles { get; init; }
 
         /// <summary>
         /// Gets whether or not the feature is on.

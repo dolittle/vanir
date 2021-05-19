@@ -4,9 +4,9 @@
 namespace Dolittle.Vanir.Backend.Features
 {
     /// <summary>
-    /// Represents an implementation of <see cref="IFeatureToggleStrategy"/> for a simple true / false scenario.
+    /// Represents an implementation of <see cref="IFeatureToggle"/> for a simple true / false scenario.
     /// </summary>
-    public class BooleanFeatureToggleStrategy : IFeatureToggleStrategy
+    public class BooleanFeatureToggle : IFeatureToggle
     {
         /// <inheritdoc/>
         public bool IsOn { get; init; }
