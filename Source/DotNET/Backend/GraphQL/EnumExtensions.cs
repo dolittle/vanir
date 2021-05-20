@@ -38,18 +38,19 @@ namespace Dolittle.Vanir.Backend.GraphQL
 
             void TypeScanner(Type type)
             {
+                if (scannedTypes.ContainsKey(type)) return;
+
                 var enumTypes = type.GetProperties()
                                     .Where(_ => _.PropertyType.IsEnum)
                                     .Select(_ => _.PropertyType);
 
                 enumTypes.ForEach(_ => builder.RegisterEnumType(_));
+                scannedTypes[type] = type;
 
                 var complexProperties = type.GetProperties()
                                             .Where(_ => !_.PropertyType.IsPrimitive)
                                             .Select(_ => _.PropertyType);
                 complexProperties.ForEach(TypeScanner);
-
-                scannedTypes[type] = type;
             }
 
             typesToScan.ForEach(TypeScanner);
