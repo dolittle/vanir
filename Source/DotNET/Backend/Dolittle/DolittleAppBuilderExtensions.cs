@@ -15,8 +15,8 @@ namespace Microsoft.AspNetCore.Builder
             app.UseExecutionContext();
             DolittleContainer.ServiceProvider = app.ApplicationServices;
             var client = DolittleServiceCollectionExtensions.DolittleClientBuilder.Build();
-            client.WithContainer(new DolittleContainer()).Start();
             DolittleServiceCollectionExtensions.DolittleClient = client;
+            client.WithContainer(new DolittleContainer()).Start();
         }
 
         static void ThrowIfClientBuilderNotCreated()
