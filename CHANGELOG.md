@@ -1,3 +1,9 @@
+# [9.28.3] - 2021-5-20 [PR: #240](https://github.com/dolittle/vanir/pull/240)
+### Fixed
+
+- [C#] Fixes a stack overflow when registering enums as ints if any type is recursively referencing itself anywhere in the tree.
+
+
 # [9.28.2] - 2021-5-19 [PR: #239](https://github.com/dolittle/vanir/pull/239)
 ### Fixed
 
