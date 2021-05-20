@@ -10,7 +10,7 @@
         "description": "The ultimate first class feature",
         "toggles": [{
             "type": "Boolean",
-            "isOn": true
+            "isOn": false
         }]
     }
 }
