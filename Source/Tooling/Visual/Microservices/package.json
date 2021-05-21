@@ -1,0 +1,53 @@
+{
+    "name": "@dolittle/vanir-tooling-visual-microservices",
+    "version": "9.22.2",
+    "description": "",
+    "author": "Dolittle",
+    "license": "MIT",
+    "publishConfig": {
+        "access": "public"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/dolittle-entropy/vanir.git",
+        "directory": "Source/react"
+    },
+    "bugs": {
+        "url": "https://github.com/dolittle-entropy/vanir/issues"
+    },
+    "homepage": "https://github.com/dolittle-entropy/vanir#readme",
+    "engineStrict": true,
+    "engines": {
+        "node": ">= 14"
+    },
+    "readme": "",
+    "files": [
+        "dist",
+        "**/*.ts"
+    ],
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "scripts": {
+        "prepublish": "yarn build",
+        "clean": "tsc -b --clean",
+        "build": "webpack",
+        "build:dev": "webpack --mode=development",
+        "lint": "eslint --cache '**/*.{js,ts,tsx}' --quiet --fix",
+        "lint:ci": "eslint --cache '**/*.{js,ts,tsx}' --quiet",
+        "test": "mocha",
+        "ci": "yarn clean && yarn lint:ci && yarn build && yarn test",
+        "start:dev": "webpack serve --mode=development --progress --hot",
+        "start:vscode": "webpack --watch  --mode=development --progress --hot"
+    },
+    "dependencies": {
+        "@dolittle/rudiments": "5.0.1",
+        "@dolittle/vanir-dependency-inversion": "9.22.2",
+        "@dolittle/vanir-react": "9.22.2",
+        "@dolittle/vanir-web": "9.22.2",
+        "@fluentui/react": "8.14.4",
+        "@fluentui/react-hooks": "8.2.0",
+        "@fluentui/react-icons": "1.1.123",
+        "d3": "^6.7.0",
+        "react-flow-renderer": "^9.5.4"
+    }
+}
