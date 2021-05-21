@@ -13,17 +13,17 @@ namespace Dolittle.Vanir.Backend.Reflection
     /// </summary>
     public static class TypeExtensions
     {
-        static readonly HashSet<Type> _additionalPrimitiveTypes = new ()
-            {
-                typeof(decimal),
-                typeof(string),
-                typeof(Guid),
-                typeof(DateTime),
-                typeof(DateTimeOffset),
-                typeof(TimeSpan)
-            };
+        static readonly HashSet<Type> _additionalPrimitiveTypes = new()
+        {
+            typeof(decimal),
+            typeof(string),
+            typeof(Guid),
+            typeof(DateTime),
+            typeof(DateTimeOffset),
+            typeof(TimeSpan)
+        };
 
-        static readonly HashSet<Type> _numericTypes = new ()
+        static readonly HashSet<Type> _numericTypes = new()
         {
             typeof(byte),
             typeof(sbyte),
@@ -60,6 +60,16 @@ namespace Dolittle.Vanir.Backend.Reflection
         {
             return type.GetTypeInfo().IsGenericType &&
                    type.GetGenericTypeDefinition() == typeof(Nullable<>);
+        }
+
+        /// <summary>
+        /// Get the underlying nullable type.
+        /// </summary>
+        /// <param name="type"><see cref="Type"/> to get from</param>
+        /// <returns>Underlying nullable type.</returns>
+        public static Type GetNullableType(this Type type)
+        {
+            return type.GetGenericArguments()[0];
         }
 
         /// <summary>

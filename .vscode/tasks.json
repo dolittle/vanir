@@ -1,8 +1,60 @@
 // See https://go.microsoft.com/fwlink/?LinkId=733558
 // for the documentation about the tasks.json format
 {
-	"version": "2.0.0",
-	"tasks": [
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build aspnetcore sample",
+            "command": "dotnet",
+            "type": "process",
+            // "group": {
+            //     "kind": "build",
+            //     "isDefault": true
+            // },
+            "args": [
+                "build",
+                "${workspaceFolder}/Samples/Source/Aspnetcore/Backend/Backend.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "type": "typescript",
+            "tsconfig": "Samples/Source/Typescript/Backend/tsconfig.json",
+            "problemMatcher": [
+                "$tsc"
+            ],
+            // "group": {
+            //     "isDefault": true,
+            //     "kind": "build"
+            // },
+            "label": "tsc: build - Typescript Sample",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            }
+        },
+        {
+            "label": "build CLI",
+            "command": "dotnet",
+            "type": "process",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "args": [
+                "build",
+                "${workspaceFolder}/Source/Tooling/CLI/CLI.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
 		{
 			"type": "npm",
 			"script": "start:dev",
@@ -20,5 +72,5 @@
 				"reveal": "always"
 			}
 		}
-	]
+    ]
 }
