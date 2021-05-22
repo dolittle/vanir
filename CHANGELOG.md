@@ -1,3 +1,9 @@
+# [9.28.4] - 2021-5-20 [PR: #241](https://github.com/dolittle/vanir/pull/241)
+### Fixed
+
+- [C#] Fixing so that the Client instance is set before we start the client - this will then make IoC resolver callbacks relying directly or indirectly work.
+
+
 # [9.28.3] - 2021-5-20 [PR: #240](https://github.com/dolittle/vanir/pull/240)
 ### Fixed
 
