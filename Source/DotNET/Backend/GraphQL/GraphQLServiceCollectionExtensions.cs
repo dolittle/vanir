@@ -21,7 +21,7 @@ namespace Microsoft.Extensions.DependencyInjection
     /// <summary>
     /// Extension methods for <see cref="IServiceCollection"/> for adding GraphQL services.
     /// </summary>
-    public static partial class GraphQLServiceCollectionExtensions
+    public static class GraphQLServiceCollectionExtensions
     {
         public const char UuidFormat = 'D';
 
