@@ -6,7 +6,7 @@ const path = require('path');
 const webpack = require('@dolittle/vanir-webpack/frontend');
 module.exports = (env, argv) => {
     return webpack(env, argv, '/', config => {
-        config.output.path = path.join(process.cwd(),'../../vscode/dist/microservices');
+        config.output.path = path.join(process.cwd(),'../vscode/dist/Visual');
         config.output.filename = 'index.js';
         config.output.sourceMapFilename = 'index.map';
         config.output.chunkFilename = 'app.js';

@@ -12,9 +12,9 @@ import { DocumentCard, DocumentCardActions, DocumentCardLogo, DocumentCardTitle,
 
 import './index.scss';
 import { createTheme, loadTheme } from '@fluentui/react/lib/Styling';
-import * as PieTypes from './menu/PieTypes';
-import { CircularMenu } from './menu/CircularMenu';
-import { CircularMenuConfig } from './menu/CircularMenuConfig';
+import * as PieTypes from '../menu/PieTypes';
+import { CircularMenu } from '../menu/CircularMenu';
+import { CircularMenuConfig } from '../menu/CircularMenuConfig';
 
 /*
 https://reactnativeexample.com/an-animated-and-customizable-circular-floating-menu/
@@ -126,37 +126,6 @@ const CustomNodeComponent: FC<Node> = ({ data }) => {
 const nodeTypes = {
     special: CustomNodeComponent,
 };
-
-initializeIcons();
-
-const myTheme = createTheme({
-    palette: {
-        themePrimary: '#ffcf00',
-        themeLighterAlt: '#fffdf5',
-        themeLighter: '#fff8d6',
-        themeLight: '#fff1b3',
-        themeTertiary: '#ffe366',
-        themeSecondary: '#ffd61f',
-        themeDarkAlt: '#e6bb00',
-        themeDark: '#c29e00',
-        themeDarker: '#8f7500',
-        neutralLighterAlt: '#292d32',
-        neutralLighter: '#292c31',
-        neutralLight: '#272a2f',
-        neutralQuaternaryAlt: '#24282c',
-        neutralQuaternary: '#23262a',
-        neutralTertiaryAlt: '#212428',
-        neutralTertiary: '#c8c8c8',
-        neutralSecondary: '#d0d0d0',
-        neutralPrimaryAlt: '#dadada',
-        neutralPrimary: '#ffffff',
-        neutralDark: '#f4f4f4',
-        black: '#f8f8f8',
-        white: '#2b2f34',
-    }
-});
-
-loadTheme(myTheme);
 
 
 const menu = 0;
@@ -271,22 +240,11 @@ const Menu = () => {
 };
 
 
-
-ReactDOM.render(
-    <>
-        <div style={{ width: '400px', height: '400px' }}>
-            <Menu />
-        </div>
-    </>,
-
-    document.getElementById('root')
-);
-
-
-// <MiniMap />
-/*
+export const Ms = () => {
+    return (
         <ReactFlow elements={elements} nodeTypes={nodeTypes}>
             <Controls />
         </ReactFlow>
+    );
+};
 
-*/

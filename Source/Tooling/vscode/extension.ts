@@ -3,9 +3,12 @@
 
 import * as vscode from 'vscode';
 import { ApplicationEditorProvider } from './ApplicationEditorProvider';
+import { FeaturesEditorProvider } from './FeaturesEditorProvider';
 
 export function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(ApplicationEditorProvider.register(context));
+    context.subscriptions.push(FeaturesEditorProvider.register(context));
 }
 
 export function deactivate() {}
+

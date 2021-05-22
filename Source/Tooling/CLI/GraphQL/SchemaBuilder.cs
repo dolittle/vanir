@@ -37,8 +37,8 @@ namespace Dolittle.Vanir.CLI.GraphQL
             return new()
             {
                 Mutations = GetOperationDefinitionsFor<MutationAttribute>(graphControllers, referencedTypes).ToArray(),
-                Queries = GetOperationDefinitionsFor<QueryAttribute>(graphControllers, referencedTypes).ToArray()
-                referencedTypes = referencedTypes.ToArray()
+                Queries = GetOperationDefinitionsFor<QueryAttribute>(graphControllers, referencedTypes).ToArray(),
+                Types = referencedTypes.ToArray()
             };
         }
 

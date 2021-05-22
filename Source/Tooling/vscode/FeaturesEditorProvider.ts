@@ -4,12 +4,12 @@
 import * as vscode from 'vscode';
 import { getNonce } from './util';
 
-export class ApplicationEditorProvider implements vscode.CustomTextEditorProvider {
-    private static readonly viewType = 'dolittle.application';
+export class FeaturesEditorProvider implements vscode.CustomTextEditorProvider {
+    private static readonly viewType = 'dolittle.features';
 
     public static register(context: vscode.ExtensionContext): vscode.Disposable {
-        const provider = new ApplicationEditorProvider(context);
-        const providerRegistration = vscode.window.registerCustomEditorProvider(ApplicationEditorProvider.viewType, provider);
+        const provider = new FeaturesEditorProvider(context);
+        const providerRegistration = vscode.window.registerCustomEditorProvider(FeaturesEditorProvider.viewType, provider);
         return providerRegistration;
     }
 
@@ -23,7 +23,7 @@ export class ApplicationEditorProvider implements vscode.CustomTextEditorProvide
         token: vscode.CancellationToken
     ): Promise<void> {
 
-        const channel = vscode.window.createOutputChannel('Dolittle Application');
+        const channel = vscode.window.createOutputChannel('Dolittle Features');
         channel.appendLine('Starting custom text editor');
         webviewPanel.webview.options = {
             enableScripts: true
