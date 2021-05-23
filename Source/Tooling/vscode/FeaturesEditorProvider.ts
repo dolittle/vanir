@@ -23,6 +23,8 @@ export class FeaturesEditorProvider implements vscode.CustomTextEditorProvider {
         token: vscode.CancellationToken
     ): Promise<void> {
 
+        const content = document.getText();
+
         const channel = vscode.window.createOutputChannel('Dolittle Features');
         channel.appendLine('Starting custom text editor');
         webviewPanel.webview.options = {
@@ -30,17 +32,26 @@ export class FeaturesEditorProvider implements vscode.CustomTextEditorProvider {
         };
         webviewPanel.webview.html = this.getHtmlForWebview(webviewPanel.webview);
 
-        webviewPanel.webview.onDidReceiveMessage(e => {
-            channel.appendLine(e.type);
-            vscode.window.showInformationMessage(e.type);
-        });
-
         function updateWebview() {
             webviewPanel.webview.postMessage({
                 type: 'update',
                 text: document.getText(),
             });
         }
+
+        webviewPanel.webview.onDidReceiveMessage(e => {
+            updateWebview();
+        });
+
+        const changeDocumentSubscription = vscode.workspace.onDidChangeTextDocument(e => {
+            if (e.document.uri.toString() === document.uri.toString()) {
+                updateWebview();
+            }
+        });
+
+        webviewPanel.onDidDispose(() => {
+            changeDocumentSubscription.dispose();
+        });
 
         updateWebview();
     }
@@ -55,11 +66,10 @@ export class FeaturesEditorProvider implements vscode.CustomTextEditorProvider {
 
         return /* html */`
             <!DOCTYPE html>
-            <html>
+            <html lang="en">
 
             <head>
                 <meta charset="utf-8" />
-                <title>Dolittle Application</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1">
             </head>
 
