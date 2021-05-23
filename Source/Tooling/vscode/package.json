@@ -15,7 +15,8 @@
         "Other"
     ],
     "activationEvents": [
-        "onCustomEditor:dolittle.application"
+        "onCustomEditor:dolittle.application",
+        "onCustomEditor:dolittle.features"
     ],
     "main": "./dist/extension.js",
     "contributes": {
