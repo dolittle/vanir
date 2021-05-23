@@ -13,8 +13,10 @@ import {
     Dropdown,
     IDropdownOption,
     Stack,
+    Text,
     Icon,
-    SelectionMode
+    SelectionMode,
+    getTheme
 } from '@fluentui/react';
 
 const items: any[] = [
@@ -31,21 +33,28 @@ const environmentOptions: IDropdownOption[] = [
     { key: 'prod', text: 'Production' }
 ];
 
+
+
 const commandBarItems: ICommandBarItemProps[] = [
     { key: 'apply', text: 'Apply', iconProps: { iconName: 'Save' } },
     {
         key: 'environment',
         text: 'Environment',
-        onRender: () => (
-            <Stack horizontal style={{ alignItems: 'center' }} >
-                <div>Source</div>
-                <Dropdown
-                    style={{ width: 200 }}
-                    placeholder="Select environment"
-                    defaultSelectedKey="local"
-                    options={environmentOptions} />
-            </Stack>
-        )
+        onRender: () => {
+            const theme = getTheme();
+
+            return (
+                <Stack horizontal style={{ alignItems: 'center' }} tokens={{ childrenGap: 8 }} >
+                    <Icon iconName="Source" style={{ color: theme.palette.themePrimary, fontSize: theme.fonts.mediumPlus.fontSize }} />
+                    <Text variant="medium">Source</Text>
+                    <Dropdown
+                        style={{ width: 200 }}
+                        placeholder="Select environment"
+                        defaultSelectedKey="local"
+                        options={environmentOptions} />
+                </Stack>
+            );
+        }
     }
 ];
 
