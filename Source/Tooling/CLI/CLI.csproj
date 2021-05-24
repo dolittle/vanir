@@ -5,6 +5,8 @@
     <PropertyGroup>
         <AssemblyName>Dolittle.Vanir.CLI</AssemblyName>
         <RootNamespace>Dolittle.Vanir.CLI</RootNamespace>
+        <PackageAsTool>true</PackageAsTool>
+        <ToolCommandName>vanir</ToolCommandName>
         <OutputType>Exe</OutputType>
         <TargetFramework>net5.0</TargetFramework>
         <NoWarn>RCS1018</NoWarn>
