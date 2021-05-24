@@ -34,7 +34,6 @@ namespace Dolittle.Vanir.CLI.Features
                 new Option<string>("--environment", description: "Environment to apply to (defaults to local)")
             };
 
-
             var listCommand = new Command("list", "List all features")
             {
                 Handler = _listFeatures
@@ -60,7 +59,7 @@ namespace Dolittle.Vanir.CLI.Features
             {
                 new Argument<string>(SwitchOnFeature.NameArgument, description: "Name of the feature to switch on")
             };
-            switchOnCommand.Handler = _switchOnFeature;
+            switchOnCommand.Handler = _swi;
             command.AddCommand(switchOnCommand);
 
             var switchOffCommand = new Command("switch-off", "Switch on a feature toggle")
