@@ -2,24 +2,19 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.CommandLine;
-using Dolittle.Vanir.Backend.Config;
+using System.CommandLine.Invocation;
 
 namespace Dolittle.Vanir.CLI.Features
 {
     public class FeaturesCommandProvider : ICanProvideCommand
     {
-        readonly ContextOf<ApplicationContext> _getApplicationContext;
-        readonly ContextOf<MicroserviceContext> _getMicroserviceContext;
-        readonly ContextOf<FeaturesContext> _getFeaturesContext;
+        readonly ListFeatures _listFeatures;
+        readonly AddFeature _addFeature;
 
-        public FeaturesCommandProvider(
-            ContextOf<ApplicationContext> getApplicationContext,
-            ContextOf<MicroserviceContext> getMicroserviceContext,
-            ContextOf<FeaturesContext> getFeaturesContext)
+        public FeaturesCommandProvider(ListFeatures listFeatures, AddFeature addFeature)
         {
-            _getApplicationContext = getApplicationContext;
-            _getMicroserviceContext = getMicroserviceContext;
-            _getFeaturesContext = getFeaturesContext;
+            _listFeatures = listFeatures;
+            _addFeature = addFeature;
         }
 
         public Command Provide()
@@ -31,18 +26,16 @@ namespace Dolittle.Vanir.CLI.Features
 
             var listCommand = new Command("list", "List all features")
             {
-                Handler = new ListFeatures(
-                    _getApplicationContext,
-                    _getMicroserviceContext,
-                    _getFeaturesContext)
+                Handler = _listFeatures
             };
             command.AddCommand(listCommand);
 
             var addCommand = new Command("add", "Add a feature")
             {
-                new Argument<string>("name", description: "Name of the feature"),
-                new Option<string>("--description", description: "Description of the feature")
+                new Argument<string>(AddFeature.NameArgument, description: "Name of the feature"),
+                new Argument<string>(AddFeature.DescriptionArgument, getDefaultValue: () => string.Empty, description: "Description for the feature"),
             };
+            addCommand.Handler = _addFeature;
             command.AddCommand(addCommand);
 
             var removeCommand = new Command("remove", "Remove a feature")

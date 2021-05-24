@@ -23,16 +23,7 @@ namespace Dolittle.Vanir.Backend.Features
             {
                 var notification = new FeatureNotification
                 {
-                    Features = features.Values.Select(_ => new FeatureDefinition
-                    {
-                        Name = _.Name,
-                        Description = _.Description,
-                        Toggles = _.Toggles.Select(_ => new FeatureToggleDefinition
-                        {
-                            Type = "Boolean",
-                            IsOn = _.IsOn
-                        }).ToArray()
-                    }).ToArray()
+                    Features = features.ToDefinitions().ToArray()
                 };
 
                 await sender.SendAsync("newFeatures", notification);

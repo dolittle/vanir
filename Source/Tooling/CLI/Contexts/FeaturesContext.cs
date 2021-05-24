@@ -6,6 +6,6 @@ namespace Dolittle.Vanir.CLI
     public class FeaturesContext
     {
         public Backend.Features.Features Features { get; init; }
-        public string Path { get; init; }
+        public string File { get; init; }
     }
 }

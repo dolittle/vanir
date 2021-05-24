@@ -1,16 +1,29 @@
 {
-    "my.first.method.feature": {
-        "description": "The ultimate first method feature",
-        "toggles": [{
-            "type": "Boolean",
-            "isOn": false
-        }]
-    },
-    "my.first.class.feature": {
-        "description": "The ultimate first class feature",
-        "toggles": [{
-            "type": "Boolean",
-            "isOn": true
-        }]
-    }
+  "my.first.method.feature": {
+    "description": "The ultimate first method feature",
+    "toggles": [
+      {
+        "type": "Boolean",
+        "isOn": false
+      }
+    ]
+  },
+  "my.first.class.feature": {
+    "description": "The ultimate first class feature",
+    "toggles": [
+      {
+        "type": "Boolean",
+        "isOn": true
+      }
+    ]
+  },
+  "anoter.feature": {
+    "description": "",
+    "toggles": [
+      {
+        "type": "Boolean",
+        "isOn": false
+      }
+    ]
+  }
 }

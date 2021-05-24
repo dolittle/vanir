@@ -70,7 +70,7 @@ namespace Dolittle.Vanir.CLI
             return new FeaturesContext
             {
                 Features = new FeaturesParser().Parse(json),
-                Path = file
+                File = file
             };
         }
 

@@ -3,7 +3,6 @@
 
 namespace Dolittle.Vanir.Backend.Features
 {
-
     public class FeatureDefinition
     {
         public string Name { get; set; }
