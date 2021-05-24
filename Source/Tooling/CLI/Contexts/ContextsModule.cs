@@ -14,9 +14,9 @@ namespace Dolittle.Vanir.CLI
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.Register(_ => ProvideApplicationContext()).As<ApplicationContext>();
-            builder.Register(_ => ProvideMicroserviceContext()).As<MicroserviceContext>();
-            builder.Register(_ => ProvideFeatures()).As<FeaturesContext>();
+            builder.Register<ContextOf<ApplicationContext>>(_ => () => ProvideApplicationContext()).As<ContextOf<ApplicationContext>>();
+            builder.Register<ContextOf<MicroserviceContext>>(_ => () => ProvideMicroserviceContext()).As<ContextOf<MicroserviceContext>>();
+            builder.Register<ContextOf<FeaturesContext>>(_ => () => ProvideFeatures()).As<ContextOf<FeaturesContext>>();
             base.Load(builder);
         }
 

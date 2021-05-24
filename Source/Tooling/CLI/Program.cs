@@ -24,7 +24,6 @@ namespace Dolittle.Vanir.CLI
             };
 
             container.Resolve<CommandProviders>().AddAllCommandsFromProvidersTo(rootCommand);
-
             return rootCommand.InvokeAsync(args).Result;
         }
     }

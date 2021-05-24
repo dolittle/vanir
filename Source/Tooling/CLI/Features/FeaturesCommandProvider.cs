@@ -8,18 +8,18 @@ namespace Dolittle.Vanir.CLI.Features
 {
     public class FeaturesCommandProvider : ICanProvideCommand
     {
-        readonly ApplicationContext _applicationContext;
-        readonly MicroserviceContext _microserviceContext;
-        readonly FeaturesContext _featuresContext;
+        readonly ContextOf<ApplicationContext> _getApplicationContext;
+        readonly ContextOf<MicroserviceContext> _getMicroserviceContext;
+        readonly ContextOf<FeaturesContext> _getFeaturesContext;
 
         public FeaturesCommandProvider(
-            ApplicationContext applicationContext,
-            MicroserviceContext microserviceContext,
-            FeaturesContext featuresContext)
+            ContextOf<ApplicationContext> getApplicationContext,
+            ContextOf<MicroserviceContext> getMicroserviceContext,
+            ContextOf<FeaturesContext> getFeaturesContext)
         {
-            _applicationContext = applicationContext;
-            _microserviceContext = microserviceContext;
-            _featuresContext = featuresContext;
+            _getApplicationContext = getApplicationContext;
+            _getMicroserviceContext = getMicroserviceContext;
+            _getFeaturesContext = getFeaturesContext;
         }
 
         public Command Provide()
@@ -32,9 +32,9 @@ namespace Dolittle.Vanir.CLI.Features
             var listCommand = new Command("list", "List all features")
             {
                 Handler = new ListFeatures(
-                    _applicationContext,
-                    _microserviceContext,
-                    _featuresContext)
+                    _getApplicationContext,
+                    _getMicroserviceContext,
+                    _getFeaturesContext)
             };
             command.AddCommand(listCommand);
 
