@@ -2,7 +2,6 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using Dolittle.Vanir.Backend.Reflection;
-using Dolittle.Vanir.Backend.Validation;
 using FluentValidation;
 using FluentValidation.Results;
 using Machine.Specifications;
