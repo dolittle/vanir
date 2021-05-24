@@ -10,17 +10,17 @@ using Newtonsoft.Json;
 
 namespace Dolittle.Vanir.CLI
 {
-    public class ContextModule : Module
+    public class ContextsModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.Register<ContextOf<Application>>(_ => () => ProvideApplicationContext()).As<ContextOf<Application>>();
-            builder.Register<ContextOf<Microservice>>(_ => () => ProvideMicroserviceContext()).As<ContextOf<Microservice>>();
-            builder.Register<ContextOf<Backend.Features.Features>>(_ => () => ProvideFeatures()).As<ContextOf<Backend.Features.Features>>();
+            builder.Register(_ => ProvideApplicationContext()).As<ApplicationContext>();
+            builder.Register(_ => ProvideMicroserviceContext()).As<MicroserviceContext>();
+            builder.Register(_ => ProvideFeatures()).As<FeaturesContext>();
             base.Load(builder);
         }
 
-        Application ProvideApplicationContext()
+        ApplicationContext ProvideApplicationContext()
         {
             var file = SearchForFile(Directory.GetCurrentDirectory(), "application.json", out bool found);
             if (!found)
@@ -31,10 +31,14 @@ namespace Dolittle.Vanir.CLI
             }
 
             var json = File.ReadAllText(file);
-            return JsonConvert.DeserializeObject<Application>(json);
+            return new ApplicationContext
+            {
+                Application = JsonConvert.DeserializeObject<Application>(json),
+                File = file
+            };
         }
 
-        Microservice ProvideMicroserviceContext()
+        MicroserviceContext ProvideMicroserviceContext()
         {
             var file = SearchForFile(Directory.GetCurrentDirectory(), "microservice.json", out bool found);
             if (!found)
@@ -45,10 +49,14 @@ namespace Dolittle.Vanir.CLI
             }
 
             var json = File.ReadAllText(file);
-            return JsonConvert.DeserializeObject<Microservice>(json);
+            return new MicroserviceContext
+            {
+                Microservice = JsonConvert.DeserializeObject<Microservice>(json),
+                File = file
+            };
         }
 
-        Backend.Features.Features ProvideFeatures()
+        FeaturesContext ProvideFeatures()
         {
             var file = Path.Join(Directory.GetCurrentDirectory(), "data", "features.json");
             if (!File.Exists(file))
@@ -59,7 +67,11 @@ namespace Dolittle.Vanir.CLI
             }
 
             var json = File.ReadAllText(file);
-            return new FeaturesParser().Parse(json);
+            return new FeaturesContext
+            {
+                Features = new FeaturesParser().Parse(json),
+                Path = file
+            };
         }
 
         string SearchForFile(string directory, string file, out bool found)

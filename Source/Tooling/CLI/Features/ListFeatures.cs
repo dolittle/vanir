@@ -7,33 +7,28 @@ using System.CommandLine.Rendering;
 using System.CommandLine.Rendering.Views;
 using System.Linq;
 using System.Threading.Tasks;
-using Dolittle.Vanir.Backend.Config;
 using Dolittle.Vanir.Backend.Features;
 
 namespace Dolittle.Vanir.CLI.Features
 {
     public class ListFeatures : ICommandHandler
     {
-        readonly ContextOf<Application> _getApplicationContext;
-        readonly ContextOf<Microservice> _getMicroserviceContext;
-        readonly ContextOf<Backend.Features.Features> _getFeaturesContext;
+        readonly ApplicationContext _applicationContext;
+        readonly MicroserviceContext _microserviceContext;
+        readonly FeaturesContext _featuresContext;
 
         public ListFeatures(
-            ContextOf<Application> getApplicationContext,
-            ContextOf<Microservice> getMicroserviceContext,
-            ContextOf<Backend.Features.Features> getFeaturesContext)
+            ApplicationContext applicationContext,
+            MicroserviceContext microserviceContext,
+            FeaturesContext featuresContext)
         {
-            _getApplicationContext = getApplicationContext;
-            _getMicroserviceContext = getMicroserviceContext;
-            _getFeaturesContext = getFeaturesContext;
+            _applicationContext = applicationContext;
+            _microserviceContext = microserviceContext;
+            _featuresContext = featuresContext;
         }
 
         public Task<int> InvokeAsync(InvocationContext context)
         {
-            var application = _getApplicationContext();
-            var microservice = _getMicroserviceContext();
-            var features = _getFeaturesContext();
-
             var region = new Region(0, 0, Console.WindowWidth, Console.WindowHeight, true);
 
             var consoleRenderer = new ConsoleRenderer(
@@ -44,7 +39,7 @@ namespace Dolittle.Vanir.CLI.Features
 
             var table = new TableView<Feature>
             {
-                Items = features.Values.ToArray()
+                Items = _featuresContext.Features.Values.ToArray()
             };
 
             table.AddColumn(_ => _.Name, new ContentView("NAME".Underline()));

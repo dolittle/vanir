@@ -8,40 +8,40 @@ namespace Dolittle.Vanir.CLI.Features
 {
     public class FeaturesCommandProvider : ICanProvideCommand
     {
-        readonly ContextOf<Application> _getApplicationContext;
-        readonly ContextOf<Microservice> _getMicroserviceContext;
-        readonly ContextOf<Backend.Features.Features> _getFeaturesContext;
+        readonly ApplicationContext _applicationContext;
+        readonly MicroserviceContext _microserviceContext;
+        readonly FeaturesContext _featuresContext;
 
         public FeaturesCommandProvider(
-            ContextOf<Application> getApplicationContext,
-            ContextOf<Microservice> getMicroserviceContext,
-            ContextOf<Backend.Features.Features> getFeaturesContext)
+            ApplicationContext applicationContext,
+            MicroserviceContext microserviceContext,
+            FeaturesContext featuresContext)
         {
-            _getApplicationContext = getApplicationContext;
-            _getMicroserviceContext = getMicroserviceContext;
-            _getFeaturesContext = getFeaturesContext;
+            _applicationContext = applicationContext;
+            _microserviceContext = microserviceContext;
+            _featuresContext = featuresContext;
         }
 
         public Command Provide()
         {
             var command = new Command("features", "Work with features in the system")
             {
-                new Option<string>("environment", description: "Environment to apply to (defaults to local)")
+                new Option<string>("--environment", description: "Environment to apply to (defaults to local)")
             };
 
             var listCommand = new Command("list", "List all features")
             {
                 Handler = new ListFeatures(
-                    _getApplicationContext,
-                    _getMicroserviceContext,
-                    _getFeaturesContext)
+                    _applicationContext,
+                    _microserviceContext,
+                    _featuresContext)
             };
             command.AddCommand(listCommand);
 
             var addCommand = new Command("add", "Add a feature")
             {
                 new Argument<string>("name", description: "Name of the feature"),
-                new Option<string>("description", description: "Description of the feature")
+                new Option<string>("--description", description: "Description of the feature")
             };
             command.AddCommand(addCommand);
 
