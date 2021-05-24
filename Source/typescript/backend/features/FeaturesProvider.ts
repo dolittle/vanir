@@ -10,10 +10,9 @@ import { Observable, BehaviorSubject } from 'rxjs';
 
 import chokidar from 'chokidar';
 import { FeatureDefinition } from './FeatureDefinition';
+import { IFeaturesParser } from '../../features/IFeaturesParser';
 
 const featuresPath = './data/features.json';
-
-type FeatureDefinitions = { [key: string]: FeatureDefinition };
 
 /**
  * Represents an implementation of {@link IFeaturesProvider}.
@@ -22,7 +21,7 @@ type FeatureDefinitions = { [key: string]: FeatureDefinition };
 export class FeaturesProvider extends IFeaturesProvider {
     readonly _features: BehaviorSubject<Features> = new BehaviorSubject(new Features());
 
-    constructor() {
+    constructor(private readonly _parser: IFeaturesParser) {
         super();
         chokidar.watch(featuresPath).on('all', (event, path) => {
             this.loadFeatures();
@@ -43,16 +42,7 @@ export class FeaturesProvider extends IFeaturesProvider {
         }
 
         const featuresAsJson = fs.readFileSync(featuresPath).toString();
-        const featuresDefinitions = JSON.parse(featuresAsJson) as FeatureDefinitions;
-        const features = new Map<string, Feature>();
-        for (const featureName in featuresDefinitions) {
-            const featureDefinition = featuresDefinitions[featureName];
-
-            features.set(featureName, new Feature(
-                featureName,
-                featureDefinition.description,
-                featureDefinition.toggles.map(_ => new BooleanFeatureToggle(_.isOn))));
-        }
-        this._features.next(new Features(features));
+        const features = this._parser.parse(featuresAsJson);
+        this._features.next(features);
     }
 }
