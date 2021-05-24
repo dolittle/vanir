@@ -21,13 +21,13 @@
             "request": "launch",
             "preLaunchTask": "build CLI",
             "program": "${workspaceFolder}/Source/Tooling/CLI/bin/Debug/net5.0/Dolittle.Vanir.CLI.dll",
-            "args": [
-                "features",
-                "add",
-                "something",
-                "\"My fancy new feature\""
-            ],
-            //"args": ["features", "list"],
+            // "args": [
+            //     "features",
+            //     "add",
+            //     "something",
+            //     "\"My fancy new feature\""
+            // ],
+            "args": ["features", "on", "blah"],
             //"args": ["proxy", "../../../Samples/Source/Aspnetcore/Backend/bin/Debug/net5.0/Backend.dll", "../../../Samples/Source/Aspnetcore/Web/proxies"],
             "cwd": "${workspaceFolder}/Samples/Source/Aspnetcore/Backend",
             "stopAtEntry": false,

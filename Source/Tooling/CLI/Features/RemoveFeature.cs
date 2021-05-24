@@ -9,12 +9,12 @@ using Dolittle.Vanir.Backend.Features;
 
 namespace Dolittle.Vanir.CLI.Features
 {
-    public class AddFeature : AlterFeaturesCommandHandler
+    public class RemoveFeature : AlterFeaturesCommandHandler
     {
         public const string NameArgument = "name";
-        public const string DescriptionArgument = "description";
 
-        public AddFeature(ContextOf<ApplicationContext> getApplicationContext,
+        public RemoveFeature(
+            ContextOf<ApplicationContext> getApplicationContext,
             ContextOf<MicroserviceContext> getMicroserviceContext,
             ContextOf<FeaturesContext> getFeaturesContext) : base(
                 getApplicationContext,
@@ -27,23 +27,14 @@ namespace Dolittle.Vanir.CLI.Features
         protected override Task<int> Invoke(InvocationContext context, IDictionary<string, Feature> features)
         {
             var name = context.ParseResult.ValueForArgument<string>(NameArgument);
-            var description = context.ParseResult.ValueForArgument<string>(DescriptionArgument);
-
-            if (features.Values.Any(_ => _.Name == name))
+            var feature = features.Values.SingleOrDefault(_ => _.Name == name);
+            if (feature == default)
             {
-                context.Console.Error.Write($"Feature '{name}' already exists");
+                context.Console.Error.Write($"Feature '{name}' does not exist");
                 return Task.FromResult(-1);
             }
 
-            features.Add(name,
-                    new Feature
-                    {
-                        Name = name,
-                        Description = description,
-                        Toggles = new[] {
-                            new BooleanFeatureToggle()
-                        }
-                    });
+            features.Remove(name);
 
             return Task.FromResult(0);
         }
