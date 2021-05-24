@@ -4,10 +4,7 @@
 using System;
 using System.CommandLine.Invocation;
 using System.CommandLine.Rendering;
-using System.CommandLine.Rendering.Views;
-using System.Linq;
 using System.Threading.Tasks;
-using Dolittle.Vanir.Backend.Features;
 
 namespace Dolittle.Vanir.CLI.Features
 {
@@ -33,20 +30,12 @@ namespace Dolittle.Vanir.CLI.Features
 
             var consoleRenderer = new ConsoleRenderer(
                 context.Console,
-                mode: context.BindingContext.OutputMode(),
+                mode: OutputMode.Auto,
                 resetAfterRender: true
             );
 
-            var table = new TableView<Feature>
-            {
-                Items = _featuresContext.Features.Values.ToArray()
-            };
-
-            table.AddColumn(_ => _.Name, new ContentView("NAME".Underline()));
-            table.AddColumn(_ => _.Description, new ContentView("DESCRIPTION".Underline()));
-            table.AddColumn(new IsOnColumn());
-
-            table.Render(consoleRenderer, region);
+            var view = new ListFeaturesView(_applicationContext, _microserviceContext, _featuresContext.Features.Values);
+            view.Render(consoleRenderer, region);
 
             return Task.FromResult(0);
         }
