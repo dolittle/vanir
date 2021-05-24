@@ -6,7 +6,7 @@ using System.Reflection;
 using Dolittle.Vanir.Backend.GraphQL;
 using Machine.Specifications;
 
-namespace Dolittle.Vanir.Backend.Specs.GraphQL.for_TypeInspector
+namespace Dolittle.Vanir.Backend.GraphQL.for_TypeInspector
 {
     public class when_getting_members_for_type_with_readonly_property
     {
