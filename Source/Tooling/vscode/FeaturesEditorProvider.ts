@@ -39,7 +39,7 @@ export class FeaturesEditorProvider implements vscode.CustomTextEditorProvider {
             });
         }
 
-        webviewPanel.webview.onDidReceiveMessage(e => {
+        webviewPanel.webview.onDidReceiveMessage(async e => {
             switch (e.type) {
                 case 'documentChanged': {
                     const edit = new vscode.WorkspaceEdit();
@@ -49,7 +49,8 @@ export class FeaturesEditorProvider implements vscode.CustomTextEditorProvider {
                         e.data
                     );
 
-                    vscode.workspace.applyEdit(edit);
+                    await vscode.workspace.applyEdit(edit);
+                    await document.save();
                 } break;
 
                 case 'updateDocument': {
