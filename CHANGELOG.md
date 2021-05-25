@@ -1,3 +1,9 @@
+# [9.29.5] - 2021-5-25 [PR: #250](https://github.com/dolittle/vanir/pull/250)
+### Fixed
+
+- Aligning package versions
+
+
 # [9.29.4] - 2021-5-25 [PR: #248](https://github.com/dolittle/vanir/pull/248)
 ### Fixed
 
