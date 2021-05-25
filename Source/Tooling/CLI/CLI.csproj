@@ -4,7 +4,7 @@
 
     <PropertyGroup>
         <RootNamespace>Dolittle.Vanir.CLI</RootNamespace>
-        <PackageAsTool>true</PackageAsTool>
+        <PackAsTool>true</PackAsTool>
         <ToolCommandName>vanir</ToolCommandName>
         <OutputType>Exe</OutputType>
         <TargetFramework>net5.0</TargetFramework>
