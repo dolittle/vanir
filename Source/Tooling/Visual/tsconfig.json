@@ -1,0 +1,14 @@
+{
+    "extends": "../../../tsconfig.json",
+    "compilerOptions": {
+        "outDir": "./wwwroot"
+    },
+    "references": [
+        {
+            "path": "../../react"
+        }
+    ],
+    "exclude": [
+        "dist"
+    ]
+}

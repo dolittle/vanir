@@ -3,10 +3,14 @@
 
 import { GraphQLField, GraphQLFieldConfig, GraphQLFieldConfigMap, argsToArgsConfig } from 'graphql/type/definition';
 import { GraphQLObjectType } from 'graphql';
+import { PubSub } from 'graphql-subscriptions';
+
+const pubSub = new PubSub();
 
 export class SchemaRoute {
     readonly children: SchemaRoute[] = [];
     readonly items: GraphQLField<any, any>[] = [];
+
 
     constructor(readonly path: string, readonly localName: string, readonly typeName: string) { }
 
@@ -24,7 +28,6 @@ export class SchemaRoute {
 
     toGraphQLObjectType(): GraphQLObjectType {
         const fields: GraphQLFieldConfigMap<any, any> = {};
-
         for (const route of this.children) {
             const type = route.toGraphQLObjectType();
             fields[route.localName] = {

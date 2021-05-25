@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <Import Project="../../../default.props" />
+
+    <PropertyGroup>
+        <AssemblyName>Dolittle.Vanir.CLI</AssemblyName>
+        <RootNamespace>Dolittle.Vanir.CLI</RootNamespace>
+        <PackageAsTool>true</PackageAsTool>
+        <ToolCommandName>vanir</ToolCommandName>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net5.0</TargetFramework>
+        <NoWarn>RCS1018;CS1591</NoWarn>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="autofac" Version="6.2.0" />
+        <PackageReference Include="Handlebars.Net" Version="2.0.7" />
+        <PackageReference Include="Microsoft.Extensions.DependencyModel" Version="5.0.0" />
+        <PackageReference Include="MongoDB.Driver" Version="2.12.1" />
+        <PackageReference Include="System.CommandLine" Version="2.0.0-beta1.21216.1" />
+        <PackageReference Include="System.CommandLine.Rendering" Version="0.3.0-alpha.21216.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <EmbeddedResource Include="Templates/**/*" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="../../DotNET/Backend/Backend.csproj" />
+    </ItemGroup>
+</Project>

@@ -1,0 +1,63 @@
+/*---------------------------------------------------------------------------------------------
+ *  This file is an automatically generated Query Proxy
+ *--------------------------------------------------------------------------------------------*/
+
+import gql from 'graphql-tag';
+import { DataSource } from '@dolittle/vanir-web';
+
+import { {{readModel}} } from '{{readModelPath}}';
+
+export type {{name}}Result = {
+    {{#path}}
+    {{value}}: {
+    {{/path}}
+        {{#if enumerable}}
+        {{actualName}}: {{readModel}}[];
+        {{else}}
+        {{actualName}}: {{readModel}};
+        {{/if}}
+    {{#path}}
+    }
+    {{/path}}
+}
+
+export class {{name}} {
+    {{#parameters}}
+    {{name}}!: {{type}};
+    {{/parameters}}
+
+    constructor(dataSource: DataSource) {
+        super(dataSource);
+    }
+
+    getResultFrom(data: any) {
+        return data.{{fullPath}};
+    }
+
+    toGraphQL() {
+        return gql`
+            query {
+                {{#path}}
+                {{value}} {
+                {{/path}}
+
+                    {{#if hasParameters}}
+                    {{actualName}}(
+                        {{#parameters}}
+                        {{name}}: "${ this.{{name}} }"
+                        {{/parameters}}
+                    ) {
+                    {{else}}
+                    {{actualName}} {
+                    {{/if}}
+                        {{#readModelProperties}}
+                        {{> property}}
+                        {{/readModelProperties}}
+                    }
+                {{#path}}
+                }
+                {{/path}}
+            }
+        `;
+    }
+}

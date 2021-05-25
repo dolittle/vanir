@@ -1,0 +1,17 @@
+/*---------------------------------------------------------------------------------------------
+ *  This file is an automatically generated Command Proxy
+ *--------------------------------------------------------------------------------------------*/
+
+{{#readModelTypes}}
+import { {{readModel}} } from '{{readModelPath}}'
+{{/readModelTypes}}
+
+export class {{name}} {
+    {{#properties}}
+    {{#if enumerable}}
+    {{name}}!: {{type}}[];
+    {{else}}
+    {{name}}!: {{type}};
+    {{/if}}
+    {{/properties}}
+}

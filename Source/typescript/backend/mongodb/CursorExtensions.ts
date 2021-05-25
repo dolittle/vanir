@@ -28,13 +28,11 @@ const _originalNext = Cursor.prototype._next;
 
 Cursor.prototype._next = function (callback?: MongoCallback<any>): any {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
-    let cursor = this;
+    const cursor = this;
     if (callback) {
         const originalCallback = callback;
 
         callback = function (error: MongoError, result: any) {
-            cursor = cursor;
-
             const collection = (cursor as any).namespace.collection;
             const collectionType = getCollectionType(collection);
             if (collectionType && result) {

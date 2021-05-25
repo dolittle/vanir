@@ -8,9 +8,9 @@ import { HostContext } from './HostContext';
 const ContextKey = 'Context';
 
 export class Context {
-    userId: string = '';
+    userId = '';
     tenantId: TenantId = TenantId.development;
-    cookies: string = '';
+    cookies = '';
 
     static fromRequest(req: Request): Context {
         const tenantId = req.header('Tenant-ID') || TenantId.development;
@@ -23,7 +23,7 @@ export class Context {
 
         return context;
     }
-};
+}
 
 export function ContextMiddleware(req: Request, res: Response, next: NextFunction) {
     const context = Context.fromRequest(req);

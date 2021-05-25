@@ -7,15 +7,15 @@ import { DolittleConfiguration } from './DolittleConfiguration';
 
 
 export class Configuration {
-    routeSegment: string = '';
-    isRooted: boolean = false;
-    publicPath: string = '';
-    port: number = 80;
-    microserviceId: string = '';
+    routeSegment = '';
+    isRooted = false;
+    publicPath = '';
+    port = 80;
+    microserviceId = '';
 
     dolittle: DolittleConfiguration;
 
-    environment: string = 'development';
+    environment = 'development';
 
     constructor() {
         this.dolittle = new DolittleConfiguration();

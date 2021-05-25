@@ -32,12 +32,10 @@ export class BrokenRule {
      * @param {any | string} argsOrMessage Arguments or concrete message to fail with.
      * @param {string?} source Optional string containing the source.
      */
-    fail(argsOrMessage: any | string, source: string = 'unknown') {
+    fail(argsOrMessage: any | string, source = 'unknown') {
         let message = this.message;
         if (argsOrMessage) {
-            if (argsOrMessage instanceof String) {
-                message = message;
-            } else {
+            if (!(argsOrMessage instanceof String)) {
                 message = this.interpolateString(this.message, argsOrMessage);
             }
         }
@@ -46,7 +44,7 @@ export class BrokenRule {
     }
 
     private interpolateString(input: string, args: any): string {
-        const regex = new RegExp('{(.*?)}', '\g');
+        const regex = new RegExp('{(.*?)}', 'g');
         let result = input;
         const argumentKeys = Object.keys(args);
 

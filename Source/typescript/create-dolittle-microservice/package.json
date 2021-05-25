@@ -38,8 +38,8 @@
         "start": "cross-env NODE_ENV=development ts-node index.ts",
         "clean": "tsc -b --clean",
         "build": "tsc -b && chmod +x dist/index.js",
-        "lint": "eslint --cache '**/*.{js,ts,tsx}' --quiet --fix",
-        "lint:ci": "eslint --cache '**/*.{js,ts,tsx}' --quiet",
+        "lint": "eslint --cache . --ext .ts,.tsx --quiet --fix",
+        "lint:ci": "eslint --cache . --ext .ts,.tsx --quiet",
         "test": "mocha",
         "ci": "yarn clean && yarn lint:ci && yarn build && yarn test"
     },

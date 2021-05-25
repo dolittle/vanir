@@ -35,7 +35,7 @@ export class PlopHelper {
     }> {
         const plop = nodePlop('', {
             force: true,
-            destBasePath: targetDirectory || process.cwd()
+            destBasePath: targetDirectory || process.cwd()
         });
 
         this._configurationFunction(plop);
@@ -55,7 +55,7 @@ export class PlopHelper {
             if (fail.type) { line += ` ${out.typeMap(fail.type, noMap)}`; }
             if (fail.path) { line += ` ${fail.path}`; }
             const errMsg = fail.error || fail.message;
-            if (errMsg) { line += ` ${errMsg}`; };
+            if (errMsg) { line += ` ${errMsg}`; }
             progressSpinner.fail(line); progressSpinner.start();
         };
         progressSpinner.start();

@@ -64,6 +64,7 @@
         "actionbar",
         "dependencyinversion",
         "eventstore",
+        "fluentui",
         "mvvm",
         "plopfile",
         "tsoa",

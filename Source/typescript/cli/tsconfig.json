@@ -8,5 +8,8 @@
         {
             "path": "../dependency-inversion"
         }
+    ],
+    "exclude": [
+        "dist"
     ]
 }

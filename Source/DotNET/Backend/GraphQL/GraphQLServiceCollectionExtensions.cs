@@ -4,17 +4,26 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Threading;
+using System.Threading.Tasks;
 using Dolittle.SDK.Concepts;
 using Dolittle.Vanir.Backend;
 using Dolittle.Vanir.Backend.Collections;
 using Dolittle.Vanir.Backend.Dolittle;
+using Dolittle.Vanir.Backend.Features;
 using Dolittle.Vanir.Backend.GraphQL;
 using Dolittle.Vanir.Backend.GraphQL.Concepts;
 using Dolittle.Vanir.Backend.GraphQL.Validation;
 using Dolittle.Vanir.Backend.Reflection;
 using FluentValidation;
+using HotChocolate;
+using HotChocolate.Configuration;
+using HotChocolate.Subscriptions;
 using HotChocolate.Types;
 using HotChocolate.Types.Descriptors;
+using HotChocolate.Types.Descriptors.Definitions;
+using Microsoft.AspNetCore.Builder;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -51,6 +60,8 @@ namespace Microsoft.Extensions.DependencyInjection
 
             var graphQLBuilder = services
                                     .AddGraphQLServer()
+                                    .AddInMemorySubscriptions()
+                                    .AddDirectiveType<FeatureDirectiveType>()
                                     .ModifyRequestOptions(opt => opt.IncludeExceptionDetails = RuntimeEnvironment.isDevelopment)
                                     .TryAddTypeInterceptor<ReadOnlyPropertyInterceptor>()
                                     .AddAuthorization()
@@ -59,13 +70,27 @@ namespace Microsoft.Extensions.DependencyInjection
             types.FindMultiple<ScalarType>().Where(_ => !_.IsGenericType).ForEach(_ => graphQLBuilder.AddType(_));
 
             var namingConventions = new NamingConventions();
+            services.AddSingleton<INamingConventions>(namingConventions);
 
             graphQLBuilder
                 .AddQueries(graphControllers, namingConventions, out SchemaRoute queries)
-                .AddMutations(graphControllers, namingConventions, out SchemaRoute mutations);
+                .AddMutations(graphControllers, namingConventions, out SchemaRoute mutations)
+                .AddSubscriptions(graphControllers, namingConventions, out SchemaRoute subscriptions);
+
+            var systemQueries = new SchemaRoute("system", "system", "_system");
+            queries.AddChild(systemQueries);
+            Expression<Func<FeaturesSubscriptionsResolver, FeatureNotification>> featuresMethod = (FeaturesSubscriptionsResolver resolver) => resolver.Features();
+            systemQueries.AddItem(new SchemaRouteItem(featuresMethod.GetMethodInfo(), "features"));
+
+            Expression<Func<FeaturesSubscriptionsResolver, Task<FeatureNotification>>> newFeaturesMethod = (FeaturesSubscriptionsResolver resolver) => resolver.system_newFeatures(null);
+            subscriptions.AddItem(new SchemaRouteItem(newFeaturesMethod.GetMethodInfo(), "system_newFeatures"));
 
             types.FindMultiple(typeof(ConceptAs<>)).ForEach(_ => graphQLBuilder.AddConceptTypeConverter(_));
-            services.AddSingleton<INamingConventions>(namingConventions);
+            types.All.Where(_ => _.IsEnum).ForEach(type =>
+            {
+                graphQLBuilder.BindRuntimeType(type, typeof(IntType));
+                graphQLBuilder.AddTypeConverter(_ => new EnumToIntConverter(type));
+            });
 
             arguments?.GraphQLExecutorBuilder(graphQLBuilder);
 

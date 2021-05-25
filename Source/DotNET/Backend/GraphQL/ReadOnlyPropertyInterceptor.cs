@@ -14,7 +14,7 @@ using HotChocolate.Types;
 using HotChocolate.Types.Descriptors;
 using HotChocolate.Types.Descriptors.Definitions;
 
-namespace Microsoft.Extensions.DependencyInjection
+namespace Dolittle.Vanir.Backend.GraphQL
 {
     /// <summary>
     /// Represents a <see cref="TypeInterceptor"/> that is capable of adding readonly properties as fields during schema creation.

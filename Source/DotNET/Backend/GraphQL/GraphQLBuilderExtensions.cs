@@ -22,12 +22,18 @@ namespace Dolittle.Vanir.Backend.GraphQL
             public MethodInfo Method { get; set; }
         }
 
+        public static IRequestExecutorBuilder AddQueries(this IRequestExecutorBuilder builder, IGraphControllers graphControllers, INamingConventions namingConventions)
+        {
+            return builder.AddQueries(graphControllers, namingConventions, out _);
+        }
+
         public static IRequestExecutorBuilder AddQueries(this IRequestExecutorBuilder builder, IGraphControllers graphControllers, INamingConventions namingConventions, out SchemaRoute query)
         {
             query = BuildSchemaRoutesWithItems<QueryAttribute>("Query", graphControllers, namingConventions, "Queries");
             builder.AddQueryType(query);
             return builder;
         }
+
 
         public static IRequestExecutorBuilder AddMutations(this IRequestExecutorBuilder builder, IGraphControllers graphControllers, INamingConventions namingConventions)
         {
@@ -38,6 +44,13 @@ namespace Dolittle.Vanir.Backend.GraphQL
         {
             mutation = BuildSchemaRoutesWithItems<MutationAttribute>("Mutation", graphControllers, namingConventions, "Mutations");
             builder.AddMutationType(mutation);
+            return builder;
+        }
+
+        public static IRequestExecutorBuilder AddSubscriptions(this IRequestExecutorBuilder builder, IGraphControllers graphControllers, INamingConventions namingConventions, out SchemaRoute subscription)
+        {
+            subscription = BuildSchemaRoutesWithItems<SubscriptionAttribute>("Subscription", graphControllers, namingConventions, "Subscriptions");
+            builder.AddSubscriptionType(subscription);
             return builder;
         }
 

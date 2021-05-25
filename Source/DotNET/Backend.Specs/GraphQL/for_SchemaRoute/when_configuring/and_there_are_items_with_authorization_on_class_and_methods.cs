@@ -13,7 +13,7 @@ using static Moq.Times;
 using AuthorizeAttribute = Microsoft.AspNetCore.Authorization.AuthorizeAttribute;
 using It = Machine.Specifications.It;
 
-namespace Dolittle.Vanir.Backend.Specs.GraphQL.for_SchemaRoute.when_configuring
+namespace Dolittle.Vanir.Backend.GraphQL.for_SchemaRoute.when_configuring
 {
     public class and_there_are_items_with_authorization_on_class_and_methods : given.an_empty_schema_route
     {

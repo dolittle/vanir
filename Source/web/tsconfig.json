@@ -7,6 +7,12 @@
     "references": [
         {
             "path": "../typescript/dependency-inversion"
+        },
+        {
+            "path": "../typescript/features"
         }
+    ],
+    "exclude": [
+        "dist"
     ]
 }

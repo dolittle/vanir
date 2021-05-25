@@ -5,7 +5,7 @@ using Dolittle.Vanir.Backend.GraphQL;
 using Machine.Specifications;
 using static Moq.Times;
 
-namespace Dolittle.Vanir.Backend.Specs.GraphQL.for_SchemaRoute.when_configuring
+namespace Dolittle.Vanir.Backend.GraphQL.for_SchemaRoute.when_configuring
 {
     public class and_there_are_children : given.an_empty_schema_route
     {

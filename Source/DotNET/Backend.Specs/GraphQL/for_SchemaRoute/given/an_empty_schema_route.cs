@@ -9,7 +9,7 @@ using Machine.Specifications;
 using Moq;
 using static Moq.It;
 
-namespace Dolittle.Vanir.Backend.Specs.GraphQL.for_SchemaRoute.given
+namespace Dolittle.Vanir.Backend.GraphQL.for_SchemaRoute.given
 {
     public class an_empty_schema_route
     {

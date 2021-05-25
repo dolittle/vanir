@@ -1,8 +1,15 @@
 // Copyright (c) Dolittle. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-import { OperationVariables, WatchQueryOptions, QueryOptions, MutationOptions, ApolloQueryResult, ObservableQuery } from 'apollo-client';
-import { FetchResult } from 'apollo-link';
+import {
+    OperationVariables,
+    WatchQueryOptions,
+    QueryOptions,
+    MutationOptions,
+    ApolloQueryResult,
+    ObservableQuery,
+    FetchResult
+} from '@apollo/client';
 
 export abstract class DataSource {
     abstract watchQuery<T = any, TVariables = OperationVariables>(options: WatchQueryOptions<TVariables>): ObservableQuery<T, TVariables>;

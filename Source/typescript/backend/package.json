@@ -25,19 +25,21 @@
         "**/*.ts"
     ],
     "main": "dist/index.js",
-    "types": "dist/index.d.ts",
+    "types": "9.28/index.d.ts",
     "scripts": {
         "prepublish": "yarn build",
         "clean": "tsc -b --clean",
         "build": "tsc -b",
-        "lint": "eslint --cache '**/*.{js,ts,tsx}' --quiet --fix",
-        "lint:ci": "eslint --cache '**/*.{js,ts,tsx}' --quiet",
+        "lint": "eslint --cache . --ext .ts,.tsx --quiet --fix",
+        "lint:ci": "eslint --cache . --ext .ts,.tsx --quiet",
         "test": "mocha",
         "ci": "yarn clean && yarn lint:ci && yarn build && yarn test"
     },
     "dependencies": {
         "@dolittle/projections": "2.1.0",
         "@dolittle/sdk": "14.3.0",
+        "@dolittle/vanir-features": "9.28.4",
+        "@dolittle/vanir-dependency-inversion": "9.28.4",
         "@types/mongodb": "3.6.8",
         "apollo-server-express": "2.19.0",
         "body-parser": "1.19.0",
@@ -53,7 +55,8 @@
         "type-graphql": "1.1.1",
         "uuid": "8.3.1",
         "uuid-mongodb": "2.3.3",
-        "winston": "3.3.3"
+        "winston": "3.3.3",
+        "chokidar": "3.5.1"
     },
     "devDependencies": {
         "@types/cls-hooked": "^4.3.3",

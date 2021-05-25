@@ -3,7 +3,7 @@
 
 using FluentValidation;
 
-namespace Dolittle.Vanir.Backend.Specs.Validation.for_Validators
+namespace Dolittle.Vanir.Backend.Validation.for_Validators
 {
     public class FirstValidator : AbstractValidator<TypeWithValidation>
     {

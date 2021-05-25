@@ -7,6 +7,7 @@ import path from 'path';
 import dotenv from 'dotenv';
 
 import * as Dolittle from './dolittle';
+import * as Features from './features';
 import * as Express from './web';
 import * as DependencyInversion from '@dolittle/vanir-dependency-inversion';
 
@@ -35,6 +36,7 @@ export class Host {
             MongoDb.initialize();
             await Resources.initialize();
             await Dolittle.initialize(configuration, startArguments);
+            Features.initialize();
             await Express.initialize(configuration, startArguments);
         });
     }

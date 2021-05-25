@@ -2,14 +2,13 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using Dolittle.Vanir.Backend.Reflection;
-using Dolittle.Vanir.Backend.Validation;
 using FluentValidation;
 using FluentValidation.Results;
 using Machine.Specifications;
 using Moq;
 using It = Machine.Specifications.It;
 
-namespace Dolittle.Vanir.Backend.Specs.Validation.for_Validators
+namespace Dolittle.Vanir.Backend.Validation.for_Validators
 {
     public class when_validating_instance_with_two_validators_with_errors_in_both
     {

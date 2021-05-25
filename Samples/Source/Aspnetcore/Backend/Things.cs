@@ -6,6 +6,7 @@ using Dolittle.SDK.Events;
 using Dolittle.SDK.Events.Handling;
 using Dolittle.SDK.Events.Store;
 using Dolittle.Vanir.Backend.Execution;
+using Dolittle.Vanir.Backend.Features;
 using Dolittle.Vanir.Backend.GraphQL;
 using FluentValidation;
 using HotChocolate;
@@ -205,6 +206,7 @@ namespace Backend
         }
 
         [Query("MyCustomName")]
+        [Feature("my.first.feature")]
         public Owner TheOwner(int id) => new Owner
         {
             Id = Guid.NewGuid(),

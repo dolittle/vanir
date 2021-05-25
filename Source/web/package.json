@@ -31,13 +31,15 @@
         "prepublish": "yarn build",
         "clean": "tsc -b --clean",
         "build": "tsc -b",
-        "lint": "eslint --cache '**/*.{js,ts,tsx}' --quiet --fix",
-        "lint:ci": "eslint --cache '**/*.{js,ts,tsx}' --quiet",
+        "lint": "eslint --cache . --ext .ts,.tsx --quiet --fix",
+        "lint:ci": "eslint --cache . --ext .ts,.tsx --quiet",
         "test": "mocha",
         "ci": "yarn clean && yarn lint:ci && yarn build && yarn test"
     },
     "dependencies": {
         "@dolittle/vanir-dependency-inversion": "9.28.4",
+        "@dolittle/vanir-features": "9.28.4",
+        "@apollo/client": "3.3.18",
         "apollo-cache-inmemory": "1.6.5",
         "apollo-client": "2.6.8",
         "apollo-link-http": "1.5.17",

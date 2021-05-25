@@ -16,18 +16,54 @@
             "console": "internalConsole"
         },
         {
+            "name": ".NET Core Launch (CLI)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build CLI",
+            "program": "${workspaceFolder}/Source/Tooling/CLI/bin/Debug/net5.0/Dolittle.Vanir.CLI.dll",
+            // "args": [
+            //     "features",
+            //     "add",
+            //     "something",
+            //     "\"My fancy new feature\""
+            // ],
+            "args": ["features", "on", "blah"],
+            //"args": ["proxy", "../../../Samples/Source/Aspnetcore/Backend/bin/Debug/net5.0/Backend.dll", "../../../Samples/Source/Aspnetcore/Web/proxies"],
+            "cwd": "${workspaceFolder}/Samples/Source/Aspnetcore/Backend",
+            "stopAtEntry": false,
+            "console": "internalConsole"
+        },
+        {
             "name": "Launch TypeScript Sample",
             "type": "node",
             "request": "launch",
             "runtimeExecutable": "node",
-            "runtimeArgs": ["--nolazy", "-r", "ts-node/register/transpile-only"],
-            "args": ["${workspaceFolder}/Samples/Source/Typescript/Backend/index.ts"],
+            "runtimeArgs": [
+                "--nolazy",
+                "-r",
+                "ts-node/register/transpile-only"
+            ],
+            "args": [
+                "${workspaceFolder}/Samples/Source/Typescript/Backend/index.ts"
+            ],
             "cwd": "${workspaceFolder}/Samples/Source/Typescript/Backend",
             "preLaunchTask": "tsc: build - Typescript Sample",
             "skipFiles": [
                 "<node_internals>/**",
                 "node_modules/**"
             ]
-        }
+        },
+        {
+            "name": "Run VSCode Extension",
+            "type": "extensionHost",
+            "request": "launch",
+            "args": [
+                "--extensionDevelopmentPath=${workspaceFolder}/Source/Tooling/VScode"
+            ],
+            "outFiles": [
+                "${workspaceFolder}/Source/Tooling/VScode/dist/**/*.js"
+            ],
+            "preLaunchTask": "VSCodeExtension Watch"
+        },
     ]
 }

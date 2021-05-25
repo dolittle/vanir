@@ -19,4 +19,3 @@ export class PathHelper {
         return path.replace(/\\/g, '/');
     }
 }
-

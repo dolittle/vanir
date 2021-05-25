@@ -9,6 +9,10 @@
         },
         {
             "path": "../../../../Source/react"
+        },
+        {
+            "path": "../../../../Source/typescript/features"
         }
+
     ]
 }

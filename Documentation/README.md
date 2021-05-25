@@ -20,3 +20,4 @@ for everyone participating in this project to see what is expected.
 | [Getting started](./getting-started.md) | A quick guide on getting started |
 | [C# (.NET) Backend](./backend/DotNET/index.md) | Topics specific for C#/.NET based backends |
 | [TypeScript Backend](./backend/typescript/index.md) | Topics specific for TypeScript based backends |
+| [Feature Toggling](./feature-toggling/index.md) | About feature toggling |

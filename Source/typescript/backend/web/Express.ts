@@ -13,6 +13,9 @@ import { getSchemaFor } from '../graphql';
 import swaggerUI from 'swagger-ui-express';
 import { ContextMiddleware, getCurrentContext } from '../Context';
 import { BackendArguments } from '../BackendArguments';
+import { SubscriptionServer } from 'subscriptions-transport-ws';
+import { execute, subscribe } from 'graphql';
+import { createServer } from 'http';
 
 export let app: Express;
 export type ExpressConfigCallback = (app: Express) => void;
@@ -38,17 +41,21 @@ export async function initialize(configuration: Configuration, backendArguments:
     );
     app.use(bodyParser.json());
 
-    const server = new ApolloServer({
-        schema: await getSchemaFor(configuration, backendArguments),
+    const graphqlRoute = `${prefix}/graphql`.replace('//', '/');
+    const schema = await getSchemaFor(configuration, backendArguments);
+    const apolloServer = new ApolloServer({
+        schema,
+        subscriptions: {
+            path: graphqlRoute
+        },
         context: () => {
             return getCurrentContext();
         }
     });
-    const graphqlRoute = `${prefix}/graphql`.replace('//', '/');
 
     logger.info(`Hosting graphql at ${graphqlRoute}`);
 
-    server.applyMiddleware({ app, path: graphqlRoute });
+    apolloServer.applyMiddleware({ app, path: graphqlRoute });
 
     if (backendArguments.swaggerDoc) {
         let swaggerPath = '/api';
@@ -76,8 +83,19 @@ export async function initialize(configuration: Configuration, backendArguments:
 
     const expressPort = process.env.PORT || configuration.port;
 
+    const server = createServer(app);
+
     logger.info(`Express will be listening to port '${expressPort}'`);
-    app.listen({ port: expressPort, hostname: '0.0.0.0' }, () => {
+    server.listen({ port: expressPort, hostname: '0.0.0.0' }, () => {
+        new SubscriptionServer({
+            execute,
+            subscribe,
+            schema,
+        }, {
+            server,
+            path: graphqlRoute
+        });
+
         logger.info(`Server is now running on http://localhost:${expressPort}`);
     });
 

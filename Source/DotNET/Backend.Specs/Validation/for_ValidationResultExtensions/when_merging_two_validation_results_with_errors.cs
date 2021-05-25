@@ -2,11 +2,10 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Linq;
-using Dolittle.Vanir.Backend.Validation;
 using FluentValidation.Results;
 using Machine.Specifications;
 
-namespace Dolittle.Vanir.Backend.Specs.Validation.for_ValidationResultExtensions
+namespace Dolittle.Vanir.Backend.Validation.for_ValidationResultExtensions
 {
     public class when_merging_two_validation_results_with_errors
     {
