@@ -3,13 +3,22 @@
     <Import Project="../../../default.props" />
 
     <PropertyGroup>
-        <AssemblyName>Dolittle.Vanir.CLI</AssemblyName>
         <RootNamespace>Dolittle.Vanir.CLI</RootNamespace>
         <PackageAsTool>true</PackageAsTool>
         <ToolCommandName>vanir</ToolCommandName>
         <OutputType>Exe</OutputType>
         <TargetFramework>net5.0</TargetFramework>
         <NoWarn>RCS1018;CS1591</NoWarn>
+        <Authors>Dolittle</Authors>
+        <Company>Dolittle</Company>
+        <Description>Vanir CLI tool</Description>
+        <Copyright>Dolittle</Copyright>
+        <RepositoryUrl>https://github.com/dolittle/vanir</RepositoryUrl>
+        <PackageId>vanir</PackageId>
+        <Product>vanir</Product>
+        <AssemblyName>vanir</AssemblyName>
+        <NeutralLanguage>en</NeutralLanguage>
+        <Platforms>AnyCPU;x86;x64</Platforms>
     </PropertyGroup>
 
     <ItemGroup>
