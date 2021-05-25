@@ -25,6 +25,3 @@ The CLI tool consist of different command groups, these are as follows:
 | ----- | ----------- |
 | [Features](./feature-toggling/cli/index.md) | Everything related to feature toggling |
 
-## Suggest / Autocompletion
-
-To enable tab completion for commands of Vanir, you'll have to install [dotnet-suggest](https://github.com/dotnet/command-line-api/blob/main/docs/dotnet-suggest.md).
