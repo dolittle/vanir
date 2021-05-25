@@ -14,7 +14,7 @@ export class FeatureToggles implements IFeatureToggles {
     private _features: Features = new Features();
 
     /**
-     *
+     * Initializes a new instance of {@link FeatureToggles}.
      * @param {IFeaturesProvider} provider Provider of features.
      */
     constructor(private readonly provider: IFeaturesProvider) {

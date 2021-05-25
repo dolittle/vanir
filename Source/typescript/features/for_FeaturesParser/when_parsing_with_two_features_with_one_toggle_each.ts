@@ -13,7 +13,7 @@ const second_feature_description = 'My second feature';
 const json: string =
     `{` +
     `   "${first_feature}": {` +
-    `       "description": "${first_feature_description}\",` +
+    `       "description": "${first_feature_description}",` +
     `       "toggles": [{` +
     `           "type": "Boolean",` +
     `           "isOn": false` +

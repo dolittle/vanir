@@ -11,8 +11,8 @@ export type RenderResult = {
 
 export class SvgInstance {
     private readonly _el: d3.Selection<any, any, any, any>;
-    private _width: number = 0;
-    private _height: number = 0;
+    private _width = 0;
+    private _height = 0;
     readonly svg: d3.Selection<any, any, any, any>;
     container: d3.Selection<any, any, any, any>;
 

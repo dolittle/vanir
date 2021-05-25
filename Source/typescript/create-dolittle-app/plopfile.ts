@@ -85,4 +85,4 @@ export default function (plop: NodePlopAPI) {
             return actions;
         }
     });
-};
+}
