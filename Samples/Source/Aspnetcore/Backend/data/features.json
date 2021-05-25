@@ -1,15 +1,6 @@
 {
-  "my.first.method.feature": {
-    "description": "The ultimate first method feature",
-    "toggles": [
-      {
-        "type": "Boolean",
-        "isOn": false
-      }
-    ]
-  },
-  "my.first.class.feature": {
-    "description": "The ultimate first class feature",
+  "my.first.feature": {
+    "description": "The ultimate first feature",
     "toggles": [
       {
         "type": "Boolean",
@@ -17,8 +8,8 @@
       }
     ]
   },
-  "blah": {
-    "description": "",
+  "my.second.feature": {
+    "description": "The ultimate second feature",
     "toggles": [
       {
         "type": "Boolean",

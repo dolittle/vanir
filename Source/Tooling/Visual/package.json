@@ -4,6 +4,7 @@
     "description": "",
     "author": "Dolittle",
     "license": "MIT",
+    "private": true,
     "publishConfig": {
         "access": "public"
     },
