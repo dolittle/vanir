@@ -6,6 +6,7 @@ using System.CommandLine.Invocation;
 using System.Linq;
 using System.Threading.Tasks;
 using Dolittle.Vanir.Backend.Features;
+using Dolittle.Vanir.CLI.Contexts;
 
 namespace Dolittle.Vanir.CLI.Features
 {

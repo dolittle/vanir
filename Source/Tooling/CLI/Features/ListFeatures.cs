@@ -3,6 +3,7 @@
 
 using System.CommandLine.Invocation;
 using System.Threading.Tasks;
+using Dolittle.Vanir.CLI.Contexts;
 
 namespace Dolittle.Vanir.CLI.Features
 {

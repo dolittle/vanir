@@ -3,7 +3,7 @@
 
 using Dolittle.Vanir.Backend.Config;
 
-namespace Dolittle.Vanir.CLI
+namespace Dolittle.Vanir.CLI.Contexts
 {
     public class MicroserviceContext
     {

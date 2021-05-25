@@ -8,7 +8,7 @@ using Dolittle.Vanir.Backend.Config;
 using Dolittle.Vanir.Backend.Features;
 using Newtonsoft.Json;
 
-namespace Dolittle.Vanir.CLI
+namespace Dolittle.Vanir.CLI.Contexts
 {
     public class ContextsModule : Module
     {
