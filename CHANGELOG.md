@@ -1,3 +1,15 @@
+# [9.29.0] - 2021-5-25 [PR: #243](https://github.com/dolittle/vanir/pull/243)
+### Added
+
+- [C#] Feature toggling system
+- [NodeJS] Feature toggling system
+- [React] Feature toggling system to be used on top of .NET and NodeJS backends - leveraging the GraphQL types exposed
+- Adding a new Vanir CLI with full support for the Feature system
+- Introducing VSCode extension with now support for the Feature system
+- Documentation across the board for the Feature system.
+- [C#] Start of a ProxyGenerator for generating frontend proxy objects from GraphQL schema
+
+
 # [9.28.4] - 2021-5-20 [PR: #241](https://github.com/dolittle/vanir/pull/241)
 ### Fixed
 
