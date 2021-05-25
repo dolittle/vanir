@@ -13,7 +13,7 @@ import { BackendArguments } from '../BackendArguments';
 import { Configuration } from '../Configuration';
 import { SchemaDirectiveVisitor } from 'graphql-tools';
 import { FeatureDirective } from './FeatureDirective';
-import { FeaturesSubscriptionsResolver } from "../features";
+import { FeaturesSubscriptionsResolver } from '../features';
 import { Constructor } from '@dolittle/types';
 import { PubSub } from 'graphql-subscriptions';
 import { constructor } from '@dolittle/vanir-dependency-inversion';
@@ -52,7 +52,7 @@ export async function getSchemaFor(configuration: Configuration, backendArgument
         scalarsMap: [
             { type: Guid, scalar: GuidScalar }
         ],
-        pubSub: pubSub
+        pubSub
     });
 
     FeaturesSubscriptionsResolver.initialize();

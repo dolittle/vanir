@@ -44,7 +44,7 @@ export async function initialize(configuration: Configuration, backendArguments:
     const graphqlRoute = `${prefix}/graphql`.replace('//', '/');
     const schema = await getSchemaFor(configuration, backendArguments);
     const apolloServer = new ApolloServer({
-        schema: schema,
+        schema,
         subscriptions: {
             path: graphqlRoute
         },
