@@ -61,7 +61,8 @@ export const FeaturesList = () => {
     const [features, setFeatures] = useState<IFeatureDefinition[]>([]);
 
     const pushChanges = () => {
-        const json = Features.definitionsToJSON(features);
+        const cloned = features.map(_ => ({ ..._}));
+        const json = Features.definitionsToJSON([...cloned]);
         vscode.postMessage({ type: 'documentChanged', data: json });
     };
 
