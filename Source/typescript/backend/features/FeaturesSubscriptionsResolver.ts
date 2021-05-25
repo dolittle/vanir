@@ -51,11 +51,11 @@ export class FeaturesSubscriptionsResolver {
             feature.name = key;
             feature.description = value.description || '';
             feature.toggles = value.toggles.map(_ => {
-                const toggleDefinition = new FeatureToggleDefinition()
+                const toggleDefinition = new FeatureToggleDefinition();
                 toggleDefinition.type = 'Boolean';
                 toggleDefinition.isOn = value.isOn;
                 return toggleDefinition;
-            })
+            });
             message.features.push(feature);
         });
         return message;
