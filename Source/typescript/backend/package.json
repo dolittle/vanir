@@ -1,6 +1,6 @@
 {
     "name": "@dolittle/vanir-backend",
-    "version": "9.29.0",
+    "version": "9.29.4",
     "description": "",
     "author": "Dolittle",
     "license": "MIT",
@@ -25,7 +25,7 @@
         "**/*.ts"
     ],
     "main": "dist/index.js",
-    "types": "9.28/index.d.ts",
+    "types": "dist/index.d.ts",
     "scripts": {
         "prepublish": "yarn build",
         "clean": "tsc -b --clean",
@@ -38,8 +38,8 @@
     "dependencies": {
         "@dolittle/projections": "2.1.0",
         "@dolittle/sdk": "14.3.0",
-        "@dolittle/vanir-features": "9.29.0",
-        "@dolittle/vanir-dependency-inversion": "9.29.0",
+        "@dolittle/vanir-features": "9.29.4",
+        "@dolittle/vanir-dependency-inversion": "9.29.4",
         "@types/mongodb": "3.6.8",
         "apollo-server-express": "2.19.0",
         "body-parser": "1.19.0",
