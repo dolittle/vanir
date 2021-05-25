@@ -30,9 +30,23 @@ namespace Dolittle.Vanir.Backend.Features
             });
         }
 
+        private Features _features = new();
+
+        public FeaturesSubscriptionsResolver(IFeaturesProvider featuresProvider)
+        {
+            featuresProvider.Features.Subscribe(_ => _features = _);
+        }
+
+        public FeatureNotification Features()
+        {
+            return new FeatureNotification
+            {
+                Features = _features.ToDefinitions().ToArray()
+            };
+        }
 
         [Subscribe(MessageType = typeof(FeatureNotification))]
         [Topic("newFeatures")]
-        public Task<FeatureNotification> NewFeatures([EventMessage] FeatureNotification notification) => Task.FromResult(notification);
+        public Task<FeatureNotification> system_newFeatures([EventMessage] FeatureNotification notification) => Task.FromResult(notification);
     }
 }

@@ -24,10 +24,16 @@ namespace Dolittle.Vanir.Backend.GraphQL
 
         public static IRequestExecutorBuilder AddQueries(this IRequestExecutorBuilder builder, IGraphControllers graphControllers, INamingConventions namingConventions)
         {
-            var query = BuildSchemaRoutesWithItems<QueryAttribute>("Query", graphControllers, namingConventions, "Queries");
+            return builder.AddQueries(graphControllers, namingConventions, out _);
+        }
+
+        public static IRequestExecutorBuilder AddQueries(this IRequestExecutorBuilder builder, IGraphControllers graphControllers, INamingConventions namingConventions, out SchemaRoute query)
+        {
+            query = BuildSchemaRoutesWithItems<QueryAttribute>("Query", graphControllers, namingConventions, "Queries");
             builder.AddQueryType(query);
             return builder;
         }
+
 
         public static IRequestExecutorBuilder AddMutations(this IRequestExecutorBuilder builder, IGraphControllers graphControllers, INamingConventions namingConventions)
         {

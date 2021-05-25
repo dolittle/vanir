@@ -18,6 +18,7 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             services.AddSingleton<IFeaturesProvider, FeaturesProvider>();
             services.AddSingleton<IFeatureToggles, FeatureToggles>();
+            services.AddSingleton<IFeaturesParser, FeaturesParser>();
         }
     }
 }

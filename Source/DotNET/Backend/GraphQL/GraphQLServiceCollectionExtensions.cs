@@ -73,12 +73,17 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddSingleton<INamingConventions>(namingConventions);
 
             graphQLBuilder
-                .AddQueries(graphControllers, namingConventions)
+                .AddQueries(graphControllers, namingConventions, out SchemaRoute query)
                 .AddMutations(graphControllers, namingConventions, out SchemaRoute mutations)
                 .AddSubscriptions(graphControllers, namingConventions, out SchemaRoute subscriptions);
 
-            Expression<Func<FeaturesSubscriptionsResolver, Task<FeatureNotification>>> asd = (FeaturesSubscriptionsResolver resolver) => resolver.NewFeatures(null);
-            subscriptions.AddItem(new SchemaRouteItem(asd.GetMethodInfo(), "newFeatures"));
+            var systemQueries = new SchemaRoute("system", "system", "_system");
+            query.AddChild(systemQueries);
+            Expression<Func<FeaturesSubscriptionsResolver, FeatureNotification>> featuresMethod = (FeaturesSubscriptionsResolver resolver) => resolver.Features();
+            systemQueries.AddItem(new SchemaRouteItem(featuresMethod.GetMethodInfo(), "features"));
+
+            Expression<Func<FeaturesSubscriptionsResolver, Task<FeatureNotification>>> newFeaturesMethod = (FeaturesSubscriptionsResolver resolver) => resolver.system_newFeatures(null);
+            subscriptions.AddItem(new SchemaRouteItem(newFeaturesMethod.GetMethodInfo(), "system_newFeatures"));
 
             types.FindMultiple(typeof(ConceptAs<>)).ForEach(_ => graphQLBuilder.AddConceptTypeConverter(_));
             types.All.Where(_ => _.IsEnum).ForEach(type =>
