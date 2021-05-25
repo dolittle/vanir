@@ -23,9 +23,9 @@ export class FeatureDecorators {
     }
 
     static registerForMethod(target: Constructor, method: string, feature: string) {
-        let existing:ClassAndMethod | undefined;
+        let existing: ClassAndMethod | undefined;
         this.methodFeatures.forEach((value, key) => {
-            if( key.target === target && key.method === method ) {
+            if(key.target === target && key.method === method) {
                 existing = key;
             }
         });
