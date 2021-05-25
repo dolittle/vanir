@@ -1,6 +1,6 @@
 {
     "name": "@dolittle/vanir-web",
-    "version": "9.29.0",
+    "version": "9.29.4",
     "description": "",
     "author": "Dolittle",
     "license": "MIT",
@@ -37,8 +37,8 @@
         "ci": "yarn clean && yarn lint:ci && yarn build && yarn test"
     },
     "dependencies": {
-        "@dolittle/vanir-dependency-inversion": "9.29.0",
-        "@dolittle/vanir-features": "9.29.0",
+        "@dolittle/vanir-dependency-inversion": "9.29.4",
+        "@dolittle/vanir-features": "9.29.4",
         "@apollo/client": "3.3.18",
         "apollo-cache-inmemory": "1.6.5",
         "apollo-client": "2.6.8",
