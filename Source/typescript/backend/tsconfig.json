@@ -11,5 +11,8 @@
         {
             "path": "../features"
         }
+    ],
+    "exclude": [
+        "dist"
     ]
 }

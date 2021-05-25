@@ -11,5 +11,8 @@
         {
             "path": "../typescript/features"
         }
+    ],
+    "exclude": [
+        "dist"
     ]
 }

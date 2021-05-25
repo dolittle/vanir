@@ -3,5 +3,8 @@
     "compilerOptions": {
         "outDir": "./dist"
     },
-    "references": []
+    "references": [],
+    "exclude": [
+        "dist"
+    ]
 }

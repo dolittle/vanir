@@ -4,5 +4,8 @@
         "outDir": "dist",
         "rootDir": "./"
     },
-    "references": []
+    "references": [],
+    "exclude": [
+        "dist"
+    ]
 }
