@@ -28,7 +28,7 @@
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
     "scripts": {
-        "prepublish": "yarn build",
+        "prepublish": "echo hello",
         "clean": "tsc -b --clean",
         "build": "webpack",
         "build:dev": "webpack --mode=development",
