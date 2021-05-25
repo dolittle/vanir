@@ -30,4 +30,5 @@ Below you'll find more details about specific implementations that is built on t
 | [GraphQL](./DotNET/index.md) | Details on expected GraphQL schemas |
 | [C#](./DotNET/index.md) | Details on how to leverage it in C# |
 | [TypeScript](./typescript/index.md) | Details on how to leverage it in TypeScript |
+| [CLI](./cli/index.md) | Details on how to work with features from the Vanir CLI |
 | [React](./react/index.md) | Details on how to leverage it from React in the frontend |
