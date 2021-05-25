@@ -1,3 +1,9 @@
+# [9.29.1] - 2021-5-25 [PR: #246](https://github.com/dolittle/vanir/pull/246)
+### Fixed
+
+- Unaligned version numbers
+
+
 # [9.29.0] - 2021-5-25 [PR: #243](https://github.com/dolittle/vanir/pull/243)
 ### Added
 
