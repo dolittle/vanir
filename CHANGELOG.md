@@ -1,3 +1,27 @@
+# [9.28.4] - 2021-5-20 [PR: #241](https://github.com/dolittle/vanir/pull/241)
+### Fixed
+
+- [C#] Fixing so that the Client instance is set before we start the client - this will then make IoC resolver callbacks relying directly or indirectly work.
+
+
+# [9.28.3] - 2021-5-20 [PR: #240](https://github.com/dolittle/vanir/pull/240)
+### Fixed
+
+- [C#] Fixes a stack overflow when registering enums as ints if any type is recursively referencing itself anywhere in the tree.
+
+
+# [9.28.2] - 2021-5-19 [PR: #239](https://github.com/dolittle/vanir/pull/239)
+### Fixed
+
+- [C#] Support type conversion to integer for enum types on the actual ObjectTypes and InputObjectTypes used by queries and mutations. This enables enums from 3rd party assemblies.
+
+
+# [9.28.1] - 2021-5-19 [PR: #238](https://github.com/dolittle/vanir/pull/238)
+### Fixed
+
+- [C#] For consistency with the Node version, we want enums to be integers by default - by default now it adds a type conversion for this.
+
+
 # [9.28.0] - 2021-5-18 [PR: #234](https://github.com/dolittle/vanir/pull/234)
 ### Added
 

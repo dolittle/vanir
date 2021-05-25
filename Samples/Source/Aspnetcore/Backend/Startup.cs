@@ -1,11 +1,18 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Autofac;
 using Dolittle.SDK;
+using HotChocolate.Configuration;
 using HotChocolate.Execution.Configuration;
+using HotChocolate.Language;
+using HotChocolate.Resolvers;
 using HotChocolate.Types;
+using HotChocolate.Types.Descriptors;
+using HotChocolate.Types.Descriptors.Definitions;
+using HotChocolate.Utilities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -27,6 +34,7 @@ namespace Backend
             return Task.FromResult(AuthorizationResult.Failed());
         }
     }
+
 
     public class Startup
     {

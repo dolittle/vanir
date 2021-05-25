@@ -92,7 +92,6 @@ namespace Microsoft.Extensions.DependencyInjection
                 graphQLBuilder.AddTypeConverter(_ => new EnumToIntConverter(type));
             });
 
-
             arguments?.GraphQLExecutorBuilder(graphQLBuilder);
 
             if (RuntimeEnvironment.isDevelopment)
@@ -100,6 +99,10 @@ namespace Microsoft.Extensions.DependencyInjection
                 if (arguments.ExposeEventsInGraphQLSchema) mutations.AddEventsAsMutations(types);
                 graphQLBuilder.AddApolloTracing();
             }
+
+            var scannedTypes = new Dictionary<Type, Type>();
+            graphQLBuilder.RegisterAllEnumsFor(queries, scannedTypes);
+            graphQLBuilder.RegisterAllEnumsFor(mutations, scannedTypes);
         }
     }
 }

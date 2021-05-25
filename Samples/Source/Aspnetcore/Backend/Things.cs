@@ -9,15 +9,60 @@ using Dolittle.Vanir.Backend.Execution;
 using Dolittle.Vanir.Backend.Features;
 using Dolittle.Vanir.Backend.GraphQL;
 using FluentValidation;
+using HotChocolate;
+using HotChocolate.Language;
+using HotChocolate.Types;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
 
 namespace Backend
 {
+    /*
+    public class CommonObjectScalar : ScalarType
+    {
+        public CommonObjectScalar() : base("CommonObject")
+        {
+
+        }
+
+        public override Type RuntimeType => typeof(CommonObject);
+
+        public override bool IsInstanceOfType(IValueNode valueSyntax)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override object ParseLiteral(IValueNode valueSyntax, bool withDefaults = true)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override IValueNode ParseResult(object resultValue)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override IValueNode ParseValue(object runtimeValue)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool TryDeserialize(object resultValue, out object runtimeValue)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool TrySerialize(object runtimeValue, out object resultValue)
+        {
+            throw new NotImplementedException();
+        }
+    }
+    */
+
     public class CommonObject
     {
-        public string Something { get; set; }
+        public string Something { get; set; }
     }
 
     public class SomeConcept : ConceptAs<string>
@@ -48,6 +93,8 @@ namespace Backend
         public SomeConcept Concept { get; set; }
         public NestedObject Nested { get; set; }
         public UserId UserId { get; set; }
+
+        //[GraphQLType(typeof(CommonObjectScalar))]
         public CommonObject CommonObject { get; set; }
     }
 

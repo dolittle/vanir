@@ -25,6 +25,9 @@ namespace Dolittle.Vanir.Backend.GraphQL
         public string TypeName { get; }
         public bool HasItems => _items.Count > 0;
 
+        public IEnumerable<SchemaRoute> Children => _children;
+        public IEnumerable<SchemaRouteItem> Items => _items;
+
         public void AddChild(SchemaRoute child)
         {
             _children.Add(child);
