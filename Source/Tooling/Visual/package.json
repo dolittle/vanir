@@ -35,7 +35,7 @@
         "lint": "eslint --cache '**/*.{js,ts,tsx}' --quiet --fix",
         "lint:ci": "eslint --cache '**/*.{js,ts,tsx}' --quiet",
         "test": "mocha",
-        "ci": "yarn clean && yarn lint:ci && yarn build:dev && yarn test",
+        "ci": "yarn clean && yarn lint:ci && yarn test",
         "start:dev": "webpack serve --mode=development --progress --hot",
         "start:vscode": "webpack --watch  --mode=development --progress --hot"
     },
