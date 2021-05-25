@@ -28,8 +28,10 @@ describe('when converting to json', () => {
     it('should contain first features description', () => definitions[first_feature].description.should.equal(first_feature_description));
     it('should have one toggle for first feature', () => definitions[first_feature].toggles.length.should.equal(1));
     it('should have first features toggle set to off', () => definitions[first_feature].toggles[0].isOn.should.equal(false));
+    it('should not have name on first feature', () => (typeof definitions[first_feature].name === 'undefined').should.be.true);
     it('should contain second feature', () => definitions.hasOwnProperty(second_feature).should.be.true);
     it('should contain second features description', () => definitions[second_feature].description.should.equal(second_feature_description));
     it('should have one toggle for second feature', () => definitions[second_feature].toggles.length.should.equal(1));
     it('should have second features toggle set to off', () => definitions[second_feature].toggles[0].isOn.should.equal(true));
+    it('should not have name on second feature', () => (typeof definitions[second_feature].name === 'undefined').should.be.true);
 });
