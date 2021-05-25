@@ -78,7 +78,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 .AddSubscriptions(graphControllers, namingConventions, out SchemaRoute subscriptions);
 
             var systemQueries = new SchemaRoute("system", "system", "_system");
-            query.AddChild(systemQueries);
+            queries.AddChild(systemQueries);
             Expression<Func<FeaturesSubscriptionsResolver, FeatureNotification>> featuresMethod = (FeaturesSubscriptionsResolver resolver) => resolver.Features();
             systemQueries.AddItem(new SchemaRouteItem(featuresMethod.GetMethodInfo(), "features"));
 
