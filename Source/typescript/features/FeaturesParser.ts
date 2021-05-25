@@ -3,11 +3,9 @@
 
 import { BooleanFeatureToggle } from './BooleanFeatureToggle';
 import { Feature } from './Feature';
+import { FeatureDefinitions } from './FeatureDefinitions';
 import { Features } from './Features';
-import { IFeatureDefinition } from './IFeatureDefinition';
 import { IFeaturesParser } from './IFeaturesParser';
-
-type FeatureDefinitions = { [key: string]: IFeatureDefinition };
 
 /**
  * Represents an implementation of {@link IFeaturesParser}.

@@ -7,6 +7,7 @@ export * from './featureDecorator';
 export * from './FeatureDecorators';
 export * from './Feature';
 export * from './FeaturesParser';
+export * from './FeatureDefinitions';
 export * from './IFeatureDefinition';
 export * from './IFeatureToggleDefinition';
 export * from './Features';
