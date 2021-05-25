@@ -1,3 +1,9 @@
+# [9.29.4] - 2021-5-25 [PR: #248](https://github.com/dolittle/vanir/pull/248)
+### Fixed
+
+- Fixing NPM package release
+
+
 # [9.29.2] - 2021-5-25 [PR: #247](https://github.com/dolittle/vanir/pull/247)
 ### Fixed
 
