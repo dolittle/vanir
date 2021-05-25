@@ -37,7 +37,7 @@
     },
     "dependencies": {
         "@dolittle/rudiments": "5.0.1",
-        "@dolittle/vanir-dependency-inversion": "9.28.0",
+        "@dolittle/vanir-dependency-inversion": "9.28.4",
         "chalk": "4.1.0",
         "commander": "6.2.1",
         "edit-json-file": "1.5.0",
