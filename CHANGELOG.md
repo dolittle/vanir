@@ -1,3 +1,9 @@
+# [9.29.2] - 2021-5-25 [PR: #247](https://github.com/dolittle/vanir/pull/247)
+### Fixed
+
+- Correct package information for the CLI to be able to PackAsTool
+
+
 # [9.29.1] - 2021-5-25 [PR: #246](https://github.com/dolittle/vanir/pull/246)
 ### Fixed
 
