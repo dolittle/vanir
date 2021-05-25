@@ -71,7 +71,7 @@ export class Features implements ReadonlyMap<string, Feature> {
             (definition as any).name = undefined;
             delete (definition as any).name;
         }
-        return JSON.stringify(definitions, null, 2);
+        return JSON.stringify(container, null, 2);
     }
 
     /**
