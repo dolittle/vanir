@@ -59,7 +59,7 @@ namespace Dolittle.Vanir.CLI.Features
             {
                 new Argument<string>(SwitchOnFeature.NameArgument, description: "Name of the feature to switch on")
             };
-            switchOnCommand.Handler = _swi;
+            switchOnCommand.Handler = _switchOnFeature;
             command.AddCommand(switchOnCommand);
 
             var switchOffCommand = new Command("switch-off", "Switch on a feature toggle")
