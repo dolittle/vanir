@@ -73,6 +73,9 @@ jobs:
           version: ${{ steps.increment-version.outputs.next-version }}
           body: ${{ steps.context.outputs.pr-body }}
 
+      - name: Remove any existing artifacts
+        run: rm -rf ${{ env.NUGET_OUTPUT }}
+
       - name: Create NuGet packages
         if: ${{ steps.context.outputs.should-publish == 'true' }}
         run: dotnet pack --no-build --configuration Release -o ${{ env.NUGET_OUTPUT }} -p:PackageVersion=${{ steps.increment-version.outputs.next-version }} -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg
