@@ -63,9 +63,18 @@ export class Features implements ReadonlyMap<string, Feature> {
      * Convert {@link Features} to a string JSON representation.
      * @returns {string}
      */
-    toJSON() {
-        const container: any = {};
+    toJSON(): string {
         const definitions = this.toDefinitions();
+        return Features.definitionsToJSON(definitions);
+    }
+
+    /**
+     * Convert collection of {@link IFeatureDefinition} to JSON.
+     * @param {IFeatureDefinition[]} definitions Definitions to convert.
+     * @returns {string}
+     */
+    static definitionsToJSON(definitions: IFeatureDefinition[]): string {
+        const container: any = {};
         for (const definition of definitions) {
             container[definition.name] = definition;
             (definition as any).name = undefined;

@@ -3,13 +3,11 @@
 
 import fs from 'fs';
 
-import { Feature, Features, IFeaturesProvider } from '@dolittle/vanir-features';
-import { BooleanFeatureToggle } from '@dolittle/vanir-features';
+import { Features, IFeaturesProvider } from '@dolittle/vanir-features';
 import { injectable } from 'tsyringe';
 import { Observable, BehaviorSubject } from 'rxjs';
 
 import chokidar from 'chokidar';
-import { FeatureDefinition } from './FeatureDefinition';
 import { IFeaturesParser } from '../../features/IFeaturesParser';
 
 const featuresPath = './data/features.json';

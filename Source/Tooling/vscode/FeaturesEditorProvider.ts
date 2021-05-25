@@ -40,7 +40,22 @@ export class FeaturesEditorProvider implements vscode.CustomTextEditorProvider {
         }
 
         webviewPanel.webview.onDidReceiveMessage(e => {
-            updateWebview();
+            switch (e.type) {
+                case 'documentChanged': {
+                    const edit = new vscode.WorkspaceEdit();
+                    edit.replace(
+                        document.uri,
+                        new vscode.Range(0, 0, document.lineCount, 0),
+                        e.data
+                    );
+
+                    vscode.workspace.applyEdit(edit);
+                } break;
+
+                case 'updateDocument': {
+                    updateWebview();
+                } break;
+            }
         });
 
         const changeDocumentSubscription = vscode.workspace.onDidChangeTextDocument(e => {

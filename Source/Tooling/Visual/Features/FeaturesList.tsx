@@ -4,6 +4,7 @@
 /* eslint-disable react/display-name */
 
 import React, { useState, useCallback, useEffect } from 'react';
+import { Features, FeaturesParser, IFeatureDefinition } from '@dolittle/vanir-features';
 import {
     Checkbox,
     CommandBar,
@@ -19,21 +20,11 @@ import {
     getTheme
 } from '@fluentui/react';
 
-const items: any[] = [
-    {
-        name: 'my.first.feature',
-        description: 'My first feature',
-        toggled: true
-    }
-];
-
 const environmentOptions: IDropdownOption[] = [
     { key: 'local', text: 'Local' },
     { key: 'dev', text: 'Development' },
     { key: 'prod', text: 'Production' }
 ];
-
-
 
 const commandBarItems: ICommandBarItemProps[] = [
     { key: 'apply', text: 'Apply', iconProps: { iconName: 'Save' } },
@@ -60,24 +51,20 @@ const commandBarItems: ICommandBarItemProps[] = [
 
 const vscode = window.acquireVsCodeApi();
 
-function parseFeatures(text: string) {
-    const json = JSON.parse(text);
-    const features: any[] = [];
-
-    for (const featureName in json) {
-        const feature = json[featureName];
-        features.push({
-            name: featureName,
-            description: feature.description,
-            isOn: feature.toggles.some(_ => _.isOn)
-        });
-    }
-    return features;
+function getFeaturesFrom(json: string): IFeatureDefinition[] {
+    const parser = new FeaturesParser();
+    return parser.parse(json).toDefinitions();
 }
 
 
 export const FeaturesList = () => {
-    const [features, setFeatures] = useState<any[]>([]);
+    const [features, setFeatures] = useState<IFeatureDefinition[]>([]);
+
+    const pushChanges = () => {
+        const json = Features.definitionsToJSON(features);
+        vscode.postMessage({ type: 'documentChanged', data: json });
+    };
+
 
     const columns: IColumn[] = [{
         name: 'Name',
@@ -90,18 +77,18 @@ export const FeaturesList = () => {
         fieldName: 'description',
         minWidth: 200
     }, {
-        name: 'State',
-        key: 'State',
-        fieldName: 'isOn',
+        name: 'isOn',
+        key: 'isOn',
         minWidth: 200,
-        onRender: (item, column) => {
+        onRender: (item: IFeatureDefinition, column) => {
             return (
-                <Checkbox checked={item.isOn} onChange={(ev, checked) => {
+                <Checkbox checked={item.toggles[0].isOn} onChange={(ev, checked) => {
                     const feature = features.find(_ => _ === item);
-                    if (feature) {
-                        feature.isOn = checked;
+                    if (feature && feature.toggles.length > 0) {
+                        feature.toggles[0].isOn = checked!;
                     }
                     setFeatures([...features]);
+                    pushChanges();
                 }} />
             );
         }
@@ -112,7 +99,7 @@ export const FeaturesList = () => {
         switch (message.type) {
             case 'update': {
                 const text = message.text;
-                setFeatures(parseFeatures(text));
+                setFeatures(getFeaturesFrom(text));
                 vscode.setState({ text });
                 return;
             }
@@ -126,7 +113,7 @@ export const FeaturesList = () => {
         if (!state) {
             vscode.postMessage({ type: 'updateDocument' });
         } else {
-            setFeatures(parseFeatures((state as any).text));
+            setFeatures(getFeaturesFrom((state as any).text));
         }
     }, [handleMessages]);
 
