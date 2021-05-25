@@ -73,7 +73,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddSingleton<INamingConventions>(namingConventions);
 
             graphQLBuilder
-                .AddQueries(graphControllers, namingConventions, out SchemaRoute query)
+                .AddQueries(graphControllers, namingConventions, out SchemaRoute queries)
                 .AddMutations(graphControllers, namingConventions, out SchemaRoute mutations)
                 .AddSubscriptions(graphControllers, namingConventions, out SchemaRoute subscriptions);
 
