@@ -4,5 +4,6 @@
         <MicrosoftDotNetTestVersion>16.4.0</MicrosoftDotNetTestVersion>
         <MachineSpecificationsRunnerVersion>2.9.0</MachineSpecificationsRunnerVersion>
         <MachineSpecificationsVersion>1.0.0</MachineSpecificationsVersion>
+        <HotChocolateVersion>11.0.6</HotChocolateVersion>
     </PropertyGroup>
 </Project>

@@ -15,8 +15,9 @@
     <ItemGroup>
         <PackageReference Include="dolittle.sdk" Version="$(DolittleSdkVersion)" />
         <PackageReference Include="FluentValidation" Version="9.5.3" />
-        <PackageReference Include="HotChocolate.AspNetCore" Version="11.0.9" />
-        <PackageReference Include="HotChocolate.AspNetCore.Authorization" Version="11.0.9" />
+        <PackageReference Include="HotChocolate.AspNetCore" Version="$(HotChocolateVersion)" />
+        <PackageReference Include="HotChocolate.AspNetCore.Authorization" Version="$(HotChocolateVersion)" />
+        <PackageReference Include="HotChocolate.Data" Version="$(HotChocolateVersion)" />
         <PackageReference Include="GraphQL.Server.Ui.Playground" Version="5.0.1" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
         <PackageReference Include="MongoDB.Driver" Version="2.10.1" />
