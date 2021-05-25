@@ -2,6 +2,8 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 import { Feature } from './Feature';
+import { IFeatureDefinition } from './IFeatureDefinition';
+import { IFeatureToggleDefinition } from './IFeatureToggleDefinition';
 
 /**
  * Represents a set of {@link Features}.
@@ -55,5 +57,39 @@ export class Features implements ReadonlyMap<string, Feature> {
     /** @inheritdoc */
     values(): IterableIterator<Feature> {
         return this._features.values();
+    }
+
+    /**
+     * Convert {@link Features} to a string JSON representation.
+     * @returns {string}
+     */
+    toJSON() {
+        const container: any = {};
+        const definitions = this.toDefinitions();
+        for (const definition of definitions) {
+            container[definition.name] = definition;
+            (definition as any).name = undefined;
+            delete (definition as any).name;
+        }
+        return JSON.stringify(definitions, null, 2);
+    }
+
+    /**
+     * Convert {@link Features} to a collection of {@link IFeatureDefinition}.
+     * @returns {IFeatureDefinition[]}
+     */
+    toDefinitions(): IFeatureDefinition[] {
+        return Array.from(this._features.values()).map(_ => {
+            return {
+                name: _.name,
+                description: _.description,
+                toggles: _.toggles.map(t => {
+                    return {
+                        type: 'Boolean',
+                        isOn: _.isOn
+                    } as IFeatureToggleDefinition;
+                })
+            } as IFeatureDefinition;
+        });
     }
 }
