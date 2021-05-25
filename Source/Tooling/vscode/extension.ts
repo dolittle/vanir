@@ -10,4 +10,4 @@ export function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(FeaturesEditorProvider.register(context));
 }
 
-export function deactivate() {}
+export function deactivate() { }
