@@ -11,6 +11,7 @@ import './index.scss';
 import { initializeIcons } from '@fluentui/react';
 import { FeaturesList } from './Features/FeaturesList';
 import { createTheme, loadTheme } from '@fluentui/react/lib/Styling';
+import { ApplicationsEditor } from './Applications/ApplicationsEditor';
 
 
 initializeIcons();
@@ -44,10 +45,21 @@ const myTheme = createTheme({
 
 loadTheme(myTheme);
 
+const editor = (document.head.querySelector('[name=editor]') as HTMLMetaElement).content;
+let editorToRender: any;
+switch (editor) {
+    case 'features': {
+        editorToRender = <FeaturesList />;
+    } break;
+
+    case 'application': {
+        editorToRender = <ApplicationsEditor />;
+    } break;
+}
 
 ReactDOM.render(
     <>
-        <FeaturesList />
+        {editorToRender}
     </>,
 
     document.getElementById('root')

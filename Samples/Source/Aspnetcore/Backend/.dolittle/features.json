@@ -13,7 +13,7 @@
     "toggles": [
       {
         "type": "Boolean",
-        "isOn": false
+        "isOn": true
       }
     ]
   }
