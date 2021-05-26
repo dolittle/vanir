@@ -27,7 +27,8 @@
             //     "something",
             //     "\"My fancy new feature\""
             // ],
-            "args": ["microservices", "list"],
+            //"args": ["microservices", "list"],
+            "args": ["tenants", "add", "3b5369c5-a222-4330-b183-8168097fc38a"],
             //"args": ["proxy", "../../../Samples/Source/Aspnetcore/Backend/bin/Debug/net5.0/Backend.dll", "../../../Samples/Source/Aspnetcore/Web/proxies"],
             "cwd": "${workspaceFolder}/Samples/Source/Aspnetcore",
             "stopAtEntry": false,
