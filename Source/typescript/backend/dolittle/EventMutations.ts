@@ -1,9 +1,6 @@
 // Copyright (c) Dolittle. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-import { Arg, Mutation, Resolver } from 'type-graphql';
-import { Guid } from '@dolittle/rudiments';
-import { IEventStore } from './IEventStore';
 import { GraphQLArgument, GraphQLInt, GraphQLString } from 'graphql';
 import { BackendArguments } from '../BackendArguments';
 import { SchemaRoute } from '../graphql/SchemaRoute';
@@ -11,7 +8,7 @@ import { GuidScalar } from '../graphql/GuidScalar';
 import { ObjectScalar } from '../graphql/ObjectScalar';
 import { container } from 'tsyringe';
 import { constructor } from '@dolittle/vanir-dependency-inversion';
-import { IEventTypes } from './IEventTypes';
+import { IEventStore, IEventTypes } from '@dolittle/sdk.events';
 
 export class EventMutations {
     static addAllEvents(root: SchemaRoute, backendArguments: BackendArguments) {
