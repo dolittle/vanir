@@ -2,7 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 import React, { FC, useState } from 'react';
-import {  Handle,  Node, Position } from 'react-flow-renderer';
+import { Handle, Node, Position } from 'react-flow-renderer';
 import { DocumentCard, DocumentCardActions, DocumentCardTitle, DocumentCardType, IButtonProps } from '@fluentui/react';
 
 const onActionClick = (): void => {
@@ -48,12 +48,13 @@ export const MicroserviceNode: FC<Node> = ({ data }) => {
 
     return (
         <div style={customNodeStyles}>
-            <Handle id="a" type="source" position={Position.Top} style={{ borderRadius: 0 }} />
 
             <DocumentCard type={DocumentCardType.normal}>
                 <DocumentCardTitle title={data.text} />
                 <DocumentCardActions actions={documentCardActions} />
             </DocumentCard>
+
+            <Handle id="a-source" type="source" position={Position.Top} style={{ borderRadius: 0 }} />
             <Handle
                 type="source"
                 position={Position.Left}
