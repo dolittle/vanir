@@ -13,7 +13,7 @@ namespace Dolittle.Vanir.Backend.Features
     /// </summary>
     public class FeaturesProvider : IFeaturesProvider
     {
-        const string _featuresPath = "./data/features.json";
+        static readonly string _featuresPath = Path.Combine(".dolittle","features.json");
         readonly BehaviorSubject<Features> _features = new(new Features());
         readonly IFeaturesParser _featuresParser;
 
