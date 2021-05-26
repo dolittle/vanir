@@ -1,7 +1,7 @@
 // Copyright (c) Dolittle. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-import { Constructor } from '@dolittle/types';
+import { Constructor } from '@dolittle/types';
 import { ExpressConfigCallback } from './web';
 import { DolittleClientBuilderCallback } from './dolittle';
 import swaggerUI from 'swagger-ui-express';
@@ -11,6 +11,8 @@ export interface BackendArguments {
     swaggerDoc?: swaggerUI.JsonObject;
     eventTypes?: Constructor[];
     eventHandlerTypes?: Constructor[];
+    projectionTypes?: Constructor[];
     expressCallback?: ExpressConfigCallback;
     dolittleCallback?: DolittleClientBuilderCallback;
+    publishAllPublicEvents?: boolean;
 }
