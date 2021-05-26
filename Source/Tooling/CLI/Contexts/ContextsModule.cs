@@ -86,7 +86,7 @@ namespace Dolittle.Vanir.CLI.Contexts
             return new MicroserviceContext
             {
                 Application = applicationContext,
-                Microservice = JsonConvert.DeserializeObject<Microservice>(json),
+                Microservice = JsonConvert.DeserializeObject<Backend.Config.Microservice>(json),
                 File = file,
                 Root = root,
                 DolittleFolder = dolittleFolder
