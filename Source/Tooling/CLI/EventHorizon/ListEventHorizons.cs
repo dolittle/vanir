@@ -6,13 +6,13 @@ using System.CommandLine.Invocation;
 using System.Threading.Tasks;
 using Dolittle.Vanir.CLI.Contexts;
 
-namespace Dolittle.Vanir.CLI.Microservice
+namespace Dolittle.Vanir.CLI.EventHorizon
 {
-    public class ListConsumers : ICommandHandler
+    public class ListEventHorizons : ICommandHandler
     {
         readonly ContextOf<MicroserviceContext> _getMicroserviceContext;
 
-        public ListConsumers(ContextOf<MicroserviceContext> getMicroserviceContext)
+        public ListEventHorizons(ContextOf<MicroserviceContext> getMicroserviceContext)
         {
             _getMicroserviceContext = getMicroserviceContext;
         }

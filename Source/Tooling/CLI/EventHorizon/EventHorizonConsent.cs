@@ -3,7 +3,7 @@
 
 using System;
 
-namespace Dolittle.Vanir.CLI.Microservice
+namespace Dolittle.Vanir.CLI.EventHorizon
 {
     public class EventHorizonConsent
     {

@@ -7,7 +7,7 @@ using System.IO;
 using Dolittle.Vanir.CLI.Contexts;
 using Newtonsoft.Json;
 
-namespace Dolittle.Vanir.CLI.Microservice
+namespace Dolittle.Vanir.CLI.EventHorizon
 {
     public static class MicroserviceContextExtensions
     {
