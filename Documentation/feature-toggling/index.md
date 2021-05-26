@@ -27,6 +27,7 @@ running backend. The expected format is as follows:
 Below you'll find more details about specific implementations that is built on top of the file.
 
 | Type | Description |
+| ---- | ----------- |
 | [GraphQL](./DotNET/index.md) | Details on expected GraphQL schemas |
 | [C#](./DotNET/index.md) | Details on how to leverage it in C# |
 | [TypeScript](./typescript/index.md) | Details on how to leverage it in TypeScript |
