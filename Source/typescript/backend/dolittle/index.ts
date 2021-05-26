@@ -34,7 +34,7 @@ export async function initialize(configuration: Configuration, startArguments: B
         .withProjections(_ => startArguments.projectionTypes?.forEach(pt => _.register(pt)))
         .withFilters(_ => {
             if (startArguments.publishAllPublicEvents !== false) {
-                _.createPublicFilter('2d287d3f-b683-4f27-8145-85534832f6bf', fb => fb
+                _.createPublicFilter(configuration.microserviceId, fb => fb
                     .handle((event, context) => {
                         return new PartitionedFilterResult(true, PartitionId.unspecified);
                     }));

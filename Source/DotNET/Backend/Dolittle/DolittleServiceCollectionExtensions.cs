@@ -42,7 +42,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 {
                     if (arguments?.PublishAllPublicEvents == true)
                     {
-                        _.CreatePublicFilter("2d287d3f-b683-4f27-8145-85534832f6bf", _ => _
+                        _.CreatePublicFilter(configuration.MicroserviceId, _ => _
                             .Handle((e, ec) => Task.FromResult(new PartitionedFilterResult(true, PartitionId.Unspecified))));
                     }
                 })
