@@ -1,20 +1,18 @@
 // Copyright (c) Dolittle. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using Autofac;
-using Dolittle.Vanir.Backend.Reflection;
 
 namespace Dolittle.Vanir.CLI
 {
-    public class CommandProvidersModule : Module
+    public class TypesModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {
             var assembly = typeof(Program).Assembly;
-            var commandProviders = assembly.DefinedTypes.Where(_ => _.HasInterface<ICanProvideCommand>());
-            builder.Register(_ => commandProviders.Select(cp => _.Resolve(cp) as ICanProvideCommand).ToArray()).As<IEnumerable<ICanProvideCommand>>();
+            builder.Register(_ => assembly.DefinedTypes).As<IEnumerable<Type>>();
         }
     }
 }
