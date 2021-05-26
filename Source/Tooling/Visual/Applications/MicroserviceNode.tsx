@@ -54,20 +54,10 @@ export const MicroserviceNode: FC<Node> = ({ data }) => {
                 <DocumentCardActions actions={documentCardActions} />
             </DocumentCard>
 
-            <Handle id="a-source" type="source" position={Position.Top} style={{ borderRadius: 0 }} />
-            <Handle
-                type="source"
-                position={Position.Left}
-                id="b"
-                style={{ borderRadius: 0 }}
-            />
-            <Handle
-                type="target"
-                position={Position.Right}
-                id="c"
-                style={{ borderRadius: 0 }}
-            />
-            <Handle id="d" type="source" position={Position.Bottom} style={{ borderRadius: 0 }} />
+            <Handle id="a-source" type="source" position={Position.Top} style={{ borderRadius: 5 }} />
+            <Handle id="b-source" type="source" position={Position.Left} style={{ borderRadius: 5 }} />
+            <Handle id="c-target" type="target" position={Position.Right} style={{ borderRadius: 0 }} />
+            <Handle id="d-target" type="target" position={Position.Bottom} style={{ borderRadius: 0 }} />
         </div>
     );
 

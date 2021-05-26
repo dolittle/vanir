@@ -48,20 +48,33 @@ export const ApplicationsEditor = () => {
     const [elements, setElements] = useState(initialElements);
 
     const onConnect = (connection: Edge | Connection) => {
-        const newConnection = {
+        const newConnection: Edge = {
             id: `${connection.source}${connection.sourceHandle}-${connection.target}${connection.targetHandle}`,
+            source: connection.source!,
+            sourceHandle: connection.sourceHandle!,
+            target: connection.target!,
+            targetHandle: connection.targetHandle!,
             animated: true,
-            arrowHeadType: ArrowHeadType.ArrowClosed
+            label: 'Something',
+            labelShowBg: false,
+            labelStyle: {
+                fill: '#fff',
+                fontWeight: 700
+            },
+            arrowHeadType: ArrowHeadType.Arrow,
+            style: {
+                stroke: '#fff'
+            }
         };
 
-        setElements([...elements, {...newConnection, ... connection} as any]);
+        setElements([...elements, newConnection as any]);
     };
 
     return (
         <>
             <ReactFlow
                 onConnect={onConnect}
-                connectionMode={ConnectionMode.Strict}
+                connectionMode={ConnectionMode.Loose}
                 elements={elements}
                 nodeTypes={nodeTypes}>
                 <Controls />
