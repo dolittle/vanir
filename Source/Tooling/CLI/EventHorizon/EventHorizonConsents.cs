@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Dolittle.Vanir.CLI.EventHorizon
 {
-    public class EventHorizonConsents : Dictionary<Guid, EventHorizonConsent>
+    public class EventHorizonConsents : Dictionary<Guid, EventHorizonConsent[]>
     {
     }
 }

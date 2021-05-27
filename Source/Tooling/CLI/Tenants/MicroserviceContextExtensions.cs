@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 
 namespace Dolittle.Vanir.CLI.Tenants
 {
+
     public static class MicroserviceContextExtensions
     {
         public static Guid[] GetTenants(this MicroserviceContext context)
