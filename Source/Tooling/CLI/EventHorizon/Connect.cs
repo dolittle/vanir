@@ -148,7 +148,6 @@ namespace Dolittle.Vanir.CLI.EventHorizon
             }
         }
 
-
         bool MicroserviceShouldExist(InvocationContext context, ApplicationContext applicationContext, string microservice, out MicroserviceContext microserviceContext)
         {
             var microserviceId = Guid.Empty;
