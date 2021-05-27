@@ -104,6 +104,16 @@ export const ApplicationsEditor = () => {
             }
         };
 
+        vscode.postMessage({
+            type: 'connect',
+            data: {
+                producer: connection.source,
+                consumer: connection.target,
+                producerHandle: connection.sourceHandle,
+                consumerHandle: connection.targetHandle
+            }
+        });
+
         setElements([...elements, newConnection as any]);
     };
 

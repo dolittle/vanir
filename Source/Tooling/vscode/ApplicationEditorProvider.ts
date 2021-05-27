@@ -198,6 +198,12 @@ export class ApplicationEditorProvider extends VisualEditor {
 
                     this.saveLayoutFor(document, layout);
                 } break;
+
+                case 'connect': {
+                    vscode.window.showInformationMessage('Connecting the dots');
+                    this.outputChannel.appendLine(JSON.stringify(e.data));
+                    this.outputChannel.show();
+                } break;
             }
         });
     }
