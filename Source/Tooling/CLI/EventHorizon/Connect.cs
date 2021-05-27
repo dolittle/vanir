@@ -22,11 +22,11 @@ namespace Dolittle.Vanir.CLI.EventHorizon
 
         public static class AllOptions
         {
-            public static readonly Option<Guid> Tenant = new("--tenant", "Tenant to add for. Default will be all.");
-            public static readonly Option<Guid> ConsumeTenant = new("--consumer-tenant", "Consumer tenant to add for. Default will be using producer tenant. If producer tenant is not specified, this will be ignored.");
-            public static readonly Option<Guid> Stream = new("--stream", "Public stream to use. Default will be the same Id as the identifier of the producing microservice.");
-            public static readonly Option<Guid> Partition = new("--partition", "Partition Id to use. Default is 00000000-0000-0000-0000-000000000000.");
-            public static readonly Option<Guid> Scope = new("--scope", "Scope Id to use in consumer. Default will be the same as the stream identifier.");
+            public static readonly Option<Guid> Tenant = new(new[] { "--tenant", "-t" }, "Tenant to add for. Default will be all.");
+            public static readonly Option<Guid> ConsumeTenant = new(new[] { "--consumer-tenant", "-ct" }, "Consumer tenant to add for. Default will be using producer tenant. If producer tenant is not specified, this will be ignored.");
+            public static readonly Option<Guid> Stream = new(new[] { "--stream", "-s" }, "Public stream to use. Default will be the same Id as the identifier of the producing microservice.");
+            public static readonly Option<Guid> Partition = new(new[] { "--partition", "-p", "Partition Id to use. Default is 00000000-0000-0000-0000-000000000000.");
+            public static readonly Option<Guid> Scope = new(new[] { "--scope", "-sc" }, "Scope Id to use in consumer. Default will be the same as the stream identifier.");
             public static readonly Option<bool> Overwrite = new(new[] { "--overwrite", "-o" }, (a) => true, isDefault: false, description: "Overwrite any existing configuration.");
         }
 
