@@ -28,7 +28,7 @@
             //     "\"My fancy new feature\""
             // ],
             //"args": ["microservices", "list"],
-            "args": ["eventhorizon", "connect", "AspNetCore", "Portal", "--overwrite"],
+            "args": ["eventhorizon", "connect", "Typescript", "AspNetCore"],
             //"args": ["proxy", "../../../Samples/Source/Aspnetcore/Backend/bin/Debug/net5.0/Backend.dll", "../../../Samples/Source/Aspnetcore/Web/proxies"],
             "cwd": "${workspaceFolder}/Samples/Source/Aspnetcore",
             "stopAtEntry": false,
