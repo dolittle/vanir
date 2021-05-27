@@ -15,16 +15,28 @@ namespace Dolittle.Vanir.CLI.Tenants
     {
         public static Guid[] GetTenants(this MicroserviceContext context)
         {
-            var file = Path.Combine(context.DolittleFolder, "tenants.json");
-            if (!File.Exists(file)) return Array.Empty<Guid>();
+            var tenantFiles = new string[] {
+                Path.Combine(context.DolittleFolder, "tenants.json"),
+                Path.Combine(context.Application.DolittleFolder, "tenants.json")
+            };
 
-            var json = File.ReadAllText(file);
-            return JsonConvert.DeserializeObject<Dictionary<Guid, object>>(json).Select(kvp => kvp.Key).ToArray();
+            foreach (var file in tenantFiles)
+            {
+                if (File.Exists(file))
+                {
+                    var json = File.ReadAllText(file);
+                    return JsonConvert.DeserializeObject<Dictionary<Guid, object>>(json).Select(kvp => kvp.Key).ToArray();
+                }
+            }
+
+            return Array.Empty<Guid>();
         }
 
         public static void SaveTenants(this MicroserviceContext context, Guid[] tenants)
         {
-            var file = Path.Combine(context.DolittleFolder, "tenants.json");
+            var microserviceTenants = Path.Combine(context.DolittleFolder, "tenants.json");
+            var applicationTenants = Path.Combine(context.Application.DolittleFolder, "tenants.json");
+            var file = File.Exists(microserviceTenants) ? microserviceTenants : applicationTenants;
             var dictionary = tenants.ToDictionary(_ => _, _ => new object());
             var json = JsonConvert.SerializeObject(dictionary, SerializerSettings.Default);
             File.WriteAllText(file, json);
