@@ -85,6 +85,7 @@ namespace Microsoft.Extensions.DependencyInjection
             Expression<Func<FeaturesSubscriptionsResolver, Task<FeatureNotification>>> newFeaturesMethod = (FeaturesSubscriptionsResolver resolver) => resolver.system_newFeatures(null);
             subscriptions.AddItem(new SchemaRouteItem(newFeaturesMethod.GetMethodInfo(), "system_newFeatures"));
 
+
             types.FindMultiple(typeof(ConceptAs<>)).ForEach(_ => graphQLBuilder.AddConceptTypeConverter(_));
             types.All.Where(_ => _.IsEnum).ForEach(type =>
             {
@@ -96,7 +97,12 @@ namespace Microsoft.Extensions.DependencyInjection
 
             if (RuntimeEnvironment.isDevelopment)
             {
-                if (arguments.ExposeEventsInGraphQLSchema) mutations.AddEventsAsMutations(types);
+                if (arguments.ExposeEventsInGraphQLSchema)
+                {
+                    mutations.AddEventsAsMutations(types);
+                    Expression<Func<EventStreamSubscription, Task<EventForStream>>> eventStreamMethod = (EventStreamSubscription resolver) => resolver.system_eventStream(null);
+                    subscriptions.AddItem(new SchemaRouteItem(eventStreamMethod.GetMethodInfo(), "system_eventStream"));
+                }
                 graphQLBuilder.AddApolloTracing();
             }
 

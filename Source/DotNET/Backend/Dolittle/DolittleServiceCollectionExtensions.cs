@@ -65,6 +65,22 @@ namespace Microsoft.Extensions.DependencyInjection
                         _.CreatePublicFilter(configuration.MicroserviceId, _ => _
                             .Handle((e, ec) => Task.FromResult(new PartitionedFilterResult(true, PartitionId.Unspecified))));
                     }
+
+                    var eventHorizons = EventHorizons.Load();
+                    foreach (var tenant in eventHorizons.Keys)
+                    {
+                        foreach (var subscription in eventHorizons[tenant])
+                        {
+                            _.CreatePrivateFilter("f099003a-a37c-4106-9917-5ebe59bb908e", fb =>
+                            {
+                                fb.InScope(subscription.Scope).Unpartitioned().Handle(async (e, ec) =>
+                                {
+                                    await EventStreamSubscription.EventHandler(e, ec);
+                                    return true;
+                                });
+                            });
+                        }
+                    }
                 })
                 .WithProjections(_ => AllProjections(_, types))
                 .WithEventHandlers(_ => AllEventHandlerTypes(_, services, types));
