@@ -36,9 +36,11 @@ namespace Dolittle.Vanir.CLI.Contexts
             var context = new ApplicationContext
             {
                 File = file,
-                Root = Path.GetDirectoryName(file)
+                Root = Path.GetDirectoryName(file),
+                DolittleFolder = Path.Combine(Path.GetDirectoryName(file), ".dolittle")
             };
             context.Application = JsonConvert.DeserializeObject<Application>(json, new MicroserviceJsonConverter(context, ProvideMicroserviceContext));
+
             return context;
         }
 
