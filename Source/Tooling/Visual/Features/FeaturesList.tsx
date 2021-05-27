@@ -20,6 +20,8 @@ import {
     getTheme
 } from '@fluentui/react';
 
+import { vscode } from '../Globals';
+
 const environmentOptions: IDropdownOption[] = [
     { key: 'local', text: 'Local' },
     { key: 'dev', text: 'Development' },
@@ -49,7 +51,7 @@ const commandBarItems: ICommandBarItemProps[] = [
     }
 ];
 
-const vscode = window.acquireVsCodeApi();
+
 
 function getFeaturesFrom(json: string): IFeatureDefinition[] {
     const parser = new FeaturesParser();

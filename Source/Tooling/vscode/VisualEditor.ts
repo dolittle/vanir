@@ -14,6 +14,11 @@ export abstract class VisualEditor implements vscode.CustomTextEditorProvider {
 
     abstract onInitialize(document: vscode.TextDocument, webviewPanel: vscode.WebviewPanel, token: vscode.CancellationToken): Promise<void>;
 
+
+    beforeUpdateDocumentInView(document: vscode.TextDocument): string {
+        return document.getText();
+    }
+
     async resolveCustomTextEditor(
         document: vscode.TextDocument,
         webviewPanel: vscode.WebviewPanel,
@@ -25,10 +30,12 @@ export abstract class VisualEditor implements vscode.CustomTextEditorProvider {
             enableScripts: true
         };
 
+        // eslint-disable-next-line @typescript-eslint/no-this-alias
+        const self = this;
         function updateWebview() {
             webviewPanel.webview.postMessage({
                 type: 'update',
-                text: document.getText(),
+                text: self.beforeUpdateDocumentInView(document),
             });
         }
 
