@@ -17,9 +17,18 @@ namespace Dolittle.Vanir.Backend.Dolittle
             _eventStore = eventStore;
         }
 
-        public async Task<int> Commit(Guid eventSourceId, T @event)
+        public async Task<int> Commit(Guid eventSourceId, T @event, bool isPublic = false)
         {
-            var committedEvents = await _eventStore.CommitEvent(@event, eventSourceId);
+            CommittedEvents committedEvents;
+            if (isPublic)
+            {
+                committedEvents = await _eventStore.CommitPublicEvent(@event, eventSourceId);
+            }
+            else
+            {
+                committedEvents = await _eventStore.CommitEvent(@event, eventSourceId);
+            }
+
             if (committedEvents.HasEvents)
             {
                 var committedEvent = committedEvents.Single();
