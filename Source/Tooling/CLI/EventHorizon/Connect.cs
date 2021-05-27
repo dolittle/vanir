@@ -98,7 +98,7 @@ namespace Dolittle.Vanir.CLI.EventHorizon
                 }
 
                 var microserviceId = Guid.Parse(consumerMicroserviceContext.Microservice.Id);
-                var streamId = microserviceId;
+                var streamId = Guid.Parse(producerMicroserviceContext.Microservice.Id);
                 var partitionId = Guid.Empty;
 
                 var consent = new EventHorizonConsent()
@@ -127,7 +127,7 @@ namespace Dolittle.Vanir.CLI.EventHorizon
                     eventHorizons.AddRange(eventHorizonsPerTenant[tenant]);
                 }
 
-                var microserviceId = Guid.Parse(consumerMicroserviceContext.Microservice.Id);
+                var microserviceId = Guid.Parse(producerMicroserviceContext.Microservice.Id);
                 var streamId = microserviceId;
                 var partitionId = Guid.Empty;
                 var scopeId = streamId;
