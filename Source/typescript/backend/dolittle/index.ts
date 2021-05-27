@@ -20,6 +20,7 @@ import { getCurrentContext } from '../index';
 import { Aggregate, IAggregate } from '../aggregates';
 import { BackendArguments } from '../BackendArguments';
 import { DolittleContainer } from './DolittleContainer';
+import { EventHorizons } from './EventHorizons';
 
 export type DolittleClientBuilderCallback = (clientBuilder: ClientBuilder) => void;
 
@@ -32,6 +33,21 @@ export async function initialize(configuration: Configuration, startArguments: B
         .withEventTypes(_ => startArguments.eventTypes?.forEach(et => _.register(et)))
         .withEventHandlers(_ => startArguments.eventHandlerTypes?.forEach(eh => _.register(eh)))
         .withProjections(_ => startArguments.projectionTypes?.forEach(pt => _.register(pt)))
+        .withEventHorizons(_ => {
+            const eventHorizons = EventHorizons.load();
+            for (const tenant of eventHorizons.keys()) {
+                _.forTenant(tenant, sb => {
+                    for (const subscription of eventHorizons.get(tenant)!) {
+                        sb
+                            .fromProducerMicroservice(subscription.microservice)
+                            .fromProducerTenant(subscription.tenant)
+                            .fromProducerStream(subscription.stream)
+                            .fromProducerPartition(subscription.partition)
+                            .toScope(subscription.scope);
+                    }
+                });
+            }
+        })
         .withFilters(_ => {
             if (startArguments.publishAllPublicEvents !== false) {
                 _.createPublicFilter(configuration.microserviceId, fb => fb
