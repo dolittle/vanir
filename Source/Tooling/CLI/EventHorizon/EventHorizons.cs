@@ -3,10 +3,11 @@
 
 using System;
 using System.Collections.Generic;
+using Dolittle.Vanir.Backend.Dolittle;
 
 namespace Dolittle.Vanir.CLI.EventHorizon
 {
-    public class EventHorizons : Dictionary<Guid, EventHorizon[]>
+    public class EventHorizons : Dictionary<Guid, EventHorizonDefinition[]>
     {
     }
 }

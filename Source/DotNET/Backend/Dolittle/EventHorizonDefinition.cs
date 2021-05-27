@@ -3,9 +3,9 @@
 
 using System;
 
-namespace Dolittle.Vanir.CLI.EventHorizon
+namespace Dolittle.Vanir.Backend.Dolittle
 {
-    public class EventHorizon
+    public class EventHorizonDefinition
     {
         public Guid Microservice;
         public Guid Tenant;

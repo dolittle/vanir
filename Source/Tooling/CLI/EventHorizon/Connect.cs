@@ -7,6 +7,7 @@ using System.CommandLine;
 using System.CommandLine.Invocation;
 using System.Linq;
 using System.Threading.Tasks;
+using Dolittle.Vanir.Backend.Dolittle;
 using Dolittle.Vanir.CLI.Contexts;
 using Dolittle.Vanir.CLI.Tenants;
 
@@ -121,7 +122,7 @@ namespace Dolittle.Vanir.CLI.EventHorizon
         {
             foreach (var tenant in producerMicroserviceContext.GetTenants())
             {
-                var eventHorizons = new List<EventHorizon>();
+                var eventHorizons = new List<EventHorizonDefinition>();
                 if (eventHorizonsPerTenant.ContainsKey(tenant))
                 {
                     eventHorizons.AddRange(eventHorizonsPerTenant[tenant]);
@@ -132,7 +133,7 @@ namespace Dolittle.Vanir.CLI.EventHorizon
                 var partitionId = Guid.Empty;
                 var scopeId = streamId;
 
-                var eventHorizon = new EventHorizon()
+                var eventHorizon = new EventHorizonDefinition()
                 {
                     Microservice = microserviceId,
                     Tenant = tenant,
@@ -193,7 +194,7 @@ namespace Dolittle.Vanir.CLI.EventHorizon
             }
         }
 
-        void DuplicateEventHorizonsNotAllowed(InvocationContext context, MicroserviceContext producer, MicroserviceContext consumer, IEnumerable<EventHorizon> eventHorizons, EventHorizon eventHorizon)
+        void DuplicateEventHorizonsNotAllowed(InvocationContext context, MicroserviceContext producer, MicroserviceContext consumer, IEnumerable<EventHorizonDefinition> eventHorizons, EventHorizonDefinition eventHorizon)
         {
             if (eventHorizons.Any(_ =>
                 _.Microservice == eventHorizon.Microservice &&
