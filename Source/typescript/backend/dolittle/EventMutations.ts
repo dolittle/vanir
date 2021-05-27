@@ -1,14 +1,15 @@
 // Copyright (c) Dolittle. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-import { GraphQLArgument, GraphQLInt, GraphQLString } from 'graphql';
+import { GraphQLArgument, GraphQLInt, GraphQLBoolean } from 'graphql';
 import { BackendArguments } from '../BackendArguments';
 import { SchemaRoute } from '../graphql/SchemaRoute';
 import { GuidScalar } from '../graphql/GuidScalar';
 import { ObjectScalar } from '../graphql/ObjectScalar';
 import { container } from 'tsyringe';
 import { constructor } from '@dolittle/vanir-dependency-inversion';
-import { IEventStore, IEventTypes } from '@dolittle/sdk.events';
+import { IEventStore, IEventTypes, CommitEventsResult } from '@dolittle/sdk.events';
+import { Guid } from '@dolittle/rudiments';
 
 export class EventMutations {
     static addAllEvents(root: SchemaRoute, backendArguments: BackendArguments) {
@@ -38,7 +39,15 @@ export class EventMutations {
                         deprecationReason: undefined,
                         extensions: {},
                         astNode: undefined
-
+                    },
+                    {
+                        name: 'isPublic',
+                        description: 'Whether or not you want to commit a public event',
+                        type: GraphQLBoolean,
+                        defaultValue: false,
+                        deprecationReason: undefined,
+                        extensions: {},
+                        astNode: undefined
                     }
                 ];
                 events.addItem({
@@ -54,7 +63,20 @@ export class EventMutations {
                         const eventTypes = container.resolve(IEventTypes as constructor<IEventTypes>);
                         const eventTypeId = eventTypes.getFor(eventType);
 
-                        const committedEvents = await eventStore.commit(args.event, args.eventSourceId, eventTypeId);
+                        let committedEvents: CommitEventsResult;
+
+                        for (const property of Object.keys(args.event)) {
+                            if (args.event[property] instanceof Guid) {
+                                args.event[property] = args.event[property].toString();
+                            }
+                        }
+
+                        if (args.isPublic) {
+                            committedEvents = await eventStore.commitPublic(args.event, args.eventSourceId, eventTypeId);
+                        } else {
+                            committedEvents = await eventStore.commit(args.event, args.eventSourceId, eventTypeId);
+                        }
+
                         if (!committedEvents.failed) {
                             const committedEvent = committedEvents.events.toArray()[0];
                             return committedEvent.eventLogSequenceNumber.value;
