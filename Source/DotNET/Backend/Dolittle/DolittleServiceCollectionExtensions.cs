@@ -14,6 +14,7 @@ using Dolittle.SDK.Events.Handling.Builder;
 using Dolittle.SDK.Projections;
 using Dolittle.SDK.Projections.Builder;
 using Dolittle.Vanir.Backend.Collections;
+using Dolittle.Vanir.Backend.Dolittle;
 using Dolittle.Vanir.Backend.Execution;
 using Dolittle.Vanir.Backend.Reflection;
 using Config = Dolittle.Vanir.Backend.Config.Configuration;
@@ -38,6 +39,25 @@ namespace Microsoft.Extensions.DependencyInjection
                 .WithLogging(arguments.LoggerFactory)
                 .WithRuntimeOn(configuration.Dolittle.Runtime.Host, configuration.Dolittle.Runtime.Port)
                 .WithEventTypes(_ => AllEventTypes(_, types))
+                .WithEventHorizons(_ =>
+                {
+                    var eventHorizons = EventHorizons.Load();
+                    foreach (var tenant in eventHorizons.Keys)
+                    {
+                        _.ForTenant(tenant, sb =>
+                        {
+                            foreach (var subscription in eventHorizons[tenant])
+                            {
+                                sb
+                                    .FromProducerMicroservice(subscription.Microservice)
+                                    .FromProducerTenant(subscription.Tenant)
+                                    .FromProducerStream(subscription.Stream)
+                                    .FromProducerPartition(subscription.Partition)
+                                    .ToScope(subscription.Scope);
+                            }
+                        });
+                    }
+                })
                 .WithFilters(_ =>
                 {
                     if (arguments?.PublishAllPublicEvents == true)
