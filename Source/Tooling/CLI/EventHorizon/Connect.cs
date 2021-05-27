@@ -27,6 +27,7 @@ namespace Dolittle.Vanir.CLI.EventHorizon
             public static readonly Option<Guid> Stream = new("--stream", "Public stream to use. Default will be the same Id as the identifier of the producing microservice.");
             public static readonly Option<Guid> Partition = new("--partition", "Partition Id to use. Default is 00000000-0000-0000-0000-000000000000.");
             public static readonly Option<Guid> Scope = new("--scope", "Scope Id to use in consumer. Default will be the same as the stream identifier.");
+            public static readonly Option<bool> Overwrite = new(new[] { "--overwrite", "-o" }, (a) => true, isDefault: false, description: "Overwrite any existing configuration.");
         }
 
         readonly ContextOf<ApplicationContext> _getApplicationContext;
@@ -41,6 +42,7 @@ namespace Dolittle.Vanir.CLI.EventHorizon
             AddOption(AllOptions.ConsumeTenant);
             AddOption(AllOptions.Stream);
             AddOption(AllOptions.Partition);
+            AddOption(AllOptions.Overwrite);
             _getApplicationContext = getApplicationContext;
 
             Handler = this;
@@ -51,6 +53,7 @@ namespace Dolittle.Vanir.CLI.EventHorizon
             var applicationContext = _getApplicationContext();
             var producer = context.ParseResult.ValueForArgument(AllArguments.Producer);
             var consumer = context.ParseResult.ValueForArgument(AllArguments.Consumer);
+            var overwrite = context.ParseResult.ValueForOption(AllOptions.Overwrite);
 
             var producerExists = MicroserviceShouldExist(context, applicationContext, producer, out MicroserviceContext producerMicroserviceContext);
             var consumerExists = MicroserviceShouldExist(context, applicationContext, consumer, out MicroserviceContext consumerMicroserviceContext);
@@ -62,20 +65,18 @@ namespace Dolittle.Vanir.CLI.EventHorizon
 
             ProducerAndConsumerCannotBeTheSame(context, producerMicroserviceContext, consumerMicroserviceContext);
 
-            /*
-             Default - no options specified:
-             loop through all tenants of producer:
-             - Check if consent is already there - if so exit with message
-             - Add consent
-                - Default stream = Microservice Id
-
-             For consumer:
-             - Add consumer configuration
-            */
-
-
-            var consents = producerMicroserviceContext.GetEventHorizonConsents();
-            var eventHorizons = consumerMicroserviceContext.GetEventHorizons();
+            EventHorizonConsents consents;
+            EventHorizons eventHorizons;
+            if (overwrite)
+            {
+                consents = new();
+                eventHorizons = new();
+            }
+            else
+            {
+                consents = producerMicroserviceContext.GetEventHorizonConsents();
+                eventHorizons = consumerMicroserviceContext.GetEventHorizons();
+            }
 
             SetupConsentsForAllTenants(context, producerMicroserviceContext, consumerMicroserviceContext, consents);
             SetupEventHorizonsForAllTenants(context, producerMicroserviceContext, consumerMicroserviceContext, eventHorizons);
