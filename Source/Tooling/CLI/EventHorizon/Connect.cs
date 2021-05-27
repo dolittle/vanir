@@ -24,8 +24,9 @@ namespace Dolittle.Vanir.CLI.EventHorizon
         {
             public static readonly Option<Guid> Tenant = new("--tenant", "Tenant to add for. Default will be all.");
             public static readonly Option<Guid> ConsumeTenant = new("--consumer-tenant", "Consumer tenant to add for. Default will be using producer tenant. If producer tenant is not specified, this will be ignored.");
-            public static readonly Option<Guid> Stream = new("--stream", "Public stream to use. Default will be the same Id as the identifier of the producing microservice");
-            public static readonly Option<Guid> Partition = new("--partition", "Partition Id to use. Default is 00000000-0000-0000-0000-000000000000");
+            public static readonly Option<Guid> Stream = new("--stream", "Public stream to use. Default will be the same Id as the identifier of the producing microservice.");
+            public static readonly Option<Guid> Partition = new("--partition", "Partition Id to use. Default is 00000000-0000-0000-0000-000000000000.");
+            public static readonly Option<Guid> Scope = new("--scope", "Scope Id to use in consumer. Default will be the same as the stream identifier.");
         }
 
         readonly ContextOf<ApplicationContext> _getApplicationContext;
@@ -72,10 +73,22 @@ namespace Dolittle.Vanir.CLI.EventHorizon
              - Add consumer configuration
             */
 
-            var tenants = producerMicroserviceContext.GetTenants();
-            var consentsPerTenant = producerMicroserviceContext.GetEventHorizonConsents();
 
-            foreach (var tenant in tenants)
+            var consents = producerMicroserviceContext.GetEventHorizonConsents();
+            var eventHorizons = consumerMicroserviceContext.GetEventHorizons();
+
+            SetupConsentsForAllTenants(context, producerMicroserviceContext, consumerMicroserviceContext, consents);
+            SetupEventHorizonsForAllTenants(context, producerMicroserviceContext, consumerMicroserviceContext, eventHorizons);
+
+            producerMicroserviceContext.SaveEventHorizonConsents(consents);
+            consumerMicroserviceContext.SaveEventHorizons(eventHorizons);
+
+            return Task.FromResult(0);
+        }
+
+        void SetupConsentsForAllTenants(InvocationContext context, MicroserviceContext producerMicroserviceContext, MicroserviceContext consumerMicroserviceContext, EventHorizonConsents consentsPerTenant)
+        {
+            foreach (var tenant in producerMicroserviceContext.GetTenants())
             {
                 var consents = new List<EventHorizonConsent>();
                 if (consentsPerTenant.ContainsKey(tenant))
@@ -84,13 +97,15 @@ namespace Dolittle.Vanir.CLI.EventHorizon
                 }
 
                 var microserviceId = Guid.Parse(consumerMicroserviceContext.Microservice.Id);
+                var streamId = microserviceId;
+                var partitionId = Guid.Empty;
 
                 var consent = new EventHorizonConsent()
                 {
                     Microservice = microserviceId,
                     Tenant = tenant,
-                    Stream = microserviceId,
-                    Partition = Guid.Empty,
+                    Stream = streamId,
+                    Partition = partitionId,
                     Consent = Guid.NewGuid()
                 };
 
@@ -99,11 +114,39 @@ namespace Dolittle.Vanir.CLI.EventHorizon
                 consents.Add(consent);
                 consentsPerTenant[tenant] = consents.ToArray();
             }
-
-            producerMicroserviceContext.SaveEventHorizonConsents(consentsPerTenant);
-
-            return Task.FromResult(0);
         }
+
+        void SetupEventHorizonsForAllTenants(InvocationContext context, MicroserviceContext producerMicroserviceContext, MicroserviceContext consumerMicroserviceContext, EventHorizons eventHorizonsPerTenant)
+        {
+            foreach (var tenant in producerMicroserviceContext.GetTenants())
+            {
+                var eventHorizons = new List<EventHorizon>();
+                if (eventHorizonsPerTenant.ContainsKey(tenant))
+                {
+                    eventHorizons.AddRange(eventHorizonsPerTenant[tenant]);
+                }
+
+                var microserviceId = Guid.Parse(consumerMicroserviceContext.Microservice.Id);
+                var streamId = microserviceId;
+                var partitionId = Guid.Empty;
+                var scopeId = streamId;
+
+                var eventHorizon = new EventHorizon()
+                {
+                    Microservice = microserviceId,
+                    Tenant = tenant,
+                    Stream = streamId,
+                    Partition = partitionId,
+                    Scope = scopeId
+                };
+
+                DuplicateEventHorizonsNotAllowed(context, producerMicroserviceContext, consumerMicroserviceContext, eventHorizons, eventHorizon);
+
+                eventHorizons.Add(eventHorizon);
+                eventHorizonsPerTenant[tenant] = eventHorizons.ToArray();
+            }
+        }
+
 
         bool MicroserviceShouldExist(InvocationContext context, ApplicationContext applicationContext, string microservice, out MicroserviceContext microserviceContext)
         {
@@ -146,6 +189,19 @@ namespace Dolittle.Vanir.CLI.EventHorizon
                 _.Partition == consent.Partition))
             {
                 context.Console.Error.Write($"There already is a consent for '{consumer.Microservice.Name} ({consumer.Microservice.Id}' registered in producer '{producer.Microservice.Name} ({producer.Microservice.Id})'");
+                Environment.Exit(-1);
+            }
+        }
+
+        void DuplicateEventHorizonsNotAllowed(InvocationContext context, MicroserviceContext producer, MicroserviceContext consumer, IEnumerable<EventHorizon> eventHorizons, EventHorizon eventHorizon)
+        {
+            if (eventHorizons.Any(_ =>
+                _.Microservice == eventHorizon.Microservice &&
+                _.Tenant == eventHorizon.Tenant &&
+                _.Stream == eventHorizon.Stream &&
+                _.Partition == eventHorizon.Partition))
+            {
+                context.Console.Error.Write($"There already is an event horizon for '{consumer.Microservice.Name} ({consumer.Microservice.Id}' registered in producer '{producer.Microservice.Name} ({producer.Microservice.Id})'");
                 Environment.Exit(-1);
             }
         }

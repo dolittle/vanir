@@ -24,5 +24,21 @@ namespace Dolittle.Vanir.CLI.EventHorizon
             var json = JsonConvert.SerializeObject(consents, SerializerSettings.Default);
             File.WriteAllText(file, json);
         }
+
+        public static EventHorizons GetEventHorizons(this MicroserviceContext context)
+        {
+            var file = Path.Combine(context.DolittleFolder, "event-horizons.json");
+            if (!File.Exists(file)) return new EventHorizons();
+
+            var json = File.ReadAllText(file);
+            return JsonConvert.DeserializeObject<EventHorizons>(json);
+        }
+
+        public static void SaveEventHorizons(this MicroserviceContext context, EventHorizons consents)
+        {
+            var file = Path.Combine(context.DolittleFolder, "event-horizons.json");
+            var json = JsonConvert.SerializeObject(consents, SerializerSettings.Default);
+            File.WriteAllText(file, json);
+        }
     }
 }
