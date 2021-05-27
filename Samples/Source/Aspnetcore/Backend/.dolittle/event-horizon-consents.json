@@ -1,11 +1,11 @@
 {
   "445f8ea8-1a6f-40d7-b2fc-796dba92dc44": [
     {
-      "microservice": "0993eb39-1ddb-2b46-bdc6-517d45e7cff5",
+      "microservice": "8dba121d-b589-8344-9c0c-eb60f5848c98",
       "tenant": "445f8ea8-1a6f-40d7-b2fc-796dba92dc44",
-      "stream": "0993eb39-1ddb-2b46-bdc6-517d45e7cff5",
+      "stream": "6e24ebf1-f724-a54d-9553-1c61f5e9f83f",
       "partition": "00000000-0000-0000-0000-000000000000",
-      "consent": "42d3520f-d4b7-4dfe-adaf-d95e8c28ba12"
+      "consent": "d1b349f6-6e6e-48cb-9a59-c2e992a075a6"
     }
   ]
 }

@@ -1,0 +1,64 @@
+version: '3.1'
+services:
+  sampleapp-mongo:
+    labels:
+      - dolittle="77628df0-f46f-2e46-87a6-bc5a75578bcf"
+    image: dolittle/mongodb:4.2.2
+    ports:
+      - 27017:27017
+
+  sampleapp-ingress:
+    labels:
+      - dolittle="77628df0-f46f-2e46-87a6-bc5a75578bcf"
+    image: nginx:1.18.0
+    volumes:
+      - ./.dolittle/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - 9000:9000
+    restart: on-failure
+
+  sampleapp-runtime-portal:
+    labels:
+      - dolittle="77628df0-f46f-2e46-87a6-bc5a75578bcf"
+    image: dolittle/runtime:5.3.2
+    volumes:
+      - ./.dolittle/Portal/resources.json:/app/.dolittle/resources.json
+      - ./.dolittle/appsettings.json:/app/appsettings.json
+      - ./.dolittle/tenants.json:/app/.dolittle/tenants.json
+      - ./.dolittle/microservices.json:/app/.dolittle/microservices.json
+      - ./Source/Portal/Backend/.dolittle/event-horizon-consents.json:/app/.dolittle/event-horizon-consents.json
+    ports:
+      - 9701:9700
+      - 50052:50052
+      - 50053:50053
+
+  sampleapp-runtime-aspnetcore:
+    labels:
+      - dolittle="77628df0-f46f-2e46-87a6-bc5a75578bcf"
+    image: dolittle/runtime:5.3.2
+    volumes:
+      - ./.dolittle/AspNetCore/resources.json:/app/.dolittle/resources.json
+      - ./.dolittle/appsettings.json:/app/appsettings.json
+      - ./.dolittle/microservices.json:/app/.dolittle/microservices.json
+      - ./.dolittle/tenants.json:/app/.dolittle/tenants.json
+      - ./Source/AspNetCore/Backend/.dolittle/event-horizon-consents.json:/app/.dolittle/event-horizon-consents.json
+    ports:
+      - 9702:9700
+      - 50054:50052
+      - 50055:50053
+
+  sampleapp-runtime-typescript:
+    labels:
+      - dolittle="77628df0-f46f-2e46-87a6-bc5a75578bcf"
+    image: dolittle/runtime:5.3.2
+    volumes:
+      - ./.dolittle/Typescript/resources.json:/app/.dolittle/resources.json
+      - ./.dolittle/appsettings.json:/app/appsettings.json
+      - ./.dolittle/tenants.json:/app/.dolittle/tenants.json
+      - ./.dolittle/microservices.json:/app/.dolittle/microservices.json
+      - ./Source/Typescript/Backend/.dolittle/event-horizon-consents.json:/app/.dolittle/event-horizon-consents.json
+    ports:
+      - 9703:9700
+      - 50056:50052
+      - 50057:50053
+
