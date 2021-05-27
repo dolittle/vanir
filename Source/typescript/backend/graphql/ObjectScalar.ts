@@ -1,8 +1,18 @@
 // Copyright (c) Dolittle. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-import { GraphQLScalarType } from 'graphql';
-import { Kind } from 'graphql/language';
+import { GraphQLScalarType, GraphQLInt, GraphQLFloat, GraphQLBoolean, GraphQLString } from 'graphql';
+import { Kind } from 'graphql/language';
+import { GuidScalar } from './GuidScalar';
+
+
+const scalarsForParsing = [
+    GraphQLBoolean,
+    GuidScalar,
+    GraphQLFloat,
+    GraphQLInt,
+    GraphQLString
+];
 
 export const ObjectScalar = new GraphQLScalarType({
     name: 'Object',
@@ -20,7 +30,28 @@ export const ObjectScalar = new GraphQLScalarType({
     parseLiteral: (ast) => {
         switch (ast.kind) {
             case Kind.STRING: return JSON.parse(ast.value);
-            case Kind.OBJECT: throw new Error(`Not sure what to do with OBJECT for ObjectScalarType`);
+            case Kind.OBJECT: {
+                const event: any = {};
+
+                for (const field of ast.fields) {
+                    let value: any;
+
+                    for (const scalar of scalarsForParsing) {
+                        try {
+                            value = scalar.parseLiteral(field.value, {});
+                            // eslint-disable-next-line no-empty
+                        } catch (ex) { }
+
+                        if (value) {
+                            break;
+                        }
+                    }
+                    event[field.name.value] = value;
+                }
+
+                return event;
+
+            };
             default: return null;
         }
     }
