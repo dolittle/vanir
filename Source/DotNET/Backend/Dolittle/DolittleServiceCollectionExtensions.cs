@@ -13,6 +13,7 @@ using Dolittle.SDK.Events.Handling;
 using Dolittle.SDK.Events.Handling.Builder;
 using Dolittle.SDK.Projections;
 using Dolittle.SDK.Projections.Builder;
+using Dolittle.Vanir.Backend;
 using Dolittle.Vanir.Backend.Collections;
 using Dolittle.Vanir.Backend.Dolittle;
 using Dolittle.Vanir.Backend.Execution;
@@ -41,22 +42,6 @@ namespace Microsoft.Extensions.DependencyInjection
                 .WithEventTypes(_ => AllEventTypes(_, types))
                 .WithEventHorizons(_ =>
                 {
-                    var eventHorizons = EventHorizons.Load();
-                    foreach (var tenant in eventHorizons.Keys)
-                    {
-                        _.ForTenant(tenant, sb =>
-                        {
-                            foreach (var subscription in eventHorizons[tenant])
-                            {
-                                sb
-                                    .FromProducerMicroservice(subscription.Microservice)
-                                    .FromProducerTenant(subscription.Tenant)
-                                    .FromProducerStream(subscription.Stream)
-                                    .FromProducerPartition(subscription.Partition)
-                                    .ToScope(subscription.Scope);
-                            }
-                        });
-                    }
                 })
                 .WithFilters(_ =>
                 {
@@ -66,21 +51,7 @@ namespace Microsoft.Extensions.DependencyInjection
                             .Handle((e, ec) => Task.FromResult(new PartitionedFilterResult(true, PartitionId.Unspecified))));
                     }
 
-                    var eventHorizons = EventHorizons.Load();
-                    foreach (var tenant in eventHorizons.Keys)
-                    {
-                        foreach (var subscription in eventHorizons[tenant])
-                        {
-                            _.CreatePrivateFilter("f099003a-a37c-4106-9917-5ebe59bb908e", fb =>
-                            {
-                                fb.InScope(subscription.Scope).Unpartitioned().Handle(async (e, ec) =>
-                                {
-                                    await EventStreamSubscription.EventHandler(e, ec);
-                                    return true;
-                                });
-                            });
-                        }
-                    }
+                    AddDevelopmentFilters(_);
                 })
                 .WithProjections(_ => AllProjections(_, types))
                 .WithEventHandlers(_ => AllEventHandlerTypes(_, services, types));
@@ -108,6 +79,48 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddExecutionContext();
 
             DolittleClientBuilder = clientBuilder;
+        }
+
+        static void ConfigureEventHorizons(Dolittle.SDK.EventHorizon.SubscriptionsBuilder subscriptionsBuilder)
+        {
+            var eventHorizons = EventHorizons.Load();
+            foreach (var tenant in eventHorizons.Keys)
+            {
+                subscriptionsBuilder.ForTenant(tenant, tb =>
+                {
+                    foreach (var subscription in eventHorizons[tenant])
+                    {
+                        tb
+                            .FromProducerMicroservice(subscription.Microservice)
+                            .FromProducerTenant(subscription.Tenant)
+                            .FromProducerStream(subscription.Stream)
+                            .FromProducerPartition(subscription.Partition)
+                            .ToScope(subscription.Scope);
+                    }
+                });
+            }
+        }
+
+        static void AddDevelopmentFilters(EventFiltersBuilder eventFiltersBuilder)
+        {
+            if (RuntimeEnvironment.IsDevelopment)
+            {
+                var eventHorizons = EventHorizons.Load();
+                foreach (var tenant in eventHorizons.Keys)
+                {
+                    foreach (var subscription in eventHorizons[tenant])
+                    {
+                        eventFiltersBuilder.CreatePrivateFilter("f099003a-a37c-4106-9917-5ebe59bb908e", fb =>
+                        {
+                            fb.InScope(subscription.Scope).Unpartitioned().Handle(async (e, ec) =>
+                            {
+                                await EventStreamSubscription.EventHandler(e, ec);
+                                return true;
+                            });
+                        });
+                    }
+                }
+            }
         }
 
         static void AllEventTypes(EventTypesBuilder builder, ITypes types)

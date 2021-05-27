@@ -6,19 +6,19 @@ using Dolittle.SDK.Events;
 using HotChocolate;
 using HotChocolate.Subscriptions;
 using HotChocolate.Types;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 
 namespace Dolittle.Vanir.Backend.Dolittle
 {
-    public class EventForStream
-    {
-        public string Content { get; set; }
-    }
-
     public class EventStreamSubscription
     {
+        public class EventForStream
+        {
+            public string Content { get; set; }
+        }
+
+
         static ITopicEventSender _sender;
 
         static ITopicEventSender Sender
