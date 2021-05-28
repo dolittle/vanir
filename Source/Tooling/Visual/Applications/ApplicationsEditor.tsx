@@ -91,12 +91,12 @@ function createConnectionFrom(producer: string, consumer: string, producerHandle
         target: consumer!,
         targetHandle: consumerHandle!,
         animated: true,
-        label: 'Something',
+        /*label: 'Something',
         labelShowBg: false,
         labelStyle: {
             fill: '#fff',
             fontWeight: 700
-        },
+        },*/
         arrowHeadType: ArrowHeadType.Arrow,
         style: {
             stroke: '#fff'
