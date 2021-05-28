@@ -11,19 +11,19 @@ namespace Dolittle.Vanir.CLI.Tenants
 {
     public class Init : ICommandHandler
     {
-        readonly ContextOf<MicroserviceContext> _getMicroserviceContext;
+        readonly ContextOf<ApplicationContext> _getApplicationContext;
 
-        public Init(ContextOf<MicroserviceContext> getMicroserviceContext)
+        public Init(ContextOf<ApplicationContext> getApplicationContext)
         {
-            _getMicroserviceContext = getMicroserviceContext;
+            _getApplicationContext = getApplicationContext;
         }
 
         public Task<int> InvokeAsync(InvocationContext context)
         {
-            var microserviceContext = _getMicroserviceContext();
+            var microserviceContext = _getApplicationContext();
             var tenants = microserviceContext.GetTenants();
             microserviceContext.SaveTenants(new Guid[] { TenantId.Development });
-            var view = new ListTenantsView(_getMicroserviceContext());
+            var view = new ListTenantsView(_getApplicationContext());
             context.Render(view);
 
             return Task.FromResult(0);

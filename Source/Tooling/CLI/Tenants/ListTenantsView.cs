@@ -9,16 +9,16 @@ namespace Dolittle.Vanir.CLI.Tenants
 {
     public class ListTenantsView : StackLayoutView
     {
-        public ListTenantsView(MicroserviceContext microserviceContext)
+        public ListTenantsView(ApplicationContext applicationContext)
         {
             Add(new ContentView(""));
             Add(new ContentView("TENANTS FOR".Underline()));
-            Add(new ContentView($"Application : {microserviceContext.Application.Application.Name} ({microserviceContext.Application.Application.Id})"));
+            Add(new ContentView($"Application : {applicationContext.Application.Name} ({applicationContext.Application.Id})"));
             Add(new ContentView(""));
 
             var table = new TableView<Guid>
             {
-                Items = microserviceContext.GetTenants()
+                Items = applicationContext.GetTenants()
             };
             table.AddColumn(_ => _, new ContentView("ID".Underline()));
             Add(table);
