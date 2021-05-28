@@ -1,3 +1,5 @@
+// Copyright (c) Dolittle. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 import 'reflect-metadata';
 
 import React from 'react';
@@ -13,7 +15,7 @@ import './index.scss';
 import { App } from './App';
 
 ReactDOM.render(
-    <Bootstrapper name="Typescript" prefix="/_/typescript" version={version}>
+    <Bootstrapper name="Shop" prefix="/_/shop" version={version}>
         <App />
     </Bootstrapper>,
     document.getElementById('root')

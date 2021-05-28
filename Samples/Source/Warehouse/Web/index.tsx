@@ -1,3 +1,6 @@
+// Copyright (c) Dolittle. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
 import 'reflect-metadata';
 
 import React from 'react';
@@ -13,7 +16,7 @@ import './index.scss';
 import { App } from './App';
 
 ReactDOM.render(
-    <Bootstrapper name="Aspnetcore" prefix="/_/aspnetcore" version={version}>
+    <Bootstrapper name="Warehouse" prefix="/_/warehouse" version={version}>
         <App />
     </Bootstrapper>,
     document.getElementById('root')

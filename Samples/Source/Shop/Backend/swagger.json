@@ -19,20 +19,7 @@
 		}
 	},
 	"openapi": "3.0.0",
-	"paths": {
-		"/api/typescript/my-controller": {
-			"get": {
-				"operationId": "DoStuff",
-				"responses": {
-					"204": {
-						"description": "No content"
-					}
-				},
-				"security": [],
-				"parameters": []
-			}
-		}
-	},
+	"paths": {},
 	"servers": [
 		{
 			"url": "/"

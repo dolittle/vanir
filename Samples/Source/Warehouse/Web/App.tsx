@@ -7,13 +7,11 @@ import { useFeature, withViewModel } from '@dolittle/vanir-react';
 import { AppViewModel } from './AppViewModel';
 
 export const App = withViewModel(AppViewModel, ({ viewModel }) => {
-    const myFirstMethodFeature = useFeature('my.first.method.feature');
-    const myFirstClassFeature = useFeature('my.first.class.feature');
+    const materialFeature = useFeature('materials');
 
     return (
         <>
-            <Toggle label="my.first.method.feature" checked={myFirstMethodFeature} onText="On" offText="Off" />
-            <Toggle label="my.first.class.feature" checked={myFirstClassFeature} onText="On" offText="Off" />
+            <Toggle label="Material feature" checked={materialFeature} onText="On" offText="Off" />
         </>
     );
 });

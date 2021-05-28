@@ -1,7 +1,7 @@
 {
     "microserviceId": "8dba121d-b589-8344-9c0c-eb60f5848c98",
     "isRooted": false,
-    "routeSegment": "typescript",
+    "routeSegment": "shop",
     "port": 3003,
     "publicPath": "./public",
     "dolittle": {

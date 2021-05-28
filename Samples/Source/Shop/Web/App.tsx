@@ -9,13 +9,11 @@ import { useFeature } from '@dolittle/vanir-react';
 import { Toggle } from '@fluentui/react';
 
 export const App = withViewModel(AppViewModel, ({ viewModel }) => {
-    const myFirstMethodFeature = useFeature('my.first.method.feature');
-    const myFirstClassFeature = useFeature('my.first.class.feature');
+    const cartFeature = useFeature('cart');
 
     return (
         <>
-            <Toggle label="my.first.method.feature" checked={myFirstMethodFeature} onText="On" offText="Off" />
-            <Toggle label="my.first.class.feature" checked={myFirstClassFeature} onText="On" offText="Off" />
+            <Toggle label="cart" checked={cartFeature} onText="On" offText="Off" />
         </>
     );
 });

@@ -1,6 +1,6 @@
 {
     "id": "77628df0-f46f-2e46-87a6-bc5a75578bcf",
-    "name": "SampleApp",
+    "name": "eCommerce",
     "tenant": "Dolittle",
     "license": "MIT",
     "containerRegistry": "hub.docker.com",

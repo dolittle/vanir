@@ -1,19 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Security.Claims;
-using System.Threading.Tasks;
+// Copyright (c) Dolittle. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
 using Autofac;
 using Dolittle.SDK;
-using HotChocolate.Configuration;
 using HotChocolate.Execution.Configuration;
-using HotChocolate.Language;
-using HotChocolate.Resolvers;
-using HotChocolate.Types;
-using HotChocolate.Types.Descriptors;
-using HotChocolate.Types.Descriptors.Definitions;
-using HotChocolate.Utilities;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,20 +12,6 @@ using Serilog;
 
 namespace Backend
 {
-    public class MyPolicy : IAuthorizationService
-    {
-        public Task<AuthorizationResult> AuthorizeAsync(ClaimsPrincipal user, object resource, IEnumerable<IAuthorizationRequirement> requirements)
-        {
-            return Task.FromResult(AuthorizationResult.Failed());
-        }
-
-        public Task<AuthorizationResult> AuthorizeAsync(ClaimsPrincipal user, object resource, string policyName)
-        {
-            return Task.FromResult(AuthorizationResult.Failed());
-        }
-    }
-
-
     public class Startup
     {
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -45,17 +21,11 @@ namespace Backend
             var loggerFactory = new LoggerFactory();
             loggerFactory.AddSerilog(Log.Logger);
 
-            services.AddAuthorization(options => options
-                .AddPolicy("MyPolicy", policy =>
-                 policy.RequireClaim("Admin")));
-
             services.AddVanirWithCommon(new()
             {
                 LoggerFactory = loggerFactory,
                 GraphQLExecutorBuilder = (IRequestExecutorBuilder _) =>
                 {
-                    _.BindRuntimeType<UserId, StringType>();
-                    _.AddTypeConverter<string, UserId>(input => new UserId { Value = Guid.Parse("2c6b9328-93b6-4c84-9523-9a7b2b745f64") });
                 },
                 DolittleClientBuilderCallback = (ClientBuilder _) =>
                 {

@@ -5,26 +5,19 @@ import 'reflect-metadata';
 import { Host } from '@dolittle/vanir-backend';
 import { RegisterRoutes } from './routes';
 const swaggerDoc = require('./swagger.json');
-import * as applications from './applications';
-import { Bakery } from './groceryStore/bakery/Bakery';
-import { NoQueries } from './NoQueries';
-import { MyEvent } from './MyEvent';
+import * as cart from './cart';
 
 (async () => {
     await Host.start({
         swaggerDoc,
         graphQLResolvers: [
-            ...applications.CommandHandlers,
-            ...applications.Queries,
-            Bakery,
-            NoQueries
+            cart.Mutations,
+            cart.Queries
         ],
         eventTypes: [
-            ...applications.EventTypes,
-            MyEvent
+            ...cart.Events
         ],
         eventHandlerTypes: [
-            ...applications.EventHandlers
         ],
         expressCallback: (app) => {
             RegisterRoutes(app);
