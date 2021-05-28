@@ -1,13 +1,19 @@
 {
-    "name": "vscode",
-    "displayName": "vscode",
-    "version": "9.29.5",
+    "name": "dolittle",
+    "displayName": "Dolittle",
+    "version": "9.30.1",
     "description": "",
     "author": "Dolittle",
+    "publisher": "Dolittle",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/dolittle-entropy/vanir.git",
+        "directory": "Source/Tooling/vscode"
+    },
+    "icon": "icon.png",
     "license": "MIT",
     "private": true,
     "publishConfig": {
-
         "access": "public"
     },
     "engines": {
@@ -48,7 +54,7 @@
         "clean": "tsc -b --clean",
         "compile": "webpack",
         "start:dev": "concurrently \"yarn --cwd ../Visual start:vscode\" \"webpack --watch\"",
-        "build": "webpack --mode production --devtool hidden-source-map",
+        "package": "webpack --mode production --devtool hidden-source-map && yarn --cwd ../Visual build",
         "lint": "eslint --cache . --ext .ts,.tsx --quiet --fix",
         "lint:ci": "eslint --cache . --ext .ts,.tsx --quiet",
         "test": "mocha",
