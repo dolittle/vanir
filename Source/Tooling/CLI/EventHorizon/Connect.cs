@@ -200,7 +200,8 @@ namespace Dolittle.Vanir.CLI.EventHorizon
                 _.Microservice == eventHorizon.Microservice &&
                 _.Tenant == eventHorizon.Tenant &&
                 _.Stream == eventHorizon.Stream &&
-                _.Partition == eventHorizon.Partition))
+                _.Partition == eventHorizon.Partition &&
+                _.Scope == eventHorizon.Scope))
             {
                 context.Console.Error.Write($"There already is an event horizon for '{consumer.Microservice.Name} ({consumer.Microservice.Id}' registered in producer '{producer.Microservice.Name} ({producer.Microservice.Id})'");
                 Environment.Exit(-1);

@@ -48,8 +48,11 @@ export type Microservice = {
     commit: string;
     built: string;
     web: boolean,
+    root: string;
     eventHorizons: EventHorizons;
     eventHorizonConsents: EventHorizonConsents;
+    eventHorizonsFile: string;
+    eventHorizonConsentsFile: string;
     layout: MicroserviceLayout;
 };
 
@@ -61,6 +64,8 @@ export type Application = {
     license: string;
     containerRegistry: string;
     portal: Portal;
+    root: string;
+    tenants: string[];
     microservices: Microservice[];
 };
 
