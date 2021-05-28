@@ -10,10 +10,23 @@ const nodeTypes = {
     microservice: MicroserviceNode,
 };
 
-
 export type MicroserviceLayout = {
     left: number;
     top: number;
+};
+
+export type EventHorizonLayout = {
+    producer: string;
+    consumer: string;
+    producerHandle: string;
+    consumerHandle: string;
+};
+
+export type MicroserviceLayouts = { [key: string]: MicroserviceLayout };
+
+export type ApplicationLayout = {
+    microservices: MicroserviceLayouts;
+    eventHorizonLayouts: EventHorizonLayout[];
 };
 
 export type Portal = {
@@ -67,8 +80,29 @@ export type Application = {
     root: string;
     tenants: string[];
     microservices: Microservice[];
+    layout: ApplicationLayout;
 };
 
+function createConnectionFrom(producer: string, consumer: string, producerHandle: string, consumerHandle: string): Edge {
+    return {
+        id: `${producer}${producerHandle}-${consumer}${consumerHandle}`,
+        source: producer!,
+        sourceHandle: producerHandle!,
+        target: consumer!,
+        targetHandle: consumerHandle!,
+        animated: true,
+        label: 'Something',
+        labelShowBg: false,
+        labelStyle: {
+            fill: '#fff',
+            fontWeight: 700
+        },
+        arrowHeadType: ArrowHeadType.Arrow,
+        style: {
+            stroke: '#fff'
+        }
+    } as any;
+}
 
 function getElementsFrom(json: string): any[] {
     const application = JSON.parse(json) as Application;
@@ -82,6 +116,14 @@ function getElementsFrom(json: string): any[] {
         };
     });
 
+    if (application.layout && application.layout.eventHorizonLayouts) {
+        const connections = application.layout.eventHorizonLayouts.map(_ => {
+            return createConnectionFrom(_.producer, _.consumer, _.producerHandle, _.consumerHandle);
+        });
+
+        connections.forEach(_ => elements.push(_ as any));
+    }
+
     return elements;
 }
 
@@ -90,24 +132,7 @@ export const ApplicationsEditor = () => {
     const [elements, setElements] = useState<Edge[] | Connection[]>([]);
 
     const onConnect = (connection: Edge | Connection) => {
-        const newConnection: Edge = {
-            id: `${connection.source}${connection.sourceHandle}-${connection.target}${connection.targetHandle}`,
-            source: connection.source!,
-            sourceHandle: connection.sourceHandle!,
-            target: connection.target!,
-            targetHandle: connection.targetHandle!,
-            animated: true,
-            label: 'Something',
-            labelShowBg: false,
-            labelStyle: {
-                fill: '#fff',
-                fontWeight: 700
-            },
-            arrowHeadType: ArrowHeadType.Arrow,
-            style: {
-                stroke: '#fff'
-            }
-        };
+        const newConnection: Edge = createConnectionFrom(connection.source!, connection.target!, connection.sourceHandle!, connection.targetHandle!);
 
         vscode.postMessage({
             type: 'connect',

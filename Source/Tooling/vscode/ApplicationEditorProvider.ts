@@ -18,7 +18,7 @@ export type EventHorizonLayout = {
     consumer: string;
     producerHandle: string;
     consumerHandle: string;
-}
+};
 
 export type MicroserviceLayouts = { [key: string]: MicroserviceLayout };
 
@@ -77,6 +77,7 @@ export type Application = {
     root: string;
     tenants: string[];
     microservices: Microservice[];
+    layout: ApplicationLayout;
 };
 
 export type ApplicationDefinition = {
@@ -168,6 +169,17 @@ export class ApplicationEditorProvider extends VisualEditor {
 
                         this.saveEventHorizonConsents(producer);
                         this.saveEventHorizons(consumer);
+
+                        layout.eventHorizonLayouts = layout.eventHorizonLayouts || [];
+
+                        layout.eventHorizonLayouts.push({
+                            producer: producer.id,
+                            consumer: consumer.id,
+                            producerHandle: e.data.producerHandle,
+                            consumerHandle: e.data.consumerHandle
+                        });
+
+                        this.saveLayoutFor(document, layout);
                     }
 
                 } break;
@@ -257,6 +269,7 @@ export class ApplicationEditorProvider extends VisualEditor {
 
         const application: Application = { ...(applicationDefinition as any) };
         application.root = applicationDirectory;
+        application.layout = applicationLayout;
 
         const tenantsFile = path.join(applicationDirectory, '.dolittle', 'tenants');
         if (fs.existsSync(tenantsFile)) {
@@ -311,7 +324,7 @@ export class ApplicationEditorProvider extends VisualEditor {
     private loadLayoutFor(document: vscode.TextDocument): ApplicationLayout {
         const applicationDirectory = path.dirname(document.fileName);
         const applicationLayoutFile = path.join(applicationDirectory, 'application.layout');
-        let applicationLayout: ApplicationLayout = { microservices: {} };
+        let applicationLayout: ApplicationLayout = { microservices: {}, eventHorizonLayouts: [] };
         if (fs.existsSync(applicationLayoutFile)) {
             const json = fs.readFileSync(applicationLayoutFile).toString();
             applicationLayout = JSON.parse(json) as ApplicationLayout;

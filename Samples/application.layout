@@ -1,16 +1,24 @@
 {
   "microservices": {
     "0993eb39-1ddb-2b46-bdc6-517d45e7cff5": {
-      "left": 245,
-      "top": 355
+      "left": 254,
+      "top": 392
     },
     "6e24ebf1-f724-a54d-9553-1c61f5e9f83f": {
-      "left": 907,
-      "top": 542
+      "left": 888,
+      "top": 422
     },
     "8dba121d-b589-8344-9c0c-eb60f5848c98": {
-      "left": 551,
-      "top": 666
+      "left": 543,
+      "top": 612
     }
-  }
+  },
+  "eventHorizonLayouts": [
+    {
+      "producer": "6e24ebf1-f724-a54d-9553-1c61f5e9f83f",
+      "consumer": "8dba121d-b589-8344-9c0c-eb60f5848c98",
+      "producerHandle": "b-source",
+      "consumerHandle": "c-target"
+    }
+  ]
 }
