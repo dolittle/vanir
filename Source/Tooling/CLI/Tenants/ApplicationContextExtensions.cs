@@ -10,14 +10,12 @@ using Newtonsoft.Json;
 
 namespace Dolittle.Vanir.CLI.Tenants
 {
-
-    public static class MicroserviceContextExtensions
+    public static class ApplicationContextExtensions
     {
-        public static Guid[] GetTenants(this MicroserviceContext context)
+        public static Guid[] GetTenants(this ApplicationContext context)
         {
             var tenantFiles = new string[] {
-                Path.Combine(context.DolittleFolder, "tenants.json"),
-                Path.Combine(context.Application.DolittleFolder, "tenants.json")
+                Path.Combine(context.DolittleFolder, "tenants.json")
             };
 
             foreach (var file in tenantFiles)
@@ -32,14 +30,12 @@ namespace Dolittle.Vanir.CLI.Tenants
             return Array.Empty<Guid>();
         }
 
-        public static void SaveTenants(this MicroserviceContext context, Guid[] tenants)
+        public static void SaveTenants(this ApplicationContext context, Guid[] tenants)
         {
-            var microserviceTenants = Path.Combine(context.DolittleFolder, "tenants.json");
-            var applicationTenants = Path.Combine(context.Application.DolittleFolder, "tenants.json");
-            var file = File.Exists(microserviceTenants) ? microserviceTenants : applicationTenants;
+            var tenantsFile = Path.Combine(context.DolittleFolder, "tenants.json");
             var dictionary = tenants.ToDictionary(_ => _, _ => new object());
             var json = JsonConvert.SerializeObject(dictionary, SerializerSettings.Default);
-            File.WriteAllText(file, json);
+            File.WriteAllText(tenantsFile, json);
         }
     }
 }
