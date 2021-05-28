@@ -42,6 +42,22 @@ namespace Microsoft.Extensions.DependencyInjection
                 .WithEventTypes(_ => AllEventTypes(_, types))
                 .WithEventHorizons(_ =>
                 {
+                    var eventHorizons = EventHorizons.Load();
+                    foreach (var tenant in eventHorizons.Keys)
+                    {
+                        _.ForTenant(tenant, sb =>
+                        {
+                            foreach (var subscription in eventHorizons[tenant])
+                            {
+                                sb
+                                    .FromProducerMicroservice(subscription.Microservice)
+                                    .FromProducerTenant(subscription.Tenant)
+                                    .FromProducerStream(subscription.Stream)
+                                    .FromProducerPartition(subscription.Partition)
+                                    .ToScope(subscription.Scope);
+                            }
+                        });
+                    }
                 })
                 .WithFilters(_ =>
                 {
