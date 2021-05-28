@@ -90,7 +90,7 @@ namespace Dolittle.Vanir.CLI.EventHorizon
 
         void SetupConsentsForAllTenants(InvocationContext context, MicroserviceContext producerMicroserviceContext, MicroserviceContext consumerMicroserviceContext, EventHorizonConsents consentsPerTenant)
         {
-            foreach (var tenant in producerMicroserviceContext.GetTenants())
+            foreach (var tenant in producerMicroserviceContext.Application.GetTenants())
             {
                 var consents = new List<EventHorizonConsent>();
                 if (consentsPerTenant.ContainsKey(tenant))
@@ -120,7 +120,7 @@ namespace Dolittle.Vanir.CLI.EventHorizon
 
         void SetupEventHorizonsForAllTenants(InvocationContext context, MicroserviceContext producerMicroserviceContext, MicroserviceContext consumerMicroserviceContext, EventHorizons eventHorizonsPerTenant)
         {
-            foreach (var tenant in producerMicroserviceContext.GetTenants())
+            foreach (var tenant in producerMicroserviceContext.Application.GetTenants())
             {
                 var eventHorizons = new List<EventHorizonDefinition>();
                 if (eventHorizonsPerTenant.ContainsKey(tenant))

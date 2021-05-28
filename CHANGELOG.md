@@ -1,3 +1,10 @@
+# [9.30.1] - 2021-5-28 [PR: #253](https://github.com/dolittle/vanir/pull/253)
+### Fixed
+
+- [CLI] Ignore if the `features.json` file does not exist and create it when adding a feature.
+- [CLI] Scoping of tenants was wrong - we want it to be scoped right now for application level
+
+
 # [9.30.0] - 2021-5-28 [PR: #252](https://github.com/dolittle/vanir/pull/252)
 ### Added
 

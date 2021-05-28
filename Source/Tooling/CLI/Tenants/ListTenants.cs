@@ -9,16 +9,16 @@ namespace Dolittle.Vanir.CLI.Tenants
 {
     public class ListTenants : ICommandHandler
     {
-        readonly ContextOf<MicroserviceContext> _getMicroserviceContext;
+        readonly ContextOf<ApplicationContext> _getApplicationContext;
 
-        public ListTenants(ContextOf<MicroserviceContext> getMicroserviceContext)
+        public ListTenants(ContextOf<ApplicationContext> getApplicationContext)
         {
-            _getMicroserviceContext = getMicroserviceContext;
+            _getApplicationContext = getApplicationContext;
         }
 
         public Task<int> InvokeAsync(InvocationContext context)
         {
-            var view = new ListTenantsView(_getMicroserviceContext());
+            var view = new ListTenantsView(_getApplicationContext());
             context.Render(view);
             return Task.FromResult(0);
         }

@@ -102,9 +102,11 @@ namespace Dolittle.Vanir.CLI.Contexts
             var file = Path.Join(microserviceContext.DolittleFolder, "features.json");
             if (!File.Exists(file))
             {
-                Console.Error.WriteLine("`features.json` was not found in the data directory of current directory.");
-                Environment.Exit(-1);
-                return null;
+                return new()
+                {
+                    Features = new(),
+                    File = file
+                };
             }
 
             var json = File.ReadAllText(file);

@@ -12,18 +12,18 @@ namespace Dolittle.Vanir.CLI.Tenants
     public class RemoveTenant : ICommandHandler
     {
         public const string Id = "id";
-        readonly ContextOf<MicroserviceContext> _getMicroserviceContext;
+        readonly ContextOf<ApplicationContext> _getApplicationContext;
 
-        public RemoveTenant(ContextOf<MicroserviceContext> getMicroserviceContext)
+        public RemoveTenant(ContextOf<ApplicationContext> getApplicationContext)
         {
-            _getMicroserviceContext = getMicroserviceContext;
+            _getApplicationContext = getApplicationContext;
         }
 
         public Task<int> InvokeAsync(InvocationContext context)
         {
             var tenantId = context.ParseResult.ValueForArgument<Guid>(Id);
-            var microserviceContext = _getMicroserviceContext();
-            var tenants = microserviceContext.GetTenants();
+            var applicationContext = _getApplicationContext();
+            var tenants = applicationContext.GetTenants();
 
             if (!tenants.Any(_ => _ == tenantId))
             {
@@ -33,9 +33,9 @@ namespace Dolittle.Vanir.CLI.Tenants
             }
 
             tenants = tenants.Where(_ => _ != tenantId).ToArray();
-            microserviceContext.SaveTenants(tenants);
+            applicationContext.SaveTenants(tenants);
 
-            var view = new ListTenantsView(_getMicroserviceContext());
+            var view = new ListTenantsView(_getApplicationContext());
             context.Render(view);
 
             return Task.FromResult(0);
