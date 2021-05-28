@@ -1,3 +1,9 @@
+# [9.30.2] - 2021-5-28 [PR: #254](https://github.com/dolittle/vanir/pull/254)
+### Fixed
+
+- [C#] Hooked up the last piece of the puzzle for `event-horizons.json` to be parsed and set up. Forgotten to that.
+
+
 # [9.30.1] - 2021-5-28 [PR: #253](https://github.com/dolittle/vanir/pull/253)
 ### Fixed
 
