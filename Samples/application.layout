@@ -1,0 +1,30 @@
+{
+  "microservices": {
+    "0993eb39-1ddb-2b46-bdc6-517d45e7cff5": {
+      "left": 1096,
+      "top": 228
+    },
+    "6e24ebf1-f724-a54d-9553-1c61f5e9f83f": {
+      "left": 1004,
+      "top": 511
+    },
+    "8dba121d-b589-8344-9c0c-eb60f5848c98": {
+      "left": 645,
+      "top": 247
+    }
+  },
+  "eventHorizonLayouts": [
+    {
+      "producer": "6e24ebf1-f724-a54d-9553-1c61f5e9f83f",
+      "consumer": "8dba121d-b589-8344-9c0c-eb60f5848c98",
+      "producerHandle": "b-source",
+      "consumerHandle": "c-target"
+    },
+    {
+      "producer": "6e24ebf1-f724-a54d-9553-1c61f5e9f83f",
+      "consumer": "0993eb39-1ddb-2b46-bdc6-517d45e7cff5",
+      "producerHandle": "a-source",
+      "consumerHandle": "d-target"
+    }
+  ]
+}

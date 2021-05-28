@@ -20,16 +20,17 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build CLI",
-            "program": "${workspaceFolder}/Source/Tooling/CLI/bin/Debug/net5.0/Dolittle.Vanir.CLI.dll",
+            "program": "${workspaceFolder}/Source/Tooling/CLI/bin/Debug/net5.0/vanir.dll",
             // "args": [
             //     "features",
             //     "add",
             //     "something",
             //     "\"My fancy new feature\""
             // ],
-            "args": ["features", "on", "blah"],
+            //"args": ["microservices", "list"],
+            "args": ["eventhorizon", "connect", "Typescript", "AspNetCore"],
             //"args": ["proxy", "../../../Samples/Source/Aspnetcore/Backend/bin/Debug/net5.0/Backend.dll", "../../../Samples/Source/Aspnetcore/Web/proxies"],
-            "cwd": "${workspaceFolder}/Samples/Source/Aspnetcore/Backend",
+            "cwd": "${workspaceFolder}/Samples/Source/Aspnetcore",
             "stopAtEntry": false,
             "console": "internalConsole"
         },

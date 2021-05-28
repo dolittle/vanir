@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Threading;
 using System.Threading.Tasks;
 using Dolittle.SDK.Concepts;
 using Dolittle.Vanir.Backend;
@@ -17,13 +16,8 @@ using Dolittle.Vanir.Backend.GraphQL.Concepts;
 using Dolittle.Vanir.Backend.GraphQL.Validation;
 using Dolittle.Vanir.Backend.Reflection;
 using FluentValidation;
-using HotChocolate;
-using HotChocolate.Configuration;
-using HotChocolate.Subscriptions;
 using HotChocolate.Types;
 using HotChocolate.Types.Descriptors;
-using HotChocolate.Types.Descriptors.Definitions;
-using Microsoft.AspNetCore.Builder;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -62,7 +56,7 @@ namespace Microsoft.Extensions.DependencyInjection
                                     .AddGraphQLServer()
                                     .AddInMemorySubscriptions()
                                     .AddDirectiveType<FeatureDirectiveType>()
-                                    .ModifyRequestOptions(opt => opt.IncludeExceptionDetails = RuntimeEnvironment.isDevelopment)
+                                    .ModifyRequestOptions(opt => opt.IncludeExceptionDetails = RuntimeEnvironment.IsDevelopment)
                                     .TryAddTypeInterceptor<ReadOnlyPropertyInterceptor>()
                                     .AddAuthorization()
                                     .UseFluentValidation()
@@ -85,6 +79,7 @@ namespace Microsoft.Extensions.DependencyInjection
             Expression<Func<FeaturesSubscriptionsResolver, Task<FeatureNotification>>> newFeaturesMethod = (FeaturesSubscriptionsResolver resolver) => resolver.system_newFeatures(null);
             subscriptions.AddItem(new SchemaRouteItem(newFeaturesMethod.GetMethodInfo(), "system_newFeatures"));
 
+
             types.FindMultiple(typeof(ConceptAs<>)).ForEach(_ => graphQLBuilder.AddConceptTypeConverter(_));
             types.All.Where(_ => _.IsEnum).ForEach(type =>
             {
@@ -94,9 +89,14 @@ namespace Microsoft.Extensions.DependencyInjection
 
             arguments?.GraphQLExecutorBuilder(graphQLBuilder);
 
-            if (RuntimeEnvironment.isDevelopment)
+            if (RuntimeEnvironment.IsDevelopment)
             {
-                if (arguments.ExposeEventsInGraphQLSchema) mutations.AddEventsAsMutations(types);
+                if (arguments.ExposeEventsInGraphQLSchema)
+                {
+                    mutations.AddEventsAsMutations(types);
+                    Expression<Func<EventStreamSubscription, Task<EventStreamSubscription.EventForStream>>> eventStreamMethod = (EventStreamSubscription resolver) => resolver.system_eventStream(null);
+                    subscriptions.AddItem(new SchemaRouteItem(eventStreamMethod.GetMethodInfo(), "system_eventStream"));
+                }
                 graphQLBuilder.AddApolloTracing();
             }
 

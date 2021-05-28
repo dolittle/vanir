@@ -1,6 +1,6 @@
 {
     "name": "@dolittle/vanir-tooling-visual",
-    "version": "9.29.4",
+    "version": "9.29.5",
     "description": "",
     "author": "Dolittle",
     "license": "MIT",
@@ -42,9 +42,9 @@
     },
     "dependencies": {
         "@dolittle/rudiments": "5.0.1",
-        "@dolittle/vanir-dependency-inversion": "9.29.4",
-        "@dolittle/vanir-react": "9.29.4",
-        "@dolittle/vanir-web": "9.29.4",
+        "@dolittle/vanir-dependency-inversion": "9.29.5",
+        "@dolittle/vanir-react": "9.29.5",
+        "@dolittle/vanir-web": "9.29.5",
         "@fluentui/react": "8.14.4",
         "@fluentui/react-hooks": "8.2.0",
         "@fluentui/react-icons": "1.1.123",

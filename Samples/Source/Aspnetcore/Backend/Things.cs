@@ -18,6 +18,24 @@ using MongoDB.Driver;
 
 namespace Backend
 {
+    [EventType("5ff11df2-68e6-4890-8cae-b22fd1e3c8b5")]
+    public class MyEvent
+    {
+        public int Something { get; set; }
+    }
+
+    [EventHandler("a5023ef8-0226-49c7-bfa2-256c4f3aa6e0", inScope:"8dba121d-b589-8344-9c0c-eb60f5848c98")]
+    public class MyEventHandler2
+    {
+
+        public Task Handle(MyEvent @event, EventContext context)
+        {
+            Console.WriteLine("HEllo world");
+            return Task.CompletedTask;
+        }
+    }
+
+
     /*
     public class CommonObjectScalar : ScalarType
     {

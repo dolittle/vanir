@@ -4,7 +4,7 @@ Vanir provides an end to end holistic approach to feature toggling.
 
 ## File
 
-At the core of the system sits a file that is expected to be located at `data/features.json` within the
+At the core of the system sits a file that is expected to be located at `.dolittle/features.json` within the
 running backend. The expected format is as follows:
 
 ```json

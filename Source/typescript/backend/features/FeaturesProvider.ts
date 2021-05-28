@@ -2,15 +2,15 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 import fs from 'fs';
+import path from 'path';
 
-import { Features, IFeaturesProvider } from '@dolittle/vanir-features';
+import { Features, IFeaturesProvider, IFeaturesParser } from '@dolittle/vanir-features';
 import { injectable } from 'tsyringe';
 import { Observable, BehaviorSubject } from 'rxjs';
 
 import chokidar from 'chokidar';
-import { IFeaturesParser } from '../../features/IFeaturesParser';
 
-const featuresPath = './data/features.json';
+const featuresPath = path.join('.dolittle', 'features.json');
 
 /**
  * Represents an implementation of {@link IFeaturesProvider}.

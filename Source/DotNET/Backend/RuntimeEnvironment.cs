@@ -12,12 +12,12 @@ namespace Dolittle.Vanir.Backend
     {
         static RuntimeEnvironment()
         {
-            isDevelopment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development";
+            IsDevelopment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development";
         }
 
         /// <summary>
         /// Gets whether or not we're running in development or not.
         /// </summary>
-        public static readonly bool isDevelopment;
+        public static readonly bool IsDevelopment;
     }
 }
