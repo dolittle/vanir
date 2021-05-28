@@ -1,3 +1,19 @@
+# [9.30.0] - 2021-5-28 [PR: #252](https://github.com/dolittle/vanir/pull/252)
+### Added
+
+- [CLI] Ability to list and add tenants for an application.
+- [CLI] Ability to list microservices within an application
+- [CLI] Ability to connect event horizons between microservices - "happy path"
+- Support for `event-horizons.json` file automatically loaded if present and hooked up to avoid having to write code for setting up event horizon subscriptions.
+- Added support for committing public events from GraphQL endpoints
+- [C#] GraphQL subscription for watching events from public events
+- [VScode] Experimental editor for working with `application.json` files in a more user friendly way.
+
+### Fixed
+
+- [TS] GraphQL endpoint for committing events now support object type - which can be any
+
+
 # [9.29.5] - 2021-5-25 [PR: #250](https://github.com/dolittle/vanir/pull/250)
 ### Fixed
 
