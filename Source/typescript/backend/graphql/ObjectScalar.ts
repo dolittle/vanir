@@ -50,8 +50,7 @@ export const ObjectScalar = new GraphQLScalarType({
                 }
 
                 return event;
-
-            };
+            }
             default: return null;
         }
     }
