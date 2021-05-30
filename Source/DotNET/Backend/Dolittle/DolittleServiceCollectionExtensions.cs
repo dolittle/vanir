@@ -40,25 +40,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 .WithLogging(arguments.LoggerFactory)
                 .WithRuntimeOn(configuration.Dolittle.Runtime.Host, configuration.Dolittle.Runtime.Port)
                 .WithEventTypes(_ => AllEventTypes(_, types))
-                .WithEventHorizons(_ =>
-                {
-                    var eventHorizons = EventHorizons.Load();
-                    foreach (var tenant in eventHorizons.Keys)
-                    {
-                        _.ForTenant(tenant, sb =>
-                        {
-                            foreach (var subscription in eventHorizons[tenant])
-                            {
-                                sb
-                                    .FromProducerMicroservice(subscription.Microservice)
-                                    .FromProducerTenant(subscription.Tenant)
-                                    .FromProducerStream(subscription.Stream)
-                                    .FromProducerPartition(subscription.Partition)
-                                    .ToScope(subscription.Scope);
-                            }
-                        });
-                    }
-                })
+                .WithEventHorizons(_ => ConfigureEventHorizons(_))
                 .WithFilters(_ =>
                 {
                     if (arguments?.PublishAllPublicEvents == true)
