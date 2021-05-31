@@ -1,3 +1,9 @@
+# [9.30.3] - 2021-5-31 [PR: #256](https://github.com/dolittle/vanir/pull/256)
+### Fixed
+
+- [C#] Adding `.ConfigureAwait(false)` to all async calls - adhering to the recommendations for libraries based on the following article; https://devblogs.microsoft.com/dotnet/configureawait-faq/
+
+
 # [9.30.2] - 2021-5-28 [PR: #254](https://github.com/dolittle/vanir/pull/254)
 ### Fixed
 
