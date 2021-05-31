@@ -3,10 +3,21 @@
 
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
-        <NoWarn>RCS1090,RCS1018;RCS1194</NoWarn>
+        <NoWarn>RCS1018;RCS1194;CA1822</NoWarn>
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+        <RunAnalyzersDuringBuild>True</RunAnalyzersDuringBuild>
+        <RunAnalyzersDuringLiveAnalysis>True</RunAnalyzersDuringLiveAnalysis>
+        <RunAnalyzers>True</RunAnalyzers>
+        <CodeAnalysisTreatWarningsAsErrors>True</CodeAnalysisTreatWarningsAsErrors>
+        <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)/CodeAnalysis.ruleset</CodeAnalysisRuleSet>
     </PropertyGroup>
 
     <ItemGroup>
         <!--<PackageReference Include="Dolittle.Common" Version="2.*" PrivateAssets="All"/>-->
+
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Roslynator.Analyzers" Version="3.1.0"/>
     </ItemGroup>
 </Project>
