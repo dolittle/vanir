@@ -130,7 +130,7 @@ namespace Microsoft.Extensions.DependencyInjection
                         {
                             fb.InScope(subscription.Scope).Unpartitioned().Handle(async (e, ec) =>
                             {
-                                await EventStreamSubscription.EventHandler(e, ec);
+                                await EventStreamSubscription.EventHandler(e, ec).ConfigureAwait(false);
                                 return true;
                             });
                         });

@@ -22,11 +22,11 @@ namespace Dolittle.Vanir.Backend.Dolittle
             CommittedEvents committedEvents;
             if (isPublic)
             {
-                committedEvents = await _eventStore.CommitPublicEvent(@event, eventSourceId);
+                committedEvents = await _eventStore.CommitPublicEvent(@event, eventSourceId).ConfigureAwait(false);
             }
             else
             {
-                committedEvents = await _eventStore.CommitEvent(@event, eventSourceId);
+                committedEvents = await _eventStore.CommitEvent(@event, eventSourceId).ConfigureAwait(false);
             }
 
             if (committedEvents.HasEvents)

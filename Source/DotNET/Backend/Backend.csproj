@@ -5,7 +5,6 @@
         <AssemblyName>Dolittle.Vanir.Backend</AssemblyName>
         <RootNamespace>Dolittle.Vanir.Backend</RootNamespace>
         <IsPackable>true</IsPackable>
-        <NoWarn>RCS1090,RCS1018;RCS1194;CA1822</NoWarn>
     </PropertyGroup>
 
     <ItemGroup>

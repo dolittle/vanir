@@ -35,7 +35,7 @@ namespace Dolittle.Vanir.Backend.GraphQL.Validation
                 {
                     var instance = context.CallGenericMethod<object, IMiddlewareContext, NameString>(_ => _.ArgumentValue<object>, argument.Name, argument.RuntimeType);
                     var errors = new List<IError>();
-                    await CheckAndValidate(context, instance, argument.RuntimeType, errors, argument.Name);
+                    await CheckAndValidate(context, instance, argument.RuntimeType, errors, argument.Name).ConfigureAwait(false);
                     if (errors.Count > 0)
                     {
                         context.Result = errors;
@@ -44,7 +44,7 @@ namespace Dolittle.Vanir.Backend.GraphQL.Validation
                 }
             }
 
-            await _next(context);
+            await _next(context).ConfigureAwait(false);
         }
 
         async Task CheckAndValidate(IMiddlewareContext context, object instance, Type type, List<IError> errors, string propertyPath)
@@ -56,7 +56,7 @@ namespace Dolittle.Vanir.Backend.GraphQL.Validation
                 var validationContext = Activator.CreateInstance(validationContextType, instance) as IValidationContext;
                 foreach (var validator in validators)
                 {
-                    var result = await validator.ValidateAsync(validationContext);
+                    var result = await validator.ValidateAsync(validationContext).ConfigureAwait(false);
                     if (!result.IsValid)
                     {
                         CollectErrors(context, instance, result, errors, type, propertyPath);
@@ -74,7 +74,7 @@ namespace Dolittle.Vanir.Backend.GraphQL.Validation
                         if (propertyInstance != null)
                         {
                             var localPropertyPath = $"{propertyPath}.{property.Name.ToCamelCase()}";
-                            await CheckAndValidate(context, propertyInstance, property.PropertyType, errors, localPropertyPath);
+                            await CheckAndValidate(context, propertyInstance, property.PropertyType, errors, localPropertyPath).ConfigureAwait(false);
                         }
                     }
                 }

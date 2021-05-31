@@ -40,8 +40,8 @@ dotnet_naming_symbols.public_symbols.applicable_accessibilities                 
 dotnet_naming_symbols.public_symbols.required_modifiers                         = readonly
 dotnet_naming_symbols.types.required_modifiers                                  =
 
+dotnet_diagnostic.RCS1090.severity                                              = error
 dotnet_diagnostic.IDE0052.severity                                              = none
-dotnet_diagnostic.RCS1090.severity                                              = none
 dotnet_diagnostic.RCS1018.severity                                              = none
 dotnet_diagnostic.RCS1194.severity                                              = none
 dotnet_diagnostic.CA1822.severity                                               = none

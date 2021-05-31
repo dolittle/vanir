@@ -26,7 +26,7 @@ namespace Dolittle.Vanir.Backend.Features
                     Features = features.ToDefinitions().ToArray()
                 };
 
-                await sender.SendAsync("newFeatures", notification);
+                await sender.SendAsync("newFeatures", notification).ConfigureAwait(false);
             });
         }
 

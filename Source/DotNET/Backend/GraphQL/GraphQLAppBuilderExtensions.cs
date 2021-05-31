@@ -33,7 +33,7 @@ namespace Microsoft.AspNetCore.Builder
                 {
                     context.Request.Path = configuration.GraphQLPlaygroundRoute;
                 }
-                await next();
+                await next().ConfigureAwait(false);
             });
 
             FeaturesSubscriptionsResolver.Initialize(app);
