@@ -34,7 +34,7 @@ namespace Dolittle.Vanir.Backend.Dolittle
             await Sender.SendAsync("newEvent", new EventForStream
             {
                 Content = JsonConvert.SerializeObject(@event)
-            });
+            }).ConfigureAwait(false);
         }
 
         [Subscribe(MessageType = typeof(EventForStream))]

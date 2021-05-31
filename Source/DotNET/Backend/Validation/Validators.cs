@@ -70,7 +70,7 @@ namespace Dolittle.Vanir.Backend.Validation
             var context = new ValidationContext<T>(instanceToValidate);
             foreach (var validator in validators)
             {
-                var currentValidatorResult = await validator.ValidateAsync(context);
+                var currentValidatorResult = await validator.ValidateAsync(context).ConfigureAwait(false);
                 result = result.MergeWith(currentValidatorResult);
             }
 
