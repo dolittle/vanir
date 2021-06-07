@@ -199,8 +199,7 @@ namespace Dolittle.Vanir.Backend.Reflection
         /// <returns>True if the type implements the interface, false if not.</returns>
         public static bool HasInterface<T>(this Type type)
         {
-            var hasInterface = type.HasInterface(typeof(T));
-            return hasInterface;
+            return type.HasInterface(typeof(T));
         }
 
         /// <summary>
@@ -301,7 +300,7 @@ namespace Dolittle.Vanir.Backend.Reflection
         /// </summary>
         /// <param name="type"><see cref="Type"/> to get from.</param>
         /// <returns>The <see cref="ITypeInfo"/>.</returns>
-        internal static ITypeInfo GetTypeInfo(Type type)
+        internal static ITypeInfo GetTypeInfoDetails(this Type type)
         {
             var typeInfoType = typeof(TypeInfo<>).MakeGenericType(type);
             var instanceField = typeInfoType.GetTypeInfo().GetField("Instance", BindingFlags.Public | BindingFlags.Static);

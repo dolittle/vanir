@@ -47,6 +47,8 @@ namespace Dolittle.Vanir.Backend.Features
 
         [Subscribe(MessageType = typeof(FeatureNotification))]
         [Topic("newFeatures")]
+#pragma warning disable CA1707
         public Task<FeatureNotification> system_newFeatures([EventMessage] FeatureNotification notification) => Task.FromResult(notification);
+#pragma warning restore
     }
 }

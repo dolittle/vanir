@@ -18,18 +18,10 @@ namespace Dolittle.Vanir.Backend.Dolittle
             public string Content { get; set; }
         }
 
-
         static ITopicEventSender _sender;
+        static ITopicEventSender Sender => _sender ??= Container.ServiceProvider.GetService<ITopicEventSender>();
 
-        static ITopicEventSender Sender
-        {
-            get
-            {
-                return _sender ??= Container.ServiceProvider.GetService<ITopicEventSender>();
-            }
-        }
-
-        public static async Task EventHandler(object @event, EventContext context)
+        public static async Task EventHandler(object @event, EventContext _)
         {
             await Sender.SendAsync("newEvent", new EventForStream
             {
@@ -39,7 +31,8 @@ namespace Dolittle.Vanir.Backend.Dolittle
 
         [Subscribe(MessageType = typeof(EventForStream))]
         [Topic("newEvent")]
+#pragma warning disable CA1707
         public Task<EventForStream> system_eventStream([EventMessage] EventForStream @event) => Task.FromResult(@event);
-
+#pragma warning restore
     }
 }

@@ -34,7 +34,7 @@ namespace Dolittle.Vanir.Backend.GraphQL
                 if (!types.Contains(returnType)) types.Add(returnType);
             }
 
-            var typesToScan = types.Where(_ => !scannedTypes.Keys.Contains(_) && !_.Namespace.StartsWith("System"));
+            var typesToScan = types.Where(_ => !scannedTypes.Keys.Contains(_) && !_.Namespace.StartsWith("System", StringComparison.InvariantCultureIgnoreCase));
 
             void TypeScanner(Type type)
             {

@@ -7,7 +7,6 @@ using System.Reactive.Subjects;
 
 namespace Dolittle.Vanir.Backend.Features
 {
-
     /// <summary>
     /// Represents an implementation of <see cref="IFeaturesProvider"/>
     /// </summary>

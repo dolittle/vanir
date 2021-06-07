@@ -8,7 +8,7 @@ namespace Dolittle.Vanir.Backend.Config
     public class Configuration
     {
         public string RouteSegment { get; set; } = "";
-        public bool IsRooted { get; set; } = false;
+        public bool IsRooted { get; set; };
         public int Port { get; set; } = 80;
         public Guid MicroserviceId { get; set; } = Guid.Empty;
         public DatabaseConfiguration Database { get; set; } = new DatabaseConfiguration();

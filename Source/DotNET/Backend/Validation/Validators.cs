@@ -77,7 +77,6 @@ namespace Dolittle.Vanir.Backend.Validation
             return result;
         }
 
-
         void PopulateValidatorTypesByType()
         {
             foreach (var validatorType in _types.FindMultiple(typeof(AbstractValidator<>)))

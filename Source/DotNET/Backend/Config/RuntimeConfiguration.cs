@@ -8,5 +8,4 @@ namespace Dolittle.Vanir.Backend.Config
         public string Host { get; set; } = "localhost";
         public ushort Port { get; set; } = 50053;
     }
-
 }

@@ -19,7 +19,7 @@ namespace Dolittle.Vanir.Backend.Reflection
         /// <returns>true if it has a default constructor, false if not.</returns>
         public static bool HasDefaultConstructor(this Type type)
         {
-            return TypeExtensions.GetTypeInfo(type).HasDefaultConstructor ||
+            return type.GetTypeInfoDetails().HasDefaultConstructor ||
                 type.GetConstructors().Any(c => c.GetParameters().Length == 0);
         }
 
