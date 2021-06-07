@@ -5,13 +5,13 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": ".NET Core Launch (AspnetCore Sample)",
+            "name": ".NET Core Launch (Warehouse Sample)",
             "type": "coreclr",
             "request": "launch",
-            "preLaunchTask": "build aspnetcore sample",
-            "program": "${workspaceFolder}/Samples/Source/Aspnetcore/Backend/bin/Debug/net5.0/Backend.dll",
+            "preLaunchTask": "build Warehouse sample",
+            "program": "${workspaceFolder}/Samples/Source/Warehouse/Backend/bin/Debug/net5.0/Backend.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/Samples/Source/Aspnetcore/Backend",
+            "cwd": "${workspaceFolder}/Samples/Source/Warehouse/Backend",
             "stopAtEntry": false,
             "console": "internalConsole"
         },
