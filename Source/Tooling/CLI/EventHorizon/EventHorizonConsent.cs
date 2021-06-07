@@ -7,10 +7,10 @@ namespace Dolittle.Vanir.CLI.EventHorizon
 {
     public class EventHorizonConsent
     {
-        public Guid Microservice;
-        public Guid Tenant;
-        public Guid Stream;
-        public Guid Partition;
-        public Guid Consent;
+        public Guid Microservice { get; set; }
+        public Guid Tenant { get; set; }
+        public Guid Stream { get; set; }
+        public Guid Partition { get; set; }
+        public Guid Consent { get; set; }
     }
 }
