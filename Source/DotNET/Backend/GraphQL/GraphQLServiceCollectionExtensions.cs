@@ -31,7 +31,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <summary>
         /// Add GraphQL services.
         /// </summary>
-        /// <param name="services"><see cref="IServiceColletion"/> to add to.</param>
+        /// <param name="services"><see cref="IServiceCollection"/> to add to.</param>
         public static void AddGraphQL(this IServiceCollection services, IContainer container, BackendArguments arguments = null, ITypes types = null)
         {
             if (types == null)
@@ -49,7 +49,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
             foreach (var graphControllerType in graphControllers.All)
             {
-                services.Add(new ServiceDescriptor(graphControllerType, graphControllerType, ServiceLifetime.Transient));
+                services.AddTransient(graphControllerType);
             }
 
             var graphQLBuilder = services
@@ -67,18 +67,20 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddSingleton<INamingConventions>(namingConventions);
 
             graphQLBuilder
-                .AddQueries(graphControllers, namingConventions, out SchemaRoute queries)
-                .AddMutations(graphControllers, namingConventions, out SchemaRoute mutations)
-                .AddSubscriptions(graphControllers, namingConventions, out SchemaRoute subscriptions);
+                .AddQueries(graphControllers, namingConventions, out var queries)
+                .AddMutations(graphControllers, namingConventions, out var mutations)
+                .AddSubscriptions(graphControllers, namingConventions, out var subscriptions);
 
             var systemQueries = new SchemaRoute("system", "system", "_system");
             queries.AddChild(systemQueries);
+
+            services.AddTransient<FeaturesSubscriptionsResolver>();
+
             Expression<Func<FeaturesSubscriptionsResolver, FeatureNotification>> featuresMethod = (FeaturesSubscriptionsResolver resolver) => resolver.Features();
             systemQueries.AddItem(new SchemaRouteItem(featuresMethod.GetMethodInfo(), "features"));
 
             Expression<Func<FeaturesSubscriptionsResolver, Task<FeatureNotification>>> newFeaturesMethod = (FeaturesSubscriptionsResolver resolver) => resolver.system_newFeatures(null);
             subscriptions.AddItem(new SchemaRouteItem(newFeaturesMethod.GetMethodInfo(), "system_newFeatures"));
-
 
             types.FindMultiple(typeof(ConceptAs<>)).ForEach(_ => graphQLBuilder.AddConceptTypeConverter(_));
             types.All.Where(_ => _.IsEnum).ForEach(type =>
