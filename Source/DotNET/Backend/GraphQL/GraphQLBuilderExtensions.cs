@@ -34,7 +34,6 @@ namespace Dolittle.Vanir.Backend.GraphQL
             return builder;
         }
 
-
         public static IRequestExecutorBuilder AddMutations(this IRequestExecutorBuilder builder, IGraphControllers graphControllers, INamingConventions namingConventions)
         {
             return builder.AddMutations(graphControllers, namingConventions, out _);
@@ -78,7 +77,7 @@ namespace Dolittle.Vanir.Backend.GraphQL
                     var hasPath = _.HasPath<TAttribute>();
                     var localPath = hasPath ? _.GetPath<TAttribute>() : namingConventions.GetMemberName(_, MemberKind.Field).Value;
                     var path = $"{rootPath}{(rootPath.Length > 0 ? "/" : "")}{localPath}";
-                    var lastSlash = path.LastIndexOf("/");
+                    var lastSlash = path.LastIndexOf("/", StringComparison.InvariantCultureIgnoreCase);
                     var name = path;
 
                     if (lastSlash >= 0)
