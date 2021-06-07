@@ -1,3 +1,10 @@
+# [9.30.4] - 2021-6-7 [PR: #257](https://github.com/dolittle/vanir/pull/257)
+### Fixed
+
+- Lifecycle issues for GraphQL mutations/queries/subscriptions - making sure they're transient
+- Lifecycle issues for EventHandlers - they were registered as Scoped, which effectively means per WebRequest. Problem is, they're never running in the context of a WebRequest.
+
+
 # [9.30.3] - 2021-5-31 [PR: #256](https://github.com/dolittle/vanir/pull/256)
 ### Fixed
 
