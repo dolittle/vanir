@@ -9,7 +9,7 @@ namespace Dolittle.Vanir.CLI
 {
     public class DefaultConventionModule : Module
     {
-        protected override void Load(ContainerBuilder containerBuilder)
+        protected override void Load(ContainerBuilder builder)
         {
             var assembly = typeof(Program).Assembly;
             var conventionBasedTypes = assembly.DefinedTypes.Where(_ =>
@@ -22,8 +22,8 @@ namespace Dolittle.Vanir.CLI
             foreach (var conventionBasedType in conventionBasedTypes)
             {
                 var interfaceToBind = conventionBasedType.GetInterfaces().Single(_ => _.Name == $"I{conventionBasedType.Name}");
-                var builder = containerBuilder.RegisterType(conventionBasedType).As(interfaceToBind);
-                if (conventionBasedType.HasAttribute<SingletonAttribute>()) builder.SingleInstance();
+                var result = builder.RegisterType(conventionBasedType).As(interfaceToBind);
+                if (conventionBasedType.HasAttribute<SingletonAttribute>()) result.SingleInstance();
             }
         }
     }

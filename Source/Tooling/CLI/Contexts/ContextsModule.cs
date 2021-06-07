@@ -5,13 +5,11 @@ using System;
 using System.IO;
 using System.Linq;
 using Autofac;
-using Dolittle.Vanir.Backend.Config;
 using Dolittle.Vanir.Backend.Features;
 using Newtonsoft.Json;
 
 namespace Dolittle.Vanir.CLI.Contexts
 {
-
     public class ContextsModule : Module
     {
         protected override void Load(ContainerBuilder builder)

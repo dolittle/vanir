@@ -11,6 +11,5 @@ namespace Dolittle.Vanir.CLI
     [AttributeUsage(AttributeTargets.Class)]
     public class SingletonAttribute : Attribute
     {
-
     }
 }

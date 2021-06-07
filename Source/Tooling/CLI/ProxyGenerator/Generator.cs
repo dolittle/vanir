@@ -2,15 +2,11 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.IO;
-using System.Linq;
-using Dolittle.Vanir.Backend.GraphQL;
-using Dolittle.Vanir.Backend.Reflection;
 using Dolittle.Vanir.CLI.GraphQL;
 using Dolittle.Vanir.CLI.Reflection;
 
 namespace Dolittle.Vanir.CLI.ProxyGenerator
 {
-
     public class Generator : IGenerator
     {
         readonly Templates _templates;
