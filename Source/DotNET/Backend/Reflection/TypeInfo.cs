@@ -10,7 +10,7 @@ namespace Dolittle.Vanir.Backend.Reflection
     /// Represents an implementation of <see cref="ITypeInfo"/>.
     /// </summary>
     /// <typeparam name="T">Type it holds info for.</typeparam>
-    public class TypeInfo<T> : ITypeInfo
+    public sealed class TypeInfo<T> : ITypeInfo
     {
         /// <summary>
         /// Gets a singleton instance of the TypeInfo.

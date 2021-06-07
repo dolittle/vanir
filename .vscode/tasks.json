@@ -4,7 +4,7 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "build aspnetcore sample",
+            "label": "build Warehouse sample",
             "command": "dotnet",
             "type": "process",
             // "group": {
@@ -13,7 +13,7 @@
             // },
             "args": [
                 "build",
-                "${workspaceFolder}/Samples/Source/Aspnetcore/Backend/Backend.csproj",
+                "${workspaceFolder}/Samples/Source/Warehouse/Backend/Backend.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],

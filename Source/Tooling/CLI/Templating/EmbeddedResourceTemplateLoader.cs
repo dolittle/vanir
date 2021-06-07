@@ -38,7 +38,6 @@ namespace Dolittle.Vanir.CLI.Templating
                 return reader.ReadToEnd();
             }
             return string.Empty;
-
         }
     }
 }

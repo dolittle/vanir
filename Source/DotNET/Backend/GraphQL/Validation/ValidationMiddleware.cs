@@ -101,9 +101,9 @@ namespace Dolittle.Vanir.Backend.GraphQL.Validation
         string GetFullPropertyPath(object instance, Type type, string propertyPath, ValidationFailure validationError)
         {
             var fullPropertyPath = type.IsConcept() ? propertyPath : $"{propertyPath}.{validationError.PropertyName.ToCamelCase()}";
-            if (validationError.PropertyName.IndexOf(".") > 0)
+            if (validationError.PropertyName.IndexOf(".", StringComparison.InvariantCultureIgnoreCase) > 0)
             {
-                var propertyName = validationError.PropertyName[..validationError.PropertyName.IndexOf(".")];
+                var propertyName = validationError.PropertyName[..validationError.PropertyName.IndexOf(".", StringComparison.InvariantCultureIgnoreCase)];
                 var property = instance.GetType().GetProperty(propertyName);
                 if (property?.PropertyType.IsConcept() == true)
                 {

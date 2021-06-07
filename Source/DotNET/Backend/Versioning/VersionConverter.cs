@@ -23,13 +23,13 @@ namespace Dolittle.Vanir.Backend.Versioning
             var minor = int.Parse(result.Groups[2].Value, CultureInfo.InvariantCulture);
             var patch = int.Parse(result.Groups[3].Value, CultureInfo.InvariantCulture);
             var buildGroup = result.Groups[5].Value?.Length == 0 ? 4 : 5;
-            int.TryParse(result.Groups[buildGroup].Value, NumberStyles.Integer, CultureInfo.InvariantCulture, out int build);
+            int.TryParse(result.Groups[buildGroup].Value, NumberStyles.Integer, CultureInfo.InvariantCulture, out var build);
             var isRelease = result.Groups[4].Value?.Length == 0;
 
             if (!isRelease)
                 return new Version(major, minor, patch, build, result.Groups[4].Value);
-            else
-                return new Version(major, minor, patch, build);
+
+            return new Version(major, minor, patch, build);
         }
 
         /// <inheritdoc/>

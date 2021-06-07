@@ -13,16 +13,12 @@ namespace Dolittle.Vanir.Backend.GraphQL
         public override NameString GetTypeName(Type type, TypeKind kind)
         {
             var name = base.GetTypeName(type, kind);
-            if (kind == TypeKind.Enum)
+            if (kind == TypeKind.Enum &&
+                !type.Namespace.StartsWith("HotChocolate", StringComparison.InvariantCultureIgnoreCase) &&
+                !type.Namespace.StartsWith("Dolittle", StringComparison.InvariantCultureIgnoreCase) &&
+                !name.Value.EndsWith("Enum", StringComparison.InvariantCultureIgnoreCase))
             {
-                if (!type.Namespace.StartsWith("HotChocolate") &&
-                    !type.Namespace.StartsWith("Dolittle"))
-                {
-                    if (!name.Value.EndsWith("Enum"))
-                    {
-                        name = new NameString($"{name.Value}Enum");
-                    }
-                }
+                name = new NameString($"{name.Value}Enum");
             }
 
             return name;

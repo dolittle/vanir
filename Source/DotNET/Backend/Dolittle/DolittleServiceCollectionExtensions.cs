@@ -35,6 +35,8 @@ namespace Microsoft.Extensions.DependencyInjection
                 services.Add(new ServiceDescriptor(typeof(ITypes), types));
             }
 
+            services.AddTransient(typeof(EventMutationFor<>));
+
             var clientBuilder = Client
                 .ForMicroservice(configuration.MicroserviceId)
                 .WithLogging(arguments.LoggerFactory)
@@ -64,7 +66,7 @@ namespace Microsoft.Extensions.DependencyInjection
                     if (arguments?.PublishAllPublicEvents == true)
                     {
                         _.CreatePublicFilter(configuration.MicroserviceId, _ => _
-                            .Handle((e, ec) => Task.FromResult(new PartitionedFilterResult(true, PartitionId.Unspecified))));
+                            .Handle((_, __) => Task.FromResult(new PartitionedFilterResult(true, PartitionId.Unspecified))));
                     }
 
                     AddDevelopmentFilters(_);
@@ -86,7 +88,7 @@ namespace Microsoft.Extensions.DependencyInjection
             });
             services.AddTransient(typeof(IAggregateOf<>), typeof(AggregateOf<>));
 
-            services.AddSingleton<IEventTypes>(_ =>
+            services.AddSingleton(_ =>
             {
                 ThrowIfClientNotBuilt();
                 return DolittleClient.EventTypes;
@@ -95,26 +97,6 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddExecutionContext();
 
             DolittleClientBuilder = clientBuilder;
-        }
-
-        static void ConfigureEventHorizons(Dolittle.SDK.EventHorizon.SubscriptionsBuilder subscriptionsBuilder)
-        {
-            var eventHorizons = EventHorizons.Load();
-            foreach (var tenant in eventHorizons.Keys)
-            {
-                subscriptionsBuilder.ForTenant(tenant, tb =>
-                {
-                    foreach (var subscription in eventHorizons[tenant])
-                    {
-                        tb
-                            .FromProducerMicroservice(subscription.Microservice)
-                            .FromProducerTenant(subscription.Tenant)
-                            .FromProducerStream(subscription.Stream)
-                            .FromProducerPartition(subscription.Partition)
-                            .ToScope(subscription.Scope);
-                    }
-                });
-            }
         }
 
         static void AddDevelopmentFilters(EventFiltersBuilder eventFiltersBuilder)

@@ -24,7 +24,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
             var resourceConfigurations = new ResourceConfigurations();
             services.Add(new ServiceDescriptor(typeof(ResourceConfigurations), resourceConfigurations));
-            services.Add(new ServiceDescriptor(typeof(IMongoDatabase), (provider) =>
+            services.Add(new ServiceDescriptor(typeof(IMongoDatabase), (_) =>
             {
                 var tenant = ExecutionContextManager.GetCurrent().Tenant;
                 if (_mongoDatabaseByTenant.ContainsKey(tenant))
@@ -41,7 +41,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 var database = client.GetDatabase(config.Database);
                 _mongoDatabaseByTenant[tenant] = database;
                 return database;
-            }, ServiceLifetime.Scoped));
+            }, ServiceLifetime.Transient));
         }
     }
 }

@@ -26,9 +26,9 @@ namespace Dolittle.Vanir.CLI.GraphQL
         public static string RootPath = string.Empty;
 
         /// <inheritdoc/>
-        public Schema BuildFrom(Types types)
+        public Schema BuildFrom(Types type)
         {
-            var graphControllers = types.Where(_ => _.Implements(typeof(GraphController)));
+            var graphControllers = type.Where(_ => _.Implements(typeof(GraphController)));
             var referencedTypes = new List<TypeDefinition>();
 
             var queries = GetOperationDefinitionsFor<QueryAttribute>(graphControllers, referencedTypes).ToArray();
@@ -96,7 +96,6 @@ namespace Dolittle.Vanir.CLI.GraphQL
 
             return definition;
         }
-
 
         IEnumerable<OperationDefinition> GetOperationDefinitionsFor<TAttribute>(IEnumerable<TypeInfo> graphControllers, List<TypeDefinition> referencedTypes)
             where TAttribute : Attribute, ICanHavePath

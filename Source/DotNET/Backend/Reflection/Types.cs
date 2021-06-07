@@ -33,18 +33,10 @@ namespace Dolittle.Vanir.Backend.Reflection
         public IEnumerable<Type> All { get; private set; }
 
         /// <inheritdoc/>
-        public Type FindSingle<T>()
-        {
-            var type = FindSingle(typeof(T));
-            return type;
-        }
+        public Type FindSingle<T>() => FindSingle(typeof(T));
 
         /// <inheritdoc/>
-        public IEnumerable<Type> FindMultiple<T>()
-        {
-            var typesFound = FindMultiple(typeof(T));
-            return typesFound;
-        }
+        public IEnumerable<Type> FindMultiple<T>() => FindMultiple(typeof(T));
 
         /// <inheritdoc/>
         public Type FindSingle(Type type)
@@ -56,10 +48,7 @@ namespace Dolittle.Vanir.Backend.Reflection
 
         /// <inheritdoc/>
         public IEnumerable<Type> FindMultiple(Type type)
-        {
-            var typesFound = _contractToImplementorsMap.GetImplementorsFor(type);
-            return typesFound;
-        }
+            => _contractToImplementorsMap.GetImplementorsFor(type);
 
         /// <inheritdoc/>
         public Type FindTypeByFullName(string fullName)

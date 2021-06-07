@@ -1,8 +1,15 @@
 // Copyright (c) Dolittle. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using Dolittle.Vanir.Backend.Features;
+using Dolittle.Vanir.Backend.Reflection;
+using HotChocolate;
+using HotChocolate.Resolvers;
 using HotChocolate.Types;
 using Microsoft.AspNetCore.Authorization;
 
@@ -44,7 +51,10 @@ namespace Dolittle.Vanir.Backend.GraphQL
 
             foreach (var item in _items)
             {
-                var fieldDescriptor = descriptor.Field(item.Method).Name(item.Name);
+                var fieldDescriptor = descriptor
+                    .Field(item.Method)
+                    .Name(item.Name)
+                    .Resolve((ctx) => InvokeResolver(ctx, item));
 
                 AddAdornedFeatures(item, fieldDescriptor);
 
@@ -60,6 +70,29 @@ namespace Dolittle.Vanir.Backend.GraphQL
             {
                 descriptor.Field("Default").Resolve(() => "Configure your first item");
             }
+        }
+
+        object InvokeResolver(IResolverContext context, SchemaRouteItem item)
+        {
+            var arguments = new List<object>();
+
+            foreach (var parameter in item.Method.GetParameters())
+            {
+                Expression<Func<NameString, object>> expression = (NameString name) => context.ArgumentValue<object>(name);
+                var genericArgumentMethod = expression.GetMethodInfo().GetGenericMethodDefinition();
+                var argumentMethod = genericArgumentMethod.MakeGenericMethod(parameter.ParameterType);
+                arguments.Add(argumentMethod.Invoke(context, new object[] { (NameString)parameter.Name }));
+            }
+
+            var service = Container.ServiceProvider.GetService(item.Method.DeclaringType);
+            var result = item.Method.Invoke(service, arguments.ToArray());
+            if (item.Method.IsAsync())
+            {
+                var awaiter = result.GetType().GetMethod(nameof(Task<object>.GetAwaiter)).Invoke(result, Array.Empty<object>());
+                return awaiter.GetType().GetMethod(nameof(TaskAwaiter<object>.GetResult)).Invoke(awaiter, Array.Empty<object>());
+            }
+
+            return result;
         }
 
         void AddAdornedFeatures(SchemaRouteItem item, IObjectFieldDescriptor fieldDescriptor)

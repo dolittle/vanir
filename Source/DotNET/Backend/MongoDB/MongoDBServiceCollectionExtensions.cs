@@ -8,7 +8,7 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static class MongoDBServiceCollectionExtensions
     {
-        public static void AddMongoDB(this IServiceCollection services)
+        public static void AddMongoDB(this IServiceCollection _)
         {
             BsonSerializer
                 .RegisterSerializationProvider(

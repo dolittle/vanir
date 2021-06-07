@@ -5,6 +5,7 @@ using System.Reflection;
 using Dolittle.Vanir.Backend.GraphQL;
 using HotChocolate;
 using HotChocolate.AspNetCore.Authorization;
+using HotChocolate.Resolvers;
 using HotChocolate.Types;
 using Machine.Specifications;
 using Moq;
@@ -48,10 +49,12 @@ namespace Dolittle.Vanir.Backend.GraphQL.for_SchemaRoute.when_configuring
             first_method_descriptor = new();
             first_method_descriptor.Setup(_ => _.Type(IsAny<SchemaRoute>())).Returns(first_method_descriptor.Object);
             first_method_descriptor.Setup(_ => _.Name(IsAny<NameString>())).Returns(first_method_descriptor.Object);
+            first_method_descriptor.Setup(_ => _.Resolve(IsAny<FieldResolverDelegate>())).Returns(first_method_descriptor.Object);
 
             second_method_descriptor = new();
             second_method_descriptor.Setup(_ => _.Type(IsAny<SchemaRoute>())).Returns(second_method_descriptor.Object);
             second_method_descriptor.Setup(_ => _.Name(IsAny<NameString>())).Returns(second_method_descriptor.Object);
+            second_method_descriptor.Setup(_ => _.Resolve(IsAny<FieldResolverDelegate>())).Returns(second_method_descriptor.Object);
 
             object_type_descriptor.Setup(_ => _.Field(first_item.Method)).Returns(first_method_descriptor.Object);
             object_type_descriptor.Setup(_ => _.Field(second_item.Method)).Returns(second_method_descriptor.Object);

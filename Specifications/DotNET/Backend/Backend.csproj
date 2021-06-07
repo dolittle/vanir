@@ -4,11 +4,11 @@
   <Import Project="../../../specs.props"/>
 
   <PropertyGroup>
-    <AssemblyName>Dolittle.Vanir.CLI.Specs</AssemblyName>
+    <AssemblyName>Dolittle.Vanir.Backend.Specs</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../CLI/CLI.csproj" />
+    <ProjectReference Include="../../../Source/DotNET/Backend/Backend.csproj" />
   </ItemGroup>
 
 </Project>

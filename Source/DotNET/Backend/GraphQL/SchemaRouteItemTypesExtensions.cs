@@ -38,7 +38,6 @@ namespace Dolittle.Vanir.Backend.GraphQL
             return attribute?.HasPath == true;
         }
 
-
         /// <summary>
         /// Get path for a method.
         /// </summary>

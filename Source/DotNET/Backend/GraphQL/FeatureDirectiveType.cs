@@ -51,11 +51,8 @@ namespace Dolittle.Vanir.Backend.GraphQL
                         context.ReportError($"Feature '{feature.Name}' is disabled");
                         return new ValueTask(Task.FromResult(false));
                     }
-                    else
-                    {
 
-                        return next.Invoke(context);
-                    }
+                    return next.Invoke(context);
                 });
         }
     }

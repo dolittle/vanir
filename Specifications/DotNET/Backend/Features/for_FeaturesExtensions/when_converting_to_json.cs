@@ -17,7 +17,6 @@ namespace Dolittle.Vanir.Backend.Features.for_FeaturesExtensions
         static Features features;
         static Dictionary<string, FeatureDefinition> result;
 
-
         Establish context = () =>
         {
             features = new Features(new Dictionary<string, Feature>

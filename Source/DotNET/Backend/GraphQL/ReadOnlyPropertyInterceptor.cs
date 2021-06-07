@@ -48,8 +48,7 @@ namespace Dolittle.Vanir.Backend.GraphQL
             if (definition is ObjectTypeDefinition otd)
             {
                 var parentMethodForType = _parentMethod.MakeGenericMethod(otd.RuntimeType);
-                var properties = otd.RuntimeType.GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.GetProperty).Where(_ => !_.CanWrite);
-                foreach (var property in properties)
+                foreach (var property in otd.RuntimeType.GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.GetProperty).Where(_ => !_.CanWrite))
                 {
                     var descriptor = ObjectFieldDescriptor.New(completionContext.DescriptorContext, property, otd.RuntimeType);
                     descriptor.Resolve((ctx) =>

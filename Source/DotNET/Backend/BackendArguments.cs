@@ -13,15 +13,15 @@ namespace Microsoft.Extensions.DependencyInjection
     public class BackendArguments
     {
         public ILoggerFactory LoggerFactory { get; set; } = new NullLoggerFactory();
-        public Action<IRequestExecutorBuilder> GraphQLExecutorBuilder = (b) => { };
-        public Action<ClientBuilder> DolittleClientBuilderCallback = (b) => { };
-        public Action<MongoClientSettings> MongoClientSettingsCallback = (b) => { };
+        public Action<IRequestExecutorBuilder> GraphQLExecutorBuilder { get; set; } = (_) => { };
+        public Action<ClientBuilder> DolittleClientBuilderCallback { get; set; } = (_) => { };
+        public Action<MongoClientSettings> MongoClientSettingsCallback { get; set; } = (_) => { };
 
         /// <summary>
         /// Setting indicating whether or not to automatically forward all public events over the Dolittle Event Horizon or not.
         /// </summary>
         /// <remarks>
-        /// If you want to be more specific - you set this to false and do the filtering manually; configured through the <see cref="BackendArguments.DolittleClientBuilderCallback"/>
+        /// If you want to be more specific - you set this to false and do the filtering manually; configured through the <see cref="DolittleClientBuilderCallback"/>
         /// callback.
         /// </remarks>
         public bool PublishAllPublicEvents { get; set; } = true;

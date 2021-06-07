@@ -8,7 +8,6 @@ using System.Reflection;
 
 namespace Dolittle.Vanir.Backend.Reflection
 {
-
     /// <summary>
     /// Provides methods for working with expressions.
     /// </summary>
@@ -81,10 +80,8 @@ namespace Dolittle.Vanir.Backend.Reflection
                 var unaryExpression = lambda.Body as UnaryExpression;
                 return unaryExpression.Operand as MemberExpression;
             }
-            else
-            {
-                return lambda.Body as MemberExpression;
-            }
+
+            return lambda.Body as MemberExpression;
         }
 
         /// <summary>

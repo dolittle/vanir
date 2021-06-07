@@ -9,7 +9,6 @@ namespace Dolittle.Vanir.CLI.Reflection
 {
     public static class TypeExtensions
     {
-
         public static bool IsComplexType(this Type type)
         {
             if (type.IsNullable()) return IsComplexType(type.GetNullableType());

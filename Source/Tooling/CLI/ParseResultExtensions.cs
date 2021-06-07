@@ -3,7 +3,6 @@
 
 using System.CommandLine;
 using System.CommandLine.Parsing;
-using System.Linq;
 
 namespace Dolittle.Vanir.CLI
 {
@@ -14,6 +13,5 @@ namespace Dolittle.Vanir.CLI
             return false;
             //return parseResult.Tokens.Any(_ => _.Type == option.GetType());
         }
-
     }
 }

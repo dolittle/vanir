@@ -28,7 +28,7 @@ namespace Dolittle.Vanir.CLI.EventHorizon
             public static readonly Option<Guid> Stream = new(new[] { "--stream", "-s" }, "Public stream to use. Default will be the same Id as the identifier of the producing microservice.");
             public static readonly Option<Guid> Partition = new(new[] { "--partition", "-p" }, "Partition Id to use. Default is 00000000-0000-0000-0000-000000000000.");
             public static readonly Option<Guid> Scope = new(new[] { "--scope", "-sc" }, "Scope Id to use in consumer. Default will be the same as the stream identifier.");
-            public static readonly Option<bool> Overwrite = new(new[] { "--overwrite", "-o" }, (a) => true, isDefault: false, description: "Overwrite any existing configuration.");
+            public static readonly Option<bool> Overwrite = new(new[] { "--overwrite", "-o" }, (_) => true, isDefault: false, description: "Overwrite any existing configuration.");
         }
 
         readonly ContextOf<ApplicationContext> _getApplicationContext;

@@ -111,6 +111,10 @@ dotnet_diagnostic.CA1309.severity = none
 dotnet_diagnostic.CA1000.severity = none
 # RCS1018: Add accessibility modifiers
 dotnet_diagnostic.RCS1018.severity = none
+# RCS1217: Convert interpolated string to concatenation
+dotnet_diagnostic.RCS1217.severity = none
+
+
 
 dotnet_diagnostic.RCS1090.severity                                              = error
 dotnet_diagnostic.IDE0052.severity                                              = none
