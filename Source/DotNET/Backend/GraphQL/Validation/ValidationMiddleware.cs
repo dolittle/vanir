@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Dolittle.Vanir.Backend.Concepts;
 using Dolittle.Vanir.Backend.Reflection;
@@ -33,12 +34,24 @@ namespace Dolittle.Vanir.Backend.GraphQL.Validation
             {
                 if (_validators.HasFor(argument.RuntimeType))
                 {
-                    var instance = context.CallGenericMethod<object, IMiddlewareContext, NameString>(_ => _.ArgumentValue<object>, argument.Name, argument.RuntimeType);
-                    var errors = new List<IError>();
-                    await CheckAndValidate(context, instance, argument.RuntimeType, errors, argument.Name).ConfigureAwait(false);
-                    if (errors.Count > 0)
+                    try
                     {
-                        context.Result = errors;
+                        Expression<Func<NameString, object>> expression = (NameString name) => context.ArgumentValue<object>(name);
+                        var genericArgumentMethod = expression.GetMethodInfo().GetGenericMethodDefinition();
+                        var argumentMethod = genericArgumentMethod.MakeGenericMethod(argument.RuntimeType);
+                        var instance = argumentMethod.Invoke(context, new object[] { argument.Name });
+
+                        var errors = new List<IError>();
+                        await CheckAndValidate(context, instance, argument.RuntimeType, errors, argument.Name).ConfigureAwait(false);
+                        if (errors.Count > 0)
+                        {
+                            context.Result = "errors";
+                            return;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        context.ReportError($"Error running validation for argument '{argument.Name}' - error '${ex.Message}'");
                         return;
                     }
                 }
