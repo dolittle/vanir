@@ -1,3 +1,10 @@
+# [9.30.5] - 2021-6-8 [PR: #258](https://github.com/dolittle/vanir/pull/258)
+### Fixed
+
+- Improved the approach to how we invoke actual validators
+- Added exception handling to catch potential errors and report them more accurately if invocation fails for validators
+
+
 # [9.30.4] - 2021-6-7 [PR: #257](https://github.com/dolittle/vanir/pull/257)
 ### Fixed
 
