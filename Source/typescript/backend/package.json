@@ -1,6 +1,6 @@
 {
     "name": "@dolittle/vanir-backend",
-    "version": "9.30.6",
+    "version": "9.30.7",
     "description": "",
     "author": "Dolittle",
     "license": "MIT",
@@ -38,8 +38,8 @@
     "dependencies": {
         "@dolittle/projections": "2.1.1",
         "@dolittle/sdk": "14.4.0",
-        "@dolittle/vanir-dependency-inversion": "9.30.6",
-        "@dolittle/vanir-features": "9.30.6",
+        "@dolittle/vanir-dependency-inversion": "9.30.7",
+        "@dolittle/vanir-features": "9.30.7",
         "@types/mongodb": "3.6.8",
         "apollo-server-express": "2.19.0",
         "body-parser": "1.19.0",
