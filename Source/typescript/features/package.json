@@ -1,6 +1,6 @@
 {
     "name": "@dolittle/vanir-features",
-    "version": "9.30.5",
+    "version": "9.30.6",
     "description": "",
     "author": "Dolittle",
     "license": "MIT",
@@ -37,7 +37,7 @@
     },
     "dependencies": {
         "@dolittle/rudiments": "5.0.1",
-        "@dolittle/vanir-dependency-inversion": "9.30.5",
+        "@dolittle/vanir-dependency-inversion": "9.30.6",
         "chalk": "4.1.0",
         "commander": "6.2.1",
         "edit-json-file": "1.5.0",
