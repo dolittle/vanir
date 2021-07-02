@@ -54,6 +54,7 @@ export async function initialize(configuration: Configuration, backendArguments:
     });
 
     logger.info(`Hosting graphql at ${graphqlRoute}`);
+    backendArguments.expressCallback?.(app);
 
     apolloServer.applyMiddleware({ app, path: graphqlRoute });
 
@@ -71,7 +72,6 @@ export async function initialize(configuration: Configuration, backendArguments:
         );
     }
 
-    backendArguments.expressCallback?.(app);
 
     logger.info(`Serving static content from '${configuration.publicPath}'`);
 
