@@ -1,3 +1,9 @@
+# [9.30.7] - 2021-7-2 [PR: #260](https://github.com/dolittle/vanir/pull/260)
+### Fixed
+
+- [Web] Fixing so that when origin of document is HTTPS we use WSS for WebSocketLink for GraphQL and WS if HTTP.
+
+
 # [9.30.6] - 2021-7-2 [PR: #259](https://github.com/dolittle/vanir/pull/259)
 ### Fixed
 
