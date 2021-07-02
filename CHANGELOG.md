@@ -1,3 +1,9 @@
+# [9.30.6] - 2021-7-2 [PR: #259](https://github.com/dolittle/vanir/pull/259)
+### Fixed
+
+- [TS/JS] Express callback was too late. Moved it up the stack - before the Apollo GraphQL middlewares are applied. This enables adding middlewares much earlier.
+
+
 # [9.30.5] - 2021-6-8 [PR: #258](https://github.com/dolittle/vanir/pull/258)
 ### Fixed
 
