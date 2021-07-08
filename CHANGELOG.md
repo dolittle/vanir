@@ -1,3 +1,9 @@
+# [9.30.9] - 2021-7-8 [PR: #262](https://github.com/dolittle/vanir/pull/262)
+### Fixed
+
+- [.NET] Upgrade to version 9.0.0 of the Dolittle SDK
+
+
 # [9.30.8] - 2021-7-8 [PR: #261](https://github.com/dolittle/vanir/pull/261)
 ### Fixed
 
