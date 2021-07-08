@@ -1,3 +1,9 @@
+# [9.30.8] - 2021-7-8 [PR: #261](https://github.com/dolittle/vanir/pull/261)
+### Fixed
+
+- [Node] Upgrading to version 16.0.0 of the Dolittle SDK and 2.1.2 of the Dolittle Projections.
+
+
 # [9.30.7] - 2021-7-2 [PR: #260](https://github.com/dolittle/vanir/pull/260)
 ### Fixed
 
