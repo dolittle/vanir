@@ -1,3 +1,10 @@
+# [9.30.10] - 2021-8-23 [PR: #263](https://github.com/dolittle/vanir/pull/263)
+### Fixed
+
+- Upgraded to version 17.0.1 of the Dolittle SDK
+- Upgraded to version 2.1.3 of Dolittle Entropy Projections (for compatibility with SDK)
+
+
 # [9.30.9] - 2021-7-8 [PR: #262](https://github.com/dolittle/vanir/pull/262)
 ### Fixed
 
