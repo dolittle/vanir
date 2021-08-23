@@ -36,8 +36,8 @@
         "ci": "yarn clean && yarn lint:ci && yarn build && yarn test"
     },
     "dependencies": {
-        "@dolittle/projections": "2.1.2",
-        "@dolittle/sdk": "16.0.0",
+        "@dolittle/projections": "2.1.3",
+        "@dolittle/sdk": "17.0.1",
         "@dolittle/vanir-dependency-inversion": "9.30.9",
         "@dolittle/vanir-features": "9.30.9",
         "@types/mongodb": "3.6.8",
