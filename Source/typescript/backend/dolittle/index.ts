@@ -37,19 +37,31 @@ export async function initialize(configuration: Configuration, startArguments: B
             const eventHorizons = EventHorizons.load();
             for (const tenant of eventHorizons.keys()) {
                 _.forTenant(tenant, sb => {
+                    logger.info(`Configure EventHorizon for ${tenant}`);
                     for (const subscription of eventHorizons.get(tenant)!) {
+
+                        logger.info('  Subscription:');
+                        logger.info(`    Microservice: ${subscription.microservice}`);
+                        logger.info(`    Producer Tenant: ${subscription.tenant}`);
+                        logger.info(`    Producer Stream: ${subscription.stream}`);
+                        logger.info(`    Partition: ${subscription.partition}`);
+                        logger.info(`    To Scope: ${subscription.scope}`);
+
                         sb
                             .fromProducerMicroservice(subscription.microservice)
                             .fromProducerTenant(subscription.tenant)
                             .fromProducerStream(subscription.stream)
                             .fromProducerPartition(subscription.partition)
-                            .toScope(subscription.scope);
+                            .toScope(subscription.scope)
+                            .onSuccess((tenant, subscription, _) => logger.info(`Subscription '${subscription}' for '${tenant}' connected successfully`))
+                            .onFailure((tenant, subscription, response) => logger.error(`Subscription '${subscription}' for '${tenant}' failed with '${response.failure?.reason}'`));
                     }
                 });
             }
         })
         .withFilters(_ => {
             if (startArguments.publishAllPublicEvents !== false) {
+                logger.info(`Setting up default public filter to publish all public events to stream with Id: '${configuration.microserviceId}'`);
                 _.createPublicFilter(configuration.microserviceId, fb => fb
                     .handle((event, context) => {
                         return new PartitionedFilterResult(true, PartitionId.unspecified);
