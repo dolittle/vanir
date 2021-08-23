@@ -1,3 +1,9 @@
+# [9.30.11] - 2021-8-23 [PR: #264](https://github.com/dolittle/vanir/pull/264)
+### Fixed
+
+- Logging for event horizon setup from config - make it possible to trace whats going on.
+
+
 # [9.30.10] - 2021-8-23 [PR: #263](https://github.com/dolittle/vanir/pull/263)
 ### Fixed
 
