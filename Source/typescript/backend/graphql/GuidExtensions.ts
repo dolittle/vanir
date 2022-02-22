@@ -33,29 +33,20 @@ Guid.prototype.toMUUID = function (): MUUID {
     return parseMUUID(uuid);
 };
 
-declare module 'mongodb' {
-    interface Binary {
-        /**
-         * Converts a {@link MUUID} to a {@link Guid}
-         */
-        toGuid(): Guid;
-    }
-}
+export function binaryToGuid(binary: Binary): Guid {
+    const rearrangedBytes = [...binary.buffer];
 
-Binary.prototype.toGuid = function (): Guid {
-    const rearrangedBytes = [...this.buffer];
+    rearrangedBytes[0] = binary.buffer[3];
+    rearrangedBytes[1] = binary.buffer[2];
+    rearrangedBytes[2] = binary.buffer[1];
+    rearrangedBytes[3] = binary.buffer[0];
 
-    rearrangedBytes[0] = this.buffer[3];
-    rearrangedBytes[1] = this.buffer[2];
-    rearrangedBytes[2] = this.buffer[1];
-    rearrangedBytes[3] = this.buffer[0];
+    rearrangedBytes[4] = binary.buffer[5];
+    rearrangedBytes[5] = binary.buffer[4];
 
-    rearrangedBytes[4] = this.buffer[5];
-    rearrangedBytes[5] = this.buffer[4];
-
-    rearrangedBytes[6] = this.buffer[7];
-    rearrangedBytes[7] = this.buffer[6];
+    rearrangedBytes[6] = binary.buffer[7];
+    rearrangedBytes[7] = binary.buffer[6];
 
     const guid = new Guid(rearrangedBytes);
     return guid;
-};
+}
