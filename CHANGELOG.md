@@ -1,3 +1,15 @@
+# [12.0.1] - 2022-2-22 [PR: #269](https://github.com/dolittle/vanir/pull/269)
+## Summary
+
+Closes #267. Thanks @rune-wikstad! I couldn't figure out how to build a remote PR. 
+
+Also moved the creation of a GitHub release and updating the CHANGELOG.md file to after the packages have been published in the `.github/publish.yml` action.
+
+### Fixed
+
+- [C#] A bug in the `ValidationMiddleware` setting `errors` to the literal string `"errors"` instead of the list of errors.
+
+
 # [10.0.0] - 2022-2-22 [PR: #268](https://github.com/dolittle/vanir/pull/268)
 ## Summary
 
