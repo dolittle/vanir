@@ -1,3 +1,13 @@
+# [10.0.0] - 2022-2-22 [PR: #268](https://github.com/dolittle/vanir/pull/268)
+## Summary
+
+Removes the `toGuid()` extension method on `mongodb.Binary`. It was failing builds and we couldn't fix it. It has been replaced with a normal function `binaryToGuid(...)`.
+
+### Removed
+
+- [TS] The `.toGuid()` extension methods on `mongodb.Binary`.
+
+
 # [9.30.11] - 2021-8-23 [PR: #264](https://github.com/dolittle/vanir/pull/264)
 ### Fixed
 
