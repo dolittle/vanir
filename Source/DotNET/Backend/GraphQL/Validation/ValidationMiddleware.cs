@@ -45,7 +45,7 @@ namespace Dolittle.Vanir.Backend.GraphQL.Validation
                         await CheckAndValidate(context, instance, argument.RuntimeType, errors, argument.Name).ConfigureAwait(false);
                         if (errors.Count > 0)
                         {
-                            context.Result = "errors";
+                            context.Result = errors;
                             return;
                         }
                     }
