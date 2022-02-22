@@ -4,7 +4,7 @@
 import { Binary } from 'mongodb';
 import { Guid } from '@dolittle/rudiments';
 import { CustomType } from './index';
-import '../graphql/GuidExtensions';
+import { binaryToGuid } from '../graphql/GuidExtensions';
 
 
 /**
@@ -23,9 +23,9 @@ export class GuidCustomType extends CustomType<Guid> {
 
     /** @inheritdoc */
     fromBSON(value: Binary): Guid {
-        if (!value || !(value as any).toGuid) {
+        if (!value || !binaryToGuid(value)) {
             return Guid.empty;
         }
-        return value.toGuid();
+        return binaryToGuid(value);
     }
 }
