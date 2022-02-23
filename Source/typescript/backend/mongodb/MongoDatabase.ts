@@ -38,7 +38,10 @@ export class MongoDatabase implements IMongoDatabase {
             }
         }
 
-        await this._mongoClient.connect();
+        if(!this._mongoClient.isConnected()) {
+            await this._mongoClient.connect();
+        }
+        
         const db = this._mongoClient.db(this._configuration.database);
         if (options) {
             return db.collection(name, options);
