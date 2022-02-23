@@ -12,6 +12,9 @@ import { IMongoDatabase } from './IMongoDatabase';
 import { MongoDatabase } from './MongoDatabase';
 import { MongoDatabaseProvider } from './MongoDatabaseProvider';
 
+
+const clientsPerTenant: Map<string, MongoClient> = new Map();
+
 export class MongoDb {
 
     static initialize() {
@@ -25,8 +28,14 @@ export class MongoDb {
         });
         container.register(MongoClient, {
             useFactory: (dependencyContainer: DependencyContainer) => {
+                const tenantId =  getCurrentContext().tenantId.toString();
+                if(clientsPerTenant.has(tenantId)) {
+                    return clientsPerTenant.get(tenantId);
+                }
+
                 const configuration = dependencyContainer.resolve(MongoDbReadModelsConfiguration);
                 const client = new MongoClient(configuration.host, { useNewUrlParser: true, useUnifiedTopology: true });
+                clientsPerTenant.set(tenantId, client);
                 return client;
             }
         });
