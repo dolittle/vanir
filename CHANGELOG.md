@@ -1,3 +1,14 @@
+# [12.0.2] - 2022-2-23 [PR: #270](https://github.com/dolittle/vanir/pull/270)
+## Summary
+
+Keep mongo clients as singleton in container per tenant id. 
+Also checks connection state before connecting in `MongoDatabase.collection`.
+
+### Fixed
+
+- New connections being made for every call to `IMongoDatabase`
+
+
 # [12.0.1] - 2022-2-22 [PR: #269](https://github.com/dolittle/vanir/pull/269)
 ## Summary
 
