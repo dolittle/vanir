@@ -31,22 +31,3 @@ jobs:
         run: |
           export NODE_OPTIONS="--max-old-space-size=4096"
           yarn ci
-
-
-  build-dotnet:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-        with:
-          clean: false
-
-      - name: Setup .Net
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: '5.0.102'
-      - name: Build .NET
-        run: dotnet build --configuration Release
-      - name: Test .NET
-        run: dotnet test --configuration Release --no-build
