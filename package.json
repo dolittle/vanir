@@ -1,6 +1,7 @@
 {
     "name": "root",
     "private": true,
+    "version": "12.0.2-shepherd",
     "workspaces": [
         "Source/**/*"
     ],
