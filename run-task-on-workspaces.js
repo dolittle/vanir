@@ -85,7 +85,7 @@ for (const workspaceName in workspaces) {
             console.log(`Workspace '${workspaceName}' at '${workspaceRelativeLocation}'`);
             let result;
             if (os==="windows") {
-                result=spawn('yarn.cmd', ['run', task, ...args], { cwd: workspaceAbsoluteLocation });
+                result=spawn('yarn.cmd', [task], { cwd: workspaceAbsoluteLocation });
             }
             else {
                 result = spawn('yarn', [task], { cwd: workspaceAbsoluteLocation });
