@@ -11,6 +11,7 @@
         "lint": "node ./run-task-on-workspaces.js lint",
         "test": "node ./run-task-on-workspaces.js test",
         "ci": "node ./run-task-on-workspaces.js ci",
+        "ci-windows": "node ./run-task-on-workspaces.js ci windows",
         "publish-version": "node ./run-task-on-workspaces.js publish-version $*"
     },
     "devDependencies": {
