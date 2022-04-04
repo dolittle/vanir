@@ -26,9 +26,8 @@ for (const workspaceDef of rootPackageJson.workspaces) {
 }
 console.log('');
 const task = process.argv[2];
-const os = process.argv[3];
 args = process.argv.slice(4, process.argv.length);
-console.log(`Performing '${task}' on workspaces for ${os ?? 'mac'}`);
+console.log(`Performing '${task}' on workspaces`);
 if (args.length > 0) {
     console.log(`  Using args : ${args}`);
 }
@@ -83,13 +82,7 @@ for (const workspaceName in workspaces) {
                 continue;
             }
             console.log(`Workspace '${workspaceName}' at '${workspaceRelativeLocation}'`);
-            let result;
-            if (os==="windows") {
-                result=spawn('yarn.cmd', [task], { cwd: workspaceAbsoluteLocation });
-            }
-            else {
-                result = spawn('yarn', [task], { cwd: workspaceAbsoluteLocation });
-            }
+            const result = spawn('yarn', [task], { cwd: workspaceAbsoluteLocation });
             console.log(result.stdout.toString());
             if (result.status !== 0) {
                 process.exit(1);
